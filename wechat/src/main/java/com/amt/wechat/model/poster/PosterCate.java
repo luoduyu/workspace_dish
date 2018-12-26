@@ -13,19 +13,18 @@ import java.io.Serializable;
 public class PosterCate implements Serializable {
     private static final long serialVersionUID = -3664574065814055847L;
 
-    private int id;
+    private int cateId;
     private String name;
     private int nameSeq;
     private String subName;
     private int subSeq;
 
-
-    public int getId() {
-        return id;
+    public int getCateId() {
+        return cateId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
     }
 
     public String getName() {
@@ -63,7 +62,7 @@ public class PosterCate implements Serializable {
     @Override
     public String toString() {
         return "PosterCate{" +
-                "id=" + id +
+                "cateId=" + cateId +
                 ", name='" + name + '\'' +
                 ", nameSeq=" + nameSeq +
                 ", subName='" + subName + '\'' +

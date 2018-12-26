@@ -1,7 +1,9 @@
 package com.amt.wechat.service.poster;
 
+import com.amt.wechat.common.PosterOrderClause;
 import com.amt.wechat.model.poster.Poster;
 import com.amt.wechat.model.poster.PosterCate;
+import com.amt.wechat.model.poster.SequencePoster;
 
 import java.util.List;
 
@@ -13,9 +15,41 @@ import java.util.List;
  */
 public interface IPosterService {
 
-    public List<Poster> getPosterList(int index, int pageSize);
+    /**
+     * 猜你想要的海报
+     * @return
+     */
+    public List<SequencePoster> getRecommendPosterList();
 
     public void addPoster(Poster poster);
 
+    /**
+     * 所有的海报分类数据
+     * @return
+     */
     public List<PosterCate> getPosterCateList();
+
+    /**
+     *
+     * 智能推荐
+     *
+     * @param index
+     * @param pageSize
+     * @return
+     */
+    public List<SequencePoster> getIntelligent(int index,int pageSize);
+
+
+    /**
+     * 分类别的海报列表
+     * @param index
+     * @param pageSize
+     * @param cateId 类别Id
+     * @param orderClause 0：全部;1:最新作品;2:价格最低;3:人气作品;
+     * @return
+     */
+    public List<SequencePoster> getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause);
+
+
+    public Poster getPosterDetail(String posterId);
 }

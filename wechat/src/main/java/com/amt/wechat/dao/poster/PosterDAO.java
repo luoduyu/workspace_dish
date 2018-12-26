@@ -1,13 +1,12 @@
 package com.amt.wechat.dao.poster;
 
 import com.amt.wechat.domain.handler.MyJSONArrayHandler;
-import com.amt.wechat.domain.handler.MyJSONHandler;
-import com.amt.wechat.model.poster.Poster;
-import com.amt.wechat.model.poster.PosterCate;
+import com.amt.wechat.model.poster.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2018 by CANSHU
@@ -22,17 +21,73 @@ import java.util.List;
 @Mapper
 public interface PosterDAO {
 
-    @Select("SELECT * FROM poster LIMIT #{index},#{pageSize}")
+    @Select("SELECT * FROM poster ORDER BY uTime DESC LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
-    public List<Poster> getPosterList(int index,int pageSize);
+    public List<SequencePoster> getPosterList(int index,int pageSize);
+
+
+    @Select("SELECT * FROM poster WHERE id IN (${ids})")
+    @Results({
+            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
+            @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
+    })
+    public List<SequencePoster> getPosterListByIds(@Param("ids")String ids);
+
 
     @Insert("INSERT INTO poster (id, platform,cateId, title,banner,rendering, mPrice,price, cTime, uTime)" +
             "VALUES(#{id},#{platform},#{cateId},#{title},#{banner,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{rendering,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{mPrice},#{price},#{cTime},#{uTime})")
     public void addPoster(Poster poster);
 
+
     @Select("SELECT * FROM poster_cate ORDER BY nameSeq ASC,subSeq ASC")
     public List<PosterCate> getPosterCate();
+
+
+    @Select("SELECT posterId,showSeq FROM poster_recommend ORDER BY showSeq ASC")
+    @MapKey("posterId")
+    public Map<String, RecommendPoster> getRecommendPoster();
+
+
+    /**
+     * 最近一个月/周/天销量最高的8-10条
+     *
+     * @param timeUnit
+     * @param expiresIn
+     * @param pageSize
+     * @return
+     */
+    @Select("SELECT posterId,sales FROM poster_sales_top WHERE timeUnit=#{timeUnit} AND expiresIn=#{expiresIn} ORDER BY sales DESC LIMIT #{pageSize}")
+    @MapKey("posterId")
+    public Map<String, TopPoster> getTopPoster(int timeUnit, int expiresIn, int  pageSize);
+
+
+    /**
+     * 分类别的、按销量倒序排列的海报列表
+     * @return
+     */
+    @Select("SELECT p.*,pt.sales AS showSeq FROM poster p LEFT JOIN poster_sales_top pt ON p.id=pt.posterId WHERE p.cateId = #{cateId} AND pt.timeUnit=1 AND pt.expiresIn=30 ORDER BY pt.sales DESC LIMIT #{index},#{pageSize}")
+    @Results({
+            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
+            @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
+    })
+    public List<SequencePoster> getPosterListBySales(int cateId,int index,int pageSize);
+
+
+    @Select("SELECT * FROM poster WHERE cateId=#{cateId} ORDER BY ${orderClause} LIMIT #{index},#{pageSize}")
+    @Results({
+            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
+            @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
+    })
+    public List<SequencePoster> getPosterListByClause(int cateId,String orderClause,int index,int pageSize);
+
+
+    @Select("SELECT * FROM poster WHERE id=#{posterId}")
+    @Results({
+            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
+            @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
+    })
+    public Poster getPosterDetail(String posterId);
 }

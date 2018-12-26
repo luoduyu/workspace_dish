@@ -1,7 +1,5 @@
 package com.amt.wechat.common;
 
-import java.util.concurrent.TimeUnit;
-
 public class Constants {
     public static final String WEICHAT_APP_ID="wx1f98905336eff8dd";
 

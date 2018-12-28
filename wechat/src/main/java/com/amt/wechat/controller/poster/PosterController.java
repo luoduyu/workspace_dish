@@ -39,7 +39,7 @@ public class PosterController {
      * 海报全部分类
      * @return
      */
-    @RequestMapping(value="/postercate/all")
+    @RequestMapping(value="/poster/allcate")
     public BizPacket findPosterCate(){
         List<PosterCate> list = posterService.getPosterCateList();
         return BizPacket.success(list);
@@ -97,5 +97,12 @@ public class PosterController {
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"未找到!");
         }
         return BizPacket.success(poster);
+    }
+
+    @RequestMapping(value="/poster/addfavorite")
+    public BizPacket addFavorite(@RequestParam("posterId") String posterId){
+        // TODO
+        
+        return BizPacket.success();
     }
 }

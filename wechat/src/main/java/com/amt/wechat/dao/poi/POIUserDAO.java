@@ -1,7 +1,6 @@
 package com.amt.wechat.dao.poi;
 
 import com.amt.wechat.model.poi.POIUserData;
-import com.amt.wechat.model.poi.POIUserDataWX;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -18,22 +17,19 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface POIUserDAO {
 
+
+    @Insert("INSERT INTO poi_user (id, authToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, username, PASSWORD, mobile, gender, countryCode, province, city, openid, unionid, nickName, avatarUrl, cTime,uTime) VALUES(#{id}, #{authToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster}, #{username}, #{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid}, #{nickName}, #{avatarUrl}, #{cTime},#{uTime})")
+    public void addPOIUser(POIUserData poiUserData);
+
+    @Update("UPDATE poi_user_wx SET authToken = #{authToken}, gender = #{gender},country = #{country}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
+    public void updatePOIUser(POIUserData poiUserData);
+
     @Select("SELECT * FROM poi_user_wx WHERE openid=#{openid}")
-    public POIUserDataWX getUserDataWXByOpenid(String openid);
-
-    @Insert("INSERT INTO poi_user_wx(wxId,authToken,gender, country, province, city, openid, unionid, nickName, avatarUrl, createDate) VALUE(#{wxId},#{authToken},#{gender}, #{country},#{province}, #{city}, #{openid}, #{unionid}, #{nickName}, #{avatarUrl}, #{createDate})")
-    public void addShopUserWX(POIUserDataWX userDataWX);
-
-    @Update("UPDATE poi_user_wx SET authToken = #{authToken}, gender = #{gender},country = #{country}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE wxId=#{wxId}")
-    public void updateShopUserWX(POIUserDataWX data);
+    public POIUserData getPOIUserDataByOpenid(String openid);
 
     @Select("SELECT * FROM poi_user WHERE mobile=#{mobile}")
-    public POIUserData getUserDataByMobile(String mobile);
+    public POIUserData getPOIUserDataByMobile(String mobile);
 
-    @Insert("INSERT INTO poi_user(id, username, password,mobile, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled, isMaster, authToken, wxId,createDate) " +
-            "VALUES(#{id},#{username},#{password},#{mobile},#{isAccountNonExpired},#{isAccountNonLocked},#{isCredentialsNonExpired},#{isEnabled},#{isMaster}, #{authToken},#{wxId}, #{createDate})")
-    public void addShopUser(POIUserData shopUserData);
-
-
-    public void updateShopUser(POIUserData shopUserData);
+    @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")
+    public POIUserData getPOIUserData(String openid,String mobile);
 }

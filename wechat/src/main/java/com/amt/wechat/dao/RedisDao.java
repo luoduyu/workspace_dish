@@ -1,6 +1,10 @@
 package com.amt.wechat.dao;
 
 
+import com.amt.wechat.model.poi.POIUserData;
+
+import java.io.IOException;
+
 /**
  * Copyright (c) 2018 by CANSHU
  *
@@ -12,10 +16,10 @@ package com.amt.wechat.dao;
 public interface RedisDao {
 
 
-    public void addAccessToken(String accessToken, String sessionKey,String openid);
-    public String getAccessToken(String accessToken);
+    public void addPOIUser(POIUserData poiUserData) throws IOException;
+    public POIUserData getPOIUser(String authToken);
 
-    public void set(String key, String value, long accessTokenValidMinutes);
+
 
     public void delete(String key);
 

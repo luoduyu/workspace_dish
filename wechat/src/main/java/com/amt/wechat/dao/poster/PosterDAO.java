@@ -21,7 +21,7 @@ import java.util.Map;
 @Mapper
 public interface PosterDAO {
 
-    @Select("SELECT * FROM poster ORDER BY uTime DESC LIMIT #{index},#{pageSize}")
+    @Select("SELECT * FROM poster WHERE isEnabled=1 ORDER BY uTime DESC LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
@@ -29,7 +29,7 @@ public interface PosterDAO {
     public List<SequencePoster> getPosterList(int index,int pageSize);
 
 
-    @Select("SELECT * FROM poster WHERE id IN (${ids})")
+    @Select("SELECT * FROM poster WHERE isEnabled=1 AND id IN (${ids})")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
@@ -68,7 +68,7 @@ public interface PosterDAO {
      * 分类别的、按销量倒序排列的海报列表
      * @return
      */
-    @Select("SELECT p.*,pt.sales AS showSeq FROM poster p LEFT JOIN poster_sales_top pt ON p.id=pt.posterId WHERE p.cateId = #{cateId} AND pt.timeUnit=1 AND pt.expiresIn=30 ORDER BY pt.sales DESC LIMIT #{index},#{pageSize}")
+    @Select("SELECT p.*,pt.sales AS showSeq FROM poster p LEFT JOIN poster_sales_top pt ON p.id=pt.posterId WHERE p.isEnabled=1 AND p.cateId = #{cateId} AND pt.timeUnit=1 AND pt.expiresIn=30 ORDER BY pt.sales DESC LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
@@ -76,7 +76,7 @@ public interface PosterDAO {
     public List<SequencePoster> getPosterListBySales(int cateId,int index,int pageSize);
 
 
-    @Select("SELECT * FROM poster WHERE cateId=#{cateId} ORDER BY ${orderClause} LIMIT #{index},#{pageSize}")
+    @Select("SELECT * FROM poster WHERE isEnabled=1 AND cateId=#{cateId} ORDER BY ${orderClause} LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
@@ -84,7 +84,7 @@ public interface PosterDAO {
     public List<SequencePoster> getPosterListByClause(int cateId,String orderClause,int index,int pageSize);
 
 
-    @Select("SELECT * FROM poster WHERE id=#{posterId}")
+    @Select("SELECT * FROM poster WHERE isEnabled=1 AND id=#{posterId}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)

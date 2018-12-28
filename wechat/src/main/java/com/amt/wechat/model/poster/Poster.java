@@ -1,7 +1,6 @@
 package com.amt.wechat.model.poster;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,6 +26,11 @@ public class Poster implements Serializable {
     private long price;
     private Date cTime;
     private Date uTime;
+
+    /**
+     * 海报是否可用;0:不可用;1:可用;
+     */
+    private int  isEnabled;
 
     public String getId() {
         return id;
@@ -108,6 +112,13 @@ public class Poster implements Serializable {
         this.uTime = uTime;
     }
 
+    public int getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(int isEnabled) {
+        this.isEnabled = isEnabled;
+    }
     @Override
     public String toString() {
         return "Poster{" +
@@ -121,6 +132,7 @@ public class Poster implements Serializable {
                 ", price=" + price +
                 ", cTime=" + cTime +
                 ", uTime=" + uTime +
+                ", isEnabled=" + isEnabled+
                 '}';
     }
 }

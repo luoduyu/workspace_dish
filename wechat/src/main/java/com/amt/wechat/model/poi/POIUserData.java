@@ -7,22 +7,9 @@ import java.io.Serializable;
  */
 public class POIUserData implements Serializable {
     private static final long serialVersionUID = -1608316652654376276L;
-
-
     private String id;
+    private String authToken;
 
-    /**
-     * 登录用户名(帐户，非昵称)
-     */
-    private String username;
-
-    /**
-     * 密码信息
-     */
-    private String password;
-
-
-    private String mobile="";
 
     /**
      * 帐户是否未过期;0:否;1:是(默认)
@@ -45,18 +32,34 @@ public class POIUserData implements Serializable {
     private int  isEnabled;
 
     /**
+     *
+     */
+    private String roles;
+
+    /**
      * 是否店主;0:否;1:是
      */
     private int isMaster;
 
-    private String authToken;
-
-    private String createDate;
+    /**
+     * 密码信息
+     */
+    private String password;
+    private String mobile="";
 
     /**
-     * 微信信息Id
+     * 性别 0：未知、1：男、2：女
      */
-    private String wxId;
+    private int gender;
+    private  String countryCode;
+    private String province;
+    private String city;
+    private String openid="";
+    private String unionid="";
+    private String nickName="";
+    private String avatarUrl="";
+    private String cTime;
+    private String uTime;
 
     public String getId() {
         return id;
@@ -66,13 +69,6 @@ public class POIUserData implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
@@ -122,6 +118,14 @@ public class POIUserData implements Serializable {
         this.isEnabled = isEnabled;
     }
 
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     public int getIsMaster() {
         return isMaster;
     }
@@ -138,37 +142,107 @@ public class POIUserData implements Serializable {
         this.authToken = authToken;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public int getGender() {
+        return gender;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
-    public String getWxId() {
-        return wxId;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setWxId(String wxId) {
-        this.wxId = wxId;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getcTime() {
+        return cTime;
+    }
+
+    public void setcTime(String cTime) {
+        this.cTime = cTime;
+    }
+
+    public String getuTime() {
+        return uTime;
+    }
+
+    public void setuTime(String uTime) {
+        this.uTime = uTime;
     }
 
     @Override
     public String toString() {
-        return "poiUserData{" +
+        return "POIUserData{" +
                 "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", mobile='" + mobile + '\'' +
+                ", authToken='" + authToken + '\'' +
                 ", isAccountNonExpired=" + isAccountNonExpired +
                 ", isAccountNonLocked=" + isAccountNonLocked +
                 ", isCredentialsNonExpired=" + isCredentialsNonExpired +
                 ", isEnabled=" + isEnabled +
                 ", isMaster=" + isMaster +
-                ", authToken='" + authToken + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", wxId='" + wxId + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", gender=" + gender +
+                ", countryCode='" + countryCode + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", openid='" + openid + '\'' +
+                ", unionid='" + unionid + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", cTime='" + cTime + '\'' +
                 '}';
     }
 }

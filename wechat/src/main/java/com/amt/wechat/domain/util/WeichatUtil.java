@@ -3,6 +3,7 @@ package com.amt.wechat.domain.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.Constants;
+import com.amt.wechat.domain.PhoneData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -130,6 +131,7 @@ public class WeichatUtil {
     }
 
     /**
+     *
      * 解密用户敏感数据获取用户信息:
      *{
      *   "openId": "OPENID",
@@ -145,6 +147,17 @@ public class WeichatUtil {
      *     "timestamp": TIMESTAMP
      *   }
      * }
+     * 解密 for 用户信息
+     * @param encryptedData
+     * @param session_key
+     * @param iv
+     * @return
+     */
+    public static JSONObject getUserInfo(String encryptedData,String session_key,String iv){
+        return decode(encryptedData,session_key,iv);
+    }
+
+    /**
      *
      *
      * @param session_key 数据进行加密签名的密钥
@@ -152,7 +165,7 @@ public class WeichatUtil {
      * @param iv 加密算法的初始向量
      * @return
      */
-    public static JSONObject getUserInfo(String encryptedData,String session_key,String iv){
+    private static JSONObject decode(String encryptedData,String session_key,String iv){
         java.util.Base64.Decoder decoder = Base64.getDecoder();
         try {
             byte[] bytData = decoder.decode(encryptedData);
@@ -169,6 +182,35 @@ public class WeichatUtil {
            logger.error(e.getMessage(),e);
         }
         return null;
+    }
+
+    public static PhoneData getPhoneData(String encryptedData,String session_key,String iv){
+
+        /*
+        {
+              "phoneNumber": "13580006666",
+              "purePhoneNumber": "13580006666",
+              "countryCode": "86",
+              "watermark": {
+                "appid": "APPID",
+                "timestamp": TIMESTAMP
+              }
+         }
+         */
+        JSONObject jsonObject = decode(encryptedData,session_key,iv);
+        if(jsonObject == null){
+            return null;
+        }
+
+        String phoneNumber = jsonObject.getString("phoneNumber");
+        String purePhoneNumber = jsonObject.getString("purePhoneNumber");
+        String countryCode = jsonObject.getString("countryCode");
+        if(phoneNumber != null && phoneNumber.trim().length()!= 0){
+            if(!phoneNumber.startsWith(countryCode)){
+                return new PhoneData(phoneNumber,countryCode);
+            }
+        }
+        return new PhoneData(purePhoneNumber,countryCode);
     }
 
     public static void main(String[] args) {

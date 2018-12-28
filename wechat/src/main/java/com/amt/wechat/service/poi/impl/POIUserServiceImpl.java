@@ -10,21 +10,29 @@ watermark参数说明：
 package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.common.POI_USER_ROLE;
 import com.amt.wechat.dao.RedisDao;
 import com.amt.wechat.dao.poi.POIUserDAO;
+import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WeichatUtil;
 import com.amt.wechat.form.WeichatLoginForm;
-import com.amt.wechat.model.poi.POIUserDataWX;
+import com.amt.wechat.model.poi.POIUserData;
 import com.amt.wechat.service.poi.IPOIUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -38,63 +46,77 @@ import java.time.ZoneOffset;
 public class POIUserServiceImpl implements IPOIUserService {
 
     private static Logger logger = LoggerFactory.getLogger(POIUserServiceImpl.class);
-    private @Resource POIUserDAO POIUserDAO;
+    private @Resource POIUserDAO poiUserDAO;
     private @Resource RedisDao redisDao;
 
     @Override
-    public BizPacket weichatLogin(String code, String encryptedData, String iv) {
-
+    public BizPacket weichatLogin(String code, String encryptedData, String iv, PhoneData phoneData) {
         JSONObject sessionKeyAndOpenid = WeichatUtil.getSessionKeyOrOpenId(code);
         if(sessionKeyAndOpenid == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"登录凭证校验失败!");
         }
 
-        logger.info("用户[wxInfo={},code={}]正在从微信登录!",sessionKeyAndOpenid.toString(),code);
+        logger.info("用户[sessionKey_openid={},code={}]正在从微信登录!",sessionKeyAndOpenid.toString(),code);
 
         String sessionKey = sessionKeyAndOpenid.getString("session_key");
         String openid = sessionKeyAndOpenid.getString("openid");
 
-        POIUserDataWX userDataWX =  POIUserDAO.getUserDataWXByOpenid(openid);
-        if(userDataWX == null){
-            JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
-            logger.info("创建微信用户!userJson={}",userJson);
+        try {
+            POIUserData userData =  poiUserDAO.getPOIUserData(openid,phoneData.getPurePhoneNumber());
+            if(userData == null){
+                JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
+                logger.info("创建微信用户!userJson={}",userJson);
 
-            userDataWX = createWXUser(sessionKeyAndOpenid,userJson);
-            POIUserDAO.addShopUserWX(userDataWX);
+                userData = createUser(sessionKeyAndOpenid,userJson,phoneData);
+                poiUserDAO.addPOIUser(userData);
 
-        }else{
+            }else{
 
-            JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
-            logger.info("更新微信用户!userJson={}",userJson);
-            updateWXUser(userDataWX,sessionKeyAndOpenid,userJson);
-            POIUserDAO.updateShopUserWX(userDataWX);
+                JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
+                logger.info("更新微信用户!userJson={}",userJson);
+                updateUser(userData,sessionKeyAndOpenid,userJson);
+                poiUserDAO.updatePOIUser(userData);
+            }
+
+            redisDao.addPOIUser(userData);
+
+            long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            WeichatLoginForm form = new WeichatLoginForm(now);
+            form.setAuthToken(userData.getAuthToken());
+            form.setNickName(userData.getNickName());
+            form.setAvatarUrl(userData.getAvatarUrl());
+
+            return BizPacket.success(form);
+        } catch (IOException e) {
+            logger.error(phoneData+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
-
-
-        redisDao.addAccessToken(userDataWX.getAuthToken(),sessionKey,openid);
-
-        long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-        WeichatLoginForm form = new WeichatLoginForm(now);
-        form.setAuthToken(userDataWX.getAuthToken());
-        form.setNickName(userDataWX.getNickName());
-        form.setAvatarUrl(userDataWX.getAvatarUrl());
-
-        return BizPacket.success(form);
     }
 
 
-    private POIUserDataWX createWXUser(JSONObject sessionKeyAndOpenid,JSONObject userJson){
-        POIUserDataWX data = new POIUserDataWX();
-        data.setWxId(Generator.generate());
-        data.setCreateDate(DateTimeUtil.now());
+    private POIUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson,PhoneData phoneData){
+        POIUserData data = new POIUserData();
+        data.setId(Generator.generate());
+        data.setcTime(DateTimeUtil.now());
+        data.setuTime(data.getcTime());
         data.setOpenid(sessionKeyAndOpenid.getString("openid"));
+        data.setIsAccountNonExpired(1);
+        data.setIsAccountNonLocked(1);
+        data.setIsCredentialsNonExpired(1);
+        data.setIsEnabled(1);
+        data.setIsMaster(0);
 
-        updateWXUser(data,sessionKeyAndOpenid,userJson);
+        data.setRoles(POI_USER_ROLE.USER.toString());
+        data.setPassword("");
+        data.setMobile(phoneData.getPurePhoneNumber());
+        data.setCountryCode(phoneData.getCountryCode());
+
+        updateUser(data,sessionKeyAndOpenid,userJson);
         return data;
     }
 
 
-    private void updateWXUser(POIUserDataWX data,JSONObject sessionKeyAndOpenid,JSONObject userJson){
+    private void updateUser(POIUserData data,JSONObject sessionKeyAndOpenid,JSONObject userJson){
         data.setAuthToken(Generator.generate());
 
         // unionid 不一定存在!
@@ -111,9 +133,6 @@ public class POIUserServiceImpl implements IPOIUserService {
         Integer gender = userJson.getInteger("gender");
         data.setGender(gender == null ?0:gender);
 
-        String country = userJson.getString("country");
-        data.setCountry(country == null?"":country);
-
         String province = userJson.getString("province");
         data.setProvince(province == null?"":province);
 
@@ -125,5 +144,37 @@ public class POIUserServiceImpl implements IPOIUserService {
 
         String avatarUrl = userJson.getString("avatarUrl");
         data.setAvatarUrl(avatarUrl == null ?"":avatarUrl);
+    }
+
+    @Override
+    public BizPacket weichatLogin4Phone(HttpSession session,String code, String  encryptedData, String iv){
+        JSONObject sessionKeyAndOpenid = WeichatUtil.getSessionKeyOrOpenId(code);
+        if(sessionKeyAndOpenid == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"登录凭证校验失败!");
+        }
+
+        PhoneData phoneData = WeichatUtil.getPhoneData(encryptedData,  sessionKeyAndOpenid.getString("session_key"),iv);
+        if(phoneData != null){
+            session.setAttribute(PhoneData.SESSION_PHONE,phoneData.getPurePhoneNumber());
+            session.setAttribute(PhoneData.SESSION_PHONE_CC,phoneData.getCountryCode());
+            return BizPacket.success();
+        }
+        return BizPacket.error(HttpStatus.REQUEST_TIMEOUT.value(),"请求超时,获取失败!");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String mobile) throws UsernameNotFoundException {
+        logger.info("请求登录用户名-mobile={}", mobile);
+
+        POIUserData userData= poiUserDAO.getPOIUserDataByMobile(mobile);
+        if(userData == null){
+            throw new UsernameNotFoundException("用户[" + mobile + "]不存在!");
+        }
+
+        logger.info("用户‘{}’的password={}", mobile,userData.getPassword());
+
+        // 参数分别是：用户名，密码，用户权限 TODO
+        User user = new User(userData.getMobile(), userData.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(userData.getRoles()));
+        return user;
     }
 }

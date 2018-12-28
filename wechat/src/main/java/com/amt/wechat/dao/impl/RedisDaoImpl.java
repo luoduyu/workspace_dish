@@ -1,17 +1,16 @@
 package com.amt.wechat.dao.impl;
 
-import com.amt.wechat.common.Constants;
 import com.amt.wechat.common.RedisConstants;
 import com.amt.wechat.dao.RedisDao;
+import com.amt.wechat.model.poi.POIUserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import static com.amt.wechat.common.RedisConstants.AccessTokenValidM;
 
 /**
  * Copyright (c) 2018 by CANSHU
@@ -27,37 +26,38 @@ public class RedisDaoImpl implements RedisDao {
 
 
     @Override
-    public void addAccessToken(String accessToken, String sessionKey,String openid){
-        try {
-            String key =  RedisConstants.PRE_ACCESS_TOKEN + accessToken;
-            String value = sessionKey+"_"+openid;
-            stringRedisTemplate.opsForValue().set(key,value, RedisConstants.AccessTokenValidM, TimeUnit.MINUTES);
-        } catch (Exception e) {
-            logger.info("accessToken="+accessToken+",sessionKey="+sessionKey+",openid="+openid+",e="+e.getMessage(),e);
-        }
+    public void addPOIUser(POIUserData poiUserData) throws IOException {
+        String tkey =  RedisConstants.PRE_ACCESS_TOKEN + poiUserData.getAuthToken();
+        stringRedisTemplate.opsForValue().set(tkey,poiUserData.getId(), RedisConstants.TOKEN_TIMEOUT, TimeUnit.MINUTES);
+
+        String ukey = RedisConstants.PREFIX_POI_USER+poiUserData.getId();
+        stringRedisTemplate.opsForHash().put(ukey,poiUserData.getId(),poiUserData);
+        stringRedisTemplate.expire(ukey,RedisConstants.TOKEN_TIMEOUT,TimeUnit.MINUTES);
     }
 
     @Override
-    public String getAccessToken(String accessToken) {
+    public POIUserData getPOIUser(String authToken) {
         try {
-            String value = stringRedisTemplate.opsForValue().get(RedisConstants.PRE_ACCESS_TOKEN + accessToken);
-            if(value == null || value.trim().length() ==0){
+            String poiUserId = stringRedisTemplate.opsForValue().get(RedisConstants.PRE_ACCESS_TOKEN + authToken);
+            if(poiUserId == null || poiUserId.trim().length() ==0){
+                return null;
+            }
+
+            String ukey =  RedisConstants.PREFIX_POI_USER+poiUserId;
+            Object objUser=  stringRedisTemplate.opsForHash().get(ukey,poiUserId);
+            if(objUser == null){
                 return null;
             }
 
             // 续时长
-            stringRedisTemplate.expire(RedisConstants.PRE_ACCESS_TOKEN + accessToken, RedisConstants.AccessTokenValidM, TimeUnit.MINUTES);
-            //return jacksonObjMapper.readValue(value, RegUser.class);
-            return value;
+            stringRedisTemplate.expire(RedisConstants.PRE_ACCESS_TOKEN + authToken, RedisConstants.TOKEN_TIMEOUT, TimeUnit.MINUTES);
+            stringRedisTemplate.expire(ukey, RedisConstants.TOKEN_TIMEOUT, TimeUnit.MINUTES);
+
+            return (POIUserData)objUser;
         } catch (Exception e) {
-            logger.info("accessToken="+accessToken+",e="+e.getMessage(),e);
+            logger.info("authToken="+authToken+",e="+e.getMessage(),e);
         }
         return null;
-    }
-
-    @Override
-    public void set(String key, String value, long duration) {
-        //redisTemplate.opsForValue().set(PREFIX_ACCESS_TOKEN + accessToken, user.getId(), accessTokenValidMinutes, TimeUnit.MINUTES);
     }
 
     @Override

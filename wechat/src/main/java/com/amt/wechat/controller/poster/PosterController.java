@@ -1,17 +1,15 @@
 package com.amt.wechat.controller.poster;
 
 import com.amt.wechat.common.PosterOrderClause;
+import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.SeqPosterWrapper;
+import com.amt.wechat.model.poi.POIUserData;
 import com.amt.wechat.model.poster.Poster;
-import com.amt.wechat.model.poster.PosterCate;
 import com.amt.wechat.model.poster.SequencePoster;
 import com.amt.wechat.service.poster.IPosterService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-public class PosterController {
+public class PosterController extends BaseController {
 
     private @Resource IPosterService posterService;
 
@@ -35,15 +33,6 @@ public class PosterController {
         return BizPacket.success(list);
     }
 
-    /**
-     * 海报全部分类
-     * @return
-     */
-    @RequestMapping(value="/poster/allcate")
-    public BizPacket findPosterCate(){
-        List<PosterCate> list = posterService.getPosterCateList();
-        return BizPacket.success(list);
-    }
 
     @RequestMapping(value = "/poster/intellij/list",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket findIntelligent(Integer index,Integer pageSize){
@@ -104,5 +93,11 @@ public class PosterController {
         // TODO
         
         return BizPacket.success();
+    }
+
+    @GetMapping("/poster/loginTest")
+    public BizPacket testEffect(){
+        POIUserData user = getUser();
+        return BizPacket.success(user);
     }
 }

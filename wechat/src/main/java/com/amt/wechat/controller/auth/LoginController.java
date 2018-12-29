@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @RestController
 public class LoginController {
@@ -92,5 +93,14 @@ public class LoginController {
             return BizPacket.success("参数有值!code=" + code+",encryptedData="+encryptedData);
         }
         return BizPacket.error_param_null("code参数为空!");
+    }
+
+    @RequestMapping(value = "/wechat/test/login")
+    public BizPacket testLogin(){
+        try {
+            return poiUserService.testLogin();
+        } catch (IOException e) {
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 }

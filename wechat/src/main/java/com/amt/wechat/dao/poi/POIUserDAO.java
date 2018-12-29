@@ -18,13 +18,13 @@ import org.springframework.stereotype.Repository;
 public interface POIUserDAO {
 
 
-    @Insert("INSERT INTO poi_user (id, authToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, username, PASSWORD, mobile, gender, countryCode, province, city, openid, unionid, nickName, avatarUrl, cTime,uTime) VALUES(#{id}, #{authToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster}, #{username}, #{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid}, #{nickName}, #{avatarUrl}, #{cTime},#{uTime})")
+    @Insert("INSERT INTO poi_user (id, accessToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, username, password, mobile, gender, countryCode, province, city, openid, unionid, nickName, avatarUrl, cTime,uTime) VALUES(#{id}, #{accessToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster}, #{username}, #{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid}, #{nickName}, #{avatarUrl}, #{cTime},#{uTime})")
     public void addPOIUser(POIUserData poiUserData);
 
-    @Update("UPDATE poi_user_wx SET authToken = #{authToken}, gender = #{gender},country = #{country}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
+    @Update("UPDATE poi_user SET accessToken = #{accessToken}, gender = #{gender},countryCode = #{countryCode}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
     public void updatePOIUser(POIUserData poiUserData);
 
-    @Select("SELECT * FROM poi_user_wx WHERE openid=#{openid}")
+    @Select("SELECT * FROM poi_user WHERE openid=#{openid}")
     public POIUserData getPOIUserDataByOpenid(String openid);
 
     @Select("SELECT * FROM poi_user WHERE mobile=#{mobile}")

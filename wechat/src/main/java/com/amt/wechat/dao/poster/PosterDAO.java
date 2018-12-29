@@ -42,8 +42,7 @@ public interface PosterDAO {
     public void addPoster(Poster poster);
 
 
-    @Select("SELECT * FROM poster_cate ORDER BY nameSeq ASC,subSeq ASC")
-    public List<PosterCate> getPosterCate();
+
 
 
     @Select("SELECT posterId,showSeq FROM poster_recommend ORDER BY showSeq ASC")

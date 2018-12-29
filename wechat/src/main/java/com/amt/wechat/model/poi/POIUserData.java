@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class POIUserData implements Serializable {
     private static final long serialVersionUID = -1608316652654376276L;
     private String id;
-    private String authToken;
+    private String accessToken;
 
 
     /**
@@ -134,12 +134,12 @@ public class POIUserData implements Serializable {
         this.isMaster = isMaster;
     }
 
-    public String getAuthToken() {
-        return authToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public int getGender() {
@@ -226,7 +226,7 @@ public class POIUserData implements Serializable {
     public String toString() {
         return "POIUserData{" +
                 "id='" + id + '\'' +
-                ", authToken='" + authToken + '\'' +
+                ", accessToken='" + accessToken + '\'' +
                 ", isAccountNonExpired=" + isAccountNonExpired +
                 ", isAccountNonLocked=" + isAccountNonLocked +
                 ", isCredentialsNonExpired=" + isCredentialsNonExpired +

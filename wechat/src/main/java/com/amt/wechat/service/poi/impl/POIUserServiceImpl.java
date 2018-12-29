@@ -24,17 +24,11 @@ import com.amt.wechat.service.poi.IPOIUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 /**
  * Copyright (c) 2018 by CANSHU
@@ -80,9 +74,9 @@ public class POIUserServiceImpl implements IPOIUserService {
 
             redisDao.addPOIUser(userData);
 
-            long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-            WeichatLoginForm form = new WeichatLoginForm(now);
-            form.setAuthToken(userData.getAuthToken());
+            //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            WeichatLoginForm form = new WeichatLoginForm();
+            form.setAccessToken(userData.getAccessToken());
             form.setNickName(userData.getNickName());
             form.setAvatarUrl(userData.getAvatarUrl());
 
@@ -96,7 +90,7 @@ public class POIUserServiceImpl implements IPOIUserService {
 
     private POIUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson,PhoneData phoneData){
         POIUserData data = new POIUserData();
-        data.setId(Generator.generate());
+        data.setId(Generator.uuid());
         data.setcTime(DateTimeUtil.now());
         data.setuTime(data.getcTime());
         data.setOpenid(sessionKeyAndOpenid.getString("openid"));
@@ -117,7 +111,7 @@ public class POIUserServiceImpl implements IPOIUserService {
 
 
     private void updateUser(POIUserData data,JSONObject sessionKeyAndOpenid,JSONObject userJson){
-        data.setAuthToken(Generator.generate());
+        data.setAccessToken(Generator.uuid());
 
         // unionid 不一定存在!
         String unionid = sessionKeyAndOpenid.getString("unionid");
@@ -163,18 +157,19 @@ public class POIUserServiceImpl implements IPOIUserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String mobile) throws UsernameNotFoundException {
-        logger.info("请求登录用户名-mobile={}", mobile);
+    public BizPacket testLogin() throws IOException {
+        POIUserData userData = poiUserDAO.getPOIUserDataByMobile("13693530571");
+        userData.setAccessToken(Generator.uuid());
+        poiUserDAO.updatePOIUser(userData);
 
-        POIUserData userData= poiUserDAO.getPOIUserDataByMobile(mobile);
-        if(userData == null){
-            throw new UsernameNotFoundException("用户[" + mobile + "]不存在!");
-        }
+        redisDao.addPOIUser(userData);
 
-        logger.info("用户‘{}’的password={}", mobile,userData.getPassword());
+        //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        WeichatLoginForm form = new WeichatLoginForm();
+        form.setAccessToken(userData.getAccessToken());
+        form.setNickName(userData.getNickName());
+        form.setAvatarUrl(userData.getAvatarUrl());
 
-        // 参数分别是：用户名，密码，用户权限 TODO
-        User user = new User(userData.getMobile(), userData.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(userData.getRoles()));
-        return user;
+        return BizPacket.success(form);
     }
 }

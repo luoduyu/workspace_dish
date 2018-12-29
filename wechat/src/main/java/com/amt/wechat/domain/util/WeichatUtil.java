@@ -9,11 +9,12 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
-
 import java.security.AlgorithmParameters;
 import java.security.Key;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import java.util.Base64;
  */
 public class WeichatUtil {
     private static Logger logger = LoggerFactory.getLogger(WeichatUtil.class);
+
 
     /**
      * 获取登录凭证信息

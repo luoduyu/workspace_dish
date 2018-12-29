@@ -4,25 +4,20 @@ import java.io.Serializable;
 
 public class  WeichatLoginForm implements Serializable {
     private static final long serialVersionUID = 305892774632439166L;
-    private String authToken;
+    private String accessToken;
     private String nickName;
     private String avatarUrl="";
-    private long tick = 0;
 
     public WeichatLoginForm() {
 
     }
 
-    public WeichatLoginForm(long tick) {
-        this.tick = tick;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getNickName() {
@@ -41,21 +36,13 @@ public class  WeichatLoginForm implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
-    public long getTick() {
-        return tick;
-    }
-
-    public void setTick(long tick) {
-        this.tick = tick;
-    }
 
     @Override
     public String toString() {
         return "WeichatLoginForm{" +
-                "authToken='" + authToken + '\'' +
+                "accessToken='" + accessToken + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
-                ", tick=" + tick +
                 '}';
     }
 }

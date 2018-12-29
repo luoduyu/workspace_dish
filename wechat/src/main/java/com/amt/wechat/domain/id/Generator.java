@@ -4,6 +4,7 @@ import java.util.Date;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
+import java.util.UUID;
 
 
 /**
@@ -56,5 +57,17 @@ public class Generator {
     public static String generate() {
         return new StringBuilder(20).append(df.format(new Date()))
                 .append(IP_ADDRESS).append(format(getCount())).toString();
+    }
+
+
+    public static String uuid(){
+        return UUID.randomUUID().toString().replace("-", "").toLowerCase();
+    }
+
+
+    public static void main(String[] args) {
+        for(int i=0;i<100;i++) {
+            System.out.println(generate());
+        }
     }
 }

@@ -51,10 +51,6 @@ public class PosterServiceImpl implements IPosterService {
         posterDAO.addPoster(poster);
     }
 
-    @Override
-    public List<PosterCate> getPosterCateList() {
-        return posterDAO.getPosterCate();
-    }
 
 
     @Override

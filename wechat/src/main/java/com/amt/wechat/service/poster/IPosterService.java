@@ -2,7 +2,6 @@ package com.amt.wechat.service.poster;
 
 import com.amt.wechat.common.PosterOrderClause;
 import com.amt.wechat.model.poster.Poster;
-import com.amt.wechat.model.poster.PosterCate;
 import com.amt.wechat.model.poster.SequencePoster;
 
 import java.util.List;
@@ -22,12 +21,6 @@ public interface IPosterService {
     public List<SequencePoster> getRecommendPosterList();
 
     public void addPoster(Poster poster);
-
-    /**
-     * 所有的海报分类数据
-     * @return
-     */
-    public List<PosterCate> getPosterCateList();
 
     /**
      *

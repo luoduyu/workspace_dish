@@ -17,8 +17,7 @@ public interface RedisDao {
 
 
     public void addPOIUser(POIUserData poiUserData) throws IOException;
-    public POIUserData getPOIUser(String authToken);
-
+    public POIUserData getPOIUser(String accessToken);
 
 
     public void delete(String key);

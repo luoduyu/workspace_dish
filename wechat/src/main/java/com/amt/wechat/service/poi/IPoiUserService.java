@@ -2,7 +2,7 @@ package com.amt.wechat.service.poi;
 
 import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author adu Create on 2018-12-17 10:38
  * @version 1.0
  */
-public interface IPOIUserService {
+public interface IPoiUserService {
 
     /**
      * 根据授权个人微信信息和存储至HttpSession中的手机号注册(若未注册)并登录
@@ -41,7 +41,7 @@ public interface IPOIUserService {
      * @param mobile
      * @return
      */
-    public BizPacket auth4Mobile(String name, String mobile, POIUserData userData);
+    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData);
 
     public BizPacket testLogin() throws IOException;
 }

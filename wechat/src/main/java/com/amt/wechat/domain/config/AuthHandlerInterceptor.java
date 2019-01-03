@@ -2,10 +2,10 @@ package com.amt.wechat.domain.config;
 
 import com.alibaba.fastjson.JSON;
 import com.amt.wechat.common.Constants;
-import com.amt.wechat.service.redis.RedisService;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         }
 
         try {
-            POIUserData user = redisService.getPOIUser(accessToken);
+            PoiUserData user = redisService.getPoiUser(accessToken);
             if (user == null) {
                 traceLog(request, accessToken,"");
                 return handlerError(response,HttpStatus.UNAUTHORIZED,"user not found or frozen!");
@@ -59,7 +59,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     }
 
 
-    private boolean check(HttpServletResponse response,POIUserData user) throws IOException {
+    private boolean check(HttpServletResponse response,PoiUserData user) throws IOException {
         if (user.getIsAccountNonLocked() != 1) {
             return handlerError(response,HttpStatus.UNAUTHORIZED, "User account is locked");
         }

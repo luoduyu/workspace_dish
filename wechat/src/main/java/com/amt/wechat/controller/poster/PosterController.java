@@ -4,7 +4,7 @@ import com.amt.wechat.common.PosterOrderClause;
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.SeqPosterWrapper;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.Poster;
 import com.amt.wechat.model.poster.SequencePoster;
 import com.amt.wechat.service.poster.IPosterService;
@@ -97,7 +97,7 @@ public class PosterController extends BaseController {
 
     @GetMapping("/poster/loginTest")
     public BizPacket testEffect(){
-        POIUserData user = getUser();
+        PoiUserData user = getUser();
         return BizPacket.success(user);
     }
 }

@@ -5,13 +5,18 @@ import java.io.Serializable;
 /**
  * Copyright (c) 2018 by CANSHU
  *
- *  运营申请
+ *  开店/运营申请
  *
  * @author adu Create on 2018-12-29 16:43
  * @version 1.0
  */
-public class OperationalForm implements Serializable {
+public class ShenQingForm implements Serializable {
     private static final long serialVersionUID = 6014201649360779089L;
+
+    /**
+     * 0:开店申请;1:f运营申请
+     */
+    private int usefor;
 
     /**
      * 品牌名称
@@ -39,9 +44,9 @@ public class OperationalForm implements Serializable {
     private String address;
 
     /**
-     * 已上线餐卖平台;0:无;1:美团;2:饿了么
+     * 已上线餐卖平台;空字串表示无;1:美团;2:饿了么;"1,2"表示美团饿了么二者兼备
      */
-    private int platform;
+    private String platform;
 
     /**
      *
@@ -72,6 +77,13 @@ public class OperationalForm implements Serializable {
 
     private String smsCode;
 
+    public int getUsefor() {
+        return usefor;
+    }
+
+    public void setUsefor(int usefor) {
+        this.usefor = usefor;
+    }
 
     public String getBrandName() {
         return brandName;
@@ -113,11 +125,11 @@ public class OperationalForm implements Serializable {
         this.address = address;
     }
 
-    public int getPlatform() {
+    public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(int platform) {
+    public void setPlatform(String platform) {
         this.platform = platform;
     }
 
@@ -173,7 +185,7 @@ public class OperationalForm implements Serializable {
 
     @Override
     public String toString() {
-        return "OperationalApp{" +
+        return "ShenQingForm{" +
                 ", brandName='" + brandName + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +

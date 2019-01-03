@@ -1,12 +1,12 @@
 package com.amt.wechat.service.go;
 
 import com.amt.wechat.dao.go.GoDao;
-import com.amt.wechat.dao.poi.POIUserDAO;
+import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.form.OperationalForm;
+import com.amt.wechat.form.ShenQingForm;
 import com.amt.wechat.model.go.GOData;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +29,13 @@ public class GoServiceImpl implements  GoService {
     private static final Logger logger = LoggerFactory.getLogger(GoServiceImpl.class);
 
     private @Resource  GoDao goDao;
-    private @Resource  POIUserDAO userDAO;
+    private @Resource PoiUserDao userDAO;
     private @Resource RedisService redisService;
 
     @Override
-    public BizPacket formSubmit(OperationalForm form,POIUserData userData) {
+    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData) {
         GOData data = create(form,userData);
-        goDao.addForm(data);
+        goDao.addRequestForm(data);
 
         // 若之前手机号是空的，则填充之
         if(StringUtils.isEmpty(userData.getMobile())){
@@ -43,7 +43,7 @@ public class GoServiceImpl implements  GoService {
             userData.setName(form.getContactName());
             userDAO.updatePOIUserNameAndMobile(userData.getName(),userData.getMobile(),userData.getId());
             try {
-                redisService.addPOIUser(userData);
+                redisService.addPoiUser(userData);
             } catch (IOException e) {
                logger.error(e.getMessage(),e);
             }
@@ -51,9 +51,10 @@ public class GoServiceImpl implements  GoService {
         return BizPacket.success(data.getId());
     }
 
-    private GOData create(OperationalForm form, POIUserData userData){
+    private GOData create(ShenQingForm form, PoiUserData userData){
         GOData data = new GOData();
 
+        data.setUsefor(form.getUsefor());
         data.setBrandName(form.getBrandName());
         data.setAmount(form.getAmount());
         data.setDishCateId(form.getDishCateId());
@@ -80,8 +81,8 @@ public class GoServiceImpl implements  GoService {
     }
 
     @Override
-    public BizPacket formGet(POIUserData userData){
-        GOData data = goDao.getDataByPOIId(userData.getPoiId());
+    public BizPacket requestFormGet(PoiUserData userData,int usefor){
+        GOData data = goDao.getDataByPOIId(userData.getPoiId(),usefor);
         if(data == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"还未提交过申请!");
         }
@@ -89,7 +90,7 @@ public class GoServiceImpl implements  GoService {
     }
 
     @Override
-    public BizPacket formReSubmit(int id){
+    public BizPacket requestFormReSubmit(int id){
         GOData goData = goDao.getDataById(id);
         if(goData == null){
             return BizPacket.error(HttpStatus.NOT_ACCEPTABLE.value(),"此前并未提交过申请,请重新提交,谢谢!");

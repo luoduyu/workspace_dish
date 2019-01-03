@@ -1,7 +1,7 @@
 package com.amt.wechat.controller.base;
 
 import com.amt.wechat.common.Constants;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +18,8 @@ public class BaseController {
 
     private @Autowired   HttpServletRequest request;
 
-    protected POIUserData getUser(){
-        POIUserData user = (POIUserData)request.getAttribute(Constants.WECHAT_LOGGED_USER);
+    protected PoiUserData getUser(){
+        PoiUserData user = (PoiUserData)request.getAttribute(Constants.WECHAT_LOGGED_USER);
         return user;
     }
 }

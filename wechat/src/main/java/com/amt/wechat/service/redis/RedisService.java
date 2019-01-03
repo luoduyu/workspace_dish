@@ -1,7 +1,7 @@
 package com.amt.wechat.service.redis;
 
 
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 
 import java.io.IOException;
 
@@ -16,8 +16,8 @@ import java.io.IOException;
 public interface RedisService {
 
 
-    public void addPOIUser(POIUserData poiUserData) throws IOException;
-    public POIUserData getPOIUser(String accessToken);
+    public void addPoiUser(PoiUserData poiUserData) throws IOException;
+    public PoiUserData getPoiUser(String accessToken);
 
 
     /**

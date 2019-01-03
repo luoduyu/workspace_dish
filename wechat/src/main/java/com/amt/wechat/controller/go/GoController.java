@@ -2,11 +2,12 @@ package com.amt.wechat.controller.go;
 
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.OperationalForm;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.go.GoService;
-import com.amt.wechat.service.poi.IPOIUserService;
+import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.redis.RedisService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,60 +24,105 @@ import javax.annotation.Resource;
 @RestController
 public class GoController extends BaseController {
 
+    private @Value("${devMode}") boolean devMode = false;
+
     private @Resource RedisService redisService;
-    private @Resource IPOIUserService poiUserService;
+    private @Resource IPoiUserService poiUserService;
     private @Resource GoService goService;
 
     /**
-     * 运营开店申请提交
-     * @param form
+     * 开店申请提交
+     * @param shenQingForm
      * @return
      */
-    @RequestMapping(value = "/go/form/submit",method = RequestMethod.POST,produces = {"application/json","text/html"})
-    public BizPacket appSubmit(@RequestBody OperationalForm form){
-        String code = redisService.getSMSCode(form.getContactMobile());
-        if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(form.getSmsCode())){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
+    @RequestMapping(value = "/go/kaidian/submit",method ={RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
+    public BizPacket kaidianSubmit(ShenQingForm shenQingForm){
+        if(!devMode) {
+            String code = redisService.getSMSCode(shenQingForm.getContactMobile());
+            if (code == null || code.trim().length() == 0 || !code.equalsIgnoreCase(shenQingForm.getSmsCode())) {
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "手机验证码不对!");
+            }
         }
 
-        if(StringUtils.isEmpty(form.getBrandName())){
+        if(StringUtils.isEmpty(shenQingForm.getBrandName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"品牌名称为必填项!");
         }
-        if(StringUtils.isEmpty(form.getContactName())){
+        if(StringUtils.isEmpty(shenQingForm.getContactName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写联系人姓名!");
         }
-        if(form.getDishCateId() <= 0){
+        if(shenQingForm.getDishCateId() <= 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写经营品类!");
         }
-        if(form.getAmount() <= 0){
+        if(shenQingForm.getAmount() <= 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
         }
 
-        return goService.formSubmit(form,getUser());
+        // 由此地址提交的就是开店申请
+        shenQingForm.setUsefor(0);
+        return goService.requestFormSubmit(shenQingForm,getUser());
     }
 
     /**
-     * 运营开店申请获取
+     * 运营申请提交
+     * @param shenQingForm
      * @return
      */
-    @GetMapping(value = "/go/form/get")
-    public BizPacket getForm(){
-        POIUserData userData = getUser();
-        return goService.formGet(userData);
+    @RequestMapping(value = "/go/yunying/submit",method ={RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
+    public BizPacket yunYingSubmit(ShenQingForm shenQingForm){
+        if(!devMode) {
+            String code = redisService.getSMSCode(shenQingForm.getContactMobile());
+            if (code == null || code.trim().length() == 0 || !code.equalsIgnoreCase(shenQingForm.getSmsCode())) {
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "手机验证码不对!");
+            }
+        }
+
+        if(StringUtils.isEmpty(shenQingForm.getBrandName())){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"品牌名称为必填项!");
+        }
+        if(StringUtils.isEmpty(shenQingForm.getContactName())){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写联系人姓名!");
+        }
+        if(shenQingForm.getAmount() <= 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
+        }
+
+        // 由此地址提交的就是运营申请
+        shenQingForm.setUsefor(1);
+        return goService.requestFormSubmit(shenQingForm,getUser());
+    }
+
+    /**
+     * 开店申请获取
+     * @return
+     */
+    @GetMapping(value = "/go/kaidian/get")
+    public BizPacket kaidianFormGet(){
+        PoiUserData userData = getUser();
+        return goService.requestFormGet(userData,0);
+    }
+
+    /**
+     * 运营申请获取
+     * @return
+     */
+    @GetMapping(value = "/go/yunying/get")
+    public BizPacket yunyingFormGet(){
+        PoiUserData userData = getUser();
+        return goService.requestFormGet(userData,1);
     }
 
 
     /**
-     * 运营开店申请
+     * 开店/运营申请重提交
      * @param id
      * @return
      */
-    @RequestMapping(value = "/go/form/resubmit",method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/go/requestform/resubmit",method = {RequestMethod.GET,RequestMethod.POST})
     public BizPacket formReSubmit(@RequestParam("id") Integer id){
         if(id == null || id ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"id必传");
         }
-        return goService.formReSubmit(id);
+        return goService.requestFormReSubmit(id);
     }
 
 
@@ -91,7 +137,7 @@ public class GoController extends BaseController {
         }
 
 
-        POIUserData userData = getUser();
+        PoiUserData userData = getUser();
         if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
         }

@@ -1,6 +1,6 @@
 package com.amt.wechat.dao.poi;
 
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,30 +13,30 @@ import org.springframework.stereotype.Repository;
  * @author Administrator Create on 2018-12-17 09:53
  * @version 1.0
  */
-@Repository("poiUserDAO")
+@Repository("poiUserDao")
 @Mapper
-public interface POIUserDAO {
+public interface PoiUserDao {
 
 
     @Insert("INSERT INTO poi_user (id, accessToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, password, mobile, gender, countryCode, province, city, openid, unionid, name,nickName, avatarUrl, cTime,uTime) VALUES(#{id}, #{accessToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster},#{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid},#{name},#{nickName}, #{avatarUrl}, #{cTime},#{uTime})")
-    public void addPOIUser(POIUserData poiUserData);
+    public void addPOIUser(PoiUserData poiUserData);
 
     @Update("UPDATE poi_user SET accessToken = #{accessToken}, gender = #{gender},countryCode = #{countryCode}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
-    public void updatePOIUser(POIUserData poiUserData);
+    public void updatePOIUser(PoiUserData poiUserData);
 
     @Update("UPDATE poi_user SET name = #{name}, mobile = #{mobile} WHERE id=#{id}")
     public void updatePOIUserNameAndMobile(String name,String mobile,String id);
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid}")
-    public POIUserData getPOIUserDataByOpenid(String openid);
+    public PoiUserData getPOIUserDataByOpenid(String openid);
 
     @Select("SELECT * FROM poi_user WHERE mobile=#{mobile}")
-    public POIUserData getPOIUserDataByMobile(String mobile);
+    public PoiUserData getPOIUserDataByMobile(String mobile);
 
     @Select("SELECT * FROM poi_user WHERE id=#{id}")
-    public POIUserData getPOIUserDataById(String id);
+    public PoiUserData getPOIUserDataById(String id);
 
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")
-    public POIUserData getPOIUserData(String openid,String mobile);
+    public PoiUserData getPOIUserData(String openid,String mobile);
 }

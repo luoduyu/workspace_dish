@@ -1,8 +1,11 @@
 package com.amt.wechat.service.poster.impl;
 
 import com.amt.wechat.common.PosterOrderClause;
-import com.amt.wechat.dao.poster.PosterDAO;
-import com.amt.wechat.model.poster.*;
+import com.amt.wechat.dao.poster.PosterDao;
+import com.amt.wechat.model.poster.Poster;
+import com.amt.wechat.model.poster.RecommendPoster;
+import com.amt.wechat.model.poster.SequencePoster;
+import com.amt.wechat.model.poster.TopPoster;
 import com.amt.wechat.service.poster.IPosterService;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +21,13 @@ import java.util.*;
 @Service("posterService")
 public class PosterServiceImpl implements IPosterService {
 
-    private @Resource PosterDAO posterDAO;
+    private @Resource PosterDao posterDao;
 
     @Override
     public List<SequencePoster> getRecommendPosterList() {
 
         // TODO 后期改为从redis中取
-        Map<String, RecommendPoster> map =  posterDAO.getRecommendPoster();
+        Map<String, RecommendPoster> map =  posterDao.getRecommendPoster();
 
         if(map == null || map.isEmpty()){
             return Collections.emptyList();
@@ -35,7 +38,7 @@ public class PosterServiceImpl implements IPosterService {
             ids.append(posterId).append(",");
         }
         ids.deleteCharAt(ids.length()-1);
-        List<SequencePoster> recommendList =  posterDAO.getPosterListByIds(ids.toString());
+        List<SequencePoster> recommendList =  posterDao.getPosterListByIds(ids.toString());
         for(SequencePoster p:recommendList){
             RecommendPoster rp = map.get(p.getId());
             if(rp == null){
@@ -48,14 +51,14 @@ public class PosterServiceImpl implements IPosterService {
 
     @Override
     public void addPoster(Poster poster){
-        posterDAO.addPoster(poster);
+        posterDao.addPoster(poster);
     }
 
 
 
     @Override
     public List<SequencePoster> getIntelligent(int index,int pageSize) {
-        List<SequencePoster> list =  posterDAO.getPosterList(index * pageSize,pageSize);
+        List<SequencePoster> list =  posterDao.getPosterList(index * pageSize,pageSize);
 
         // 取销量最高的8条
         Map<String,SequencePoster>  topPosterMap = getTopPoster(8);
@@ -80,7 +83,7 @@ public class PosterServiceImpl implements IPosterService {
     private Map<String,SequencePoster> getTopPoster(int pageSize) {
 
         // TODO 后期改为基于redis实现
-        Map<String,TopPoster> map =  posterDAO.getTopPoster(1,30,pageSize);
+        Map<String,TopPoster> map =  posterDao.getTopPoster(1,30,pageSize);
         if(map == null || map.isEmpty()){
             return Collections.emptyMap();
         }
@@ -93,7 +96,7 @@ public class PosterServiceImpl implements IPosterService {
 
         Map<String,SequencePoster> retMap = new HashMap<>();
 
-        List<SequencePoster> list = posterDAO.getPosterListByIds(ids.toString());
+        List<SequencePoster> list = posterDao.getPosterListByIds(ids.toString());
         for(SequencePoster o:list){
             TopPoster tp = map.get(o.getId());
             if(tp == null){
@@ -108,16 +111,16 @@ public class PosterServiceImpl implements IPosterService {
     @Override
     public List<SequencePoster> getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause) {
         if(orderClause == PosterOrderClause.SALES){
-            List<SequencePoster> list = posterDAO.getPosterListBySales(cateId,index,pageSize);
+            List<SequencePoster> list = posterDao.getPosterListBySales(cateId,index,pageSize);
             return list;
         }
 
-        List<SequencePoster> list = posterDAO.getPosterListByClause(cateId,orderClause.getClause(),index,pageSize);
+        List<SequencePoster> list = posterDao.getPosterListByClause(cateId,orderClause.getClause(),index,pageSize);
         return list;
     }
 
     @Override
     public Poster getPosterDetail(String posterId) {
-        return posterDAO.getPosterDetail(posterId);
+        return posterDao.getPosterDetail(posterId);
     }
 }

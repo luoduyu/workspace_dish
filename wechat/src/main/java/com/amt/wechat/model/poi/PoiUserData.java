@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 店铺用户信息
  */
-public class POIUserData implements Serializable {
+public class PoiUserData implements Serializable {
     private static final long serialVersionUID = -1608316652654376276L;
     private String id;
 

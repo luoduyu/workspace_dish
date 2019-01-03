@@ -14,6 +14,11 @@ public class GOData implements Serializable {
     private int id;
 
     /**
+     * 0:开店申请;1:f运营申请
+     */
+    private int usefor;
+
+    /**
      * 品牌名称
      */
     private String brandName;
@@ -39,9 +44,9 @@ public class GOData implements Serializable {
     private String address;
 
     /**
-     * 已上线餐卖平台;0:无;1:美团;2:饿了么
+     * 已上线餐卖平台;0:空字串;1:美团;2:饿了么;"1,2"表示美团饿了么二者兼备
      */
-    private int platform;
+    private String platform;
 
     /**
      *
@@ -111,6 +116,14 @@ public class GOData implements Serializable {
 
     private String uTime;
 
+    public int getUsefor() {
+        return usefor;
+    }
+
+    public void setUsefor(int usefor) {
+        this.usefor = usefor;
+    }
+
     public String getBrandName() {
         return brandName;
     }
@@ -151,11 +164,11 @@ public class GOData implements Serializable {
         this.address = address;
     }
 
-    public int getPlatform() {
+    public String getPlatform() {
         return platform;
     }
 
-    public void setPlatform(int platform) {
+    public void setPlatform(String platform) {
         this.platform = platform;
     }
 

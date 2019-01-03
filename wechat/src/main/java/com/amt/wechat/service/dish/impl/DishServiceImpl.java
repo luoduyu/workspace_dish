@@ -23,6 +23,4 @@ public class DishServiceImpl implements DishService {
     public List<DishCate> getPosterCateList() {
         return dishDao.getPosterCate();
     }
-
-
 }

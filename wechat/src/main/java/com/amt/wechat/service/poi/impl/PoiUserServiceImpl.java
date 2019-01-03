@@ -11,16 +11,18 @@ package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.POI_USER_ROLE;
-import com.amt.wechat.service.redis.RedisService;
-import com.amt.wechat.dao.poi.POIUserDAO;
+import com.amt.wechat.dao.poi.PoiDao;
+import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.WeichatLoginForm;
-import com.amt.wechat.model.poi.POIUserData;
-import com.amt.wechat.service.poi.IPOIUserService;
+import com.amt.wechat.model.poi.PoiData;
+import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.service.poi.IPoiUserService;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -37,10 +39,11 @@ import java.io.IOException;
  * @version 1.0
  */
 @Service("poiUserService")
-public class POIUserServiceImpl implements IPOIUserService {
+public class PoiUserServiceImpl implements IPoiUserService {
 
-    private static Logger logger = LoggerFactory.getLogger(POIUserServiceImpl.class);
-    private @Resource POIUserDAO poiUserDAO;
+    private static Logger logger = LoggerFactory.getLogger(PoiUserServiceImpl.class);
+    private @Resource PoiUserDao poiUserDao;
+    private @Resource PoiDao poiDao;
     private @Resource RedisService redisService;
 
     @Override
@@ -57,23 +60,25 @@ public class POIUserServiceImpl implements IPOIUserService {
 
         try {
             //POIUserData userData =  poiUserDAO.getPOIUserData(openid,phoneData.getPurePhoneNumber());
-            POIUserData userData =  poiUserDAO.getPOIUserDataByOpenid(openid);
+            PoiUserData userData =  poiUserDao.getPOIUserDataByOpenid(openid);
             if(userData == null){
                 JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("创建微信用户!userJson={}",userJson);
 
-                userData = createUser(sessionKeyAndOpenid,userJson,phoneData);
-                poiUserDAO.addPOIUser(userData);
+                PoiData poiData =  defaultPoiData();
+                userData = createUser(sessionKeyAndOpenid,userJson,phoneData,poiData.getId());
+                poiDao.addPoiData(poiData);
+                poiUserDao.addPOIUser(userData);
 
             }else{
 
                 JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("更新微信用户!userJson={}",userJson);
                 updateUser(userData,sessionKeyAndOpenid,userJson);
-                poiUserDAO.updatePOIUser(userData);
+                poiUserDao.updatePOIUser(userData);
             }
 
-            redisService.addPOIUser(userData);
+            redisService.addPoiUser(userData);
 
             //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
             WeichatLoginForm form = buildResponseLogin(userData);
@@ -85,8 +90,24 @@ public class POIUserServiceImpl implements IPOIUserService {
     }
 
 
-    private POIUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson,PhoneData phoneData){
-        POIUserData data = new POIUserData();
+    /**
+     * 创建一个缺少的店铺数据
+     * @return
+     */
+    private PoiData defaultPoiData(){
+        PoiData poiData = new PoiData();
+        poiData.setId(Generator.uuid());
+        poiData.setAccountName("");
+        poiData.setAccountPassword("");
+        poiData.setEleShopId("");
+        poiData.setMtAppAuthToken("");
+        poiData.setName("");
+        return poiData;
+    }
+
+    private PoiUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson,PhoneData phoneData,String poiId){
+        PoiUserData data = new PoiUserData();
+        data.setPoiId(poiId);
         data.setId(Generator.uuid());
         data.setcTime(DateTimeUtil.now());
         data.setuTime(data.getcTime());
@@ -96,6 +117,8 @@ public class POIUserServiceImpl implements IPOIUserService {
         data.setIsCredentialsNonExpired(1);
         data.setIsEnabled(1);
         data.setIsMaster(0);
+        data.setName("");
+
 
         data.setRoles(POI_USER_ROLE.USER.toString());
         data.setPassword("");
@@ -109,7 +132,7 @@ public class POIUserServiceImpl implements IPOIUserService {
     }
 
 
-    private void updateUser(POIUserData data,JSONObject sessionKeyAndOpenid,JSONObject userJson){
+    private void updateUser(PoiUserData data,JSONObject sessionKeyAndOpenid,JSONObject userJson){
         data.setAccessToken(Generator.uuid());
 
         // unionid 不一定存在!
@@ -157,33 +180,33 @@ public class POIUserServiceImpl implements IPOIUserService {
 
 
     @Override
-    public BizPacket auth4Mobile(String name,String mobile,POIUserData userData){
+    public BizPacket auth4Mobile(String name,String mobile,PoiUserData userData){
         try {
             userData.setName(name);
             userData.setMobile(mobile);
-            redisService.addPOIUser(userData);
+            redisService.addPoiUser(userData);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
         }
-        poiUserDAO.updatePOIUserNameAndMobile(name,mobile,userData.getId());
+        poiUserDao.updatePOIUserNameAndMobile(name,mobile,userData.getId());
         return BizPacket.success();
     }
 
     @Override
     public BizPacket testLogin() throws IOException {
-        POIUserData userData = poiUserDAO.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
+        PoiUserData userData = poiUserDao.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
         userData.setAccessToken(Generator.uuid());
-        poiUserDAO.updatePOIUser(userData);
+        poiUserDao.updatePOIUser(userData);
 
-        redisService.addPOIUser(userData);
+        redisService.addPoiUser(userData);
 
         //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
         WeichatLoginForm form = buildResponseLogin(userData);
         return BizPacket.success(form);
     }
 
-    private WeichatLoginForm buildResponseLogin(POIUserData userData){
+    private WeichatLoginForm buildResponseLogin(PoiUserData userData){
         WeichatLoginForm form = new WeichatLoginForm();
         form.setAccessToken(userData.getAccessToken());
         form.setNickName(userData.getNickName());

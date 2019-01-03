@@ -17,9 +17,9 @@ import java.util.Map;
  * @version 1.0
  */
 
-@Repository("posterDAO")
+@Repository("posterDao")
 @Mapper
-public interface PosterDAO {
+public interface PosterDao {
 
     @Select("SELECT * FROM poster WHERE isEnabled=1 ORDER BY uTime DESC LIMIT #{index},#{pageSize}")
     @Results({

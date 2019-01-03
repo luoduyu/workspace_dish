@@ -1,8 +1,8 @@
 package com.amt.wechat.service.go;
 
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.OperationalForm;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.model.poi.PoiUserData;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -13,9 +13,22 @@ import com.amt.wechat.model.poi.POIUserData;
  */
 public interface GoService {
 
-    public BizPacket formSubmit(OperationalForm form, POIUserData userData);
+    /**
+     * 开店/运营申请提交
+     * @param form
+     * @param userData
+     * @return
+     */
+    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData);
 
-    public BizPacket formGet(POIUserData userData);
 
-    public BizPacket formReSubmit(int id);
+    /**
+     *
+     * @param userData
+     * @param usefor 0:开店申请;1:运营申请
+     * @return
+     */
+    public BizPacket requestFormGet(PoiUserData userData,int usefor);
+
+    public BizPacket requestFormReSubmit(int id);
 }

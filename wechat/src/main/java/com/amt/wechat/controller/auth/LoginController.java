@@ -5,7 +5,7 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.sms.AliSMS;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.service.login.LoginService;
-import com.amt.wechat.service.poi.IPOIUserService;
+import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import java.io.IOException;
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-    private @Resource IPOIUserService poiUserService;
+    private @Resource IPoiUserService poiUserService;
     private @Resource RedisService redisService;
     private @Resource LoginService loginService;
 
@@ -129,7 +129,7 @@ public class LoginController {
 
 
     /**
-     * 运营申请手机验证码发送
+     * 验证码发送-运营和开店申请共用
      * @param mobile 用户手机号
      * @param type 1:短信, 2:语音; 默认为短信类型
      * @return

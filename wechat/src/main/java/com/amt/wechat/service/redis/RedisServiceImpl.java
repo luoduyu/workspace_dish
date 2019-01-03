@@ -2,7 +2,7 @@ package com.amt.wechat.service.redis;
 
 import com.amt.wechat.common.RedisConstants;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.model.poi.PoiUserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public void addPOIUser(POIUserData poiUserData) throws IOException {
+    public void addPoiUser(PoiUserData poiUserData) throws IOException {
         String tkey =  RedisConstants.WECHAT_ACCESS_TOKEN + poiUserData.getAccessToken();
         stringRedisTemplate.opsForValue().set(tkey,poiUserData.getId(), RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
 
@@ -39,7 +39,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public POIUserData getPOIUser(String accessToken) {
+    public PoiUserData getPoiUser(String accessToken) {
         try {
             String poiUserId = stringRedisTemplate.opsForValue().get(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken);
             if(poiUserId == null || poiUserId.trim().length() ==0){
@@ -56,7 +56,7 @@ public class RedisServiceImpl implements RedisService {
             stringRedisTemplate.expire(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken, RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
             redisTemplate.expire(ukey, RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
 
-            return (POIUserData)objUser;
+            return (PoiUserData)objUser;
         } catch (Exception e) {
             logger.info("accessToken="+accessToken+",e="+e.getMessage(),e);
         }

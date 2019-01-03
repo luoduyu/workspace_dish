@@ -1,9 +1,9 @@
 package com.amt.wechat.service;
 
-import com.amt.wechat.dao.poi.POIUserDAO;
+import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.OperationalForm;
-import com.amt.wechat.model.poi.POIUserData;
+import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.go.GoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,19 +22,19 @@ import javax.annotation.Resource;
 @SpringBootTest
 public class GoServiceTest {
     private @Resource  GoService goService;
-    private @Resource  POIUserDAO poiUserDAO;
+    private @Resource PoiUserDao poiUserDao;
 
     @Test
     public void testFormSubmit(){
-        OperationalForm form = build();
+        ShenQingForm form = build();
 
-        POIUserData userData = poiUserDAO.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
-        BizPacket packet = goService.formSubmit(form,userData);
+        PoiUserData userData = poiUserDao.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
+        BizPacket packet = goService.requestFormSubmit(form,userData);
         System.out.println(packet);
     }
 
-    private static OperationalForm build(){
-        OperationalForm form = new OperationalForm();
+    private static ShenQingForm build(){
+        ShenQingForm form = new ShenQingForm();
         form.setAddress("张自忠路88号");
         form.setAmount(1);
         form.setBrandName("一食一");
@@ -43,7 +43,7 @@ public class GoServiceTest {
         form.setContactName("曹操");
         form.setDishCateId(3);
         form.setDistricts("朝阳");
-        form.setPlatform(1);
+        form.setPlatform("1");
         form.setPoiType(2);
         form.setProvince("直辖市");
         return form;

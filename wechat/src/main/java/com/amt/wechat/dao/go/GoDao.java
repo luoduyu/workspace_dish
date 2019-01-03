@@ -1,0 +1,34 @@
+package com.amt.wechat.dao.go;
+
+import com.amt.wechat.model.go.GOData;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Copyright (c) 2019 by CANSHU
+ *
+ * @author adu Create on 2019-01-02 19:36
+ * @version 1.0
+ */
+@Repository("goDao")
+@Mapper
+public interface GoDao {
+
+    @Insert("INSERT INTO poi_go_app(brandName, province, city, address, districts, platform, poiType, dishCateId, amount, contactName, contactMobile,poiId,poiUserId, isMember, auditStatus, auditDate, opinion, cTime,uTime) VALUES(#{brandName},#{province}, #{city}, #{address},#{districts},#{platform},#{poiType},#{dishCateId},#{amount}, #{contactName},#{contactMobile},#{poiId},#{poiUserId}, #{isMember}, #{auditStatus}, #{auditDate},#{opinion}, #{cTime},#{uTime})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    public void addForm(GOData goData);
+
+    @Select("SELECT * FROM poi_go_app WHERE poiId=#{poiId}")
+    public GOData getDataByPOIId(String poiId);
+
+
+    @Select("SELECT * FROM poi_go_app WHERE id=#{id}")
+    public GOData getDataById(int id);
+
+
+    @Select("UPDATE poi_go_app SET auditStatus = 0 ,uTime=#{uTime} WHERE id =#{id}")
+    public void updateData(String uTime,int id);
+}

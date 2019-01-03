@@ -1,6 +1,7 @@
 package com.amt.wechat.domain.util;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -21,5 +22,19 @@ public class DateTimeUtil {
     public static String now() {
         LocalDateTime ldt =  LocalDateTime.now();
         return ldt.format(FRIENDLY_DATE_TIME_FORMAT);
+    }
+
+    /**
+     * 距离当天的23:59:59还有多少秒
+     * @return
+     */
+    public static long interval(){
+        LocalTime now = LocalTime.now();
+        LocalTime max = LocalTime.of(23,59,59);
+        long d2 =  max.toSecondOfDay() - now.toSecondOfDay();
+        return d2;
+    }
+    public static void main(String[] args) {
+        interval();
     }
 }

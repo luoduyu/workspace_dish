@@ -1,4 +1,4 @@
-package com.amt.wechat.model.go;
+package com.amt.wechat.form;
 
 import java.io.Serializable;
 
@@ -10,32 +10,68 @@ import java.io.Serializable;
  * @author adu Create on 2018-12-29 16:43
  * @version 1.0
  */
-public class OperationalApp implements Serializable {
+public class OperationalForm implements Serializable {
     private static final long serialVersionUID = 6014201649360779089L;
 
-    private int id;
-	private String brandName;
-	private String province;
-	private String city;
-	private String districts;
-	private String address;
-	private int platform;
-	private int poiType;
+    /**
+     * 品牌名称
+     */
+    private String brandName;
+
+    /**
+     * 省份
+     */
+    private String province;
+
+    /**
+     * 城市
+     */
+    private String city;
+
+    /**
+     * 区
+     */
+    private String districts;
+
+    /**
+     * 详细地址
+     */
+    private String address;
+
+    /**
+     * 已上线餐卖平台;0:无;1:美团;2:饿了么
+     */
+    private int platform;
+
+    /**
+     *
+     * 门店类型;1:单店自创品牌;2:连锁加盟;3:连锁直营
+     */
+    private int poiType;
+
+    /**
+     * 经营品类Id
+     */
     private int dishCateId;
+
+    /**
+     * 门店数量
+     */
     private int amount;
+
+    /**
+     * 联系人姓名
+     */
     private String contactName;
+
+    /**
+     * 联系人手机
+     */
     private String contactMobile;
-    private String commitDate;
-    private String progress;
-    private String  poiUserId;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String smsCode;
+
 
     public String getBrandName() {
         return brandName;
@@ -125,34 +161,19 @@ public class OperationalApp implements Serializable {
         this.contactMobile = contactMobile;
     }
 
-    public String getCommitDate() {
-        return commitDate;
+
+
+    public String getSmsCode() {
+        return smsCode;
     }
 
-    public void setCommitDate(String commitDate) {
-        this.commitDate = commitDate;
-    }
-
-    public String getProgress() {
-        return progress;
-    }
-
-    public void setProgress(String progress) {
-        this.progress = progress;
-    }
-
-    public String getPoiUserId() {
-        return poiUserId;
-    }
-
-    public void setPoiUserId(String poiUserId) {
-        this.poiUserId = poiUserId;
+    public void setSmsCode(String smsCode) {
+        this.smsCode = smsCode;
     }
 
     @Override
     public String toString() {
         return "OperationalApp{" +
-                "id=" + id +
                 ", brandName='" + brandName + '\'' +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
@@ -164,9 +185,6 @@ public class OperationalApp implements Serializable {
                 ", amount=" + amount +
                 ", contactName='" + contactName + '\'' +
                 ", contactMobile='" + contactMobile + '\'' +
-                ", commitDate='" + commitDate + '\'' +
-                ", progress='" + progress + '\'' +
-                ", poiUserId='" + poiUserId + '\'' +
                 '}';
     }
 }

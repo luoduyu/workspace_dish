@@ -7,6 +7,8 @@ public class  WeichatLoginForm implements Serializable {
     private String accessToken;
     private String nickName;
     private String avatarUrl="";
+    private String name;
+    private String mobile;
 
     public WeichatLoginForm() {
 
@@ -36,6 +38,21 @@ public class  WeichatLoginForm implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     @Override
     public String toString() {

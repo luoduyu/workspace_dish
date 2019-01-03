@@ -11,13 +11,13 @@ package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.POI_USER_ROLE;
-import com.amt.wechat.dao.RedisDao;
+import com.amt.wechat.service.redis.RedisService;
 import com.amt.wechat.dao.poi.POIUserDAO;
 import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.domain.util.WeichatUtil;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.WeichatLoginForm;
 import com.amt.wechat.model.poi.POIUserData;
 import com.amt.wechat.service.poi.IPOIUserService;
@@ -41,11 +41,11 @@ public class POIUserServiceImpl implements IPOIUserService {
 
     private static Logger logger = LoggerFactory.getLogger(POIUserServiceImpl.class);
     private @Resource POIUserDAO poiUserDAO;
-    private @Resource RedisDao redisDao;
+    private @Resource RedisService redisService;
 
     @Override
     public BizPacket weichatLogin(String code, String encryptedData, String iv, PhoneData phoneData) {
-        JSONObject sessionKeyAndOpenid = WeichatUtil.getSessionKeyOrOpenId(code);
+        JSONObject sessionKeyAndOpenid = WechatUtil.getSessionKeyOrOpenId(code);
         if(sessionKeyAndOpenid == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"登录凭证校验失败!");
         }
@@ -56,9 +56,10 @@ public class POIUserServiceImpl implements IPOIUserService {
         String openid = sessionKeyAndOpenid.getString("openid");
 
         try {
-            POIUserData userData =  poiUserDAO.getPOIUserData(openid,phoneData.getPurePhoneNumber());
+            //POIUserData userData =  poiUserDAO.getPOIUserData(openid,phoneData.getPurePhoneNumber());
+            POIUserData userData =  poiUserDAO.getPOIUserDataByOpenid(openid);
             if(userData == null){
-                JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
+                JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("创建微信用户!userJson={}",userJson);
 
                 userData = createUser(sessionKeyAndOpenid,userJson,phoneData);
@@ -66,23 +67,19 @@ public class POIUserServiceImpl implements IPOIUserService {
 
             }else{
 
-                JSONObject userJson =  WeichatUtil.getUserInfo(encryptedData,sessionKey,iv);
+                JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("更新微信用户!userJson={}",userJson);
                 updateUser(userData,sessionKeyAndOpenid,userJson);
                 poiUserDAO.updatePOIUser(userData);
             }
 
-            redisDao.addPOIUser(userData);
+            redisService.addPOIUser(userData);
 
             //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-            WeichatLoginForm form = new WeichatLoginForm();
-            form.setAccessToken(userData.getAccessToken());
-            form.setNickName(userData.getNickName());
-            form.setAvatarUrl(userData.getAvatarUrl());
-
+            WeichatLoginForm form = buildResponseLogin(userData);
             return BizPacket.success(form);
         } catch (IOException e) {
-            logger.error(phoneData+",e="+e.getMessage(),e);
+            logger.error("e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }
@@ -102,8 +99,10 @@ public class POIUserServiceImpl implements IPOIUserService {
 
         data.setRoles(POI_USER_ROLE.USER.toString());
         data.setPassword("");
-        data.setMobile(phoneData.getPurePhoneNumber());
-        data.setCountryCode(phoneData.getCountryCode());
+        if(phoneData != null) {
+            data.setMobile(phoneData.getPurePhoneNumber());
+            data.setCountryCode(phoneData.getCountryCode());
+        }
 
         updateUser(data,sessionKeyAndOpenid,userJson);
         return data;
@@ -142,12 +141,12 @@ public class POIUserServiceImpl implements IPOIUserService {
 
     @Override
     public BizPacket weichatLogin4Phone(HttpSession session,String code, String  encryptedData, String iv){
-        JSONObject sessionKeyAndOpenid = WeichatUtil.getSessionKeyOrOpenId(code);
+        JSONObject sessionKeyAndOpenid = WechatUtil.getSessionKeyOrOpenId(code);
         if(sessionKeyAndOpenid == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"登录凭证校验失败!");
         }
 
-        PhoneData phoneData = WeichatUtil.getPhoneData(encryptedData,  sessionKeyAndOpenid.getString("session_key"),iv);
+        PhoneData phoneData = WechatUtil.getPhoneData(encryptedData,  sessionKeyAndOpenid.getString("session_key"),iv);
         if(phoneData != null){
             session.setAttribute(PhoneData.SESSION_PHONE,phoneData.getPurePhoneNumber());
             session.setAttribute(PhoneData.SESSION_PHONE_CC,phoneData.getCountryCode());
@@ -156,20 +155,41 @@ public class POIUserServiceImpl implements IPOIUserService {
         return BizPacket.error(HttpStatus.REQUEST_TIMEOUT.value(),"请求超时,获取失败!");
     }
 
+
+    @Override
+    public BizPacket auth4Mobile(String name,String mobile,POIUserData userData){
+        try {
+            userData.setName(name);
+            userData.setMobile(mobile);
+            redisService.addPOIUser(userData);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
+        }
+        poiUserDAO.updatePOIUserNameAndMobile(name,mobile,userData.getId());
+        return BizPacket.success();
+    }
+
     @Override
     public BizPacket testLogin() throws IOException {
-        POIUserData userData = poiUserDAO.getPOIUserDataByMobile("13693530571");
+        POIUserData userData = poiUserDAO.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
         userData.setAccessToken(Generator.uuid());
         poiUserDAO.updatePOIUser(userData);
 
-        redisDao.addPOIUser(userData);
+        redisService.addPOIUser(userData);
 
         //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        WeichatLoginForm form = buildResponseLogin(userData);
+        return BizPacket.success(form);
+    }
+
+    private WeichatLoginForm buildResponseLogin(POIUserData userData){
         WeichatLoginForm form = new WeichatLoginForm();
         form.setAccessToken(userData.getAccessToken());
         form.setNickName(userData.getNickName());
         form.setAvatarUrl(userData.getAvatarUrl());
-
-        return BizPacket.success(form);
+        form.setName(userData.getName());
+        form.setMobile(userData.getMobile());
+        return form;
     }
 }

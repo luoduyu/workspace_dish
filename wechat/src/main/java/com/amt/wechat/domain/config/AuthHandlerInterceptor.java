@@ -2,7 +2,7 @@ package com.amt.wechat.domain.config;
 
 import com.alibaba.fastjson.JSON;
 import com.amt.wechat.common.Constants;
-import com.amt.wechat.dao.RedisDao;
+import com.amt.wechat.service.redis.RedisService;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.model.poi.POIUserData;
@@ -27,12 +27,10 @@ import java.util.Enumeration;
  */
 @Component("authHandlerInterceptor")
 public class AuthHandlerInterceptor implements HandlerInterceptor {
-
     private static final Logger traceLog = LoggerFactory.getLogger("globalTraceLog");
-
     private static final Logger logger = LoggerFactory.getLogger(AuthHandlerInterceptor.class);
 
-    private  @Autowired RedisDao redisDao;
+    private  @Autowired RedisService redisService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -43,7 +41,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         }
 
         try {
-            POIUserData user = redisDao.getPOIUser(accessToken);
+            POIUserData user = redisService.getPOIUser(accessToken);
             if (user == null) {
                 traceLog(request, accessToken,"");
                 return handlerError(response,HttpStatus.UNAUTHORIZED,"user not found or frozen!");

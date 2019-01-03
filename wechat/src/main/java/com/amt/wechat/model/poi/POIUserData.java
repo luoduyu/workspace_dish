@@ -8,6 +8,12 @@ import java.io.Serializable;
 public class POIUserData implements Serializable {
     private static final long serialVersionUID = -1608316652654376276L;
     private String id;
+
+    /**
+     * 所属门店Id
+     */
+    private String poiId;
+
     private String accessToken;
 
 
@@ -56,6 +62,7 @@ public class POIUserData implements Serializable {
     private String city;
     private String openid="";
     private String unionid="";
+    private String name;
     private String nickName="";
     private String avatarUrl="";
     private String cTime;
@@ -220,6 +227,22 @@ public class POIUserData implements Serializable {
 
     public void setuTime(String uTime) {
         this.uTime = uTime;
+    }
+
+    public String getPoiId() {
+        return poiId;
+    }
+
+    public void setPoiId(String poiId) {
+        this.poiId = poiId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

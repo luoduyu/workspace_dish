@@ -17,8 +17,11 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.security.AlgorithmParameters;
 import java.security.Key;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -27,8 +30,8 @@ import java.util.Base64;
  * @author adu Create on 2018-12-15 17:46
  * @version 1.0
  */
-public class WeichatUtil {
-    private static Logger logger = LoggerFactory.getLogger(WeichatUtil.class);
+public class WechatUtil {
+    private static Logger logger = LoggerFactory.getLogger(WechatUtil.class);
 
 
     /**
@@ -215,12 +218,48 @@ public class WeichatUtil {
         return new PhoneData(purePhoneNumber,countryCode);
     }
 
+
+    /**
+     * 验证手机号码
+     *
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobileNO(String mobiles) {
+        boolean flag = false;
+        try {
+			// Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
+            Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(14[5,7])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\\d{8}$");
+            Matcher m = p.matcher(mobiles);
+            flag = m.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    /**
+     * 获取验证码数字
+     */
+    public static String generateCode(){
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        SecureRandom rand = new SecureRandom();
+        StringBuilder buffer = new StringBuilder(4);
+
+        for (int i = 0; i < 6; i++) {
+            buffer.append(rand.nextInt(10));
+        }
+        return buffer.toString();
+    }
+
     public static void main(String[] args) {
+        /*
         String encryptedData ="dXp+e+upG3at0SGnCBNZtQ+++w/hbuwFo2satyK5qTD4xGI8CCM6PHyIlbejVTPgFKr1PUTJmNQVTBKiKCKWf0VoOr+ReC+S5RdqlE0uD2eX9cTP9Oj+EzRm3AdoveJHLun74doXBxDccFTQuuNsCeJv6e2H8JH1awz3kvadGOPvEnMrDKrA99Vm+JTHZK7hy2wGQvdXOQgzFuK8lA3Ow3BJS4IYdIRNXwm8j1K7jxySyWvlIWuT1eHP3B345NYvQ3HxI23T0JC9WkiP6Cop13I97+nO6pl5RcBfOjLGAc4=";
         String session_key  = "Tm9ZwkjBGdSZ8zmnFlHy8Q==";
         String iv= "rZZxbQgeeQSt0+7qyoyLHA==";
 
         JSONObject json = getUserInfo(encryptedData,session_key,iv);
         System.out.println(json);
+        */
     }
 }

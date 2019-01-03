@@ -2,6 +2,7 @@ package com.amt.wechat.service.poi;
 
 import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.model.poi.POIUserData;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -33,6 +34,14 @@ public interface IPOIUserService {
      * @return
      */
     public BizPacket weichatLogin4Phone(HttpSession session,String code, String  encryptedData, String iv);
+
+    /**
+     * 手机号认证授权
+     * @param name
+     * @param mobile
+     * @return
+     */
+    public BizPacket auth4Mobile(String name, String mobile, POIUserData userData);
 
     public BizPacket testLogin() throws IOException;
 }

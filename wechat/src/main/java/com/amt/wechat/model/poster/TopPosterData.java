@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author adu Create on 2018-12-26 14:44
  * @version 1.0
  */
-public class TopPoster implements Serializable {
+public class TopPosterData implements Serializable {
     private static final long serialVersionUID = 1432797446453353752L;
 
 
@@ -23,15 +23,15 @@ public class TopPoster implements Serializable {
      */
     //private int expiresIn;
 
-    private String posterId;
+    private int posterId;
     private int sales;
 
 
-    public String getPosterId() {
+    public int getPosterId() {
         return posterId;
     }
 
-    public void setPosterId(String posterId) {
+    public void setPosterId(int posterId) {
         this.posterId = posterId;
     }
 
@@ -45,7 +45,7 @@ public class TopPoster implements Serializable {
 
     @Override
     public String toString() {
-        return "TopPoster{" +
+        return "TopPosterData{" +
                 ", posterId='" + posterId + '\'' +
                 ", sales=" + sales +
                 '}';

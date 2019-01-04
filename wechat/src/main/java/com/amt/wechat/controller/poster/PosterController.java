@@ -5,7 +5,7 @@ import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.SeqPosterWrapper;
 import com.amt.wechat.model.poi.PoiUserData;
-import com.amt.wechat.model.poster.Poster;
+import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;
 import com.amt.wechat.service.poster.IPosterService;
 import org.springframework.http.HttpStatus;
@@ -80,16 +80,16 @@ public class PosterController extends BaseController {
     }
 
     @RequestMapping(value="/poster/cate/detail")
-    public BizPacket findPosterDetail(@RequestParam("posterId") String posterId){
-        Poster poster =  posterService.getPosterDetail(posterId);
-        if(poster == null){
+    public BizPacket findPosterDetail(@RequestParam("posterId") Integer posterId){
+        PosterData posterData =  posterService.getPosterDetail(posterId);
+        if(posterData == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"未找到!");
         }
-        return BizPacket.success(poster);
+        return BizPacket.success(posterData);
     }
 
     @RequestMapping(value="/poster/addfavorite")
-    public BizPacket addFavorite(@RequestParam("posterId") String posterId){
+    public BizPacket addFavorite(@RequestParam("posterId") Integer posterId){
         // TODO
         
         return BizPacket.success();

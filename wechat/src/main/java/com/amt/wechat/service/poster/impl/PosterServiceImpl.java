@@ -2,10 +2,10 @@ package com.amt.wechat.service.poster.impl;
 
 import com.amt.wechat.common.PosterOrderClause;
 import com.amt.wechat.dao.poster.PosterDao;
-import com.amt.wechat.model.poster.Poster;
+import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.RecommendPoster;
 import com.amt.wechat.model.poster.SequencePoster;
-import com.amt.wechat.model.poster.TopPoster;
+import com.amt.wechat.model.poster.TopPosterData;
 import com.amt.wechat.service.poster.IPosterService;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +27,14 @@ public class PosterServiceImpl implements IPosterService {
     public List<SequencePoster> getRecommendPosterList() {
 
         // TODO 后期改为从redis中取
-        Map<String, RecommendPoster> map =  posterDao.getRecommendPoster();
+        Map<Integer, RecommendPoster> map =  posterDao.getRecommendPoster();
 
         if(map == null || map.isEmpty()){
             return Collections.emptyList();
         }
 
         StringBuilder ids = new StringBuilder();
-        for(String posterId :map.keySet()){
+        for(int posterId :map.keySet()){
             ids.append(posterId).append(",");
         }
         ids.deleteCharAt(ids.length()-1);
@@ -50,8 +50,8 @@ public class PosterServiceImpl implements IPosterService {
     }
 
     @Override
-    public void addPoster(Poster poster){
-        posterDao.addPoster(poster);
+    public void addPoster(PosterData posterData){
+        posterDao.addPoster(posterData);
     }
 
 
@@ -61,7 +61,7 @@ public class PosterServiceImpl implements IPosterService {
         List<SequencePoster> list =  posterDao.getPosterList(index * pageSize,pageSize);
 
         // 取销量最高的8条
-        Map<String,SequencePoster>  topPosterMap = getTopPoster(8);
+        Map<Integer,SequencePoster>  topPosterMap = getTopPoster(8);
         List<SequencePoster> retList = new ArrayList<>(topPosterMap.values());
 
         // 取最新上线的，且去重
@@ -80,25 +80,25 @@ public class PosterServiceImpl implements IPosterService {
      * @param pageSize
      * @return
      */
-    private Map<String,SequencePoster> getTopPoster(int pageSize) {
+    private Map<Integer,SequencePoster> getTopPoster(int pageSize) {
 
         // TODO 后期改为基于redis实现
-        Map<String,TopPoster> map =  posterDao.getTopPoster(1,30,pageSize);
+        Map<Integer, TopPosterData> map =  posterDao.getTopPoster(1,30,pageSize);
         if(map == null || map.isEmpty()){
             return Collections.emptyMap();
         }
 
         StringBuilder ids = new StringBuilder();
-        for(String posterId:map.keySet()){
+        for(int posterId:map.keySet()){
             ids.append(posterId).append(",");
         }
         ids.deleteCharAt(ids.length() -1);
 
-        Map<String,SequencePoster> retMap = new HashMap<>();
+        Map<Integer,SequencePoster> retMap = new HashMap<>();
 
         List<SequencePoster> list = posterDao.getPosterListByIds(ids.toString());
         for(SequencePoster o:list){
-            TopPoster tp = map.get(o.getId());
+            TopPosterData tp = map.get(o.getId());
             if(tp == null){
                 continue;
             }
@@ -120,7 +120,7 @@ public class PosterServiceImpl implements IPosterService {
     }
 
     @Override
-    public Poster getPosterDetail(String posterId) {
+    public PosterData getPosterDetail(int posterId) {
         return posterDao.getPosterDetail(posterId);
     }
 }

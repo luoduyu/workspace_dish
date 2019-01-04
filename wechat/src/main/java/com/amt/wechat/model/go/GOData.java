@@ -111,10 +111,10 @@ public class GOData implements Serializable {
     /**
      * 提交日期
      */
-    private String cTime;
+    private String createTime;
 
 
-    private String uTime;
+    private String updTime;
 
     public int getUsefor() {
         return usefor;
@@ -220,20 +220,20 @@ public class GOData implements Serializable {
         this.id = id;
     }
 
-    public String getcTime() {
-        return cTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setcTime(String cTime) {
-        this.cTime = cTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getuTime() {
-        return uTime;
+    public String getUpdTime() {
+        return updTime;
     }
 
-    public void setuTime(String uTime) {
-        this.uTime = uTime;
+    public void setUpdTime(String updTime) {
+        this.updTime = updTime;
     }
 
     public String getPoiUserId() {
@@ -304,8 +304,8 @@ public class GOData implements Serializable {
                 ", auditDate='" + auditDate + '\'' +
                 ", poiUserId='" + poiUserId + '\'' +
                 ", opinion='" + opinion + '\'' +
-                ", cTime='" + cTime + '\'' +
-                ", uTime='" + uTime + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updTime='" + updTime + '\'' +
                 '}';
     }
 }

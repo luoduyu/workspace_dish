@@ -1,7 +1,7 @@
 package com.amt.wechat.service.dish.impl;
 
 import com.amt.wechat.dao.dish.DishDao;
-import com.amt.wechat.model.dish.DishCate;
+import com.amt.wechat.model.dish.DishCateData;
 import com.amt.wechat.service.dish.DishService;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class DishServiceImpl implements DishService {
     private @Resource  DishDao dishDao;
 
     @Override
-    public List<DishCate> getPosterCateList() {
+    public List<DishCateData> getPosterCateList() {
         return dishDao.getPosterCate();
     }
 }

@@ -1,7 +1,7 @@
 package com.amt.wechat.controller.dish;
 
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.dish.DishCate;
+import com.amt.wechat.model.dish.DishCateData;
 import com.amt.wechat.service.dish.DishService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,7 @@ public class DishController {
      */
     @RequestMapping(value="/dish/allcate")
     public BizPacket findPosterCate(){
-        List<DishCate> list = dishService.getPosterCateList();
+        List<DishCateData> list = dishService.getPosterCateList();
         return BizPacket.success(list);
     }
 }

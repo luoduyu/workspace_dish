@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author adu Create on 2018-12-25 13:26
  * @version 1.0
  */
-public class DishCate implements Serializable {
+public class DishCateData implements Serializable {
     private static final long serialVersionUID = -3664574065814055847L;
 
     private int cateId;
@@ -61,7 +61,7 @@ public class DishCate implements Serializable {
 
     @Override
     public String toString() {
-        return "DishCate{" +
+        return "DishCateData{" +
                 "cateId=" + cateId +
                 ", name='" + name + '\'' +
                 ", nameSeq=" + nameSeq +

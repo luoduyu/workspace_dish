@@ -43,5 +43,23 @@ public interface IPoiUserService {
      */
     public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData);
 
+    /**
+     * 手机号更换
+     * @param currUserData 当前用户信息
+     *
+     * @param newMobile 新手机号
+     *
+     * @return
+     */
+    public BizPacket mobileReplace(PoiUserData currUserData, String newMobile);
+
+    /**
+     * 姓名更新
+     * @param id
+     * @param name
+     * @return
+     */
+    public BizPacket updatePoiUserName(String id,String name);
+
     public BizPacket testLogin() throws IOException;
 }

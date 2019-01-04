@@ -13,30 +13,30 @@ import java.util.Date;
  * @author adu Create on 2018-12-25 13:28
  * @version 1.0
  */
-public class Poster implements Serializable {
+public class PosterData implements Serializable {
     private static final long serialVersionUID = 2568389395708747432L;
 
-    private String id;
+    private int id;
     private int platform;
     private int cateId;
     private String title;
     private JSONArray banner;
     private JSONArray rendering;
-    private long mPrice;
-    private long price;
-    private Date cTime;
-    private Date uTime;
+    private int memberPrice;
+    private int price;
+    private Date createTime;
+    private Date updTime;
 
     /**
      * 海报是否可用;0:不可用;1:可用;
      */
     private int  isEnabled;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -80,36 +80,36 @@ public class Poster implements Serializable {
         this.rendering = rendering;
     }
 
-    public long getmPrice() {
-        return mPrice;
+    public int getMemberPrice() {
+        return memberPrice;
     }
 
-    public void setmPrice(long mPrice) {
-        this.mPrice = mPrice;
+    public void setMemberPrice(int memberPrice) {
+        this.memberPrice = memberPrice;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Date getcTime() {
-        return cTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setcTime(Date cTime) {
-        this.cTime = cTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getuTime() {
-        return uTime;
+    public Date getUpdTime() {
+        return updTime;
     }
 
-    public void setuTime(Date uTime) {
-        this.uTime = uTime;
+    public void setUpdTime(Date updTime) {
+        this.updTime = updTime;
     }
 
     public int getIsEnabled() {
@@ -121,17 +121,17 @@ public class Poster implements Serializable {
     }
     @Override
     public String toString() {
-        return "Poster{" +
+        return "PosterData{" +
                 "id='" + id + '\'' +
                 ", platform=" + platform +
                 ", cateId=" + cateId +
                 ", title='" + title + '\'' +
                 ", banner='" + banner.toString() + '\'' +
                 ", rendering=" + rendering.toString() +
-                ", mPrice=" + mPrice +
+                ", memberPrice=" + memberPrice +
                 ", price=" + price +
-                ", cTime=" + cTime +
-                ", uTime=" + uTime +
+                ", createTime=" + createTime +
+                ", updTime=" + updTime +
                 ", isEnabled=" + isEnabled+
                 '}';
     }

@@ -1,0 +1,123 @@
+package com.amt.wechat.model.order;
+
+import com.alibaba.fastjson.JSON;
+
+import java.io.Serializable;
+
+/**
+ * Copyright (c) 2019 by CANSHU
+ *
+ *  订单-物品项
+ *
+ * @author adu Create on 2019-01-04 19:02
+ * @version 1.0
+ */
+public class OrderItemData implements Serializable {
+    private static final long serialVersionUID = 8599317807676704847L;
+
+    private int id;
+
+    /**
+     * 1:海报;2:装修服务
+     */
+    private int goodsType;
+
+    /**
+     * 订单Id
+     */
+    private String orderId;
+
+    /**
+     * 海报Id/装修服务项Id
+     */
+    private String goodsId;
+
+    /**
+     * 海服名称/服务项名称
+     */
+    private String goodsName;
+
+    /**
+     * 购买数量
+     */
+    private int num;
+
+    /**
+     * 单价,单位:分
+     */
+    private int unitPrice;
+
+    /**
+     * 总金额,单位:分
+     */
+    private int totalCost;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(int goodsType) {
+        this.goodsType = goodsType;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public int getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(int unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    @Override
+    public String toString(){
+        return JSON.toJSONString(this);
+    }
+}

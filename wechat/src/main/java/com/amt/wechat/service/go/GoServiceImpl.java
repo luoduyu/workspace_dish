@@ -75,8 +75,8 @@ public class GoServiceImpl implements  GoService {
         data.setAuditStatus(0);
         data.setOpinion("");
 
-        data.setcTime(data.getAuditDate());
-        data.setuTime(data.getcTime());
+        data.setCreateTime(data.getAuditDate());
+        data.setUpdTime(data.getUpdTime());
         return data;
     }
 

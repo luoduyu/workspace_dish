@@ -54,7 +54,7 @@ public class PoiUserData implements Serializable {
     private String mobile="";
 
     /**
-     * 性别 0：未知、1：男、2：女
+     * 性别 0:未知,1:男,2:女
      */
     private int gender;
     private  String countryCode;
@@ -65,8 +65,8 @@ public class PoiUserData implements Serializable {
     private String name;
     private String nickName="";
     private String avatarUrl="";
-    private String cTime;
-    private String uTime;
+    private String createTime;
+    private String updTime;
 
     public String getId() {
         return id;
@@ -213,20 +213,20 @@ public class PoiUserData implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getcTime() {
-        return cTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setcTime(String cTime) {
-        this.cTime = cTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getuTime() {
-        return uTime;
+    public String getUpdTime() {
+        return updTime;
     }
 
-    public void setuTime(String uTime) {
-        this.uTime = uTime;
+    public void setUpdTime(String updTime) {
+        this.updTime = updTime;
     }
 
     public String getPoiId() {
@@ -244,6 +244,7 @@ public class PoiUserData implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Override
     public String toString() {
@@ -265,7 +266,7 @@ public class PoiUserData implements Serializable {
                 ", unionid='" + unionid + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
-                ", cTime='" + cTime + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

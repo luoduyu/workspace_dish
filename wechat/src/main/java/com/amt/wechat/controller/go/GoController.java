@@ -5,7 +5,6 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.ShenQingForm;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.go.GoService;
-import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.redis.RedisService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,6 @@ public class GoController extends BaseController {
     private @Value("${devMode}") boolean devMode = false;
 
     private @Resource RedisService redisService;
-    private @Resource IPoiUserService poiUserService;
     private @Resource GoService goService;
 
     /**
@@ -123,34 +121,5 @@ public class GoController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"id必传");
         }
         return goService.requestFormReSubmit(id);
-    }
-
-
-    @RequestMapping(value = "/go/auth/mobile",method = {RequestMethod.GET,RequestMethod.POST},produces = {"application/json","text/html"})
-    public BizPacket wechatAuthByMobile(String name,String mobile,String smsCode){
-        String code = redisService.getSMSCode(mobile);
-        if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(smsCode)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
-        }
-        if(StringUtils.isEmpty(name)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉，请填写姓名!");
-        }
-
-
-        PoiUserData userData = getUser();
-        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
-        }
-        if(StringUtils.isEmpty(userData.getMobile())){
-           if(StringUtils.isEmpty(mobile)){
-               return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写手机号!");
-           }
-        }else{
-            if(!userData.getMobile().equalsIgnoreCase(mobile)){
-                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与已有手机号不一致!原手机号:"+userData.getMobile());
-            }
-        }
-
-        return poiUserService.auth4Mobile(name,mobile,getUser());
     }
 }

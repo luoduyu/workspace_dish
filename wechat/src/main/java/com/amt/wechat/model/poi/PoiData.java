@@ -25,6 +25,51 @@ public class PoiData implements Serializable {
     private String name;
 
     /**
+     * 国家
+     */
+    private String country="中国";
+
+    /**
+     * 省份
+     */
+    private String province;
+
+    /**
+     * 市
+     */
+    private String city;
+
+
+    /**
+     * 区
+     */
+    private String districts;
+
+    /**
+     * 街道
+     */
+    private String street;
+
+
+    /**
+     * 详细地址
+     */
+    private String address;
+
+
+    /**
+     * 品牌名称
+     */
+    private String brandName;
+
+
+    /**
+     * 经营品类
+     */
+    private int cateId;
+
+
+    /**
      * 门店帐户名
      */
     private String accountName;
@@ -44,6 +89,17 @@ public class PoiData implements Serializable {
      */
     private String eleShopId;
 
+
+    /**
+     * 创建时间
+     */
+    private String createTime;
+
+    /**
+     * 最后更新时间
+     */
+    private String updTime;
+
     public String getId() {
         return id;
     }
@@ -58,6 +114,71 @@ public class PoiData implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(String districts) {
+        this.districts = districts;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public int getCateId() {
+        return cateId;
+    }
+
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
     }
 
     public String getAccountName() {
@@ -92,9 +213,25 @@ public class PoiData implements Serializable {
         this.eleShopId = eleShopId;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdTime() {
+        return updTime;
+    }
+
+    public void setUpdTime(String updTime) {
+        this.updTime = updTime;
+    }
+
     @Override
     public String toString() {
-        return "POIData{" +
+        return "PoiData{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", accountName='" + accountName + '\'' +

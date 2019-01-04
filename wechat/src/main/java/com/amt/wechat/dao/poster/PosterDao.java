@@ -21,7 +21,7 @@ import java.util.Map;
 @Mapper
 public interface PosterDao {
 
-    @Select("SELECT * FROM poster WHERE isEnabled=1 ORDER BY uTime DESC LIMIT #{index},#{pageSize}")
+    @Select("SELECT * FROM poster WHERE isEnabled=1 ORDER BY updTime DESC LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
@@ -37,9 +37,9 @@ public interface PosterDao {
     public List<SequencePoster> getPosterListByIds(@Param("ids")String ids);
 
 
-    @Insert("INSERT INTO poster (id, platform,cateId, title,banner,rendering, mPrice,price, cTime, uTime)" +
-            "VALUES(#{id},#{platform},#{cateId},#{title},#{banner,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{rendering,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{mPrice},#{price},#{cTime},#{uTime})")
-    public void addPoster(Poster poster);
+    @Insert("INSERT INTO poster (platform,cateId, title,banner,rendering, memberPrice,price, createTime, updTime)" +
+            "VALUES(#{platform},#{cateId},#{title},#{banner,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{rendering,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{memberPrice},#{price},#{createTime},#{updTime})")
+    public void addPoster(PosterData posterData);
 
 
 
@@ -47,7 +47,7 @@ public interface PosterDao {
 
     @Select("SELECT posterId,showSeq FROM poster_recommend ORDER BY showSeq ASC")
     @MapKey("posterId")
-    public Map<String, RecommendPoster> getRecommendPoster();
+    public Map<Integer, RecommendPoster> getRecommendPoster();
 
 
     /**
@@ -60,7 +60,7 @@ public interface PosterDao {
      */
     @Select("SELECT posterId,sales FROM poster_sales_top WHERE timeUnit=#{timeUnit} AND expiresIn=#{expiresIn} ORDER BY sales DESC LIMIT #{pageSize}")
     @MapKey("posterId")
-    public Map<String, TopPoster> getTopPoster(int timeUnit, int expiresIn, int  pageSize);
+    public Map<Integer, TopPosterData> getTopPoster(int timeUnit, int expiresIn, int  pageSize);
 
 
     /**
@@ -88,5 +88,5 @@ public interface PosterDao {
             @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
-    public Poster getPosterDetail(String posterId);
+    public PosterData getPosterDetail(int posterId);
 }

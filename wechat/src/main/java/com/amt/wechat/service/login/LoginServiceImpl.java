@@ -1,10 +1,10 @@
 package com.amt.wechat.service.login;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.amt.wechat.service.redis.RedisService;
+import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.sms.AliSMS;
-import com.amt.wechat.domain.util.WechatUtil;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class LoginServiceImpl implements  LoginService {
 
     @Override
     public BizPacket sendSMS(String mobile,int timeoutMinutes, String templateCode) {
-        String code = WechatUtil.generateCode();
+        String code = Generator.generateCode();
         try {
             AliSMS.send(mobile,code,templateCode);
 

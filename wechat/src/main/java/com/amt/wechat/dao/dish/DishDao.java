@@ -1,6 +1,6 @@
 package com.amt.wechat.dao.dish;
 
-import com.amt.wechat.model.dish.DishCate;
+import com.amt.wechat.model.dish.DishCateData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -18,5 +18,9 @@ import java.util.List;
 public interface DishDao {
 
     @Select("SELECT * FROM dish_cate ORDER BY nameSeq ASC,subSeq ASC")
-    public List<DishCate> getPosterCate();
+    public List<DishCateData> getPosterCate();
+
+
+    @Select("SELECT COUNT(cateId) FROM dish_cate WHERE cateId=#{cateId}")
+    public int countByCateId(int cateId);
 }

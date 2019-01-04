@@ -13,12 +13,12 @@ public enum PosterOrderClause {
     /**
      * 0:全部作品
      */
-    ALL("cTime ASC"),
+    ALL("createTime ASC"),
 
     /**
      * 1:最新作品
      */
-    LATEST("uTime DESC"),
+    LATEST("updTime DESC"),
 
     /**
      * 2:价格最低

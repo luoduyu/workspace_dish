@@ -1,5 +1,6 @@
 package com.amt.wechat.domain.id;
 
+import java.security.SecureRandom;
 import java.util.Date;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
@@ -65,9 +66,21 @@ public class Generator {
     }
 
 
+    /**
+     * 获取验证码数字
+     */
+    public static String generateCode(){
+        SecureRandom rand = new SecureRandom();
+        StringBuilder buffer = new StringBuilder(4);
+
+        for (int i = 0; i < 6; i++) {
+            buffer.append(rand.nextInt(10));
+        }
+        return buffer.toString();
+    }
     public static void main(String[] args) {
-        for(int i=0;i<100;i++) {
-            System.out.println(generate());
+        for(int i=0;i<5;i++) {
+            System.out.println(uuid());
         }
     }
 }

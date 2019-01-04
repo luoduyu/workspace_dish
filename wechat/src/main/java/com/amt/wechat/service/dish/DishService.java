@@ -1,6 +1,6 @@
 package com.amt.wechat.service.dish;
 
-import com.amt.wechat.model.dish.DishCate;
+import com.amt.wechat.model.dish.DishCateData;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface DishService {
      * 所有的海报分类数据
      * @return
      */
-    public List<DishCate> getPosterCateList();
+    public List<DishCateData> getPosterCateList();
 }

@@ -17,7 +17,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.security.AlgorithmParameters;
 import java.security.Key;
-import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.regex.Matcher;
@@ -220,10 +219,10 @@ public class WechatUtil {
 
 
     /**
-     * 验证手机号码
+     * 验证手机号码是否合法
      *
      * @param mobiles
-     * @return
+     * @return false:非法;true:合法
      */
     public static boolean isMobileNO(String mobiles) {
         boolean flag = false;
@@ -236,20 +235,6 @@ public class WechatUtil {
             flag = false;
         }
         return flag;
-    }
-
-    /**
-     * 获取验证码数字
-     */
-    public static String generateCode(){
-        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        SecureRandom rand = new SecureRandom();
-        StringBuilder buffer = new StringBuilder(4);
-
-        for (int i = 0; i < 6; i++) {
-            buffer.append(rand.nextInt(10));
-        }
-        return buffer.toString();
     }
 
     public static void main(String[] args) {

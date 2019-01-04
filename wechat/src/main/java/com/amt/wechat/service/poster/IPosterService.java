@@ -1,7 +1,7 @@
 package com.amt.wechat.service.poster;
 
 import com.amt.wechat.common.PosterOrderClause;
-import com.amt.wechat.model.poster.Poster;
+import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface IPosterService {
      */
     public List<SequencePoster> getRecommendPosterList();
 
-    public void addPoster(Poster poster);
+    public void addPoster(PosterData posterData);
 
     /**
      *
@@ -44,5 +44,5 @@ public interface IPosterService {
     public List<SequencePoster> getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause);
 
 
-    public Poster getPosterDetail(String posterId);
+    public PosterData getPosterDetail(int posterId);
 }

@@ -91,17 +91,29 @@ public class PoiUserServiceImpl implements IPoiUserService {
 
 
     /**
-     * 创建一个缺少的店铺数据
+     * 创建一个缺省的店铺数据
      * @return
      */
     private PoiData defaultPoiData(){
         PoiData poiData = new PoiData();
         poiData.setId(Generator.uuid());
+        poiData.setName("");
+        poiData.setCountry("中国");
+        poiData.setProvince("");
+        poiData.setCity("");
+        poiData.setStreet("");
+        poiData.setAddress("");
+
+        poiData.setBrandName("");
+        poiData.setCateId(-1);
+
         poiData.setAccountName("");
         poiData.setAccountPassword("");
         poiData.setEleShopId("");
         poiData.setMtAppAuthToken("");
-        poiData.setName("");
+
+        poiData.setCreateTime(DateTimeUtil.now());
+        poiData.setUpdTime(poiData.getUpdTime());
         return poiData;
     }
 
@@ -109,14 +121,14 @@ public class PoiUserServiceImpl implements IPoiUserService {
         PoiUserData data = new PoiUserData();
         data.setPoiId(poiId);
         data.setId(Generator.uuid());
-        data.setcTime(DateTimeUtil.now());
-        data.setuTime(data.getcTime());
+        data.setCreateTime(DateTimeUtil.now());
+        data.setUpdTime(data.getCreateTime());
         data.setOpenid(sessionKeyAndOpenid.getString("openid"));
         data.setIsAccountNonExpired(1);
         data.setIsAccountNonLocked(1);
         data.setIsCredentialsNonExpired(1);
         data.setIsEnabled(1);
-        data.setIsMaster(0);
+        data.setIsMaster(1);
         data.setName("");
 
 
@@ -191,6 +203,35 @@ public class PoiUserServiceImpl implements IPoiUserService {
         }
         poiUserDao.updatePOIUserNameAndMobile(name,mobile,userData.getId());
         return BizPacket.success();
+    }
+
+    @Override
+    public BizPacket mobileReplace(PoiUserData currUserData,String newMobile){
+        currUserData.setMobile(newMobile);
+        try {
+            redisService.addPoiUser(currUserData);
+        } catch (IOException e) {
+            logger.error("newMobile="+newMobile+",e="+e.getMessage(),e);
+        }
+        try {
+            poiUserDao.updatePOIUserMobile(newMobile,currUserData.getId());
+
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("newMobile="+newMobile+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    @Override
+    public BizPacket updatePoiUserName(String id,String name){
+        try {
+            poiUserDao.updatePOIUserName(name,id);
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 
     @Override

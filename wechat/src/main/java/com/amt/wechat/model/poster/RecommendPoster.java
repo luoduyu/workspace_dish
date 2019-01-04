@@ -11,18 +11,18 @@ import java.io.Serializable;
 public class RecommendPoster implements Serializable {
     private static final long serialVersionUID = -7071347273214159780L;
 
-    private String posterId;
+    private Integer posterId;
 
     /**
      * 显示顺序
      */
     private int showSeq;
 
-    public String getPosterId() {
+    public Integer getPosterId() {
         return posterId;
     }
 
-    public void setPosterId(String posterId) {
+    public void setPosterId(Integer posterId) {
         this.posterId = posterId;
     }
 

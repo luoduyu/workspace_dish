@@ -10,26 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderFormEx.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderServiceData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/go/GoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/go/GoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poster/PosterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poster/PosterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/handler/MyJSONHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/handler/MyJSONHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderItemData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/dish/DishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/dish/DishService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/go/GoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/go/GoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="67" column="53" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
+            <state relative-caret-position="505">
+              <caret line="84" column="1" lean-forward="true" selection-start-line="84" selection-start-column="1" selection-end-line="84" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,56 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderServiceData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-271">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderFormEx.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+            <state relative-caret-position="250">
+              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
+            <state relative-caret-position="306">
+              <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -258,10 +191,10 @@
         <option value="$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderService.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderServiceData.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" />
       </list>
     </option>
   </component>
@@ -361,27 +294,6 @@
               <item name="wechat" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
               <item name="poi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
@@ -559,7 +471,7 @@
       <workItem from="1546501986376" duration="621000" />
       <workItem from="1546502874799" duration="13431000" />
       <workItem from="1546564634288" duration="32560000" />
-      <workItem from="1546650891349" duration="26808000" />
+      <workItem from="1546650891349" duration="27529000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -610,7 +522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546605847377</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="完成订单评价的基础设计及订单评价获取接口及调试&#10;重构我的订单、订单详情">
+      <created>1546688175860</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1546688175860</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -646,7 +565,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238211000" />
+    <option name="totallyTimeSpent" value="238932000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -664,7 +583,7 @@
       <window_info id="Designer" order="0" />
       <window_info id="Favorites" order="1" sideWeight="0.6396104" side_tool="true" weight="0.21991481" />
       <window_info id="Web" order="2" sideWeight="0.7111651" side_tool="true" weight="0.25239617" />
-      <window_info content_ui="combo" id="Project" order="3" sideWeight="0.36038962" visible="true" weight="0.23695421" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.36038962" visible="true" weight="0.23695421" />
       <window_info id="Structure" order="4" sideWeight="0.71664375" side_tool="true" weight="0.22151224" />
       <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.21991481" side_tool="true" weight="0.2992383" />
       <window_info anchor="bottom" id="Problems" order="1" sideWeight="0.69861555" weight="0.2383025" />
@@ -745,7 +664,8 @@
     <MESSAGE value="登录,手机号授权,手机号授权验证码发送,运营开店申请提交、获取、重提交" />
     <MESSAGE value="完善理清开店申请提交、获取、再提交&#10;完成运营申请提交、获取、再提交&#10;理清外卖通的店铺与饿了么、美团店铺之间的关系&#10;完成验证码发送的专用和通用功能分离" />
     <MESSAGE value="完成店铺装修列表、商户老板手机更换、会员信息设置&#10;完成订单基础设计及我的订单、订单详情展示" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成店铺装修列表、商户老板手机更换、会员信息设置&#10;完成订单基础设计及我的订单、订单详情展示" />
+    <MESSAGE value="完成订单评价的基础设计及订单评价获取接口及调试&#10;重构我的订单、订单详情" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成订单评价的基础设计及订单评价获取接口及调试&#10;重构我的订单、订单详情" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -1081,57 +1001,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="54" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-271">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderItemData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-119">
           <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderFormEx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="67" column="53" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1148,6 +1021,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderServiceData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1158,10 +1041,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-271">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/MyOrderFormEx.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="84" column="1" lean-forward="true" selection-start-line="84" selection-start-column="1" selection-end-line="84" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

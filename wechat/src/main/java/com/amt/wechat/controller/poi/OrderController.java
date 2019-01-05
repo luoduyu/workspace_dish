@@ -59,6 +59,17 @@ public class OrderController extends BaseController {
     }
 
 
+    public BizPacket orderSubmit(){
+        // TODO
+        return BizPacket.success();
+    }
+    public BizPacket orderEdit(){
+
+        // TODO
+
+        return BizPacket.success();
+    }
+
     @RequestMapping("/order/service")
     public BizPacket getOrderService(@RequestParam("orderId") String orderId){
         if(StringUtils.isEmpty(orderId)){

@@ -53,9 +53,9 @@ public interface PosterDao {
     /**
      * 最近一个月/周/天销量最高的8-10条
      *
-     * @param timeUnit
-     * @param expiresIn
-     * @param pageSize
+     * @param timeUnit 期限单位;1:"DAYS"(天),2:"HOURS"(小时)
+     * @param expiresIn 1:最近一个月/周/天;2:最近两个月/周/天;3:最近三个月/周/天
+     * @param pageSize 页大小
      * @return
      */
     @Select("SELECT posterId,sales FROM poster_sales_top WHERE timeUnit=#{timeUnit} AND expiresIn=#{expiresIn} ORDER BY sales DESC LIMIT #{pageSize}")

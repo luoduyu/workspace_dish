@@ -20,9 +20,6 @@ public class MyJSONHandler extends BaseTypeHandler<JSONObject> {
 
     @Override
     public JSONObject getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        Array arrValue =  rs.getArray(columnName);
-        System.out.println(arrValue);
-
         String columnValue = rs.getString(columnName);
         if (null != columnValue){
             return JSONObject.parseObject(columnValue);

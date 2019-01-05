@@ -1,6 +1,7 @@
 package com.amt.wechat.model.order;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
 
@@ -70,7 +71,7 @@ public class OrderData implements Serializable {
     /**
      * 物品相关摘要
      */
-    private String goodsSummary;
+    private JSONObject goodsSummary;
 
     public String getPoiId() {
         return poiId;
@@ -152,11 +153,11 @@ public class OrderData implements Serializable {
         this.shippingCode = shippingCode;
     }
 
-    public String getGoodsSummary() {
+    public JSONObject getGoodsSummary() {
         return goodsSummary;
     }
 
-    public void setGoodsSummary(String goodsSummary) {
+    public void setGoodsSummary(JSONObject goodsSummary) {
         this.goodsSummary = goodsSummary;
     }
 

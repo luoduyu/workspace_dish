@@ -13,7 +13,7 @@ import java.util.List;
 public interface DishService {
 
     /**
-     * 所有的海报分类数据
+     * 所有的海报分类数据,返回数据以DishCateData.nameSeq ASC,DishCateData.subSeq ASC排列
      * @return
      */
     public List<DishCateData> getPosterCateList();

@@ -50,10 +50,7 @@ public class GoController extends BaseController {
         }
         if(shenQingForm.getDishCateId() <= 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写经营品类!");
-        }
-        if(shenQingForm.getAmount() <= 0){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
-        }
+       }
 
         // 由此地址提交的就是开店申请
         shenQingForm.setUsefor(0);
@@ -79,9 +76,6 @@ public class GoController extends BaseController {
         }
         if(StringUtils.isEmpty(shenQingForm.getContactName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写联系人姓名!");
-        }
-        if(shenQingForm.getAmount() <= 0){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
         }
 
         // 由此地址提交的就是运营申请

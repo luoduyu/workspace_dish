@@ -1,7 +1,8 @@
 package com.amt.wechat.service.order;
 
-import com.amt.wechat.model.order.OrderData;
+import com.amt.wechat.form.MyOrderForm;
 import com.amt.wechat.model.order.OrderItemData;
+import com.amt.wechat.model.order.OrderServiceData;
 
 import java.util.List;
 
@@ -13,6 +14,22 @@ import java.util.List;
  */
 public interface OrderService {
 
-    public List<OrderData> getOrderDataList(String poiId, int index, int pageSize);
+    /**
+     * 数据以下单时间倒序排列
+     * @param poiId
+     * @param index 0表示第1页,1表示第2页
+     * @param pageSize
+     * @return
+     */
+    public List<MyOrderForm> getOrderDataList(String poiId, int index, int pageSize);
+
+    /**
+     * 某订单明细
+     * @param orderId 订单Id
+     * @return
+     */
     public List<OrderItemData> getOrderDetail(String orderId);
+
+
+    public OrderServiceData getOrderService(String orderId);
 }

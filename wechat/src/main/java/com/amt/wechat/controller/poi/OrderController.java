@@ -2,13 +2,15 @@ package com.amt.wechat.controller.poi;
 
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.order.OrderData;
+import com.amt.wechat.form.MyOrderForm;
 import com.amt.wechat.model.order.OrderItemData;
+import com.amt.wechat.model.order.OrderServiceData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.order.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,7 +27,7 @@ public class OrderController extends BaseController {
 
     private @Resource OrderService orderService;
 
-    @RequestMapping("/order/list")
+    @RequestMapping("/order/my")
     public BizPacket findOrderList(Integer index,Integer pageSize){
         if(index == null){
             index = 0;
@@ -34,7 +36,7 @@ public class OrderController extends BaseController {
             pageSize = 20;
         }
         PoiUserData userData = getUser();
-        List<OrderData> list =  orderService.getOrderDataList(userData.getPoiId(),index,pageSize);
+        List<MyOrderForm> list =  orderService.getOrderDataList(userData.getPoiId(),index,pageSize);
 
         if(list == null || list.isEmpty()){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂时没有订单!");
@@ -54,5 +56,19 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"无明细!");
         }
         return BizPacket.success(list);
+    }
+
+
+    @RequestMapping("/order/service")
+    public BizPacket getOrderService(@RequestParam("orderId") String orderId){
+        if(StringUtils.isEmpty(orderId)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少订单Id");
+        }
+
+        OrderServiceData data = orderService.getOrderService(orderId);
+        if(data == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂无评价");
+        }
+        return BizPacket.success(data);
     }
 }

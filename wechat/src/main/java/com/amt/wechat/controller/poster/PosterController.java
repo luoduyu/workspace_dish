@@ -27,6 +27,10 @@ public class PosterController extends BaseController {
     private @Resource IPosterService posterService;
 
 
+    /**
+     * 猜你想要海报列表接口
+     * @return
+     */
     @RequestMapping(value = "/poster/recommanded/list",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket findPosterList(){
         List<SequencePoster> list =  posterService.getRecommendPosterList();
@@ -34,6 +38,12 @@ public class PosterController extends BaseController {
     }
 
 
+    /**
+     * 智能推荐
+     * @param index
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/poster/intellij/list",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket findIntelligent(Integer index,Integer pageSize){
         if(index == null || index <0 || index >Integer.MAX_VALUE){
@@ -52,12 +62,12 @@ public class PosterController extends BaseController {
     /**
      * 分类别的海报列表
      * @param cateId 类别Id
-     * @param orderClause 0：全部;1:最新作品;2:价格最低;3:人气作品;
+     * @param orderClause 0：全部;1:最新作品;2:价格最低;3:人气作品(按销量倒排)
      * @return
      */
     @RequestMapping(value="/poster/cate/list")
-    public BizPacket findPosterListByCate(@RequestParam("cateId") int cateId, Integer index, Integer pageSize, Integer orderClause){
-        if(cateId <= 0 || cateId >= Integer.MAX_VALUE){
+    public BizPacket findPosterListByCate(@RequestParam("cateId") Integer cateId, Integer index, Integer pageSize, Integer orderClause){
+        if(cateId == null || cateId <= 0 || cateId >= Integer.MAX_VALUE){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"类别参数错误!");
         }
         if(orderClause == 0){

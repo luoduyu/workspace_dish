@@ -34,11 +34,21 @@ public class GoServiceImpl implements  GoService {
 
     @Override
     public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData) {
+        if(form.getAmount() <= 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
+        }
+
+        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(form.getContactMobile())){
+            if(!form.getContactMobile().equalsIgnoreCase(userData.getMobile())){
+                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与预留手机号不一致!");
+            }
+        }
+
         GOData data = create(form,userData);
         goDao.addRequestForm(data);
 
         // 若之前手机号是空的，则填充之
-        if(StringUtils.isEmpty(userData.getMobile())){
+        if(StringUtils.isEmpty(userData.getMobile()) &&  !StringUtils.isEmpty(form.getContactMobile())){
             userData.setMobile(form.getContactMobile());
             userData.setName(form.getContactName());
             userDAO.updatePOIUserNameAndMobile(userData.getName(),userData.getMobile(),userData.getId());

@@ -1,6 +1,7 @@
 package com.amt.wechat.model.order;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @author adu Create on 2019-01-04 19:02
  * @version 1.0
  */
+@Alias("orderItemData")
 public class OrderItemData implements Serializable {
     private static final long serialVersionUID = 8599317807676704847L;
 
@@ -50,7 +52,7 @@ public class OrderItemData implements Serializable {
     /**
      * 总金额,单位:分
      */
-    private int totalCost;
+    private int total;
 
     public int getId() {
         return id;
@@ -108,12 +110,12 @@ public class OrderItemData implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public int getTotalCost() {
-        return totalCost;
+    public int getTotal() {
+        return total;
     }
 
-    public void setTotalCost(int totalCost) {
-        this.totalCost = totalCost;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     @Override

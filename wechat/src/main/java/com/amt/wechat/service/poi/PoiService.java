@@ -17,6 +17,10 @@ import java.util.List;
  */
 public interface PoiService {
 
+    /**
+     *
+     * @return 数据以 MaterialData.showSeq 升序排列
+     */
     public List<MaterialData> getPoiMaterialDataList();
 
     public BizPacket updatePoi(PoiUserData userData,BasicSettingForm form);

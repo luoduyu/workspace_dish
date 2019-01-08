@@ -1,4 +1,4 @@
-package com.amt.wechat.form;
+package com.amt.wechat.form.basic;
 
 import com.alibaba.fastjson.JSON;
 

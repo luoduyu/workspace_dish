@@ -1,8 +1,10 @@
 package com.amt.wechat.service.order;
 
-import com.amt.wechat.form.MyOrderForm;
-import com.amt.wechat.model.order.OrderItemData;
-import com.amt.wechat.model.order.OrderServiceData;
+import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.form.order.OrderItemForm;
+import com.amt.wechat.form.order.OrderSubmitForm;
+import com.amt.wechat.model.order.MyOrderForm;
+import com.amt.wechat.model.poi.PoiUserData;
 
 import java.util.List;
 
@@ -28,8 +30,56 @@ public interface OrderService {
      * @param orderId 订单Id
      * @return
      */
-    public List<OrderItemData> getOrderDetail(String orderId);
+    public BizPacket getOrderDetail(String orderId);
 
 
-    public OrderServiceData getOrderService(String orderId);
+    /**
+     * 服务评价
+     * @return
+     */
+    public BizPacket commentSubmit(String orderId, Integer scoreService, Integer scoreProfess, Integer scoreResponse, String commentText, PoiUserData userData);
+
+
+    /**
+     * 订单提交
+     * @param userData
+     * @param orderSubmitForm
+     * @return
+     */
+    public BizPacket orderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm);
+
+    /**
+     * 订单数量编辑
+     * @return
+     */
+    public BizPacket orderEditNum( PoiUserData userData,OrderItemForm orderItemForm);
+
+    /**
+     * 订单项增加
+     * @param orderId
+     * @param goodsType 1:海报;2:装修服务
+     * @param goodsId
+     * @param num
+     * @return
+     */
+    public BizPacket orderItemAdd(PoiUserData userData,String orderId, int goodsType,Integer goodsId, int num);
+
+    /**
+     *
+     *
+     * @param orderId
+     * @param goodsId
+     * @param orderItemId
+     * @return
+     */
+    public BizPacket orderItemRM(PoiUserData userData,String orderId,Integer goodsId, int orderItemId);
+
+
+    /**
+     * 订单删除
+     * @param userData
+     * @param orderId
+     * @return
+     */
+    public BizPacket orderRM(PoiUserData userData,String orderId);
 }

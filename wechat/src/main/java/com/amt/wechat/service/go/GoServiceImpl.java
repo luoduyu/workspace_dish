@@ -4,7 +4,7 @@ import com.amt.wechat.dao.go.GoDao;
 import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.form.yunying.ShenQingForm;
 import com.amt.wechat.model.go.GOData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.redis.RedisService;

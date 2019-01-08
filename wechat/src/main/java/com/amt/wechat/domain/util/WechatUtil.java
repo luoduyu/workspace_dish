@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.Constants;
 import com.amt.wechat.domain.PhoneData;
+import com.amt.wechat.domain.packet.BizPacket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -246,5 +247,13 @@ public class WechatUtil {
         JSONObject json = getUserInfo(encryptedData,session_key,iv);
         System.out.println(json);
         */
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id","123456");
+        jsonObject.put("goodsName","i am is goods");
+        jsonObject.put("imgUrl","https://www.wmt.com/a/b/c.jpg");
+
+        String result = JSON.toJSONString(BizPacket.success(jsonObject));
+        System.out.println(result);
     }
 }

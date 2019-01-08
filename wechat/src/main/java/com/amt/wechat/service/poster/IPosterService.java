@@ -1,6 +1,6 @@
 package com.amt.wechat.service.poster;
 
-import com.amt.wechat.common.PosterOrderClause;
+import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;
 

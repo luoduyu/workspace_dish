@@ -18,7 +18,7 @@ import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WechatUtil;
-import com.amt.wechat.form.WeichatLoginForm;
+import com.amt.wechat.form.basic.WeichatLoginForm;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.poi.IPoiUserService;

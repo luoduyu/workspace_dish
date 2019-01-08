@@ -24,6 +24,12 @@ public class PoiData implements Serializable {
      */
     private String name;
 
+
+    /**
+     * 0:非会员;1:会员
+     */
+    private int memberFlag;
+
     /**
      * 国家
      */
@@ -115,7 +121,13 @@ public class PoiData implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    public int getMemberFlag() {
+        return memberFlag;
+    }
 
+    public void setMemberFlag(int memberFlag) {
+        this.memberFlag = memberFlag;
+    }
 
     public String getCountry() {
         return country;

@@ -1,4 +1,4 @@
-package com.amt.wechat.form;
+package com.amt.wechat.form.poster;
 
 import com.amt.wechat.model.poster.SequencePoster;
 

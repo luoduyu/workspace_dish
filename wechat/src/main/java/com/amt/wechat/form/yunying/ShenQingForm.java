@@ -1,4 +1,4 @@
-package com.amt.wechat.form;
+package com.amt.wechat.form.yunying;
 
 import java.io.Serializable;
 

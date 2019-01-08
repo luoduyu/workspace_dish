@@ -1,7 +1,6 @@
-package com.amt.wechat.form;
+package com.amt.wechat.model.order;
 
 import com.alibaba.fastjson.JSON;
-import com.amt.wechat.model.order.OrderItemData;
 import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;

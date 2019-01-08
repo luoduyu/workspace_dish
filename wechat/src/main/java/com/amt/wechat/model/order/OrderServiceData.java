@@ -17,18 +17,64 @@ public class OrderServiceData implements Serializable {
 
     private static final long serialVersionUID = 8000626084263319623L;
 
+    /**
+     * 订单Id
+     */
     private String orderId;
-    private int servicerId;
-    private String servicerName;
-    private int scoreService;
-    private int scoreProfess;
-    private int scoreResponse;
-    private String commentText;
 
     /**
-     * 服务员总评价
+     * 服务人员Id
      */
-    private int totalScore;
+    private int servicerId;
+
+    /**
+     * 服务人员姓名
+     */
+    private String servicerName;
+
+    /**
+     * 创建时间
+     */
+    private String createTime;
+
+
+    /**
+     * 评价状态;0:未评;1:已评
+     */
+    private int commentStatus;
+
+    /**
+     * 综合服务评分
+     */
+    private Integer scoreService=0;
+
+    /**
+     * 专业能力评分
+     */
+    private Integer scoreProfess=0;
+
+    /**
+     * 响应速度评分
+     */
+    private Integer scoreResponse=0;
+
+    /**
+     * 评价内容
+     */
+    private String commentText;
+
+
+    /**
+     * 评价者Id
+     */
+    private String commentUserId;
+
+
+    /**
+     * 评价时间
+     */
+    private String commentTime;
+
 
     public String getOrderId() {
         return orderId;
@@ -52,6 +98,22 @@ public class OrderServiceData implements Serializable {
 
     public void setServicerName(String servicerName) {
         this.servicerName = servicerName;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(int commentStatus) {
+        this.commentStatus = commentStatus;
     }
 
     public int getScoreService() {
@@ -86,12 +148,20 @@ public class OrderServiceData implements Serializable {
         this.commentText = commentText;
     }
 
-    public int getTotalScore() {
-        return totalScore;
+    public String getCommentUserId() {
+        return commentUserId;
     }
 
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+    public void setCommentUserId(String commentUserId) {
+        this.commentUserId = commentUserId;
+    }
+
+    public String getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(String commentTime) {
+        this.commentTime = commentTime;
     }
 
     @Override

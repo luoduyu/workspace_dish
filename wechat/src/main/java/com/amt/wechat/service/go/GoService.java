@@ -1,7 +1,7 @@
 package com.amt.wechat.service.go;
 
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.form.yunying.ShenQingForm;
 import com.amt.wechat.model.poi.PoiUserData;
 
 /**

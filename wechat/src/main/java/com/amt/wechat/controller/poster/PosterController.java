@@ -1,9 +1,9 @@
 package com.amt.wechat.controller.poster;
 
-import com.amt.wechat.common.PosterOrderClause;
+import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.SeqPosterWrapper;
+import com.amt.wechat.form.poster.SeqPosterWrapper;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;

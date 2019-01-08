@@ -5,7 +5,7 @@ import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiMaterialDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
-import com.amt.wechat.form.BasicSettingForm;
+import com.amt.wechat.form.basic.BasicSettingForm;
 import com.amt.wechat.model.poi.MaterialData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;

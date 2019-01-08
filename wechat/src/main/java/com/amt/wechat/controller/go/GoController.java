@@ -2,7 +2,7 @@ package com.amt.wechat.controller.go;
 
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.ShenQingForm;
+import com.amt.wechat.form.yunying.ShenQingForm;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.go.GoService;
 import com.amt.wechat.service.redis.RedisService;

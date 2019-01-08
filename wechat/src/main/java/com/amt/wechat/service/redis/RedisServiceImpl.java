@@ -1,6 +1,5 @@
 package com.amt.wechat.service.redis;
 
-import com.amt.wechat.common.RedisConstants;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.model.poi.PoiUserData;
 import org.slf4j.Logger;

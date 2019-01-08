@@ -32,12 +32,17 @@ public class OrderItemData implements Serializable {
     /**
      * 海报Id/装修服务项Id
      */
-    private String goodsId;
+    private int goodsId;
 
     /**
      * 海服名称/服务项名称
      */
     private String goodsName;
+
+    /**
+     * 图片地址
+     */
+    private String imgUrl;
 
     /**
      * 购买数量
@@ -78,11 +83,11 @@ public class OrderItemData implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(String goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -92,6 +97,14 @@ public class OrderItemData implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public int getNum() {

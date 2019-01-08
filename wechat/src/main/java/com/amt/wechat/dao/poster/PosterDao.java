@@ -23,25 +23,34 @@ public interface PosterDao {
 
     @Select("SELECT * FROM poster WHERE isEnabled=1 ORDER BY updTime DESC LIMIT #{index},#{pageSize}")
     @Results({
-            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public List<SequencePoster> getPosterList(int index,int pageSize);
 
 
+
+    @Select("SELECT * FROM poster WHERE id=#{id}")
+    public PosterData getPosterData(int id);
+
+    @Select("SELECT * FROM poster WHERE id IN(${ids})")
+    @MapKey("id")
+    public Map<Integer,PosterData> getPosterDataMap(String ids);
+
+
+
+
+
+
     @Select("SELECT * FROM poster WHERE isEnabled=1 AND id IN (${ids})")
     @Results({
-            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public List<SequencePoster> getPosterListByIds(@Param("ids")String ids);
 
 
-    @Insert("INSERT INTO poster (platform,cateId, title,banner,rendering, memberPrice,price, createTime, updTime)" +
-            "VALUES(#{platform},#{cateId},#{title},#{banner,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{rendering,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{memberPrice},#{price},#{createTime},#{updTime})")
+    @Insert("INSERT INTO poster (platform,cateId, name,coverImg,rendering, memberPrice,price, createTime, updTime)" +
+            "VALUES(#{platform},#{cateId},#{name},#{coverImg},#{rendering,jdbcType=OTHER,typeHandler=com.amt.wechat.domain.handler.MyJSONArrayHandler},#{memberPrice},#{price},#{createTime},#{updTime})")
     public void addPoster(PosterData posterData);
-
-
 
 
 
@@ -69,7 +78,6 @@ public interface PosterDao {
      */
     @Select("SELECT p.*,pt.sales AS showSeq FROM poster p LEFT JOIN poster_sales_top pt ON p.id=pt.posterId WHERE p.isEnabled=1 AND p.cateId = #{cateId} AND pt.timeUnit=1 AND pt.expiresIn=30 ORDER BY pt.sales DESC LIMIT #{index},#{pageSize}")
     @Results({
-            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public List<SequencePoster> getPosterListBySales(int cateId,int index,int pageSize);
@@ -77,7 +85,6 @@ public interface PosterDao {
 
     @Select("SELECT * FROM poster WHERE isEnabled=1 AND cateId=#{cateId} ORDER BY ${orderClause} LIMIT #{index},#{pageSize}")
     @Results({
-            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public List<SequencePoster> getPosterListByClause(int cateId,String orderClause,int index,int pageSize);
@@ -85,7 +92,6 @@ public interface PosterDao {
 
     @Select("SELECT * FROM poster WHERE isEnabled=1 AND id=#{posterId}")
     @Results({
-            @Result(property = "banner",column = "banner",typeHandler = MyJSONArrayHandler.class),
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public PosterData getPosterDetail(int posterId);

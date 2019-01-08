@@ -1,4 +1,4 @@
-package com.amt.wechat.common;
+package com.amt.wechat.service.redis;
 
 /**
  * Copyright (c) 2018 by CANSHU

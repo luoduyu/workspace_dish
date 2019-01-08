@@ -19,6 +19,6 @@ public class MyWebMvcConfigurer  implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authHandlerInterceptor).addPathPatterns("/poster/**","/go/**","/setting/**","/order/**");
+        registry.addInterceptor(authHandlerInterceptor).addPathPatterns("/poster/**","/go/**","/setting/**","/order/**","/bidding/recharge/**");
     }
 }

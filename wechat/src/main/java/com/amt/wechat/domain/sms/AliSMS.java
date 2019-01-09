@@ -7,7 +7,6 @@ import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
@@ -42,19 +41,24 @@ public class AliSMS {
      * 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
      * @return
      */
-    private static final String accessKeyId = "yourAccessKeyId";
-    private static final String accessKeySecret = "yourAccessKeySecret";
-    private static final String signName = "[外卖通]";
+    private static final String accessKeyId = "LTAIUsk3XoX11fgB";
+    private static final String accessKeySecret = "4tbheHuwl4o3VAxhT1veh1c54snEdJ";
+    private static final String signName = "外卖通";
 
 
     /**
-     * 模板代码:小程序运营申请手机验证码
+     * 短信模板代号-运营操作类
      */
-    public static final String TEMP_CODE_0531 = "SMS_154500531";
+    public static final String SMS_TEMPLATE_OP = "SMS_154961219";
+
+    /**
+     * 短信模板代号-账户类
+     */
+    public static final String SMS_TEMPLATE_ACCOUNT = "SMS_154951334";
 
 
 
-    public static SendSmsResponse send(String mobile,String smsCode,String templateCode) throws ClientException, ServerException {
+    public static SendSmsResponse send(String mobile,String smsCode,String templateCode) throws ClientException {
 
         // 可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -79,7 +83,7 @@ public class AliSMS {
 
         // 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         //request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"123\"}");
-        request.setTemplateParam("{\"code\":\""+smsCode+"\"}");
+        request.setTemplateParam("{\"smscode\":\""+smsCode+"\"}");
 
         // 选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
@@ -94,6 +98,12 @@ public class AliSMS {
     }
 
 
+    /**
+     * 查询发送结果
+     * @param bizId
+     * @return
+     * @throws ClientException
+     */
     public static QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
 
         // 可自助调整超时时间
@@ -128,7 +138,7 @@ public class AliSMS {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         // 发短信
-        SendSmsResponse response = send("15000000000","456856",TEMP_CODE_0531);
+        SendSmsResponse response = send("13718787139","456856",SMS_TEMPLATE_OP);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());

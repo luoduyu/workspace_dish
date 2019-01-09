@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface GoDao {
 
-    @Insert("INSERT INTO poi_request(usefor,brandName, province, city, address, districts, platform, poiType, dishCateId, amount, contactName, contactMobile,poiId,poiUserId, isMember, auditStatus, auditDate, opinion, createTime,updTime) VALUES(#{usefor},#{brandName},#{province}, #{city}, #{address},#{districts},#{platform},#{poiType},#{dishCateId},#{amount}, #{contactName},#{contactMobile},#{poiId},#{poiUserId}, #{isMember}, #{auditStatus}, #{auditDate},#{opinion}, #{createTime},#{updTime})")
+    @Insert("INSERT INTO poi_request(usefor,brandName, province, city, address, districts, platform, poiType, dishCateId, amount, poiId,poiUserId,auditStatus,auditDate,opinion,createTime,updTime) VALUES(#{usefor},#{brandName},#{province}, #{city}, #{address},#{districts},#{platform},#{poiType},#{dishCateId},#{amount},#{poiId},#{poiUserId}, #{auditStatus}, #{auditDate},#{opinion}, #{createTime},#{updTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public void addRequestForm(GOData goData);
 
@@ -31,6 +31,6 @@ public interface GoDao {
     public GOData getDataById(int id);
 
 
-    @Select("UPDATE poi_request SET auditStatus = 0 ,updTime=#{updTime} WHERE id =#{id}")
-    public void updateData(String updTime,int id);
+    @Select("UPDATE poi_request SET poiUserId=#{poiUserId},auditStatus = 0 ,updTime=#{updTime} WHERE id =#{id}")
+    public void updateData(String poiUserId,String updTime,int id);
 }

@@ -41,4 +41,5 @@ public interface PoiDao {
 
     @Update("UPDATE poi_account SET curBiddingBalance = #{currentTotalBiddingBalance} WHERE poiId=#{poiId}")
     public void updatePoiBiddingBalance(int currentTotalBiddingBalance,String poiId);
+
 }

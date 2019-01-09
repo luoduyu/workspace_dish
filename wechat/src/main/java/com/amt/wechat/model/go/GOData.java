@@ -5,6 +5,8 @@ import java.io.Serializable;
 /**
  * Copyright (c) 2019 by CANSHU
  *
+ *  开店申请/运营申请
+ *
  * @author adu Create on 2019-01-02 19:40
  * @version 1.0
  */
@@ -14,7 +16,7 @@ public class GOData implements Serializable {
     private int id;
 
     /**
-     * 0:开店申请;1:f运营申请
+     * 0:开店申请;1:运营申请
      */
     private int usefor;
 
@@ -62,23 +64,8 @@ public class GOData implements Serializable {
     /**
      * 门店数量
      */
-    private int amount;
+    private int amount=-1;
 
-    /**
-     * 联系人姓名
-     */
-    private String contactName;
-
-    /**
-     * 联系人手机
-     */
-    private String contactMobile;
-
-
-    /**
-     * 是否会员;是否会员;0:否;1:是
-     */
-    private int isMember;
 
     /**
      * 进度;0:待审核;1:审核但未通过;2:审核且通过
@@ -195,23 +182,6 @@ public class GOData implements Serializable {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactMobile() {
-        return contactMobile;
-    }
-
-    public void setContactMobile(String contactMobile) {
-        this.contactMobile = contactMobile;
-    }
-
     public int getId() {
         return id;
     }
@@ -244,13 +214,7 @@ public class GOData implements Serializable {
         this.poiUserId = poiUserId;
     }
 
-    public int getIsMember() {
-        return isMember;
-    }
 
-    public void setIsMember(int isMember) {
-        this.isMember = isMember;
-    }
 
     public int getAuditStatus() {
         return auditStatus;
@@ -298,8 +262,6 @@ public class GOData implements Serializable {
                 ", poiType=" + poiType +
                 ", dishCateId=" + dishCateId +
                 ", amount=" + amount +
-                ", contactName='" + contactName + '\'' +
-                ", contactMobile='" + contactMobile + '\'' +
                 ", auditStatus=" + auditStatus +
                 ", auditDate='" + auditDate + '\'' +
                 ", poiUserId='" + poiUserId + '\'' +

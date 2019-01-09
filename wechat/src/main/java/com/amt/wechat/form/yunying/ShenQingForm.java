@@ -14,11 +14,6 @@ public class ShenQingForm implements Serializable {
     private static final long serialVersionUID = 6014201649360779089L;
 
     /**
-     * 0:开店申请;1:f运营申请
-     */
-    private int usefor;
-
-    /**
      * 品牌名称
      */
     private String brandName;
@@ -26,17 +21,17 @@ public class ShenQingForm implements Serializable {
     /**
      * 省份
      */
-    private String province;
+    private String province="";
 
     /**
      * 城市
      */
-    private String city;
+    private String city="";
 
     /**
      * 区
      */
-    private String districts;
+    private String districts="";
 
     /**
      * 详细地址
@@ -64,26 +59,8 @@ public class ShenQingForm implements Serializable {
      */
     private int amount;
 
-    /**
-     * 联系人姓名
-     */
-    private String contactName;
-
-    /**
-     * 联系人手机
-     */
-    private String contactMobile;
-
 
     private String smsCode;
-
-    public int getUsefor() {
-        return usefor;
-    }
-
-    public void setUsefor(int usefor) {
-        this.usefor = usefor;
-    }
 
     public String getBrandName() {
         return brandName;
@@ -157,22 +134,6 @@ public class ShenQingForm implements Serializable {
         this.amount = amount;
     }
 
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactMobile() {
-        return contactMobile;
-    }
-
-    public void setContactMobile(String contactMobile) {
-        this.contactMobile = contactMobile;
-    }
-
 
 
     public String getSmsCode() {
@@ -195,8 +156,6 @@ public class ShenQingForm implements Serializable {
                 ", poiType=" + poiType +
                 ", dishCateId=" + dishCateId +
                 ", amount=" + amount +
-                ", contactName='" + contactName + '\'' +
-                ", contactMobile='" + contactMobile + '\'' +
                 '}';
     }
 }

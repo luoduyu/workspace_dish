@@ -3,7 +3,6 @@ package com.amt.wechat.domain.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.Constants;
-import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.packet.BizPacket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,6 +15,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.AlgorithmParameters;
 import java.security.Key;
 import java.util.Arrays;
@@ -219,6 +219,8 @@ public class WechatUtil {
     }
 
 
+
+
     /**
      * 验证手机号码是否合法
      *
@@ -255,5 +257,51 @@ public class WechatUtil {
 
         String result = JSON.toJSONString(BizPacket.success(jsonObject));
         System.out.println(result);
+    }
+
+    /**
+     * Copyright (c) 2018 by CANSHU
+     *
+     *  电话号码
+     * @author adu Create on 2018-12-27 14:36
+     * @version 1.0
+     */
+    static class PhoneData implements Serializable {
+        private static final long serialVersionUID = 7882043107491655464L;
+
+        /**
+         * 临时存储在session中的电话号码(不带区号)
+         */
+        public  transient static final String SESSION_PHONE = "POI_USER_PHONE";
+
+        /**
+         * 临时存储在session中的电话号码的区号
+         */
+        public transient static final String SESSION_PHONE_CC = "POI_USER_PHONE_COUNTRYCODE";
+
+
+        private String purePhoneNumber;
+        private String countryCode;
+
+        public PhoneData(String purePhoneNumber, String countryCode) {
+            this.purePhoneNumber = purePhoneNumber;
+            this.countryCode = countryCode;
+        }
+
+        public String getPurePhoneNumber() {
+            return purePhoneNumber;
+        }
+
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        @Override
+        public String toString() {
+            return "PhoneData{" +
+                    "purePhoneNumber='" + purePhoneNumber + '\'' +
+                    ", countryCode='" + countryCode + '\'' +
+                    '}';
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.amt.wechat.service.poi.impl;
 import com.amt.wechat.dao.dish.DishDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiMaterialDao;
+import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.basic.BasicSettingForm;
@@ -79,5 +80,35 @@ public class PoiServiceImpl implements PoiService {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+    }
+
+
+    //poiDao.addPoiData(poiData);
+
+    /**
+     * 创建一个缺省的店铺数据
+     * @return
+     */
+    private PoiData defaultPoiData(){
+        PoiData poiData = new PoiData();
+        poiData.setId(Generator.uuid());
+        poiData.setName("");
+        poiData.setCountry("中国");
+        poiData.setProvince("");
+        poiData.setCity("");
+        poiData.setStreet("");
+        poiData.setAddress("");
+
+        poiData.setBrandName("");
+        poiData.setCateId(-1);
+
+        poiData.setAccountName("");
+        poiData.setAccountPassword("");
+        poiData.setEleShopId("");
+        poiData.setMtAppAuthToken("");
+
+        poiData.setCreateTime(DateTimeUtil.now());
+        poiData.setUpdTime(poiData.getUpdTime());
+        return poiData;
     }
 }

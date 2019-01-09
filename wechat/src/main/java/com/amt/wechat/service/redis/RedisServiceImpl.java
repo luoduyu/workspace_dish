@@ -81,7 +81,7 @@ public class RedisServiceImpl implements RedisService {
     public long getSMSSendAmountToday(String mobile){
         String key = RedisConstants.WECHAT_SMS_COUNT + mobile;
         Object obj = stringRedisTemplate.opsForValue().get(key);
-        return obj==null? 0: (long)obj;
+        return obj==null? 0: Long.parseLong(obj.toString());
     }
 
 

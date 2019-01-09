@@ -1,13 +1,15 @@
 package com.amt.wechat.model.poi;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSON;
 
 /**
- * 店铺用户信息
+ * Copyright (c) 2019 by CANSHU
+ *  店员信息
+ * @author adu Create on 2019-01-09 16:25
+ * @version 1.0
  */
-public class PoiUserData implements Serializable {
+public class PoiUserData extends PoiBasicUserData {
     private static final long serialVersionUID = -1608316652654376276L;
-    private String id;
 
     /**
      * 所属门店Id
@@ -37,13 +39,9 @@ public class PoiUserData implements Serializable {
      */
     private int  isEnabled;
 
-    /**
-     *
-     */
-    private String roles;
 
     /**
-     * 是否店主;0:否;1:是
+     * 身份信息;-1:身份未知(默认),0:否,1:是;(每店只能有一名店主)
      */
     private int isMaster;
 
@@ -62,19 +60,7 @@ public class PoiUserData implements Serializable {
     private String city;
     private String openid="";
     private String unionid="";
-    private String name;
-    private String nickName="";
-    private String avatarUrl="";
-    private String createTime;
     private String updTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
 
     public String getPassword() {
@@ -125,13 +111,6 @@ public class PoiUserData implements Serializable {
         this.isEnabled = isEnabled;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
 
     public int getIsMaster() {
         return isMaster;
@@ -197,29 +176,7 @@ public class PoiUserData implements Serializable {
         this.unionid = unionid;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
 
     public String getUpdTime() {
         return updTime;
@@ -237,36 +194,9 @@ public class PoiUserData implements Serializable {
         this.poiId = poiId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
     @Override
     public String toString() {
-        return "POIUserData{" +
-                "id='" + id + '\'' +
-                ", accessToken='" + accessToken + '\'' +
-                ", isAccountNonExpired=" + isAccountNonExpired +
-                ", isAccountNonLocked=" + isAccountNonLocked +
-                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
-                ", isEnabled=" + isEnabled +
-                ", isMaster=" + isMaster +
-                ", password='" + password + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", gender=" + gender +
-                ", countryCode='" + countryCode + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", openid='" + openid + '\'' +
-                ", unionid='" + unionid + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", avatarUrl='" + avatarUrl + '\'' +
-                ", createTime='" + createTime + '\'' +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

@@ -14,11 +14,11 @@ import java.io.Serializable;
 public class BasicSettingForm implements Serializable {
     private static final long serialVersionUID = 774762321981421296L;
 
+
     /**
      * 店主姓名
      */
     private String memberName;
-
 
     /**
      * 品牌名称
@@ -58,7 +58,6 @@ public class BasicSettingForm implements Serializable {
      * 详细地址
      */
     private String poiAddress;
-
 
     public String getMemberName() {
         return memberName;

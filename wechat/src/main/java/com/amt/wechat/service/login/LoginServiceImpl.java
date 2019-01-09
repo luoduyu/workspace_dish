@@ -42,7 +42,7 @@ public class LoginServiceImpl implements  LoginService {
 
             return BizPacket.success("");
         } catch (ClientException e) {
-           logger.error("mobile="+mobile+",e="+e.getMessage(),e);
+           logger.error("mobile="+mobile+",code="+code+",e="+e.getMessage(),e);
            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }

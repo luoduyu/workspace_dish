@@ -11,7 +11,6 @@ import com.alibaba.fastjson.JSON;
 public class AllBasicSettingForm extends BasicSettingForm {
     private static final long serialVersionUID = -642755104570230593L;
 
-
     /**
      * 店主手机号
      */
@@ -37,6 +36,7 @@ public class AllBasicSettingForm extends BasicSettingForm {
     public void setPoiCountry(String poiCountry) {
         this.poiCountry = poiCountry;
     }
+
 
     @Override
     public String toString() {

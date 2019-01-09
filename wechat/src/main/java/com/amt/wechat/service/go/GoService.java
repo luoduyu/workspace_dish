@@ -19,7 +19,7 @@ public interface GoService {
      * @param userData
      * @return
      */
-    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData);
+    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData,ShenQingType userFor);
 
 
     /**
@@ -28,7 +28,7 @@ public interface GoService {
      * @param usefor 0:开店申请;1:运营申请
      * @return
      */
-    public BizPacket requestFormGet(PoiUserData userData,int usefor);
+    public BizPacket requestFormGet(PoiUserData userData,ShenQingType usefor);
 
-    public BizPacket requestFormReSubmit(int id);
+    public BizPacket requestFormReSubmit(PoiUserData userData,int id);
 }

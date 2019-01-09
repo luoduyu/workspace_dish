@@ -17,10 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -42,34 +39,35 @@ public class SettingController extends BaseController {
 
 
     /**
-     * (商户老板)手机号授权
+     * 店铺授权-BOSS手机号申报
      * @param name
      * @param mobile
      * @param smsCode
      * @return
      */
     @RequestMapping(value = "/setting/auth/boss/mobile",method = {RequestMethod.GET,RequestMethod.POST},produces = {"application/json","text/html"})
-    public BizPacket wechatAuthByMobile(String name, String mobile, String smsCode){
+    public BizPacket wechatAuth4Boss(String name, String mobile, String smsCode){
+        if(StringUtils.isEmpty(mobile)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机号不能为空!");
+        }
         String code = redisService.getSMSCode(mobile);
         if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(smsCode)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
         }
         if(StringUtils.isEmpty(name)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉，请填写姓名!");
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉,姓名不能为空!");
         }
-
 
         PoiUserData userData = getUser();
         if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
         }
-        if(StringUtils.isEmpty(userData.getMobile())){
-            if(StringUtils.isEmpty(mobile)){
-                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请填写手机号!");
-            }
-        }else{
+        if(userData.getIsMaster() != 1){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+        if(!StringUtils.isEmpty(userData.getMobile())){
             if(!userData.getMobile().equalsIgnoreCase(mobile)){
-                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与已有手机号不一致!原手机号:"+userData.getMobile());
+                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与原有手机号不一致!原手机号:"+userData.getMobile());
             }
         }
 
@@ -77,10 +75,36 @@ public class SettingController extends BaseController {
     }
 
 
+    @RequestMapping(value = "/setting/auth/employee/mobile",method = {RequestMethod.GET,RequestMethod.POST},produces = {"application/json","text/html"})
+    public BizPacket wechatAuth4Employee(String name, String mobile, String smsCode){
+        if(StringUtils.isEmpty(mobile)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机号不能为空!");
+        }
+        String code = redisService.getSMSCode(mobile);
+        if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(smsCode)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
+        }
+        if(StringUtils.isEmpty(name)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉,姓名不能为空!");
+        }
+
+        PoiUserData userData = getUser();
+        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
+        }
+        if(!StringUtils.isEmpty(userData.getMobile())){
+            if(!userData.getMobile().equalsIgnoreCase(mobile)){
+                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与原有手机号不一致!原手机号:"+userData.getMobile());
+            }
+        }
+
+        return poiUserService.auth4Mobile(name,mobile,getUser());
+    }
+
 
     /**
-     * (商户老板)手机号授权验证码发送
-     * @param mobile 用户手机号
+     * 验证码发送 -- 账户类操作
+     * @param mobile 手机号
      * @param type 1:短信, 2:语音; 默认为短信类型
      * @return
      */
@@ -89,13 +113,13 @@ public class SettingController extends BaseController {
         if(type == null){
             type = 1;
         }
-        return sendSMS(mobile,type,30, AliSMS.TEMP_CODE_0531);
+        return sendSMS(mobile,type,5, AliSMS.SMS_TEMPLATE_ACCOUNT);
     }
 
 
     /**
-     * 验证码发送-运营和开店申请共用
-     * @param mobile 用户手机号
+     * 验证码发送 -- 运营操作类：
+     * @param mobile 手机号
      * @param type 1:短信, 2:语音; 默认为短信类型
      * @return
      */
@@ -104,11 +128,12 @@ public class SettingController extends BaseController {
         if(type == null){
             type = 1;
         }
-        return sendSMS(mobile,type,10,AliSMS.TEMP_CODE_0531);
+        return sendSMS(mobile,type,30,AliSMS.SMS_TEMPLATE_OP);
     }
 
     /**
      *
+     * @param type 1:短信, 2:语音; 默认为短信类型
      * @param timeoutMinutes 验证码的有效期(存储时长,单位:分钟)
      * @return
      */
@@ -137,48 +162,74 @@ public class SettingController extends BaseController {
             BizPacket packet= loginService.sendSMS(mobile,timeoutMinutes, templateCode);
             return packet;
         } catch (Exception e) {
+            logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),"服务器忙,请稍后重试!");
         }
     }
 
 
     /**
-     * 验证码发送-设置-手机号更换
-     *
-     * @param mobile 用户手机号
-     * @param type 1:短信, 2:语音; 默认为短信类型
+     * BOSS手机号更换
+     * @param oldSMSCode
+     * @param newMobile
+     * @param newSMSCode
      * @return
      */
-    @RequestMapping(value="/setting/sms/replace",method = RequestMethod.POST)
-    public BizPacket sendSMS4Replace(String mobile, Integer type) {
-        if(type == null){
-            type = 1;
-        }
-        return sendSMS(mobile,type,1,AliSMS.TEMP_CODE_0531);
-    }
-
     @RequestMapping(value="/setting/mobile/replace",method = RequestMethod.POST)
     public BizPacket mobileReplace(String oldSMSCode,String newMobile, String newSMSCode) {
-        if(StringUtils.isEmpty(oldSMSCode) || StringUtils.isEmpty(newMobile) || StringUtils.isEmpty(newSMSCode)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少参数");
-        }
+
         if (!WechatUtil.isMobileNO(newMobile)) {
             return BizPacket.error(HttpStatus.PAYMENT_REQUIRED.value(), "新手机号格式不正确!");
         }
 
-        String code = redisService.getSMSCode(newMobile);
-        if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(newSMSCode)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getMobile())){
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"您还未申报过手机号!");
         }
 
-        return poiUserService.mobileReplace(getUser(),newMobile);
+        if(userData.getIsMaster() != 1){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+
+        // 原手机及验证码校验
+        String _oldSMSCode = redisService.getSMSCode(userData.getMobile());
+        if(oldSMSCode == null || oldSMSCode.trim().length() ==0 || !oldSMSCode.equalsIgnoreCase(_oldSMSCode)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"原手机验证码不对!");
+        }
+
+
+        // 新手机及验证码校验
+        String _newSMSCode = redisService.getSMSCode(newMobile);
+        if(newSMSCode == null || newSMSCode.trim().length() ==0 || !newSMSCode.equalsIgnoreCase(_newSMSCode)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"新手机验证码不对!");
+        }
+
+        return poiUserService.mobileReplace(userData,newMobile);
     }
 
+
+    /**
+     *
+     * @return
+     */
     @GetMapping(value="/setting/poi/basic/get")
     public BizPacket memberBasicSettingGet(){
+        PoiUserData userData = getUser();
+        if(userData.getIsMaster() != 1){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
         try {
             AllBasicSettingForm form = new AllBasicSettingForm();
-            PoiUserData userData = getUser();
             form.setMemberName(userData.getName());
             form.setMemberMobile(userData.getMobile());
 
@@ -201,20 +252,38 @@ public class SettingController extends BaseController {
 
     @RequestMapping(value = "/setting/poi/basic/set",method ={RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
     public BizPacket memberBasicSetup(BasicSettingForm basicSettingForm){
+        PoiUserData userData = getUser();
+        if(userData.getIsMaster() != 1){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
 
         if(StringUtils.isEmpty(basicSettingForm.getPoiBrandName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"品牌名称不能为空!");
         }
-
-        if(StringUtils.isEmpty(basicSettingForm.getMemberName())){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"姓名不能为空!");
-        }
-
-        PoiUserData userData = getUser();
-        BizPacket  packet = poiUserService.updatePoiUserName(userData.getId(),basicSettingForm.getMemberName());
+        // 更新会员名称
+        BizPacket  packet = poiUserService.updatePoiUserName(userData,basicSettingForm.getMemberName());
         if(packet.getCode() != HttpStatus.OK.value()){
             return packet;
         }
+
+        // 更新店铺信息
         return poiService.updatePoi(userData,basicSettingForm);
+    }
+
+
+    @PostMapping(value = "/setting/poi/employee/list")
+    public BizPacket employeeList(){
+        PoiUserData userData = getUser();
+        if(userData.getIsMaster() != 1){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+        return poiUserService.employeeList(userData);
     }
 }

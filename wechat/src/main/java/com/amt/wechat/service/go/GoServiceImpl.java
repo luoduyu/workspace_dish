@@ -1,11 +1,13 @@
 package com.amt.wechat.service.go;
 
 import com.amt.wechat.dao.go.GoDao;
+import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.yunying.ShenQingForm;
 import com.amt.wechat.model.go.GOData;
+import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -31,45 +32,36 @@ public class GoServiceImpl implements  GoService {
     private @Resource  GoDao goDao;
     private @Resource PoiUserDao userDAO;
     private @Resource RedisService redisService;
+    private @Resource PoiDao poiDao;
 
     @Override
-    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData) {
+    public BizPacket requestFormSubmit(ShenQingForm form, PoiUserData userData,ShenQingType usefor) {
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+        if(poiData == null){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
         if(form.getAmount() <= 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
         }
-
-        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(form.getContactMobile())){
-            if(!form.getContactMobile().equalsIgnoreCase(userData.getMobile())){
-                return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与预留手机号不一致!");
-            }
-        }
-
-        GOData data = create(form,userData);
+        GOData data = create(form,userData.getId(),poiData,usefor);
         goDao.addRequestForm(data);
-
-        // 若之前手机号是空的，则填充之
-        if(StringUtils.isEmpty(userData.getMobile()) &&  !StringUtils.isEmpty(form.getContactMobile())){
-            userData.setMobile(form.getContactMobile());
-            userData.setName(form.getContactName());
-            userDAO.updatePOIUserNameAndMobile(userData.getName(),userData.getMobile(),userData.getId());
-            try {
-                redisService.addPoiUser(userData);
-            } catch (IOException e) {
-               logger.error(e.getMessage(),e);
-            }
-        }
         return BizPacket.success(data.getId());
     }
 
-    private GOData create(ShenQingForm form, PoiUserData userData){
+    private GOData create(ShenQingForm form, String userId ,PoiData poiData,ShenQingType usefor){
         GOData data = new GOData();
 
-        data.setUsefor(form.getUsefor());
+        data.setUsefor(usefor.ordinal());
         data.setBrandName(form.getBrandName());
         data.setAmount(form.getAmount());
         data.setDishCateId(form.getDishCateId());
         data.setPlatform(form.getPlatform());
-        data.setPoiId(userData.getPoiId());
+        data.setPoiId(poiData.getId());
 
         data.setProvince(form.getProvince());
         data.setCity(form.getCity());
@@ -77,9 +69,7 @@ public class GoServiceImpl implements  GoService {
         data.setAddress(form.getAddress());
 
         data.setPoiType(form.getPoiType());
-        data.setPoiUserId(userData.getId());
-        data.setContactMobile(form.getContactMobile());
-        data.setContactName(form.getContactName());
+        data.setPoiUserId(userId);
 
         data.setAuditDate(DateTimeUtil.now());
         data.setAuditStatus(0);
@@ -91,25 +81,28 @@ public class GoServiceImpl implements  GoService {
     }
 
     @Override
-    public BizPacket requestFormGet(PoiUserData userData,int usefor){
-        GOData data = goDao.getDataByPOIId(userData.getPoiId(),usefor);
+    public BizPacket requestFormGet(PoiUserData userData,ShenQingType usefor){
+        GOData data = goDao.getDataByPOIId(userData.getPoiId(),usefor.ordinal());
         if(data == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"还未提交过申请!");
         }
+
         return BizPacket.success(data);
     }
 
     @Override
-    public BizPacket requestFormReSubmit(int id){
+    public BizPacket requestFormReSubmit(PoiUserData userData,int id){
         GOData goData = goDao.getDataById(id);
         if(goData == null){
             return BizPacket.error(HttpStatus.NOT_ACCEPTABLE.value(),"此前并未提交过申请,请重新提交,谢谢!");
         }
 
         if(goData.getAuditStatus() ==0){
-            return BizPacket.error(HttpStatus.CONFLICT.value(),"申请已进入待审核状态，无须重提交!");
+            return BizPacket.success();
+            //return BizPacket.error(HttpStatus.CONFLICT.value(),"申请已进入待审核状态，无须重提交!");
         }
-        goDao.updateData(DateTimeUtil.now(),id);
+        goData.setPoiUserId(userData.getId());
+        goDao.updateData(userData.getId(),DateTimeUtil.now(),id);
         return BizPacket.success();
     }
 }

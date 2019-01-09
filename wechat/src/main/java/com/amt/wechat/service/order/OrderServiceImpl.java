@@ -182,7 +182,8 @@ public class OrderServiceImpl implements  OrderService {
             }
 
             OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
-            List<OrderItemData> itemList = createItemDataList(poiData.getMemberFlag() ==1,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
+            // TODO
+            List<OrderItemData> itemList = createItemDataList(true,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
             orderDao.addOrderItemDataList(itemList);
             orderDao.addOrderData(orderData);
 
@@ -349,7 +350,7 @@ public class OrderServiceImpl implements  OrderService {
             }
 
             // 构建订单项
-            OrderItemData data = createItemData(orderData,goodsType,goodsData,num,poiData.getMemberFlag() ==1);
+            OrderItemData data = createItemData(orderData,goodsType,goodsData,num,true);
             int orderItemId = orderDao.addOrderItemData(data);
 
 
@@ -384,7 +385,6 @@ public class OrderServiceImpl implements  OrderService {
             data.setTotal(total);
             data.setUnitPrice(goodsData.getPrice());
         }else{
-            int total = num * goodsData.getMemberPrice();
             data.setUnitPrice(goodsData.getMemberPrice());
         }
         data.setImgUrl(goodsData.getCoverImg());

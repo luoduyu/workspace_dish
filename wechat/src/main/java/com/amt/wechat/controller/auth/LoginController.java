@@ -1,18 +1,20 @@
 package com.amt.wechat.controller.auth;
 
-import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.form.basic.WeichatLoginForm;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.poi.IPoiUserService;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
@@ -20,6 +22,7 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private @Resource IPoiUserService poiUserService;
+    private  @Autowired RedisService redisService;
 
     /**
      * @param code 授权码
@@ -28,7 +31,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/wechat/login",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
-    public BizPacket weichatLogin(HttpServletRequest request,String code, String  encryptedData, String iv){
+    public BizPacket weichatLogin(String code, String  encryptedData, String iv){
         if(code == null || code.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");
         }
@@ -39,60 +42,44 @@ public class LoginController {
            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数iv不正确!");
         }
 
-        /*
-        PhoneData pd = extract(request.getSession());
-        if(pd == null){
-            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"请先授权手机号访问权限,谢谢!");
-        }
-        */
 
         logger.info("code={},encryptedData={},iv={}",code,encryptedData,iv);
 
-        BizPacket packet =  poiUserService.weichatLogin(code,encryptedData,iv,null);
-
-        if(packet.getCode() == HttpStatus.OK.value()){
-            // 用后即焚
-            request.getSession(false).removeAttribute(PhoneData.SESSION_PHONE);
-            request.getSession(false).removeAttribute(PhoneData.SESSION_PHONE_CC);
-        }
+        BizPacket packet =  poiUserService.weichatLogin(code,encryptedData,iv);
         return packet;
-    }
-
-    private PhoneData extract(HttpSession session){
-        Object objPurePhoneNumber = session.getAttribute(PhoneData.SESSION_PHONE);
-        Object objCountryCode = session.getAttribute(PhoneData.SESSION_PHONE_CC);
-        if(objPurePhoneNumber == null){
-            return null;
-        }
-        if(objCountryCode == null){
-            return null;
-        }
-        return new PhoneData(objPurePhoneNumber.toString(),objCountryCode.toString());
     }
 
 
     /**
-     * 获取手机号
-     * @param code 授权码
-     * @param encryptedData 包括敏感数据在内的完整用户信息的加密数据
-     * @param iv 加密算法的初始向量
+     * accessToken登录
+     *
+     * @param accessToken
      * @return
      */
-    @RequestMapping(value = "/wechat/mobile/fetch",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
-    public BizPacket weichatLogin4Phone(HttpServletRequest request,String code, String  encryptedData, String iv){
-        if(code == null || code.trim().length() ==0){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");
-        }
-        if(encryptedData == null || encryptedData.trim().length() == 0){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数encryptedData不正确!");
-        }
-        if(iv == null || iv.trim().length() == 0){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数iv不正确!");
+    @RequestMapping(value = "/wechat/login/token",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
+    public BizPacket accessTokenLogin(String accessToken){
+        if (StringUtils.isEmpty(accessToken)) {
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"access_token is empty!");
         }
 
-        logger.info("code={},encryptedData={},iv={}",code,encryptedData,iv);
+        try {
+            PoiUserData user = redisService.getPoiUser(accessToken);
+            if (user == null) {
+                return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "user not found or frozen!");
+            }
 
-        return poiUserService.weichatLogin4Phone(request.getSession(),code,encryptedData,iv);
+            BizPacket packet = check(user);
+            if(packet.getCode() != HttpStatus.OK.value()){
+                return packet;
+            }
+            WeichatLoginForm form =  poiUserService.buildResponse(user);
+
+            return BizPacket.success(form);
+
+        }catch (Exception ex){
+            logger.error(ex.getMessage(),ex);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
+        }
     }
 
     @RequestMapping(value = "/wechat/test",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
@@ -111,5 +98,24 @@ public class LoginController {
         } catch (IOException e) {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+    }
+
+    private static BizPacket check(PoiUserData user) {
+        if (user.getIsAccountNonLocked() != 1) {
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User account is locked");
+        }
+
+        if (user.getIsEnabled() != 1) {
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value() ,"User is disabled");
+        }
+
+        if (user.getIsAccountNonExpired() != 1) {
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User account has expired");
+        }
+
+        if(user.getIsCredentialsNonExpired() != 1){
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User credentials have expired");
+        }
+        return BizPacket.success();
     }
 }

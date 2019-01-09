@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Copyright (c) 2018 by CANSHU
  *
@@ -42,6 +44,9 @@ public interface PoiUserDao {
 
     @Select("SELECT * FROM poi_user WHERE id=#{id}")
     public PoiUserData getPOIUserDataById(String id);
+
+    @Select("SELECT * FROM poi_user WHERE poiId=#{poiId}")
+    public List<PoiUserData> getPoiEmployeeList(String poiId);
 
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")

@@ -1,10 +1,9 @@
 package com.amt.wechat.service.poi;
 
-import com.amt.wechat.domain.PhoneData;
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.form.basic.WeichatLoginForm;
 import com.amt.wechat.model.poi.PoiUserData;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -20,20 +19,9 @@ public interface IPoiUserService {
      * @param code
      * @param encryptedData
      * @param iv
-     * @param phoneData
      * @return
      */
-    public BizPacket weichatLogin(String code, String  encryptedData, String iv, PhoneData phoneData);
-
-    /**
-     * 获取用户的手机号,并存储至 HttpSession
-     * @param session
-     * @param code
-     * @param encryptedData
-     * @param iv
-     * @return
-     */
-    public BizPacket weichatLogin4Phone(HttpSession session,String code, String  encryptedData, String iv);
+    public BizPacket weichatLogin(String code, String  encryptedData, String iv);
 
     /**
      * 手机号认证授权
@@ -55,11 +43,21 @@ public interface IPoiUserService {
 
     /**
      * 姓名更新
-     * @param id
+     * @param userData
      * @param name
      * @return
      */
-    public BizPacket updatePoiUserName(String id,String name);
+    public BizPacket updatePoiUserName(PoiUserData userData,String name);
 
     public BizPacket testLogin() throws IOException;
+
+    public WeichatLoginForm buildResponse(PoiUserData userData);
+
+    /**
+     * 获取店员列表
+     *
+     * @param userData
+     * @return
+     */
+    public BizPacket employeeList(PoiUserData userData);
 }

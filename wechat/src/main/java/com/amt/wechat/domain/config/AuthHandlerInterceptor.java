@@ -59,7 +59,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     }
 
 
-    private boolean check(HttpServletResponse response,PoiUserData user) throws IOException {
+    public  static boolean check(HttpServletResponse response,PoiUserData user) throws IOException {
         if (user.getIsAccountNonLocked() != 1) {
             return handlerError(response,HttpStatus.UNAUTHORIZED, "User account is locked");
         }
@@ -78,7 +78,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private boolean handlerError(HttpServletResponse response,HttpStatus status, String msg) throws IOException {
+    private static boolean handlerError(HttpServletResponse response,HttpStatus status, String msg) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         BizPacket bizPacket =  BizPacket.error(HttpStatus.UNAUTHORIZED.value(),msg);

@@ -25,7 +25,7 @@ public class  WeichatLoginForm implements Serializable {
     private String mobile;
 
     /**
-     * 是否店主;0:否;1:是
+     * 身份信息;-1:身份未知(默认),0:否,1:是;(每店只能有一名店主)
      */
     private int isMaster;
 

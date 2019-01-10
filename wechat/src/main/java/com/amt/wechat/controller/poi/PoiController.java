@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * Copyright (c) 2019 by CANSHU
  *
+ *  店铺类controller
+ *
  * @author adu Create on 2019-01-03 20:24
  * @version 1.0
  */

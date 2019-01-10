@@ -26,8 +26,8 @@ public interface PoiUserDao {
     @Update("UPDATE poi_user SET accessToken = #{accessToken}, gender = #{gender},countryCode = #{countryCode}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
     public void updatePOIUser(PoiUserData poiUserData);
 
-    @Update("UPDATE poi_user SET name = #{name}, mobile = #{mobile} WHERE id=#{id}")
-    public void updatePOIUserNameAndMobile(String name,String mobile,String id);
+    @Update("UPDATE poi_user SET poiId=#{poiId}, name = #{name}, mobile = #{mobile} WHERE id=#{id}")
+    public void updatePOIUserNameAndMobile(String poiId,String name,String mobile,String id);
 
     @Update("UPDATE poi_user SET mobile = #{mobile} WHERE id=#{id}")
     public void updatePOIUserMobile(String mobile,String id);
@@ -51,4 +51,7 @@ public interface PoiUserDao {
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")
     public PoiUserData getPOIUserData(String openid,String mobile);
+
+    @Select("SELECT poiId FROM poi_user_candidate WHERE mobile=#{mobile}")
+    public String getPoiId(String mobile);
 }

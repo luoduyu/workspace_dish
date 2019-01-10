@@ -10,6 +10,7 @@ import com.amt.wechat.form.basic.BasicSettingForm;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.login.LoginService;
+import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.poi.PoiService;
 import com.amt.wechat.service.redis.RedisService;
@@ -23,6 +24,8 @@ import javax.annotation.Resource;
 
 /**
  * Copyright (c) 2019 by CANSHU
+ *
+ *  通用设置类controller
  *
  * @author adu Create on 2019-01-04 14:05
  * @version 1.0
@@ -71,10 +74,17 @@ public class SettingController extends BaseController {
             }
         }
 
-        return poiUserService.auth4Mobile(name,mobile,getUser());
+        return poiUserService.auth4Mobile(name,mobile,getUser(), EmplIdentity.MASTER);
     }
 
 
+    /**
+     * 店铺授权-店员姓名和手机号申报
+     * @param name
+     * @param mobile
+     * @param smsCode
+     * @return
+     */
     @RequestMapping(value = "/setting/auth/employee/mobile",method = {RequestMethod.GET,RequestMethod.POST},produces = {"application/json","text/html"})
     public BizPacket wechatAuth4Employee(String name, String mobile, String smsCode){
         if(StringUtils.isEmpty(mobile)){
@@ -84,13 +94,16 @@ public class SettingController extends BaseController {
         if(code == null || code.trim().length() ==0 || !code.equalsIgnoreCase(smsCode)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
         }
-        if(StringUtils.isEmpty(name)){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉,姓名不能为空!");
-        }
 
         PoiUserData userData = getUser();
-        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
+        if(StringUtils.isEmpty(userData.getName())){
+            if(StringUtils.isEmpty(name)){
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抱歉,姓名不能为空!");
+            }
+        }
+
+        if(!StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"已经授权认证过店铺了!");
         }
         if(!StringUtils.isEmpty(userData.getMobile())){
             if(!userData.getMobile().equalsIgnoreCase(mobile)){
@@ -98,7 +111,7 @@ public class SettingController extends BaseController {
             }
         }
 
-        return poiUserService.auth4Mobile(name,mobile,getUser());
+        return poiUserService.auth4Mobile(name,mobile,getUser(),EmplIdentity.EMPLOYEE);
     }
 
 

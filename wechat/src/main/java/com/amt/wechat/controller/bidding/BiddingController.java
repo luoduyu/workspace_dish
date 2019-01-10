@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 /**
  * Copyright (c) 2019 by CANSHU
  *
+ *  竞价类controller
+ *
  * @author adu Create on 2019-01-08 17:11
  * @version 1.0
  */

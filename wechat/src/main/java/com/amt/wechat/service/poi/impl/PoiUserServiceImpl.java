@@ -21,6 +21,7 @@ import com.amt.wechat.model.poi.PoiBasicData;
 import com.amt.wechat.model.poi.PoiBasicUserData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -141,8 +142,20 @@ public class PoiUserServiceImpl implements IPoiUserService {
     }
 
     @Override
-    public BizPacket auth4Mobile(String name,String mobile,PoiUserData userData){
+    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData, EmplIdentity identity){
         try {
+
+            String poiId = poiUserDao.getPoiId(mobile);
+            if(StringUtils.isEmpty(poiId)){
+                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,还没有店铺老板邀请你,暂时无法关联店铺!");
+            }
+
+            PoiData poiData = poiDao.getPoiData(poiId);
+            if(poiData == null){
+                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,邀请你的店铺已经不存在!");
+            }
+
+            userData.setPoiId(poiId);
             userData.setName(name);
             userData.setMobile(mobile);
             redisService.addPoiUser(userData);
@@ -151,7 +164,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
         }
         try {
-            poiUserDao.updatePOIUserNameAndMobile(name,mobile,userData.getId());
+            poiUserDao.updatePOIUserNameAndMobile(userData.getPoiId(),name,mobile,userData.getId());
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("name="+name+",newMobile="+mobile+",e="+e.getMessage(),e);

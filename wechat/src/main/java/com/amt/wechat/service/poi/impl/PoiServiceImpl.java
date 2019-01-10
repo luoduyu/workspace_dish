@@ -1,15 +1,17 @@
 package com.amt.wechat.service.poi.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.dao.dish.DishDao;
+import com.amt.wechat.dao.member.MemberDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiMaterialDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.basic.BasicSettingForm;
-import com.amt.wechat.model.poi.MaterialData;
-import com.amt.wechat.model.poi.PoiData;
-import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.form.poi.MyMemberDataForm;
+import com.amt.wechat.model.member.MemberCardData;
+import com.amt.wechat.model.poi.*;
 import com.amt.wechat.service.poi.PoiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -28,6 +31,8 @@ public class PoiServiceImpl implements PoiService {
     private @Resource PoiMaterialDao poiMaterialDao;
     private @Resource PoiDao poiDao;
     private @Resource DishDao dishDao;
+    private @Resource MemberDao memberDao;
+
 
     @Override
     public List<MaterialData> getPoiMaterialDataList() {
@@ -110,5 +115,108 @@ public class PoiServiceImpl implements PoiService {
         poiData.setCreateTime(DateTimeUtil.now());
         poiData.setUpdTime(poiData.getUpdTime());
         return poiData;
+    }
+
+
+    @Override
+    public BizPacket memberDataFetch(PoiUserData userData){
+        try {
+
+            boolean newbie = memberNewbie(userData.getPoiId());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("newbie",newbie);
+            if(!newbie){
+                return BizPacket.success(jsonObject);
+            }
+
+            PoiAccountData accountData =  poiDao.getAccountData(userData.getPoiId());
+
+            // 已节省的花费
+            MyMemberDataForm myMemberDataForm = new MyMemberDataForm();
+            if(accountData != null){
+                myMemberDataForm.setCostSave(accountData.getCostSave());
+            }
+
+            // 会员数据
+            PoiMemberData memberData = poiDao.getPoiMemberData(userData.getPoiId());
+            myMemberDataForm = let(myMemberDataForm,memberData);
+            jsonObject.put("poiMemberData",myMemberDataForm);
+
+            return BizPacket.success(jsonObject);
+        } catch (Exception e) {
+            logger.error("user="+userData+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    private MyMemberDataForm let(MyMemberDataForm myMemberDataForm,PoiMemberData memberData){
+        if(memberData == null){
+           return myMemberDataForm;
+        }
+
+        myMemberDataForm.setAutoFee(memberData.getAutoFee());
+        myMemberDataForm.setAutoFeeRenew(memberData.getAutoFeeRenew());
+        myMemberDataForm.setBuyTime(memberData.getBuyTime());
+        myMemberDataForm.setDurationUnit(memberData.getDurationUnit());
+        myMemberDataForm.setExpiredAt(memberData.getExpiredAt());
+
+        return myMemberDataForm;
+    }
+
+    /**
+     * 是否会员新手
+     * @param poiId
+     * @return
+     */
+    private boolean memberNewbie(String poiId){
+        int rdSize = poiDao.countPoiMemberRD(poiId);
+        return rdSize <= 0;
+    }
+
+    @Override
+    public boolean isMember(String poiId){
+        PoiMemberData memberData =  poiDao.getPoiMemberData(poiId);
+        return isMember(memberData);
+    }
+
+    @Override
+    public boolean isMember(PoiMemberData memberData){
+        if(memberData == null){
+            return false;
+        }
+        try {
+            int flag = DateTimeUtil.getTime(memberData.getExpiredAt()).compareTo(LocalDateTime.now());
+            if(flag <= 0 ){
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            logger.error("expiredAt="+memberData.getExpiredAt()+",e="+e.getMessage(),e);
+            return false;
+        }
+    }
+
+    @Override
+    public BizPacket memberBoughtRD(PoiUserData userData,int index,int pageSize){
+        List<PoiMemberRDData> list =  poiDao.getMemberBoughtList(userData.getPoiId(),index*pageSize,pageSize);
+
+        if(list == null || list.isEmpty()){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"您还没有购买过会员卡1");
+        }
+        return BizPacket.success(list);
+    }
+
+    @Override
+    public BizPacket memberBuy(PoiUserData userData, int memberCardId, int feeRenew) {
+        MemberCardData data = memberDao.getMemberCardData(memberCardId);
+        if(data == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"非法的会员卡Id");
+        }
+
+        PoiMemberData memberData = poiDao.getPoiMemberData(userData.getPoiId());
+
+
+        //
+        return BizPacket.success();
     }
 }

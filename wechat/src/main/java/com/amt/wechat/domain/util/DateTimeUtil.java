@@ -2,6 +2,7 @@ package com.amt.wechat.domain.util;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -12,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTimeUtil {
 
-    private final static DateTimeFormatter FRIENDLY_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter FRIENDLY_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
 
     /**
@@ -34,7 +35,14 @@ public class DateTimeUtil {
         long d2 =  max.toSecondOfDay() - now.toSecondOfDay();
         return d2;
     }
+
+    public static LocalDateTime getTime(String timestamp) {
+        LocalDateTime ldt = LocalDateTime.parse(timestamp,FRIENDLY_DATE_TIME_FORMAT);
+        return ldt;
+    }
+
+
     public static void main(String[] args) {
-        interval();
+        getTime("2019-01-10 17:56:03");
     }
 }

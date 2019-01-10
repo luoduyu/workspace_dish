@@ -39,7 +39,6 @@ public class PoiData extends PoiBasicData {
     private String updTime;
 
 
-
     public String getAccountName() {
         return accountName;
     }
@@ -80,7 +79,6 @@ public class PoiData extends PoiBasicData {
     public void setUpdTime(String updTime) {
         this.updTime = updTime;
     }
-
     @Override
     public String toString() {
         return JSON.toJSONString(this);

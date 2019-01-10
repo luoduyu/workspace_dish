@@ -18,6 +18,7 @@ import com.amt.wechat.model.poi.MaterialData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
+import com.amt.wechat.service.poi.PoiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,7 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource PosterDao posterDao;
     private @Resource PoiMaterialDao poiMaterialDao;
     private @Resource PoiDao poiDao;
+    private @Resource PoiService poiService;
 
     @Override
     public List<MyOrderForm> getOrderDataList(String poiId, int index, int pageSize) {
@@ -182,8 +184,9 @@ public class OrderServiceImpl implements  OrderService {
             }
 
             OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
-            // TODO
-            List<OrderItemData> itemList = createItemDataList(true,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
+
+            boolean isPoiMember = poiService.isMember(poiData.getId());
+            List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
             orderDao.addOrderItemDataList(itemList);
             orderDao.addOrderData(orderData);
 
@@ -349,8 +352,10 @@ public class OrderServiceImpl implements  OrderService {
                 return BizPacket.error(HttpStatus.NOT_FOUND.value(),"物品不存在!");
             }
 
+            boolean isPoiMember = poiService.isMember(poiData.getId());
+
             // 构建订单项
-            OrderItemData data = createItemData(orderData,goodsType,goodsData,num,true);
+            OrderItemData data = createItemData(orderData,goodsType,goodsData,num,isPoiMember);
             int orderItemId = orderDao.addOrderItemData(data);
 
 

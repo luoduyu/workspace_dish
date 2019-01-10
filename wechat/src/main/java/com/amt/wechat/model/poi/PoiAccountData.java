@@ -19,6 +19,12 @@ public class PoiAccountData implements Serializable {
     private int curBiddingBalance;
     private int currShareBalance;
 
+    /**
+     * 节省花费,单位:分
+     */
+    private int costSave;
+
+
     public String getPoiId() {
         return poiId;
     }
@@ -57,6 +63,14 @@ public class PoiAccountData implements Serializable {
 
     public void setCurrShareBalance(int currShareBalance) {
         this.currShareBalance = currShareBalance;
+    }
+
+    public int getCostSave() {
+        return costSave;
+    }
+
+    public void setCostSave(int costSave) {
+        this.costSave = costSave;
     }
 
     @Override

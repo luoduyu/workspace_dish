@@ -1,27 +1,27 @@
-package com.amt.wechat.model.poi;
+package com.amt.wechat.form.poi;
 
 import java.io.Serializable;
 
 /**
  * Copyright (c) 2019 by CANSHU
- *  店铺会员信息
  *
- * @author adu Create on 2019-01-09 19:29
+ *  '我'(店铺)的会员数据
+ *
+ * @author adu Create on 2019-01-10 15:54
  * @version 1.0
  */
-public class PoiMemberData implements Serializable {
-    private static final long serialVersionUID = -1885578530009761558L;
+public class MyMemberDataForm implements Serializable {
+    private static final long serialVersionUID = -2032936678129251307L;
 
     /**
-     * 店铺Id
+     * 节省花费,单位:分
      */
-    private String poiId;
-
+    private int costSave= 0;
 
     /**
      * 会员卡时长单位:DAY/WEEK/MONTH/YEAR
      */
-    private String durationUnit;
+    private String durationUnit="MONTH";
 
     /**
      * 会员卡购买时间
@@ -37,7 +37,7 @@ public class PoiMemberData implements Serializable {
     /**
      * 当前是否自动续费;0:否,1:是
      */
-    private int autoFeeRenew;
+    private int autoFeeRenew=0;
 
 
     /**
@@ -45,13 +45,28 @@ public class PoiMemberData implements Serializable {
      */
     private int autoFee;
 
-
-    public String getPoiId() {
-        return poiId;
+    /**
+     * 默认不续费
+     */
+    public MyMemberDataForm() {
+        this(0,"MONTH","","",0,0);
     }
 
-    public void setPoiId(String poiId) {
-        this.poiId = poiId;
+    public MyMemberDataForm(int costSave, String durationUnit, String buyTime, String expiredAt, int autoFeeRenew, int autoFee) {
+        this.costSave = costSave;
+        this.durationUnit = durationUnit;
+        this.buyTime = buyTime;
+        this.expiredAt = expiredAt;
+        this.autoFeeRenew = autoFeeRenew;
+        this.autoFee = autoFee;
+    }
+
+    public int getCostSave() {
+        return costSave;
+    }
+
+    public void setCostSave(int costSave) {
+        this.costSave = costSave;
     }
 
     public String getDurationUnit() {
@@ -96,8 +111,8 @@ public class PoiMemberData implements Serializable {
 
     @Override
     public String toString() {
-        return "PoiMemberData{" +
-                "poiId='" + poiId + '\'' +
+        return "MyMemberDataForm{" +
+                "costSave=" + costSave +
                 ", durationUnit=" + durationUnit +
                 ", buyTime='" + buyTime + '\'' +
                 ", expiredAt='" + expiredAt + '\'' +

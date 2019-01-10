@@ -63,7 +63,6 @@ public class PoiBasicData implements Serializable {
      */
     private String brandName;
 
-
     /**
      * 经营品类
      */
@@ -73,6 +72,7 @@ public class PoiBasicData implements Serializable {
      * 创建时间
      */
     private String createTime;
+
 
     public String getId() {
         return id;
@@ -89,8 +89,6 @@ public class PoiBasicData implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String getCountry() {
         return country;

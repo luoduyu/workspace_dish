@@ -29,7 +29,7 @@ public interface IPoiUserService {
      * @param mobile
      * @return
      */
-    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData);
+    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData,EmplIdentity identity);
 
     /**
      * 手机号更换

@@ -1,6 +1,6 @@
-package com.amt.wechat.dao.poi;
+package com.amt.wechat.dao.decoration;
 
-import com.amt.wechat.model.poi.MaterialData;
+import com.amt.wechat.model.decoration.MaterialData;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -18,7 +18,15 @@ import java.util.Map;
 @Repository("poiMaterialDao")
 @Mapper
 public interface PoiMaterialDao {
-    @Select("SELECT * FROM poi_material ORDER BY showSeq ASC")
+
+    /**
+     *
+     * 店铺的装修材料
+     * 数据以 MaterialData.showSeq 升序排列
+     *
+     * @return
+     */
+    @Select("SELECT * FROM poi_material ORDER BY showSeq ASC LIMIT 100")
     public List<MaterialData> getPoiMaterialDataList();
 
 

@@ -5,6 +5,7 @@ import com.amt.wechat.model.bidding.BiddingRechargeRd;
 import com.amt.wechat.model.bidding.BiddingStageData;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,8 @@ public interface BiddingDao {
 
 
 
-    @Insert("INSERT INTO bidding_recharge (poiId, userId, amount, rechargeNo, createTime, balance)VALUES(#{poiId},#{userId},#{amount},#{rechargeNo},#{createTime},#{balance})")
+    @Insert("INSERT INTO bidding_recharge (poiId, userId,userName,amount, rechargeNo, createTime, balance)VALUES(#{poiId},#{userId},#{userName},#{amount},#{rechargeNo},#{createTime},#{balance})")
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn ="id")
     public void addRechargeRd(BiddingRechargeRd biddingRechargeRd);
 
     @Select("SELECT * FROM bidding_recharge WHERE poiId=#{poiId} ORDER BY createTime DESC LIMIT #{index},#{pageSize}")

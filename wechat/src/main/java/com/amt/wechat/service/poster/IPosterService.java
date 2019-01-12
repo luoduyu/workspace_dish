@@ -1,5 +1,6 @@
 package com.amt.wechat.service.poster;
 
+import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;
@@ -30,7 +31,7 @@ public interface IPosterService {
      * @param pageSize
      * @return
      */
-    public List<SequencePoster> getIntelligent(int index,int pageSize);
+    public BizPacket getIntelligent(int index, int pageSize);
 
 
     /**
@@ -41,7 +42,7 @@ public interface IPosterService {
      * @param orderClause 0：全部;1:最新作品;2:价格最低;3:人气作品;
      * @return
      */
-    public List<SequencePoster> getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause);
+    public BizPacket getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause);
 
 
     public PosterData getPosterDetail(int posterId);

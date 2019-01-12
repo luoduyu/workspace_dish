@@ -1,4 +1,4 @@
-package com.amt.wechat.model.poi;
+package com.amt.wechat.model.decoration;
 
 import com.alibaba.fastjson.JSON;
 import com.amt.wechat.model.common.GoodsData;

@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTimeUtil {
 
-    private final static DateTimeFormatter FRIENDLY_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
+    public final static DateTimeFormatter FRIENDLY_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
 
     /**
@@ -43,6 +43,11 @@ public class DateTimeUtil {
 
 
     public static void main(String[] args) {
-        getTime("2019-01-10 17:56:03");
+        //getTime("2019-01-10 17:56:03");
+
+        LocalDateTime ldt = LocalDateTime.now().plusYears(1).withHour(23).withMinute(59).withSecond(59).minusDays(1);
+        System.out.println(ldt.format(FRIENDLY_DATE_TIME_FORMAT));
+
+        System.out.println(Math.multiplyExact(2, 7));
     }
 }

@@ -44,6 +44,14 @@ public class  WeichatLoginForm implements Serializable {
      */
     private int isAuthDone;
 
+
+    /**
+     * 是否有设置余额支付密码;false:没有设置,true:有设置
+     */
+    private boolean isBalancePwdSet = false;
+
+
+
     public WeichatLoginForm() {
 
     }
@@ -117,6 +125,15 @@ public class  WeichatLoginForm implements Serializable {
 
     public void setIsMember(int isMember) {
         this.isMember = isMember;
+    }
+
+
+    public boolean isBalancePwdSet() {
+        return isBalancePwdSet;
+    }
+
+    public void setBalancePwdSet(boolean balancePwdSet) {
+        isBalancePwdSet = balancePwdSet;
     }
 
     @Override

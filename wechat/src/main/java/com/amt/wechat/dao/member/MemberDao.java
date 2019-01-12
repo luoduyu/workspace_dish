@@ -17,10 +17,11 @@ import java.util.List;
 @Mapper
 public interface MemberDao {
 
-    @Select("SELECT * FROM card_items ORDER BY showSeq ASC")
+    @Select("SELECT * FROM card_items ORDER BY showSeq ASC LIMIT 100")
     public List<MemberCardData> getMemberCardList();
 
 
-    @Select("SELECT * FROM card_items WEHRE id=#{id} LIMIT 1")
-    public MemberCardData getMemberCardData(int memberCardId);
+    @Select("SELECT * FROM card_items WHERE id=#{id} LIMIT 1")
+    public MemberCardData getMemberCardData(int id);
+
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface DishDao {
 
-    @Select("SELECT * FROM dish_cate ORDER BY nameSeq ASC,subSeq ASC")
+    @Select("SELECT * FROM dish_cate ORDER BY nameSeq ASC,subSeq ASC LIMIT 500")
     public List<DishCateData> getPosterCate();
 
 

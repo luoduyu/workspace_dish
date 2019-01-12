@@ -2,11 +2,8 @@ package com.amt.wechat.service.poi;
 
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.basic.BasicSettingForm;
-import com.amt.wechat.model.poi.MaterialData;
 import com.amt.wechat.model.poi.PoiMemberData;
 import com.amt.wechat.model.poi.PoiUserData;
-
-import java.util.List;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -19,10 +16,14 @@ import java.util.List;
 public interface PoiService {
 
     /**
-     * 店铺的装修材料
-     * @return 数据以 MaterialData.showSeq 升序排列
+     * 店铺老枪邀请店员认领店铺
+     * @param userData
+     * @param name
+     * @param mobile
+     * @return
      */
-    public List<MaterialData> getPoiMaterialDataList();
+    public BizPacket bossInviteIn(PoiUserData userData,String name,String mobile);
+
 
     /**
      * 更新店铺信息
@@ -71,4 +72,50 @@ public interface PoiService {
      * @return
      */
     public BizPacket memberBuy(PoiUserData userData,int memberCardId,int feeRenew);
+
+
+    /**
+     * 会员自动续期取消
+     *
+     * @param userData
+     * @return
+     */
+    public BizPacket autoFeeRenewCencel(PoiUserData userData);
+
+
+    /**
+     * 余额密码设置
+     * @param userData
+     * @param pwd
+     * @return
+     */
+    public BizPacket balancePwdSet(PoiUserData userData,String pwd);
+
+
+    /**
+     * 余额密码重置
+     * @param userData
+     * @param oldPwd
+     * @param newPwd
+     * @return
+     */
+    public BizPacket balancePwdReset(PoiUserData userData,String oldPwd,String newPwd);
+
+
+    /**
+     * 转让老板
+     * @param boss
+     * @param userId
+     * @return
+     */
+    public BizPacket bossTransferTo(PoiUserData boss,String userId);
+
+
+    /**
+     * 店员删除
+     * @param boss
+     * @param userId
+     * @return
+     */
+    public BizPacket employeeRM(PoiUserData boss,String userId);
 }

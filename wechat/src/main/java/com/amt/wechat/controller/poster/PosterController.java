@@ -1,15 +1,16 @@
 package com.amt.wechat.controller.poster;
 
-import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.form.poster.SeqPosterWrapper;
-import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.SequencePoster;
+import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.service.poster.IPosterService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -53,9 +54,7 @@ public class PosterController extends BaseController {
             pageSize = 15;
         }
 
-        List<SequencePoster> result=  posterService.getIntelligent(index,pageSize);
-        SeqPosterWrapper wapper = new SeqPosterWrapper(result.size(),result);
-        return BizPacket.success(wapper);
+        return posterService.getIntelligent(index,pageSize);
     }
 
 
@@ -85,8 +84,7 @@ public class PosterController extends BaseController {
             pageSize = 15;
         }
 
-        List<SequencePoster> list =  posterService.getPosterListByCate(cateId,index,pageSize,clause);
-        return BizPacket.success(list);
+        return posterService.getPosterListByCate(cateId,index,pageSize,clause);
     }
 
     @RequestMapping(value="/poster/cate/detail")
@@ -103,11 +101,5 @@ public class PosterController extends BaseController {
         // TODO
         
         return BizPacket.success();
-    }
-
-    @GetMapping("/poster/loginTest")
-    public BizPacket testEffect(){
-        PoiUserData user = getUser();
-        return BizPacket.success(user);
     }
 }

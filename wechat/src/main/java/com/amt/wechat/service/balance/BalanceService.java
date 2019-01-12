@@ -1,22 +1,23 @@
-package com.amt.wechat.service.bidding;
+package com.amt.wechat.service.balance;
 
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.bidding.BiddingStageData;
 import com.amt.wechat.model.poi.PoiUserData;
-
-import java.util.List;
 
 /**
  * Copyright (c) 2019 by CANSHU
+ *  帐户余额相关业务
  *
- *  竞价排名相关业务
- *
- * @author adu Create on 2019-01-08 17:13
+ * @author adu Create on 2019-01-12 11:18
  * @version 1.0
  */
-public interface BiddingService {
-
-    public List<BiddingStageData> getStageDataList();
+public interface BalanceService {
+    /**
+     * 余额充值
+     * @param userData
+     * @param amount
+     * @return
+     */
+    public BizPacket recharge(PoiUserData userData, int amount);
 
 
     /**
@@ -36,13 +37,4 @@ public interface BiddingService {
      * @return
      */
     public BizPacket getMyConsumeData(PoiUserData userData, int index, int pageSize);
-
-
-    /**
-     * 竞价充值
-     * @param userData
-     * @param amount
-     * @return
-     */
-    public BizPacket recharge(PoiUserData userData,int amount);
 }

@@ -1,17 +1,17 @@
-package com.amt.wechat.model.bidding;
+package com.amt.wechat.model.balance;
 
 import java.io.Serializable;
 
 /**
  * Copyright (c) 2019 by CANSHU
  *
- *  竞价充值记录
+ *  余额充值记录
  *
- * @author adu Create on 2019-01-08 17:19
+ * @author adu Create on 2019-01-12 11:26
  * @version 1.0
  */
-public class BiddingRechargeRd implements Serializable {
-    private static final long serialVersionUID = -1928443080034978131L;
+public class BalanceRechargeRD implements Serializable {
+    private static final long serialVersionUID = 5552500221517818154L;
 
     private int id;
     private String poiId;
@@ -21,6 +21,7 @@ public class BiddingRechargeRd implements Serializable {
     private String rechargeNo;
     private String createTime;
     private int balance;
+
 
     public int getId() {
         return id;
@@ -88,7 +89,7 @@ public class BiddingRechargeRd implements Serializable {
 
     @Override
     public String toString() {
-        return "BiddingRechargeRd{" +
+        return "BalanceRechargeRD{" +
                 "id=" + id +
                 ", poiId='" + poiId + '\'' +
                 ", userId='" + userId + '\'' +

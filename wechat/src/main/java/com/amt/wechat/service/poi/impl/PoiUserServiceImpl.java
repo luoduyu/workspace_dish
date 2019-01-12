@@ -17,10 +17,7 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.WeichatLoginForm;
-import com.amt.wechat.model.poi.PoiBasicData;
-import com.amt.wechat.model.poi.PoiBasicUserData;
-import com.amt.wechat.model.poi.PoiData;
-import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.model.poi.*;
 import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.IPoiUserService;
 import com.amt.wechat.service.redis.RedisService;
@@ -143,19 +140,20 @@ public class PoiUserServiceImpl implements IPoiUserService {
 
     @Override
     public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData, EmplIdentity identity){
+        PoiCandidate candidate = null;
         try {
-
-            String poiId = poiUserDao.getPoiId(mobile);
-            if(StringUtils.isEmpty(poiId)){
-                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,还没有店铺老板邀请你,暂时无法关联店铺!");
+            candidate = poiUserDao.getPoiCandidate(mobile);
+            if(candidate == null || StringUtils.isEmpty(candidate.getPoiId())){
+                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,还没有店铺老板邀请你,暂时无法挂靠店铺!");
             }
 
-            PoiData poiData = poiDao.getPoiData(poiId);
+            PoiData poiData = poiDao.getPoiData(candidate.getPoiId());
             if(poiData == null){
                 return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,邀请你的店铺已经不存在!");
             }
 
-            userData.setPoiId(poiId);
+            // 个人资料之缓存的更新
+            userData.setPoiId(candidate.getPoiId());
             userData.setName(name);
             userData.setMobile(mobile);
             redisService.addPoiUser(userData);
@@ -164,7 +162,12 @@ public class PoiUserServiceImpl implements IPoiUserService {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
         }
         try {
+            // 个人资料之持久化
             poiUserDao.updatePOIUserNameAndMobile(userData.getPoiId(),name,mobile,userData.getId());
+
+
+            // 删除邀请
+            poiUserDao.removeInvoteById(candidate.getId());
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("name="+name+",newMobile="+mobile+",e="+e.getMessage(),e);
@@ -226,6 +229,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
         form.setIsMaster(userData.getIsMaster());
 
         form.setIsAuthDone(0);
+        form.setBalancePwdSet(false);
 
         if(StringUtils.isEmpty(userData.getPoiId())) {
             return form;
@@ -243,6 +247,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
             }else{
                 form.setIsAuthDone(1);
             }
+            form.setBalancePwdSet(!StringUtils.isEmpty(poiData.getBalancePwd()));
         }
         return form;
     }

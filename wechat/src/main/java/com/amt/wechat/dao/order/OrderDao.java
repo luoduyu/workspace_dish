@@ -34,6 +34,9 @@ public interface OrderDao {
 
     public List<MyOrderForm> getMyOrderList(String poiId,int index, int pageSize);
 
+    @Select("SELECT COUNT(*) FROM `order` WHERE poiId=#{poiId}")
+    public int countMyOrder(String poiId);
+
 
     @Delete("DELETE FROM order_item WHERE orderId=#{orderId}")
     public void removeOrderItemByOrderId(String orderId);

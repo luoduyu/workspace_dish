@@ -1,4 +1,4 @@
-package com.amt.wechat.controller.auth;
+package com.amt.wechat.controller.poi;
 
 import com.amt.wechat.controller.base.BaseController;
 import com.amt.wechat.dao.poi.PoiDao;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 /**
  * Copyright (c) 2019 by CANSHU
  *
- *  通用设置类controller
+ *  设置/管理类controller
  *
  * @author adu Create on 2019-01-04 14:05
  * @version 1.0
@@ -65,7 +65,7 @@ public class SettingController extends BaseController {
         if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
         }
-        if(userData.getIsMaster() != 1){
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
         if(!StringUtils.isEmpty(userData.getMobile())){
@@ -112,6 +112,27 @@ public class SettingController extends BaseController {
         }
 
         return poiUserService.auth4Mobile(name,mobile,getUser(),EmplIdentity.EMPLOYEE);
+    }
+
+    /**
+     * 邀请店员注册及登录
+     * @return
+     */
+    @PostMapping(value="/setting/poi/employee/invite")
+    public BizPacket bossInviteIn(@RequestParam("name") String name,@RequestParam("mobile") String mobile){
+        if(StringUtils.isEmpty(name) || StringUtils.isEmpty(mobile)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"用户和密码参数非法!");
+        }
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
+        return poiService.bossInviteIn(userData,name,mobile);
     }
 
 
@@ -199,15 +220,13 @@ public class SettingController extends BaseController {
         if(StringUtils.isEmpty(userData.getMobile())){
             return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"您还未申报过手机号!");
         }
-
-        if(userData.getIsMaster() != 1){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
-        }
-
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
 
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
 
         // 原手机及验证码校验
         String _oldSMSCode = redisService.getSMSCode(userData.getMobile());
@@ -227,13 +246,13 @@ public class SettingController extends BaseController {
 
 
     /**
-     *
+     * '会员信息设置'之获取
      * @return
      */
     @GetMapping(value="/setting/poi/basic/get")
     public BizPacket memberBasicSettingGet(){
         PoiUserData userData = getUser();
-        if(userData.getIsMaster() != 1){
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
 
@@ -263,16 +282,23 @@ public class SettingController extends BaseController {
         }
     }
 
+    /**
+     * '会员信息设置'之提交
+     * @param basicSettingForm
+     * @return
+     */
     @RequestMapping(value = "/setting/poi/basic/set",method ={RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
     public BizPacket memberBasicSetup(BasicSettingForm basicSettingForm){
         PoiUserData userData = getUser();
-        if(userData.getIsMaster() != 1){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
-        }
 
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
+
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
 
         if(StringUtils.isEmpty(basicSettingForm.getPoiBrandName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"品牌名称不能为空!");
@@ -288,15 +314,102 @@ public class SettingController extends BaseController {
     }
 
 
+    /**
+     * 店铺成员列表
+     * @return
+     */
     @PostMapping(value = "/setting/poi/employee/list")
     public BizPacket employeeList(){
         PoiUserData userData = getUser();
-        if(userData.getIsMaster() != 1){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
-        }
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
+
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+
         return poiUserService.employeeList(userData);
+    }
+
+
+    /**
+     * 余额支付密码设置
+     * @return
+     */
+    @PostMapping(value = "/setting/poi/balance/pwd/set")
+    public BizPacket balancePwdSet(String pwd){
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        if(StringUtils.isEmpty(pwd)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码不能为空!");
+        }
+        if(pwd.trim().length() >50){
+            return BizPacket.error(HttpStatus.REQUEST_URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
+        }
+        return poiService.balancePwdSet(userData,pwd);
+    }
+
+    @PostMapping(value = "/setting/poi/balance/pwd/reset")
+    public BizPacket balancePwdReset(String oldPwd,String newPwd){
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        if(StringUtils.isEmpty(newPwd)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码不能为空!");
+        }
+        if(newPwd.trim().length() >50){
+            return BizPacket.error(HttpStatus.REQUEST_URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
+        }
+
+        if(StringUtils.isEmpty(oldPwd)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"原密码不能为空!");
+        }
+        return poiService.balancePwdReset(userData,oldPwd,newPwd);
+    }
+
+    @PostMapping(value = "/setting/poi/boss/transfer")
+    public BizPacket bossTransferTo(@RequestParam("userId") String userId){
+        if(StringUtils.isEmpty(userId)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"受让人参数不能为空!");
+        }
+
+        PoiUserData userData = getUser();
+
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+        return poiService.bossTransferTo(userData,userId);
+    }
+
+
+    /**
+     * 店员删除
+     * @param userId
+     * @return
+     */
+    @PostMapping(value = "/setting/poi/employee/rm")
+    public BizPacket employeeRM(@RequestParam("userId") String userId){
+        if(StringUtils.isEmpty(userId)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"受让人参数不能为空!");
+        }
+
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
+        }
+        return poiService.employeeRM(userData,userId);
     }
 }

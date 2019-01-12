@@ -7,6 +7,7 @@ import com.amt.wechat.service.bidding.BiddingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -100,7 +101,7 @@ public class BiddingController extends BaseController {
      * @return
      */
     @PostMapping(value = "/bidding/recharge/in")
-    public BizPacket recharge(Long amount){
+    public BizPacket recharge(@RequestParam("amount") Long amount){
         if(StringUtils.isEmpty(amount) || amount < 10000 || amount>= Integer.MAX_VALUE){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"充值金额不符合规定!");
         }

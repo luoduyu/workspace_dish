@@ -3,10 +3,7 @@ package com.amt.wechat.service.order;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
-import com.amt.wechat.model.order.MyOrderForm;
 import com.amt.wechat.model.poi.PoiUserData;
-
-import java.util.List;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -23,7 +20,7 @@ public interface OrderService {
      * @param pageSize
      * @return
      */
-    public List<MyOrderForm> getOrderDataList(String poiId, int index, int pageSize);
+    public BizPacket getOrderDataList(String poiId, int index, int pageSize);
 
     /**
      * 某订单明细

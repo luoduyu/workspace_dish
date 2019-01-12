@@ -14,6 +14,11 @@ public class MyMemberDataForm implements Serializable {
     private static final long serialVersionUID = -2032936678129251307L;
 
     /**
+     * 会员ID
+     */
+    private int memberId;
+
+    /**
      * 节省花费,单位:分
      */
     private int costSave= 0;
@@ -22,6 +27,11 @@ public class MyMemberDataForm implements Serializable {
      * 会员卡时长单位:DAY/WEEK/MONTH/YEAR
      */
     private String durationUnit="MONTH";
+
+    /**
+     * 当前会员时长
+     */
+    private int duration;
 
     /**
      * 会员卡购买时间
@@ -54,11 +64,20 @@ public class MyMemberDataForm implements Serializable {
 
     public MyMemberDataForm(int costSave, String durationUnit, String buyTime, String expiredAt, int autoFeeRenew, int autoFee) {
         this.costSave = costSave;
+        this.duration =0;
         this.durationUnit = durationUnit;
         this.buyTime = buyTime;
         this.expiredAt = expiredAt;
         this.autoFeeRenew = autoFeeRenew;
         this.autoFee = autoFee;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 
     public int getCostSave() {
@@ -75,6 +94,14 @@ public class MyMemberDataForm implements Serializable {
 
     public void setDurationUnit(String durationUnit) {
         this.durationUnit = durationUnit;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getBuyTime() {

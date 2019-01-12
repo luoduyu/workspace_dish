@@ -39,6 +39,12 @@ public class PoiData extends PoiBasicData {
     private String updTime;
 
 
+    /**
+     * 余额支付密码
+     */
+    private String balancePwd;
+
+
     public String getAccountName() {
         return accountName;
     }
@@ -79,6 +85,15 @@ public class PoiData extends PoiBasicData {
     public void setUpdTime(String updTime) {
         this.updTime = updTime;
     }
+
+    public String getBalancePwd() {
+        return balancePwd;
+    }
+
+    public void setBalancePwd(String balancePwd) {
+        this.balancePwd = balancePwd;
+    }
+
     @Override
     public String toString() {
         return JSON.toJSONString(this);

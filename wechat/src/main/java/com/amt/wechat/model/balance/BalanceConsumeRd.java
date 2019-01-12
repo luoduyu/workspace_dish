@@ -1,26 +1,33 @@
-package com.amt.wechat.model.bidding;
+package com.amt.wechat.model.balance;
 
 import java.io.Serializable;
 
 /**
  * Copyright (c) 2019 by CANSHU
  *
- *  竞价充值记录
+ *  余额帐户消费记录
  *
- * @author adu Create on 2019-01-08 17:19
+ * @author adu Create on 2019-01-08 17:39
  * @version 1.0
  */
-public class BiddingRechargeRd implements Serializable {
-    private static final long serialVersionUID = -1928443080034978131L;
+public class BalanceConsumeRd implements Serializable {
+    private static final long serialVersionUID = -5552587796122335076L;
 
     private int id;
     private String poiId;
-    private String userId;
-    private String userName;
     private int amount;
-    private String rechargeNo;
+    private String consumeNo;
     private String createTime;
     private int balance;
+
+    private String userId;
+    private String userName;
+
+    /**
+     * 接要
+     */
+    private String summary="";
+
 
     public int getId() {
         return id;
@@ -38,13 +45,6 @@ public class BiddingRechargeRd implements Serializable {
         this.poiId = poiId;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public int getAmount() {
         return amount;
@@ -54,12 +54,12 @@ public class BiddingRechargeRd implements Serializable {
         this.amount = amount;
     }
 
-    public String getRechargeNo() {
-        return rechargeNo;
+    public String getConsumeNo() {
+        return consumeNo;
     }
 
-    public void setRechargeNo(String rechargeNo) {
-        this.rechargeNo = rechargeNo;
+    public void setConsumeNo(String consumeNo) {
+        this.consumeNo = consumeNo;
     }
 
     public String getCreateTime() {
@@ -78,6 +78,15 @@ public class BiddingRechargeRd implements Serializable {
         this.balance = balance;
     }
 
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -86,14 +95,21 @@ public class BiddingRechargeRd implements Serializable {
         this.userName = userName;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
-        return "BiddingRechargeRd{" +
+        return "BalanceConsumeRd{" +
                 "id=" + id +
                 ", poiId='" + poiId + '\'' +
-                ", userId='" + userId + '\'' +
                 ", amount=" + amount +
-                ", rechargeNo='" + rechargeNo + '\'' +
+                ", consumeNo='" + consumeNo + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", balance=" + balance +
                 '}';

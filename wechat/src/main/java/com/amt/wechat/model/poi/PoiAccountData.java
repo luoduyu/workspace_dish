@@ -19,10 +19,13 @@ public class PoiAccountData implements Serializable {
     private int curBiddingBalance;
     private int currShareBalance;
 
+
+
     /**
      * 节省花费,单位:分
      */
     private int costSave;
+
 
 
     public String getPoiId() {

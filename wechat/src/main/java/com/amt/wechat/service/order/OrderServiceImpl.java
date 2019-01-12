@@ -3,7 +3,7 @@ package com.amt.wechat.service.order;
 import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;
-import com.amt.wechat.dao.poi.PoiMaterialDao;
+import com.amt.wechat.dao.decoration.PoiMaterialDao;
 import com.amt.wechat.dao.poster.PosterDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
@@ -14,7 +14,7 @@ import com.amt.wechat.model.order.MyOrderForm;
 import com.amt.wechat.model.order.OrderData;
 import com.amt.wechat.model.order.OrderItemData;
 import com.amt.wechat.model.order.OrderServiceData;
-import com.amt.wechat.model.poi.MaterialData;
+import com.amt.wechat.model.decoration.MaterialData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
@@ -46,8 +46,17 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource PoiService poiService;
 
     @Override
-    public List<MyOrderForm> getOrderDataList(String poiId, int index, int pageSize) {
-        return orderDao.getMyOrderList(poiId,index,pageSize);
+    public BizPacket getOrderDataList(String poiId, int index, int pageSize) {
+        int total = orderDao.countMyOrder(poiId);
+        if(total <=0 ){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂时没有订单!");
+        }
+
+        List<MyOrderForm> list =  orderDao.getMyOrderList(poiId,index,pageSize);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total",total);
+        jsonObject.put("list",list);
+        return BizPacket.success(jsonObject);
     }
 
     @Override

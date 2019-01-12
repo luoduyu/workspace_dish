@@ -84,27 +84,20 @@ public class BiddingServiceImpl implements  BiddingService{
 
     @Override
     public BizPacket recharge(PoiUserData userData, int amount) {
-        // TODO 请求 一个分布式全局锁
-
-        PoiAccountData accountData =  poiDao.getAccountData(userData.getPoiId());
+        // TODO 请求一个 '店铺帐户全局分布式锁’
 
         try {
-            if(accountData == null){
-                accountData = createAccount(userData.getPoiId(),amount);
-                BiddingRechargeRd rd = createRechargeRd(userData,amount,amount);
-                biddingDao.addRechargeRd(rd);
 
-                poiDao.addPoiAccountData(accountData);
-                return BizPacket.success(amount);
-            }else{
-                int currentTotalBiddingBalance = accountData.getCurBiddingBalance() + amount;
-                BiddingRechargeRd rd = createRechargeRd(userData,amount,currentTotalBiddingBalance);
+            // TODO 店铺的帐户需要在帐户认证时预先生成
 
-                biddingDao.addRechargeRd(rd);
-                poiDao.updatePoiBiddingBalance(currentTotalBiddingBalance,userData.getPoiId());
-                return BizPacket.success(currentTotalBiddingBalance);
-            }
+            PoiAccountData accountData =  poiDao.getAccountData(userData.getPoiId());
 
+            int currentTotalBiddingBalance = accountData.getCurBiddingBalance() + amount;
+            BiddingRechargeRd rd = createRechargeRd(userData,amount,currentTotalBiddingBalance);
+
+            biddingDao.addRechargeRd(rd);
+            poiDao.updatePoiBiddingBalance(amount,userData.getPoiId());
+            return BizPacket.success(currentTotalBiddingBalance);
         } catch (Exception e) {
             logger.error("u="+userData+",amount="+amount+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -126,6 +119,7 @@ public class BiddingServiceImpl implements  BiddingService{
         rd.setCreateTime(DateTimeUtil.now());
         rd.setPoiId(userData.getPoiId());
         rd.setUserId(userData.getId());
+        rd.setUserName(userData.getName());
 
         // TODO 等待充值完成后回填
         rd.setRechargeNo("");
@@ -133,13 +127,5 @@ public class BiddingServiceImpl implements  BiddingService{
         return rd;
     }
 
-    private PoiAccountData createAccount(String poiId,int amount){
-        PoiAccountData data = new PoiAccountData();
-        data.setPoiId(poiId);
-        data.setCurBiddingBalance(amount);
-        data.setCurBalance(0);
-        data.setCurRedBalance(0);
-        data.setCurrShareBalance(0);
-        return data;
-    }
+
 }

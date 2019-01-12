@@ -1,6 +1,7 @@
 package com.amt.wechat.controller.auth;
 
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.WeichatLoginForm;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.poi.IPoiUserService;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 @RestController
-public class LoginController {
+public class LoginController{
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private @Resource IPoiUserService poiUserService;
@@ -68,7 +69,7 @@ public class LoginController {
                 return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "user not found or frozen!");
             }
 
-            BizPacket packet = check(user);
+            BizPacket packet = WechatUtil.check(user);
             if(packet.getCode() != HttpStatus.OK.value()){
                 return packet;
             }
@@ -98,24 +99,5 @@ public class LoginController {
         } catch (IOException e) {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
-    }
-
-    private static BizPacket check(PoiUserData user) {
-        if (user.getIsAccountNonLocked() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User account is locked");
-        }
-
-        if (user.getIsEnabled() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value() ,"User is disabled");
-        }
-
-        if (user.getIsAccountNonExpired() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User account has expired");
-        }
-
-        if(user.getIsCredentialsNonExpired() != 1){
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User credentials have expired");
-        }
-        return BizPacket.success();
     }
 }

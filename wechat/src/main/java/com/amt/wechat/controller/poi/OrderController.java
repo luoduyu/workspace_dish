@@ -5,7 +5,6 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.order.MyOrderItemForm;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
-import com.amt.wechat.model.order.MyOrderForm;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.order.OrderService;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -40,13 +38,8 @@ public class OrderController extends BaseController {
             pageSize = 20;
         }
         PoiUserData userData = getUser();
-        List<MyOrderForm> list =  orderService.getOrderDataList(userData.getPoiId(),index,pageSize);
 
-        if(list == null || list.isEmpty()){
-            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂时没有订单!");
-        }
-
-        return BizPacket.success(list);
+        return orderService.getOrderDataList(userData.getPoiId(),index,pageSize);
     }
 
     @PostMapping(value = "/order/detail")

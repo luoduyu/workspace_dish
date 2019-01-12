@@ -12,6 +12,12 @@ import java.io.Serializable;
 public class PoiMemberData implements Serializable {
     private static final long serialVersionUID = -1885578530009761558L;
 
+
+    /**
+     * 会员编号
+     */
+    private int id;
+
     /**
      * 店铺Id
      */
@@ -22,6 +28,12 @@ public class PoiMemberData implements Serializable {
      * 会员卡时长单位:DAY/WEEK/MONTH/YEAR
      */
     private String durationUnit;
+
+
+    /**
+     * 当前会员时长
+     */
+    private int duration;
 
     /**
      * 会员卡购买时间
@@ -45,6 +57,13 @@ public class PoiMemberData implements Serializable {
      */
     private int autoFee;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPoiId() {
         return poiId;
@@ -60,6 +79,15 @@ public class PoiMemberData implements Serializable {
 
     public void setDurationUnit(String durationUnit) {
         this.durationUnit = durationUnit;
+    }
+
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getBuyTime() {

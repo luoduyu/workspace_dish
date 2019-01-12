@@ -27,6 +27,9 @@ public interface PosterDao {
     })
     public List<SequencePoster> getPosterList(int index,int pageSize);
 
+    @Select("SELECT COUNT(*) FROM poster WHERE isEnabled=1")
+    public int countPosterSize();
+
 
 
     @Select("SELECT * FROM poster WHERE id=#{id}")
@@ -54,7 +57,7 @@ public interface PosterDao {
 
 
 
-    @Select("SELECT posterId,showSeq FROM poster_recommend ORDER BY showSeq ASC")
+    @Select("SELECT posterId,showSeq FROM poster_recommend ORDER BY showSeq ASC LIMIT 500")
     @MapKey("posterId")
     public Map<Integer, RecommendPoster> getRecommendPoster();
 
@@ -83,11 +86,18 @@ public interface PosterDao {
     public List<SequencePoster> getPosterListBySales(int cateId,int index,int pageSize);
 
 
+    @Select("SELECT COUNT(*) FROM poster p LEFT JOIN poster_sales_top pt ON p.id=pt.posterId WHERE p.isEnabled=1 AND p.cateId = #{cateId} AND pt.timeUnit=1 AND pt.expiresIn=30")
+    public int countPosterListBySales(int cateId);
+
+
     @Select("SELECT * FROM poster WHERE isEnabled=1 AND cateId=#{cateId} ORDER BY ${orderClause} LIMIT #{index},#{pageSize}")
     @Results({
             @Result(property = "rendering",column = "rendering",typeHandler = MyJSONArrayHandler.class)
     })
     public List<SequencePoster> getPosterListByClause(int cateId,String orderClause,int index,int pageSize);
+
+    @Select("SELECT count(*) FROM poster WHERE isEnabled=1 AND cateId=#{cateId}")
+    public int  countPosterListByClause(int cateId);
 
 
     @Select("SELECT * FROM poster WHERE isEnabled=1 AND id=#{posterId}")

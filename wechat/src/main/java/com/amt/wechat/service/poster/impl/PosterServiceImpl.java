@@ -1,12 +1,15 @@
 package com.amt.wechat.service.poster.impl;
 
-import com.amt.wechat.service.order.PosterOrderClause;
+import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.dao.poster.PosterDao;
+import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.model.poster.PosterData;
 import com.amt.wechat.model.poster.RecommendPoster;
 import com.amt.wechat.model.poster.SequencePoster;
 import com.amt.wechat.model.poster.TopPosterData;
+import com.amt.wechat.service.order.PosterOrderClause;
 import com.amt.wechat.service.poster.IPosterService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -57,8 +60,26 @@ public class PosterServiceImpl implements IPosterService {
 
 
     @Override
-    public List<SequencePoster> getIntelligent(int index,int pageSize) {
-        List<SequencePoster> list =  posterDao.getPosterList(index * pageSize,pageSize);
+    public BizPacket getIntelligent(int index,int pageSize) {
+        int total = posterDao.countPosterSize();
+        if (total <= 0) {
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(), "暂时无数据!");
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+
+        List<SequencePoster> list = findIntelligent(index * pageSize, pageSize);
+        jsonObject.put("posterListSize",list.size());
+        jsonObject.put("posterList",list);
+
+        return BizPacket.success(jsonObject);
+    }
+
+
+
+    private List<SequencePoster> findIntelligent(int index,int pageSize){
+        List<SequencePoster> list = posterDao.getPosterList(index * pageSize,pageSize);
 
         // 取销量最高的8条
         Map<Integer,SequencePoster>  topPosterMap = getTopPoster(8);
@@ -109,14 +130,29 @@ public class PosterServiceImpl implements IPosterService {
     }
 
     @Override
-    public List<SequencePoster> getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause) {
+    public BizPacket getPosterListByCate(int cateId, Integer index, Integer pageSize, PosterOrderClause orderClause) {
+        JSONObject jsonObject = new JSONObject();
+
         if(orderClause == PosterOrderClause.SALES){
+            int total = posterDao.countPosterListBySales(cateId);
+            jsonObject.put("total",total);
+            if(total <= 0){
+                return BizPacket.success(jsonObject);
+            }
             List<SequencePoster> list = posterDao.getPosterListBySales(cateId,index,pageSize);
-            return list;
+            jsonObject.put("list",list);
+            return BizPacket.success(jsonObject);
         }
 
+
+        int total = posterDao.countPosterListByClause(cateId);
+        jsonObject.put("total",total);
+        if(total <= 0){
+            return BizPacket.success(jsonObject);
+        }
         List<SequencePoster> list = posterDao.getPosterListByClause(cateId,orderClause.getClause(),index,pageSize);
-        return list;
+        jsonObject.put("list",list);
+        return BizPacket.success(jsonObject);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.amt.wechat.dao.poi;
 
+import com.amt.wechat.model.poi.PoiCandidate;
 import com.amt.wechat.model.poi.PoiUserData;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,6 +33,12 @@ public interface PoiUserDao {
     @Update("UPDATE poi_user SET mobile = #{mobile} WHERE id=#{id}")
     public void updatePOIUserMobile(String mobile,String id);
 
+    @Update("UPDATE poi_user SET isMaster = #{isMaster} WHERE id=#{id}")
+    public void updatePoiUserMaster(int isMaster,String id);
+
+    @Update("UPDATE poi_user SET isEnabled = #{isEnabled},poiId=#{poiId} WHERE id=#{id}")
+    public void removePOIUser(int isEnabled,String poiId,String id);
+
 
     @Update("UPDATE poi_user SET name = #{name} WHERE id=#{id}")
     public void updatePOIUserName(String name ,String id);
@@ -45,13 +52,25 @@ public interface PoiUserDao {
     @Select("SELECT * FROM poi_user WHERE id=#{id}")
     public PoiUserData getPOIUserDataById(String id);
 
-    @Select("SELECT * FROM poi_user WHERE poiId=#{poiId}")
+    @Select("SELECT * FROM poi_user WHERE poiId=#{poiId} LIMIT 200")
     public List<PoiUserData> getPoiEmployeeList(String poiId);
 
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")
     public PoiUserData getPOIUserData(String openid,String mobile);
 
-    @Select("SELECT poiId FROM poi_user_candidate WHERE mobile=#{mobile}")
-    public String getPoiId(String mobile);
+
+
+
+    @Insert("INSERT INTO poi_user_candidate(poiId,mobile,createTime, userId)VALUES(#{poiId},#{mobile},#{createTime},#{userId})")
+    public void addInvite(PoiCandidate data);
+
+    @Select("DELETE FROM poi_user_candidate WHERE id=#{id}")
+    public void removeInvoteById(int id);
+
+    @Update("UPDATE poi_user_candidate SET poiId =#{poiId},mobile=#{mobile},createTime =#{createTime},userId=#{userId} WHERE id = #{id}")
+    public void updateInvite(PoiCandidate candidate);
+
+    @Select("SELECT * FROM poi_user_candidate WHERE mobile=#{mobile} LIMIT 1")
+    public PoiCandidate getPoiCandidate(String mobile);
 }

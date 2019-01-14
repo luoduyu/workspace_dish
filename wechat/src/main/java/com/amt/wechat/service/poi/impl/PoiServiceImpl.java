@@ -135,8 +135,6 @@ public class PoiServiceImpl implements PoiService {
     }
 
 
-    //poiDao.addPoiData(poiData);
-
     /**
      * 创建一个缺省的店铺数据
      * @return
@@ -278,16 +276,14 @@ public class PoiServiceImpl implements PoiService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public BizPacket memberBuy(PoiUserData userData, int memberCardId, int feeRenew) {
+    public BizPacket memberBuy(PoiUserData userData, int memberCardId) {
         MemberCardData cardData = memberDao.getMemberCardData(memberCardId);
         if(cardData == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"非法的会员卡Id");
         }
 
-
-
         boolean isMemberNewbie = memberNewbie(userData.getPoiId());
-        PoiMemberRDData rdData = writeMemberCardBoughtRD(userData,cardData,feeRenew,isMemberNewbie);
+        PoiMemberRDData rdData = writeMemberCardBoughtRD(userData,cardData,1,isMemberNewbie);
 
 
 

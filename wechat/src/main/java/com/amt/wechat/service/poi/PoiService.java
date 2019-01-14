@@ -68,10 +68,10 @@ public interface PoiService {
      * 会员购买
      * @param userData
      * @param memberCardId
-     * @param feeRenew
+     *
      * @return
      */
-    public BizPacket memberBuy(PoiUserData userData,int memberCardId,int feeRenew);
+    public BizPacket memberBuy(PoiUserData userData,int memberCardId);
 
 
     /**

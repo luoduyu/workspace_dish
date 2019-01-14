@@ -83,17 +83,10 @@ public class MemberController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/member/buy",method = {RequestMethod.POST})
-    public BizPacket memberBuy(@RequestParam("memberCardId") Integer memberCardId,Integer feeRenew){
+    public BizPacket memberBuy(@RequestParam("memberCardId") Integer memberCardId){
 
         if(memberCardId == null || memberCardId <0 || memberCardId >= Integer.MAX_VALUE){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"会员卡编号非法！");
-        }
-        if(feeRenew == null){
-            feeRenew = 1;
-        }
-
-        if(feeRenew != 0 && feeRenew != 1){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"是否续期参数非法！");
         }
 
         PoiUserData userData = getUser();

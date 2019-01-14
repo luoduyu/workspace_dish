@@ -205,6 +205,13 @@ public class PoiServiceImpl implements PoiService {
         }
     }
 
+
+    /**
+     * 赋值
+     * @param myMemberDataForm
+     * @param memberData
+     * @return
+     */
     private MyMemberDataForm let(MyMemberDataForm myMemberDataForm,PoiMemberData memberData){
         if(memberData == null){
            return myMemberDataForm;

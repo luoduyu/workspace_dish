@@ -135,6 +135,8 @@ public class PoiServiceImpl implements PoiService {
     }
 
 
+    //poiDao.addPoiData(poiData);
+
     /**
      * 创建一个缺省的店铺数据
      * @return
@@ -276,16 +278,16 @@ public class PoiServiceImpl implements PoiService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public BizPacket memberBuy(PoiUserData userData, int memberCardId) {
+    public BizPacket memberBuy(PoiUserData userData, int memberCardId, int feeRenew) {
         MemberCardData cardData = memberDao.getMemberCardData(memberCardId);
         if(cardData == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"非法的会员卡Id");
         }
 
+
+
         boolean isMemberNewbie = memberNewbie(userData.getPoiId());
-        PoiMemberRDData rdData = writeMemberCardBoughtRD(userData,cardData,1,isMemberNewbie);
-
-
+        PoiMemberRDData rdData = writeMemberCardBoughtRD(userData,cardData,feeRenew,isMemberNewbie);
 
         // TODO 等待支付完成
         if(devMode){
@@ -357,6 +359,19 @@ public class PoiServiceImpl implements PoiService {
         return memberData;
     }
 
+    private PoiMemberData addDefaultMemberData(String poiId,int feeRenew){
+        PoiMemberData memberData= new PoiMemberData();
+        memberData.setAutoFee(0);
+        memberData.setAutoFeeRenew(feeRenew);
+        memberData.setBuyTime(DateTimeUtil.now());
+        memberData.setDurationUnit("");
+        memberData.setDuration(0);
+        memberData.setPoiId(poiId);
+        memberData.setExpiredAt("");
+        poiDao.addPoiMemberData(memberData);
+        return memberData;
+    }
+
     /**
      * 写入购买日志
      * @param userData
@@ -413,6 +428,27 @@ public class PoiServiceImpl implements PoiService {
                 return ldt.format(DateTimeUtil.FRIENDLY_DATE_TIME_FORMAT);
             default:
                 return "";
+        }
+    }
+
+
+    @Override
+    public BizPacket freeRenewSet(PoiUserData userData,int feeRenew){
+        try {
+            PoiMemberData memberData = poiDao.getPoiMemberData(userData.getPoiId());
+            if(memberData == null){
+                addDefaultMemberData(userData.getPoiId(),feeRenew);
+                return BizPacket.success();
+            }
+
+            if(memberData.getAutoFeeRenew() == feeRenew){
+                return BizPacket.success();
+            }
+            poiDao.updatePoiMemberFreeRenew(feeRenew,memberData.getPoiId());
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("userData="+userData+",feeRenew="+feeRenew+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }
 

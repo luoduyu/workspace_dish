@@ -83,10 +83,17 @@ public class MemberController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/member/buy",method = {RequestMethod.POST})
-    public BizPacket memberBuy(@RequestParam("memberCardId") Integer memberCardId){
+    public BizPacket memberBuy(@RequestParam("memberCardId") Integer memberCardId,Integer feeRenew){
 
         if(memberCardId == null || memberCardId <0 || memberCardId >= Integer.MAX_VALUE){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"会员卡编号非法！");
+        }
+        if(feeRenew == null){
+            feeRenew = 1;
+        }
+
+        if(feeRenew != 0 && feeRenew != 1){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"是否续期参数非法！");
         }
 
         PoiUserData userData = getUser();
@@ -96,13 +103,31 @@ public class MemberController extends BaseController {
         return poiService.memberBuy(userData,memberCardId,feeRenew);
     }
 
+    @PostMapping(value = "/member/autofree/set")
+    public BizPacket freeRenewSet(@RequestParam("feeRenew") Integer feeRenew){
+        if(feeRenew == null){
+            feeRenew = 1;
+        }
+
+        if(feeRenew != 0 && feeRenew != 1){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"是否续期参数非法！");
+        }
+
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+        return poiService.freeRenewSet(userData,feeRenew);
+
+    }
+
 
     /**
      * 会员自动续期取消
      * @param smsCode
      * @return
      */
-    @RequestMapping(value = "/member/renew/cancel")
+    @PostMapping(value = "/member/renew/cancel")
     public BizPacket autoFeeRenewCencel(String smsCode){
         PoiUserData userData = getUser();
         if(StringUtils.isEmpty(userData.getPoiId())){

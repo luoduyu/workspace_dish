@@ -68,10 +68,18 @@ public interface PoiService {
      * 会员购买
      * @param userData
      * @param memberCardId
-     *
+     * @param feeRenew
      * @return
      */
-    public BizPacket memberBuy(PoiUserData userData,int memberCardId);
+    public BizPacket memberBuy(PoiUserData userData,int memberCardId,int feeRenew);
+
+    /**
+     * 设置是否自动续期
+     * @param userData
+     * @param feeRenew
+     * @return
+     */
+    public BizPacket freeRenewSet(PoiUserData userData,int feeRenew);
 
 
     /**

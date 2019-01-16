@@ -55,8 +55,11 @@ public interface PoiDao {
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     public void addPoiMemberData(PoiMemberData memberData);
 
-    @Update("UPDATE poi_member SET durationUnit=#{durationUnit},duration=#{duration},buyTime=#{buyTime},expiredAt=#{expiredAt},autoFeeRenew=#{autoFeeRenew},autoFee=#{autoFee} where poiId = #{poiId}")
+    @Update("UPDATE poi_member SET durationUnit=#{durationUnit},duration=#{duration},buyTime=#{buyTime},expiredAt=#{expiredAt},autoFeeRenew=#{autoFeeRenew},autoFee=#{autoFee} WHERE poiId = #{poiId}")
     public void updatePoiMemberData(PoiMemberData memberData);
+
+    @Update("UPDATE poi_member SET autoFeeRenew=#{autoFeeRenew} WHERE poiId = #{poiId}")
+    public void updatePoiMemberFreeRenew(int autoFeeRenew,String poiId);
 
     @Select("SELECT * FROM poi_member WHERE poiId=#{poiId} LIMIT 1")
     public PoiMemberData getPoiMemberData(String poiId);

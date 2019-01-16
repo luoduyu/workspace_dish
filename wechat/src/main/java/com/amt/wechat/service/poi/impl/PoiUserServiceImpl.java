@@ -101,6 +101,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
         data.setIsEnabled(1);
         data.setIsMaster(1);
         data.setName("");
+        data.setCountryCode("中国");
 
         data.setPassword("");
         updateUser(data,sessionKeyAndOpenid,userJson);
@@ -252,9 +253,12 @@ public class PoiUserServiceImpl implements IPoiUserService {
         return form;
     }
 
-    private List<PoiBasicUserData> transfer(List<PoiUserData> employeeList){
+    private List<PoiBasicUserData> transfer(List<PoiUserData> employeeList,String bossId){
         List<PoiBasicUserData> basicUserList = new ArrayList<>(employeeList.size());
         for(PoiUserData u:employeeList){
+            if(u.getId().equalsIgnoreCase(bossId)){
+                continue;
+            }
             PoiBasicUserData data = createFrom(u);
             basicUserList.add(data);
         }
@@ -295,7 +299,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
         if(employeeList == null || employeeList.isEmpty()){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂时没有成员!");
         }
-        List<PoiBasicUserData> basicUserList = transfer(employeeList);
+        List<PoiBasicUserData> basicUserList = transfer(employeeList,userData.getId());
         return BizPacket.success(basicUserList);
     }
 }

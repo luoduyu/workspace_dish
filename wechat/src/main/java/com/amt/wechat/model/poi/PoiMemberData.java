@@ -47,7 +47,7 @@ public class PoiMemberData implements Serializable {
     private String expiredAt;
 
     /**
-     * 当前是否自动续费;0:否,1:是
+     * 当前是否自动续费;0:否(默认),1:是
      */
     private int autoFeeRenew;
 

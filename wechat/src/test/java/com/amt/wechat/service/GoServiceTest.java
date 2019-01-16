@@ -1,17 +1,6 @@
 package com.amt.wechat.service;
 
-import com.amt.wechat.dao.poi.PoiUserDao;
-import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.yunying.ShenQingForm;
-import com.amt.wechat.model.poi.PoiUserData;
-import com.amt.wechat.service.go.GoService;
-import com.amt.wechat.service.go.ShenQingType;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -19,20 +8,20 @@ import javax.annotation.Resource;
  * @author adu Create on 2019-01-03 13:06
  * @version 1.0
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class GoServiceTest {
-    private @Resource  GoService goService;
-    private @Resource PoiUserDao poiUserDao;
+    //private @Resource  GoService goService;
+   // private @Resource PoiUserDao poiUserDao;
 
-    @Test
-    public void testFormSubmit(){
-        ShenQingForm form = build();
-
-        PoiUserData userData = poiUserDao.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
-        BizPacket packet = goService.requestFormSubmit(form,userData, ShenQingType.KAIDIAN);
-        System.out.println(packet);
-    }
+//    @Test
+//    public void testFormSubmit(){
+//        ShenQingForm form = build();
+//
+//        PoiUserData userData = poiUserDao.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
+//        BizPacket packet = goService.requestFormSubmit(form,userData, ShenQingType.KAIDIAN);
+//        System.out.println(packet);
+//    }
 
     private static ShenQingForm build(){
         ShenQingForm form = new ShenQingForm();

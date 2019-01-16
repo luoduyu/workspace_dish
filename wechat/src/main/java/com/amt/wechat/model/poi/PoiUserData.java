@@ -41,7 +41,7 @@ public class PoiUserData extends PoiBasicUserData {
 
 
     /**
-     * 身份信息;-1:身份未知(默认),0:否,1:是;(每店只能有一名店主)
+     * 身份信息;-1:身份未知(默认),1:否,2:是;(每店只能有一名店主)
      */
     private int isMaster;
 
@@ -55,7 +55,7 @@ public class PoiUserData extends PoiBasicUserData {
      * 性别 0:未知,1:男,2:女
      */
     private int gender;
-    private  String countryCode;
+    private  String countryCode="";
     private String province;
     private String city;
     private String openid="";

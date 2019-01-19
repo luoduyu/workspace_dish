@@ -199,4 +199,15 @@ public class PoiUserData extends PoiBasicUserData {
     public String toString() {
         return JSON.toJSONString(this);
     }
+
+
+    public static PoiBasicUserData createFrom(PoiUserData o){
+        PoiBasicUserData data = new PoiBasicUserData();
+        data.setAvatarUrl(o.getAvatarUrl());
+        data.setCreateTime(o.getCreateTime());
+        data.setId(o.getId());
+        data.setName(o.getName());
+        data.setNickName(o.getNickName());
+        return data;
+    }
 }

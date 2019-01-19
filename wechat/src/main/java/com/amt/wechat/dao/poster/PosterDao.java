@@ -37,7 +37,7 @@ public interface PosterDao {
 
     @Select("SELECT * FROM poster WHERE id IN(${ids})")
     @MapKey("id")
-    public Map<Integer,PosterData> getPosterDataMap(String ids);
+    public Map<Integer,PosterData> getPosterDataMap(@Param("ids") String ids);
 
 
 

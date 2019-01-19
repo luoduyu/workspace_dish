@@ -126,4 +126,8 @@ public interface PoiService {
      * @return
      */
     public BizPacket employeeRM(PoiUserData boss,String userId);
+
+
+    public BizPacket eleAuth(PoiUserData userData,String accountName,String accountPwd);
+    public BizPacket mtAuth(PoiUserData userData,String accountName,String accountPwd);
 }

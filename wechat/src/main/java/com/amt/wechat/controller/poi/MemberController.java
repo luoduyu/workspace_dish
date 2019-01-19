@@ -7,6 +7,8 @@ import com.amt.wechat.model.member.MemberCardData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.poi.PoiService;
 import com.amt.wechat.service.redis.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,8 @@ import java.util.List;
  */
 @RestController
 public class MemberController extends BaseController {
+
+    private static Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     private @Resource MemberDao memberDao;
     private @Resource PoiService poiService;
@@ -82,7 +86,7 @@ public class MemberController extends BaseController {
      * @param feeRenew 是否自动续期；0:否,1:是
      * @return
      */
-    @RequestMapping(value = "/member/buy",method = {RequestMethod.POST})
+    @PostMapping(value = "/member/buy")
     public BizPacket memberBuy(@RequestParam("memberCardId") Integer memberCardId,Integer feeRenew){
 
         if(memberCardId == null || memberCardId <0 || memberCardId >= Integer.MAX_VALUE){
@@ -100,7 +104,13 @@ public class MemberController extends BaseController {
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
-        return poiService.memberBuy(userData,memberCardId,feeRenew);
+        try {
+            BizPacket ret= poiService.memberBuy(userData,memberCardId,feeRenew);
+            return ret;
+        } catch (Exception e) {
+           logger.error("userData="+userData+",memberCardId="+memberCardId+",feeRenew="+feeRenew+",e="+e.getMessage(),e);
+           return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 
     @PostMapping(value = "/member/autofree/set")

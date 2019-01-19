@@ -24,24 +24,34 @@ public interface PoiUserDao {
     @Insert("INSERT INTO poi_user (id, accessToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, password, mobile, gender, countryCode, province, city, openid, unionid, name,nickName, avatarUrl, createTime,updTime) VALUES(#{id}, #{accessToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster},#{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid},#{name},#{nickName}, #{avatarUrl}, #{createTime},#{updTime})")
     public void addPOIUser(PoiUserData poiUserData);
 
-    @Update("UPDATE poi_user SET accessToken = #{accessToken}, gender = #{gender},countryCode = #{countryCode}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl}  WHERE id=#{id}")
+    @Update("UPDATE poi_user SET accessToken = #{accessToken}, gender = #{gender},countryCode = #{countryCode}, province=#{province}, city =#{city}, openid =#{openid}, unionid= #{unionid}, nickName = #{nickName},avatarUrl= #{avatarUrl},updTime=#{updTime}  WHERE id=#{id}")
     public void updatePOIUser(PoiUserData poiUserData);
 
-    @Update("UPDATE poi_user SET poiId=#{poiId}, name = #{name}, mobile = #{mobile} WHERE id=#{id}")
-    public void updatePOIUserNameAndMobile(String poiId,String name,String mobile,String id);
+    @Update("UPDATE poi_user SET accessToken=#{accessToken},updTime=#{updTime} WHERE id=#{id}")
+    public void updateUserAccessToken(String accessToken,String updTime,String id);
 
-    @Update("UPDATE poi_user SET mobile = #{mobile} WHERE id=#{id}")
-    public void updatePOIUserMobile(String mobile,String id);
-
-    @Update("UPDATE poi_user SET isMaster = #{isMaster} WHERE id=#{id}")
-    public void updatePoiUserMaster(int isMaster,String id);
-
-    @Update("UPDATE poi_user SET isEnabled = #{isEnabled},poiId=#{poiId} WHERE id=#{id}")
-    public void removePOIUser(int isEnabled,String poiId,String id);
+    @Update("UPDATE poi_user SET poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
+    public void updateUserPoiId(String poiId,String updTime,String id);
 
 
-    @Update("UPDATE poi_user SET name = #{name} WHERE id=#{id}")
-    public void updatePOIUserName(String name ,String id);
+    @Update("UPDATE poi_user SET isMaster=#{isMaster},name = #{name}, mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
+    public void update4AuthBoss(int isMaster,String name,String mobile,String updTime,String id);
+
+    @Update("UPDATE poi_user SET isMaster=#{isMaster},poiId=#{poiId}, name = #{name}, mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
+    public void update4AuthEmpl(int isMaster,String poiId,String name,String mobile,String updTime,String id);
+
+    @Update("UPDATE poi_user SET mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
+    public void updatePOIUserMobile(String mobile,String updTime,String id);
+
+    @Update("UPDATE poi_user SET isMaster = #{isMaster},updTime=#{updTime} WHERE id=#{id}")
+    public void updatePoiUserMaster(int isMaster,String updTime,String id);
+
+    @Update("UPDATE poi_user SET isEnabled = #{isEnabled},poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
+    public void removePOIUser(int isEnabled,String poiId,String updTime,String id);
+
+    @Update("UPDATE poi_user SET name = #{name},updTime=#{updTime} WHERE id=#{id}")
+    public void updatePOIUserName(String name ,String updTime,String id);
+
 
     @Select("SELECT * FROM poi_user WHERE openid=#{openid}")
     public PoiUserData getPOIUserDataByOpenid(String openid);

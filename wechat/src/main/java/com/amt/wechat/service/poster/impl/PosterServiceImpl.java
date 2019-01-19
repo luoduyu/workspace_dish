@@ -139,7 +139,7 @@ public class PosterServiceImpl implements IPosterService {
             if(total <= 0){
                 return BizPacket.success(jsonObject);
             }
-            List<SequencePoster> list = posterDao.getPosterListBySales(cateId,index,pageSize);
+            List<SequencePoster> list = posterDao.getPosterListBySales(cateId,index*pageSize,pageSize);
             jsonObject.put("list",list);
             return BizPacket.success(jsonObject);
         }
@@ -150,7 +150,7 @@ public class PosterServiceImpl implements IPosterService {
         if(total <= 0){
             return BizPacket.success(jsonObject);
         }
-        List<SequencePoster> list = posterDao.getPosterListByClause(cateId,orderClause.getClause(),index,pageSize);
+        List<SequencePoster> list = posterDao.getPosterListByClause(cateId,orderClause.getClause(),index*pageSize,pageSize);
         jsonObject.put("list",list);
         return BizPacket.success(jsonObject);
     }

@@ -5,8 +5,8 @@ import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.sms.AliSMS;
 import com.amt.wechat.domain.util.WechatUtil;
-import com.amt.wechat.form.basic.AllBasicSettingForm;
 import com.amt.wechat.form.basic.BasicSettingForm;
+import com.amt.wechat.model.poi.PoiBasicData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.login.LoginService;
@@ -62,11 +62,11 @@ public class SettingController extends BaseController {
         }
 
         PoiUserData userData = getUser();
+        if(!StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"已经授权认证过店铺了!");
+        }
         if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
-        }
-        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
         if(!StringUtils.isEmpty(userData.getMobile())){
             if(!userData.getMobile().equalsIgnoreCase(mobile)){
@@ -74,7 +74,7 @@ public class SettingController extends BaseController {
             }
         }
 
-        return poiUserService.auth4Mobile(name,mobile,getUser(), EmplIdentity.MASTER);
+        return poiUserService.auth4Boss(name,mobile,userData);
     }
 
 
@@ -105,13 +105,20 @@ public class SettingController extends BaseController {
         if(!StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"已经授权认证过店铺了!");
         }
+
+        /*
+        允许仅仅认证了手机号且之前认证为老板的‘人’重新认证为店员
+        if(!StringUtils.isEmpty(userData.getMobile()) && !StringUtils.isEmpty(userData.getName())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
+        }
+        */
         if(!StringUtils.isEmpty(userData.getMobile())){
             if(!userData.getMobile().equalsIgnoreCase(mobile)){
                 return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与原有手机号不一致!原手机号:"+userData.getMobile());
             }
         }
 
-        return poiUserService.auth4Mobile(name,mobile,getUser(),EmplIdentity.EMPLOYEE);
+        return poiUserService.auth4Empl(name,mobile,userData);
     }
 
     /**
@@ -220,9 +227,13 @@ public class SettingController extends BaseController {
         if(StringUtils.isEmpty(userData.getMobile())){
             return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"您还未申报过手机号!");
         }
+
+        /*
+        // 允许无店铺的BOSS更换手机号
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
+        */
 
         if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
@@ -246,36 +257,27 @@ public class SettingController extends BaseController {
 
 
     /**
-     * '会员信息设置'之获取
+     * 店铺信息获取
      * @return
      */
     @GetMapping(value="/setting/poi/basic/get")
     public BizPacket memberBasicSettingGet(){
         PoiUserData userData = getUser();
+        /*
+        允许店内成员均能获取店铺信息
         if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
+        */
 
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
 
         try {
-            AllBasicSettingForm form = new AllBasicSettingForm();
-            form.setMemberName(userData.getName());
-            form.setMemberMobile(userData.getMobile());
-
             PoiData poiData =  poiDao.getPoiData(userData.getPoiId());
-            form.setPoiCateId(poiData.getCateId());
-            form.setPoiBrandName(poiData.getBrandName());
-            form.setPoiCountry(poiData.getCountry());
-            form.setPoiProvince(poiData.getProvince());
-            form.setPoiCity(poiData.getCity());
-            form.setPoiDistricts(poiData.getDistricts());
-            form.setPoiStreet(poiData.getStreet());
-            form.setPoiAddress(poiData.getAddress());
-
-            return BizPacket.success(form);
+            PoiBasicData basicData = PoiData.createFrom(poiData);
+            return BizPacket.success(basicData);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -348,7 +350,7 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码不能为空!");
         }
         if(pwd.trim().length() >50){
-            return BizPacket.error(HttpStatus.REQUEST_URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
+            return BizPacket.error(HttpStatus.URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
         }
         return poiService.balancePwdSet(userData,pwd);
     }
@@ -364,7 +366,7 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码不能为空!");
         }
         if(newPwd.trim().length() >50){
-            return BizPacket.error(HttpStatus.REQUEST_URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
+            return BizPacket.error(HttpStatus.URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
         }
 
         if(StringUtils.isEmpty(oldPwd)){
@@ -411,5 +413,17 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
         return poiService.employeeRM(userData,userId);
+    }
+
+    @PostMapping(value = "/setting/poi/auth/ele")
+    public BizPacket eleAuth(String accountName,String accountPwd){
+        PoiUserData userData  = getUser();
+        return poiService.eleAuth(userData,accountName,accountPwd);
+    }
+
+    @PostMapping(value = "/setting/poi/auth/mt")
+    public BizPacket mtAuth(String accountName,String accountPwd){
+        PoiUserData userData  = getUser();
+        return poiService.mtAuth(userData,accountName,accountPwd);
     }
 }

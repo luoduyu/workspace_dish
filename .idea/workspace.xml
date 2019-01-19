@@ -7,17 +7,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="1)分类别的海报集合/推荐海报集合/会员购买记录/我的订单集合 添加对分页的总数量的支持&#10;2)完成取消续费设置功能&#10;3)完成余额充值/充值记录查询/余额消费记录查询功能&#10;4)完成BOSS转让/店员删除功能&#10;5)完成余额支付密码设置/重置功能">
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat/src/main/resources/static/img/9642932-759ac3cad93251a9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/wechat_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/wechat_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_1_1_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_session_spring_session_core_2_1_2_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_session_spring_session_data_redis_2_1_2_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_2_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/decoration/PoiMaterialDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/decoration/PoiMaterialDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiMemberData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiMemberData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/AllBasicSettingForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/order/OrderItemForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/order/OrderItemForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiBasicData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiBasicData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/IPoiUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/IPoiUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/test/java/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/GoServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/GoServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/PosterServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/PosterServiceTests.java" afterDir="false" />
     </list>
@@ -54,10 +89,42 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="48" column="85" selection-start-line="48" selection-start-column="68" selection-end-line="48" selection-end-column="85" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2589#3124#0" expanded="true" />
+                <element signature="e#3123#3124#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1376">
-              <caret line="129" column="47" selection-start-line="129" selection-start-column="40" selection-end-line="129" selection-end-column="47" />
+            <state relative-caret-position="272">
+              <caret line="16" column="41" lean-forward="true" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -70,43 +137,47 @@
         <option value="Enum" />
         <option value="spring-beans.schema" />
         <option value="Interface" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getIsAccountNonExpired</find>
-      <find>LoginController</find>
-      <find>bossTransferTo</find>
-      <find>isMember</find>
-      <find>PoiMemberData</find>
-      <find>countPoiMemberRD</find>
-      <find>getPoiEmployeeList</find>
-      <find>/decoration/material/list</find>
-      <find>/dish/allcate</find>
-      <find>/poster/recommanded/list</find>
-      <find>/poster/intellij/list</find>
-      <find>getIntelligent</find>
-      <find>postercate/all</find>
-      <find>allcate</find>
-      <find>updatePoi</find>
-      <find>/setting/poi/basic/get</find>
-      <find>getIsMaster</find>
-      <find>connector</find>
-      <find>/setting/poi/employee/list</find>
-      <find>devMode</find>
-      <find>setDriverClassName</find>
-      <find>HikariCP</find>
-      <find>spring.datasource.driver-class-name</find>
-      <find>blockWhenExhausted</find>
-      <find>redis</find>
-      <find>r-2ze7948120b92464.redis.rds.aliyuncs.com</find>
-      <find>addPOIUser</find>
-      <find>setCountryCode</find>
-      <find>createUser</find>
-      <find>中国</find>
+      <find>onSMSSend</find>
+      <find>sendSMS</find>
+      <find>/order/submit</find>
+      <find>spring.devtools</find>
+      <find>updatePoiUserName</find>
+      <find>devtools</find>
+      <find>String ids</find>
+      <find>addOrderItemDataList</find>
+      <find>MediaType.APPLICATION_FORM_URLENCODED_VALUE</find>
+      <find>OrderServiceDataEx</find>
+      <find>MyOrderItemForm</find>
+      <find>MyOrderFormEx</find>
+      <find>getOrderItemList</find>
+      <find>updateTotal</find>
+      <find>updateOrderItemData</find>
+      <find>/member/buy</find>
+      <find>tr</find>
+      <find>orderSubmit</find>
+      <find>@Transactional</find>
+      <find>@Transtraction</find>
+      <find>logger</find>
+      <find>getMyOrderList</find>
+      <find>spring.datasource.url</find>
+      <find>application-dev</find>
+      <find>application</find>
+      <find>profileActive</find>
+      <find>application-dev.properties</find>
+      <find>project.build.sourceEncoding</find>
+      <find>tomcat</find>
+      <find>tool</find>
     </findStrings>
+    <dirStrings>
+      <dir>D:\workspace_dish\wechat\src\main\java\com\amt\wechat\controller</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -117,59 +188,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiAccountService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiAccountServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiAccountData.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/bidding/BiddingController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/bidding/BiddingService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/SettingController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/base/BaseController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/WechatUtil.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/globalsetting/GlobalSettingDao.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/poi/MyMemberDataForm.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/balance/BalanceConsumeRd.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/balance/BalanceRechargeRD.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/balance/BalanceDao.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/bidding/BiddingRechargeRd.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/bidding/BiddingDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/bidding/BiddingServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/member/MemberDao.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/decoration/PoiMaterialDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/dish/DishDao.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/IPosterService.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poster/PosterController.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiMemberData.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiMemberRDData.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/applications-pro.properties" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/ApacheConnectorDev.java" />
+        <option value="$PROJECT_DIR$/wechat/target/classes/application.properties" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiBasicData.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/AllBasicSettingForm.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/SettingController.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/IPoiUserService.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/webapp/index.jsp" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/webapp/index.html" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/static/demo.html" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisService.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisServiceImpl.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/decoration/PoiMaterialDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/order/OrderItemForm.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/static/index.html" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/MemberController.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MyRedisProperties.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" />
         <option value="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/PosterServiceTests.java" />
         <option value="$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/GoServiceTest.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/resources/applications-pro.properties" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/ApacheConnectorDev.java" />
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java" />
-        <option value="$PROJECT_DIR$/wechat/pom.xml" />
+        <option value="$PROJECT_DIR$/wechat/src/test/java/Test.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" />
+        <option value="$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties" />
+        <option value="$PROJECT_DIR$/wechat/pom.xml" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java" />
       </list>
     </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -194,9 +271,12 @@
       <select />
     </treeState>
   </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-4" />
-    <option name="y" value="-4" />
+    <option name="x" value="40" />
+    <option name="y" value="425" />
     <option name="width" value="1658" />
     <option name="height" value="895" />
   </component>
@@ -211,6 +291,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -244,15 +325,28 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="workspace_dish" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -262,13 +356,22 @@
     <property name="database.console.LAST_STATE" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="spring" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -278,14 +381,18 @@
       <recent name="com.amt.wechat.model.member" />
       <recent name="com.amt.wechat.form.yunying" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace_dish\wechat\src\main\resources" />
+      <recent name="D:\workspace_dish\wechat\src\main\resources\static\img" />
+      <recent name="D:\workspace_dish\wechat\src\main\resources\static" />
+      <recent name="D:\workspace_dish\wechat\src\main\webapp" />
+      <recent name="D:\workspace_dish\wechat\src\test\java" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.amt.wechat.model.balance" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace_dish\wechat\src\test\java" />
-      <recent name="D:\workspace_dish\wechat\src\main\resources" />
-      <recent name="D:\workspace_dish\wechat\src\main\java\com\amt\wechat\domain\sms" />
-      <recent name="D:\workspace_dish\wechat\src\main\resources\templates" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace_dish\wechat\src\main\resources\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -300,19 +407,33 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.WechatApplication">
-    <configuration name="WechatApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.amt.wechat.WechatApplication" />
-      <module name="wechat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.amt.wechat.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Spring Boot.WechatApplication">
+    <configuration name="wechat [compile]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="compile" />
+                <option value="-Dmaven.test.skip=true" />
+                <option value="-e" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/wechat" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration name="wechat [package]" type="MavenRunConfiguration" factoryName="Maven" editBeforeRun="true">
       <MavenSettings>
@@ -327,6 +448,7 @@
               <list>
                 <option value="package" />
                 <option value="-Dmaven.test.skip=true" />
+                <option value="-e" />
               </list>
             </option>
             <option name="pomFileName" value="pom.xml" />
@@ -348,15 +470,18 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.WechatApplication" />
       <item itemvalue="Maven.wechat [package]" />
+      <item itemvalue="Maven.wechat [compile]" />
       <item itemvalue="Spring Boot.WechatApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WechatApplication" />
+        <item itemvalue="Maven.wechat [compile]" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SpringGeneralSettings">
+    <option name="showProfilesPanel" value="false" />
   </component>
   <component name="SshConsoleOptionsProvider">
     <option name="myEncoding" value="UTF-8" />
@@ -404,6 +529,15 @@
       <workItem from="1547515995934" duration="4905000" />
       <workItem from="1547604233344" duration="7195000" />
       <workItem from="1547620024602" duration="18251000" />
+      <workItem from="1547643452630" duration="72000" />
+      <workItem from="1547688713394" duration="40808000" />
+      <workItem from="1547774938820" duration="21294000" />
+      <workItem from="1547799566490" duration="42000" />
+      <workItem from="1547799768880" duration="15004000" />
+      <workItem from="1547816653132" duration="2055000" />
+      <workItem from="1547863177204" duration="22728000" />
+      <workItem from="1547888553659" duration="2384000" />
+      <workItem from="1547890990195" duration="968000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -539,7 +673,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="460198000" />
+    <option name="totallyTimeSpent" value="565553000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -552,25 +686,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="Favorites" order="1" sideWeight="0.6396104" side_tool="true" weight="0.21991481" />
       <window_info id="Web" order="2" sideWeight="0.7111651" side_tool="true" weight="0.25239617" />
-      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.36038962" visible="true" weight="0.21831736" />
+      <window_info content_ui="combo" id="Project" order="3" sideWeight="0.36038962" visible="true" weight="0.23109691" />
       <window_info id="Structure" order="4" sideWeight="0.71664375" side_tool="true" weight="0.22151224" />
-      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.21033014" side_tool="true" weight="0.4352557" />
-      <window_info anchor="bottom" id="Problems" order="1" sideWeight="0.69861555" weight="0.2383025" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.20234291" side_tool="true" visible="true" weight="0.4047878" />
+      <window_info anchor="bottom" id="Problems" order="1" sideWeight="0.69861555" weight="0.31991294" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="3" sideWeight="0.49893504" weight="0.3297062" />
-      <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77902025" weight="0.30359086" />
-      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" weight="0.41131666" />
-      <window_info anchor="bottom" id="Terminal" order="6" weight="0.2383025" />
+      <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77848774" weight="0.30359086" />
+      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" weight="0.28726876" />
+      <window_info anchor="bottom" id="Terminal" order="6" sideWeight="0.75026625" weight="0.4678999" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" sideWeight="0.49946752" weight="0.3297062" />
       <window_info anchor="bottom" id="Message" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="10" sideWeight="0.69861555" weight="0.33949944" />
-      <window_info anchor="bottom" id="Run" order="11" sideWeight="0.7225772" weight="0.41022852" />
-      <window_info anchor="bottom" id="Debug" order="12" sideWeight="0.7896699" weight="0.39281827" />
+      <window_info anchor="bottom" id="Run" order="11" sideWeight="0.7673057" weight="0.55603915" />
+      <window_info active="true" anchor="bottom" id="Debug" order="12" sideWeight="0.7976571" visible="true" weight="0.4047878" />
       <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="15" weight="0.3297062" />
@@ -580,9 +715,9 @@
       <window_info anchor="right" id="Palette&#9;" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Bean Validation" order="3" weight="0.32960597" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.24973376" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.11395101" />
       <window_info anchor="right" id="Ant Build" order="5" weight="0.24973376" />
-      <window_info anchor="right" id="Maven" order="6" weight="0.2113951" />
+      <window_info anchor="right" id="Maven" order="6" visible="true" weight="0.1373802" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -651,6 +786,7 @@
         <watch expression="userData" />
         <watch expression="form.poiType" />
         <watch expression="userData.unionid" />
+        <watch expression="request.getAttribute(&quot;accessToken&quot;)" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -666,364 +802,364 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
+    <expressions id="watch">
+      <expression>
+        <expression-string>request.getAttribute(&quot;accessToken&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="225">
+          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/mappers/orderMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="81" column="21" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+        <state relative-caret-position="323">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/EmplIdentity.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+        <state relative-caret-position="369">
+          <caret line="119" column="71" selection-start-line="119" selection-start-column="53" selection-end-line="119" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiBasicUserData.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/balance/BalanceDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state relative-caret-position="457">
+          <caret line="35" column="34" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiMemberData.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/bidding/BiddingServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+        <state relative-caret-position="225">
+          <caret line="72" column="71" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/BasicSettingForm.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/bidding/BiddingDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-629">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="423">
+          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.3.RELEASE/spring-context-5.1.3.RELEASE-sources.jar!/org/springframework/context/annotation/Bean.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/decoration/PoiMaterialDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-439">
-          <caret line="218" column="18" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
+        <state relative-caret-position="527">
+          <caret line="39" column="39" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.13/tomcat-embed-core-9.0.13-sources.jar!/org/apache/tomcat/util/descriptor/web/SecurityConstraint.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/dish/DishDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="212" column="55" selection-start-line="212" selection-start-column="41" selection-end-line="212" selection-end-column="55" />
+        <state relative-caret-position="306">
+          <caret line="23" column="58" lean-forward="true" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="138" column="27" lean-forward="true" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/OrderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="34" column="22" lean-forward="true" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.3.RELEASE/spring-context-5.1.3.RELEASE-sources.jar!/org/springframework/context/annotation/Profile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="102" column="18" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/MemberController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1601">
-          <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/IPoiUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="61" column="33" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa0.781/WechatApplication.class" />
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/SettingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="55" column="40" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zOC0B34805/WechatApplication.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/7zOC0BE80F5/WechatApplication.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.3.RELEASE/spring-core-5.1.3.RELEASE-sources.jar!/org/springframework/util/StringUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="155" column="61" selection-start-line="155" selection-start-column="49" selection-end-line="155" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.1.3.RELEASE/spring-beans-5.1.3.RELEASE-sources.jar!/org/springframework/beans/factory/support/SimpleInstantiationStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/GoServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/PosterServiceTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.1.RELEASE/spring-boot-autoconfigure-2.1.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/lang/reflect/Method.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="505" column="33" selection-start-line="505" selection-start-column="33" selection-end-line="505" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/jre/lib/rt.jar!/sun/reflect/DelegatingMethodAccessorImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/context/properties/bind/Binder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="348" column="53" selection-start-line="348" selection-start-column="53" selection-end-line="348" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/context/properties/bind/JavaBeanBinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="54" column="47" selection-start-line="54" selection-start-column="47" selection-end-line="54" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/jdbc/EmbeddedDatabaseConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="98" column="55" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.1.RELEASE/spring-boot-autoconfigure-2.1.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/jdbc/DataSourceProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="222" column="56" selection-start-line="222" selection-start-column="56" selection-end-line="222" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/3.2.0/HikariCP-3.2.0-sources.jar!/com/zaxxer/hikari/HikariDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.3.RELEASE/spring-context-5.1.3.RELEASE-sources.jar!/org/springframework/context/annotation/Configuration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="425" column="44" lean-forward="true" selection-start-line="425" selection-start-column="44" selection-end-line="425" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.1.RELEASE/spring-boot-autoconfigure-2.1.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="48" column="3" lean-forward="true" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/applications-pro.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/web/servlet/support/SpringBootServletInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="139" column="7" lean-forward="true" selection-start-line="139" selection-start-column="7" selection-end-line="140" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/wechat.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/go/GoController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="42" column="44" lean-forward="true" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="154" column="29" lean-forward="true" selection-start-line="154" selection-start-column="29" selection-end-line="154" selection-end-column="29" />
+        <state relative-caret-position="250">
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="346">
+          <caret line="61" column="47" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poster/PosterDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="152" column="67" selection-start-line="152" selection-start-column="46" selection-end-line="152" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="36" column="49" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="49" />
-          <folding>
-            <element signature="e#1401#1413#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="232">
+          <caret line="236" column="64" selection-start-line="236" selection-start-column="45" selection-end-line="236" selection-end-column="64" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="54" column="57" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/go/GoDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/globalsetting/GlobalSettingDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/member/MemberDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" column="43" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/RedisSentinelConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/RedisStaticMasterReplicaConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/RedisSocketConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/RedisClusterConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/RedisConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/connection/lettuce/LettuceConnectionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="112" column="40" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.1.RELEASE/spring-boot-autoconfigure-2.1.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/data/redis/RedisAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/core/RedisTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="95" column="68" selection-start-line="95" selection-start-column="68" selection-end-line="95" selection-end-column="68" />
+          <folding>
+            <element signature="e#4619#4648#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/context/properties/EnableConfigurationProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="46" column="34" lean-forward="true" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/context/properties/ConfigurationProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/AuthHandlerInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="32" column="40" lean-forward="true" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" column="3" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MyRedisProperties.java" />
+    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/time/Duration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="209" column="5" lean-forward="true" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.1.RELEASE/spring-boot-autoconfigure-2.1.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/data/redis/RedisProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2513">
+          <caret line="153" column="25" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.3.RELEASE/spring-context-5.1.3.RELEASE-sources.jar!/org/springframework/context/annotation/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="632">
+          <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/target/maven-archiver/pom.properties" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/maven/lib/maven.jar!/schemas/maven-4.0.0.xsd">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
-          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+          <caret line="1690" column="32" selection-start-line="1690" selection-start-column="32" selection-end-line="1690" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.13/tomcat-embed-core-9.0.13-sources.jar!/org/apache/catalina/connector/Connector.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/PosterServiceTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="53" column="22" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="22" />
+        <state relative-caret-position="35">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/ApacheConnectorDev.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/com/amt/wechat/service/GoServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="23" />
+        <state relative-caret-position="51">
+          <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/tomcat.key">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties">
+    <entry file="file://$PROJECT_DIR$/wechat/src/test/java/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#0#414#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="26" lean-forward="true" selection-start-column="26" selection-end-column="26" />
+          <caret column="38" selection-start-column="38" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java">
+    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/io/Serializable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+        <state relative-caret-position="439">
+          <caret line="168" column="17" selection-start-line="168" selection-start-column="17" selection-end-line="168" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.3.RELEASE/spring-data-redis-2.1.3.RELEASE-sources.jar!/org/springframework/data/redis/serializer/GenericJackson2JsonRedisSerializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-319">
+          <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.13/tomcat-embed-core-9.0.13-sources.jar!/org/apache/catalina/connector/Connector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="94" column="16" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.1.RELEASE/spring-boot-2.1.1.RELEASE-sources.jar!/org/springframework/boot/web/server/Ssl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="67" column="20" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1376">
-          <caret line="129" column="47" selection-start-line="129" selection-start-column="40" selection-end-line="129" selection-end-column="47" />
+        <state relative-caret-position="272">
+          <caret line="16" column="41" lean-forward="true" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/WechatApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="48" column="85" selection-start-line="48" selection-start-column="68" selection-end-line="48" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2589#3124#0" expanded="true" />
+            <element signature="e#3123#3124#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1046,7 +1182,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Spring</last-edited>
+          <last-edited>Web (wechat)|Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1086,6 +1222,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

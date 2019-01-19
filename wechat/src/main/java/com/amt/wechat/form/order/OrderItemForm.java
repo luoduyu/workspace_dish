@@ -4,6 +4,7 @@ import com.amt.wechat.model.order.OrderItemData;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,25 +39,38 @@ public class OrderItemForm implements Serializable {
         this.orderItemList = orderItemList;
     }
 
+    /**
+     *
+     * @param itemList 库中原始数据
+     * @return
+     */
     public List<OrderItemData> let(List<OrderItemData> itemList){
-        Map<Integer,MyOrderItemForm> map = new HashMap<>(this.orderItemList.size());
-        for(MyOrderItemForm o:orderItemList){
+        Map<Integer,OrderItemData> map = new HashMap<>(itemList.size());
+        for(OrderItemData o:itemList){
             map.put(o.getId(),o);
         }
 
-        for(OrderItemData o:itemList){
-            MyOrderItemForm my = map.get(o.getId());
+        List<OrderItemData> retList = new ArrayList<>();
+        for(MyOrderItemForm o:orderItemList){
+            OrderItemData my = map.get(o.getId());
+
+            // 不存在的直接忽略
+            if(my == null){
+                continue;
+            }
 
             // 有发现非法的直接返回null!
             if(my.getGoodsId() != o.getGoodsId()){
                 return null;
             }
-            if(my.getNum() <= 0){
+            if(o.getNum() <= 0){
                 return null;
             }
-            o.setNum(my.getNum());
+            my.setNum(o.getNum());
+            my.setTotal(my.getNum() * my.getUnitPrice());
+            retList.add(my);
         }
-        return itemList;
+        return retList;
     }
 
     public boolean validate(){

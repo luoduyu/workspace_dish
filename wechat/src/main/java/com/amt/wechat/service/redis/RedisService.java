@@ -18,7 +18,13 @@ public interface RedisService {
 
     public void addPoiUser(PoiUserData poiUserData) throws IOException;
     public PoiUserData getPoiUser(String accessToken);
+    public PoiUserData getPoiUserById(String poiUserId);
 
+    /**
+     * 删除用户时
+     * @param poiUserId
+     */
+    public void onUserRemoved(String poiUserId);
 
     /**
      * 当前60秒内是否能够发送短信

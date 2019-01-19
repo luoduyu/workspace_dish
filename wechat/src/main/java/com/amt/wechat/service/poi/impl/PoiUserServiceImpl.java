@@ -99,7 +99,7 @@ public class PoiUserServiceImpl implements IPoiUserService {
         data.setIsAccountNonLocked(1);
         data.setIsCredentialsNonExpired(1);
         data.setIsEnabled(1);
-        data.setIsMaster(1);
+        data.setIsMaster(EmplIdentity.NONE.value());
         data.setName("");
         data.setCountryCode("中国");
 
@@ -140,15 +140,40 @@ public class PoiUserServiceImpl implements IPoiUserService {
     }
 
     @Override
-    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData, EmplIdentity identity){
+    public BizPacket auth4Boss(String name, String mobile, PoiUserData userData){
+        try {
+            // 个人资料之缓存的更新
+            userData.setUpdTime(DateTimeUtil.now());
+            userData.setName(name);
+            userData.setMobile(mobile);
+            userData.setIsMaster(EmplIdentity.MASTER.value());
+            redisService.addPoiUser(userData);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
+        }
+        try {
+            // 个人资料之持久化
+            poiUserDao.update4AuthBoss(userData.getIsMaster(),name,mobile,userData.getUpdTime(),userData.getId());
+
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("name="+name+",newMobile="+mobile+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    @Override
+    public BizPacket auth4Empl(String name, String mobile, PoiUserData userData){
         PoiCandidate candidate = null;
+        PoiData poiData = null;
         try {
             candidate = poiUserDao.getPoiCandidate(mobile);
             if(candidate == null || StringUtils.isEmpty(candidate.getPoiId())){
                 return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,还没有店铺老板邀请你,暂时无法挂靠店铺!");
             }
 
-            PoiData poiData = poiDao.getPoiData(candidate.getPoiId());
+            poiData = poiDao.getPoiData(candidate.getPoiId());
             if(poiData == null){
                 return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"抱歉,邀请你的店铺已经不存在!");
             }
@@ -157,6 +182,8 @@ public class PoiUserServiceImpl implements IPoiUserService {
             userData.setPoiId(candidate.getPoiId());
             userData.setName(name);
             userData.setMobile(mobile);
+            userData.setIsMaster(EmplIdentity.EMPLOYEE.value());
+            userData.setUpdTime(DateTimeUtil.now());
             redisService.addPoiUser(userData);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
@@ -164,12 +191,14 @@ public class PoiUserServiceImpl implements IPoiUserService {
         }
         try {
             // 个人资料之持久化
-            poiUserDao.updatePOIUserNameAndMobile(userData.getPoiId(),name,mobile,userData.getId());
+            poiUserDao.update4AuthEmpl(userData.getIsMaster(),userData.getPoiId(),name,mobile,userData.getUpdTime(),userData.getId());
 
 
             // 删除邀请
             poiUserDao.removeInvoteById(candidate.getId());
-            return BizPacket.success();
+
+
+            return BizPacket.success(PoiData.createFrom(poiData));
         } catch (Exception e) {
             logger.error("name="+name+",newMobile="+mobile+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -179,13 +208,14 @@ public class PoiUserServiceImpl implements IPoiUserService {
     @Override
     public BizPacket mobileReplace(PoiUserData currUserData,String newMobile){
         try {
+            currUserData.setUpdTime(DateTimeUtil.now());
             currUserData.setMobile(newMobile);
             redisService.addPoiUser(currUserData);
         } catch (IOException e) {
             logger.error("newMobile="+newMobile+",e="+e.getMessage(),e);
         }
         try {
-            poiUserDao.updatePOIUserMobile(newMobile,currUserData.getId());
+            poiUserDao.updatePOIUserMobile(newMobile,currUserData.getUpdTime(),currUserData.getId());
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("newMobile="+newMobile+",e="+e.getMessage(),e);
@@ -197,7 +227,8 @@ public class PoiUserServiceImpl implements IPoiUserService {
     public BizPacket updatePoiUserName(PoiUserData userData,String name){
         try {
             userData.setName(name);
-            poiUserDao.updatePOIUserName(name,userData.getId());
+            userData.setUpdTime(DateTimeUtil.now());
+            poiUserDao.updatePOIUserName(name,userData.getUpdTime(),userData.getId());
             redisService.addPoiUser(userData);
             return BizPacket.success();
         } catch (Exception e) {
@@ -207,10 +238,25 @@ public class PoiUserServiceImpl implements IPoiUserService {
     }
 
     @Override
-    public BizPacket testLogin() throws IOException {
-        PoiUserData userData = poiUserDao.getPOIUserDataById("c226527e25c5425ea95d9340486cf2d9");
+    public BizPacket login4mobile(String mobile) throws IOException {
+        PoiUserData userData = poiUserDao.getPOIUserDataByMobile(mobile);
+        if(userData == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"用户未找到!");
+        }
+        BizPacket ret = WechatUtil.check(userData);
+        if(ret.getCode() != HttpStatus.OK.value()){
+            return ret;
+        }
+
+        PoiUserData  _userData = redisService.getPoiUserById(userData.getId());
+        if(_userData != null){
+            WeichatLoginForm form = buildResponse(_userData);
+            return BizPacket.success(form);
+        }
+
         userData.setAccessToken(Generator.uuid());
-        poiUserDao.updatePOIUser(userData);
+        userData.setUpdTime(DateTimeUtil.now());
+        poiUserDao.updateUserAccessToken(userData.getAccessToken(),userData.getUpdTime(),userData.getId());
 
         redisService.addPoiUser(userData);
 
@@ -229,26 +275,22 @@ public class PoiUserServiceImpl implements IPoiUserService {
         form.setMobile(userData.getMobile());
         form.setIsMaster(userData.getIsMaster());
 
-        form.setIsAuthDone(0);
-        form.setBalancePwdSet(false);
-
         if(StringUtils.isEmpty(userData.getPoiId())) {
             return form;
         }
 
         PoiData poiData = poiDao.getPoiData(userData.getPoiId());
-        if(poiData != null){
-            PoiBasicData basicData = createFrom(poiData);
-            form.setPoiBasicData(basicData);
+        if(poiData == null) {
+            return form;
+        }
 
-            if(StringUtils.isEmpty(userData.getMobile())
-                    || StringUtils.isEmpty(poiData.getEleShopId())
-                    || StringUtils.isEmpty(poiData.getMtAppAuthToken())){
-                form.setIsAuthDone(0);
-            }else{
-                form.setIsAuthDone(1);
-            }
-            form.setBalancePwdSet(!StringUtils.isEmpty(poiData.getBalancePwd()));
+        PoiBasicData basicData = PoiData.createFrom(poiData);
+        form.setPoiBasicData(basicData);
+        if(!StringUtils.isEmpty(poiData.getEleShopId())){
+            form.setEleAuth(true);
+        }
+        if(!StringUtils.isEmpty(poiData.getMtAppAuthToken())){
+            form.setMtAuth(true);
         }
         return form;
     }
@@ -259,38 +301,10 @@ public class PoiUserServiceImpl implements IPoiUserService {
             if(u.getId().equalsIgnoreCase(bossId)){
                 continue;
             }
-            PoiBasicUserData data = createFrom(u);
+            PoiBasicUserData data = PoiUserData.createFrom(u);
             basicUserList.add(data);
         }
         return basicUserList;
-    }
-
-    private PoiBasicData createFrom(PoiData o){
-        PoiBasicData basicData = new PoiBasicData();
-
-        basicData.setId(o.getId());
-        basicData.setName(o.getName());
-        basicData.setBrandName(o.getBrandName());
-        basicData.setCateId(o.getCateId());
-
-        basicData.setCountry(o.getCountry());
-        basicData.setProvince(o.getProvince());
-        basicData.setCity(o.getCity());
-        basicData.setDistricts(o.getDistricts());
-        basicData.setStreet(o.getStreet());
-        basicData.setAddress(o.getAddress());
-
-        return basicData;
-    }
-
-    private PoiBasicUserData createFrom(PoiUserData o){
-        PoiBasicUserData data = new PoiBasicUserData();
-        data.setAvatarUrl(o.getAvatarUrl());
-        data.setCreateTime(o.getCreateTime());
-        data.setId(o.getId());
-        data.setName(o.getName());
-        data.setNickName(o.getNickName());
-        return data;
     }
 
     @Override

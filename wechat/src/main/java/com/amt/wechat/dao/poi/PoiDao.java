@@ -21,19 +21,23 @@ import java.util.List;
 @Mapper
 public interface PoiDao {
 
-    @Insert("INSERT INTO poi(id,name,contry,province,city,districts,street,address,brandName,cateId,accountName,accountPassword, mtAppAuthToken,eleShopId,createTime,updTime)VALUES(#{id},#{name},#{contry},#{province},#{city},#{districts},#{street},#{address},#{brandName},#{cateId},#{accountName},#{accountPassword},#{mtAppAuthToken},#{eleShopId},#{createTime}, #{updTime})")
+    @Insert("INSERT INTO poi(id,name,country,province,city,districts,street,address,brandName,cateId,accountName,accountPassword, mtAppAuthToken,eleShopId,createTime,updTime)VALUES(#{id},#{name},#{country},#{province},#{city},#{districts},#{street},#{address},#{brandName},#{cateId},#{accountName},#{accountPassword},#{mtAppAuthToken},#{eleShopId},#{createTime}, #{updTime})")
     public void addPoiData(PoiData poiData);
 
     @Select("SELECT * FROM poi WHERE id=#{id} LIMIT 1")
     public PoiData getPoiData(String id);
 
-    @Update("UPDATE poi SET contry=#{contry},province=#{province},city =#{city},districts =#{districts},street =#{street},address =#{address},brandName =#{brandName},cateId=#{cateId},updTime=#{updTime} WHERE id = #{id}")
+    @Update("UPDATE poi SET country=#{country},province=#{province},city =#{city},districts =#{districts},street =#{street},address =#{address},brandName =#{brandName},cateId=#{cateId},updTime=#{updTime} WHERE id = #{id}")
     public void updatePoiData(PoiData poiData);
 
     @Update("UPDATE poi SET balancePwd=#{pwd} WHERE id=#{poiId}")
     public void updateBalancePwd(String pwd,String poiId);
 
+    @Update("UPDATE poi SET eleShopId=#{eleShopId},accountName=#{accountName},accountPassword=#{accountPassword}, updTime=#{updTime} WHERE id = #{id}")
+    public void eleAuth(PoiData poiData);
 
+    @Update("UPDATE poi SET mtAppAuthToken=#{mtAppAuthToken},accountName=#{accountName},accountPassword=#{accountPassword}, updTime=#{updTime} WHERE id = #{id}")
+    public void mtAuth(PoiData poiData);
 
 
     @Select("SELECT * FROM poi_account WHERE poiId=#{poiId} LIMIT 1")
@@ -64,8 +68,8 @@ public interface PoiDao {
     @Select("SELECT * FROM poi_member WHERE poiId=#{poiId} LIMIT 1")
     public PoiMemberData getPoiMemberData(String poiId);
 
-    @Update("UPDATE poi_member SET feeRenew=#{feeRenew} WHERE poiId=#{poiId}")
-    public void updateMemberFeeAutoRenew(int feeRenew,String poiId);
+    @Update("UPDATE poi_member SET autoFeeRenew=#{autoFeeRenew} WHERE poiId=#{poiId}")
+    public void updateMemberFeeAutoRenew(int autoFeeRenew,String poiId);
 
 
 
@@ -80,7 +84,7 @@ public interface PoiDao {
      * @param poiId
      * @return
      */
-    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId}")
+    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId} AND payStatus=2")
     public int countPoiMemberRD(String poiId);
     /**
      * 会员卡购买记录

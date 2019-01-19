@@ -4,6 +4,8 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,8 +17,17 @@ import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class WechatApplication extends  SpringBootServletInitializer{
+    private static Logger logger = LoggerFactory.getLogger(WechatApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(WechatApplication.class, args);
+        /*
+        ConfigurableApplicationContext ctx = SpringApplication.run(WechatApplication.class, args);
+        String[] activeProfiles = ctx.getEnvironment().getActiveProfiles();
+        for(String profile:activeProfiles){
+            logger.info("SpringBoot使用的profile={}",profile);
+        }
+        */
+        //System.out.println("-=--------------------");
     }
 
     @Override

@@ -29,7 +29,8 @@ public interface IPoiUserService {
      * @param mobile
      * @return
      */
-    public BizPacket auth4Mobile(String name, String mobile, PoiUserData userData,EmplIdentity identity);
+    public BizPacket auth4Boss(String name, String mobile, PoiUserData userData);
+    public BizPacket auth4Empl(String name, String mobile, PoiUserData userData);
 
     /**
      * 手机号更换
@@ -49,7 +50,7 @@ public interface IPoiUserService {
      */
     public BizPacket updatePoiUserName(PoiUserData userData,String name);
 
-    public BizPacket testLogin() throws IOException;
+    public BizPacket login4mobile(String mobile) throws IOException;
 
     public WeichatLoginForm buildResponse(PoiUserData userData);
 

@@ -15,12 +15,12 @@ public interface OrderService {
 
     /**
      * 数据以下单时间倒序排列
-     * @param poiId
+     * @param userData
      * @param index 0表示第1页,1表示第2页
      * @param pageSize
      * @return
      */
-    public BizPacket getOrderDataList(String poiId, int index, int pageSize);
+    public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize);
 
     /**
      * 某订单明细

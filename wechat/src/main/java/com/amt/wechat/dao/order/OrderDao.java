@@ -29,8 +29,8 @@ public interface OrderDao {
     public void removeOrder(String orderId);
 
 
-    @Update("UPDATE `order` SET total =#{total} WHERE orderId=#{orderId}")
-    public void updateTotal(String id,int total);
+    @Update("UPDATE `order` SET total =#{total} WHERE orderId=#{id}")
+    public void updateTotal(int total,String id);
 
     public List<MyOrderForm> getMyOrderList(String poiId,int index, int pageSize);
 
@@ -51,12 +51,12 @@ public interface OrderDao {
     public int addOrderItemData(OrderItemData orderItemData);
 
 
-    public void addOrderItemDataList(List<OrderItemData> orderItemDataList);
+    public void addOrderItemDataList(@Param("orderItemDataList") List<OrderItemData> orderItemDataList);
 
     @Delete("DELETE FROM order_item WHERE id=#{id}")
     public void deleteOrderItemData(int id);
 
-    @Update("UPDATE order_item SET num = #{num}, unitPrice= #{unitPrice}, total= #{total} where id = #{id}")
+    @Update("UPDATE order_item SET num = #{num}, total= #{total} where id = #{id}")
     public void updateOrderItemData(OrderItemData orderItemData);
 
     @Select("SELECT * FROM `order_item` WHERE id=#{id}")
@@ -64,6 +64,9 @@ public interface OrderDao {
 
     @Select("SELECT * FROM `order_item` WHERE orderId=#{orderId}")
     public List<OrderItemData> getOrderItemList(String orderId);
+
+    @Select("SELECT * FROM `order_item` WHERE orderId=#{orderId} AND goodsType=#{goodsType} AND goodsId=#{goodsId}")
+    public OrderItemData getMyOrderItem(String orderId,int goodsType,Integer goodsId);
 
 
 

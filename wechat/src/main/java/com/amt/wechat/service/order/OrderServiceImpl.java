@@ -46,16 +46,17 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource PoiService poiService;
 
     @Override
-    public BizPacket getOrderDataList(String poiId, int index, int pageSize) {
-        int total = orderDao.countMyOrder(poiId);
+    public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize) {
+        int total = orderDao.countMyOrder(userData.getPoiId());
         if(total <=0 ){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"暂时没有订单!");
         }
 
-        List<MyOrderForm> list =  orderDao.getMyOrderList(poiId,index,pageSize);
+        List<MyOrderForm> list =  orderDao.getMyOrderList(userData.getPoiId(),index*pageSize,pageSize);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("total",total);
         jsonObject.put("list",list);
+        logger.info("{}请求获取订单!total={},list.size={}",userData,total,list.size());
         return BizPacket.success(jsonObject);
     }
 
@@ -181,34 +182,30 @@ public class OrderServiceImpl implements  OrderService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket orderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm) {
-        try {
-            Map<Integer,GoodsData> goodsMap = getGoodsMap(orderSubmitForm);
-            if(goodsMap.size() != orderSubmitForm.getOrderItemList().size()){
-                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"提交的物品有误!");
-            }
 
-            PoiData poiData = poiDao.getPoiData(userData.getPoiId());
-            if(poiData == null){
-                return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
-            }
-
-            OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
-
-            boolean isPoiMember = poiService.isMember(poiData.getId());
-            List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
-            orderDao.addOrderItemDataList(itemList);
-            orderDao.addOrderData(orderData);
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("totalCost",orderData.getTotal());
-            jsonObject.put("totalPayment",orderData.getPayment());
-            jsonObject.put("orderId",orderData.getOrderId());
-
-            return BizPacket.success(jsonObject);
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        Map<Integer,GoodsData> goodsMap = getGoodsMap(orderSubmitForm);
+        if(goodsMap.size() != orderSubmitForm.getOrderItemList().size()){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"提交的物品有误!");
         }
+
+        PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+        if(poiData == null){
+            return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
+        }
+
+        OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
+
+        boolean isPoiMember = poiService.isMember(poiData.getId());
+        List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
+        orderDao.addOrderItemDataList(itemList);
+        orderDao.addOrderData(orderData);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("totalCost",orderData.getTotal());
+        jsonObject.put("totalPayment",orderData.getPayment());
+        jsonObject.put("orderId",orderData.getOrderId());
+
+        return BizPacket.success(jsonObject);
     }
 
 
@@ -306,6 +303,7 @@ public class OrderServiceImpl implements  OrderService {
     }
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket orderEditNum(PoiUserData userData, OrderItemForm orderItemForm){
         OrderData orderData = orderDao.getOrder(orderItemForm.getOrderId());
@@ -335,54 +333,69 @@ public class OrderServiceImpl implements  OrderService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket orderItemAdd(PoiUserData userData ,String orderId, int goodsType,Integer goodsId, int num){
-        try {
-            if(StringUtils.isEmpty(userData.getPoiId())){
-                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"此项服务不面向个人出售!");
-            }
-            PoiData poiData = poiDao.getPoiData(userData.getPoiId());
-            if(poiData == null){
-                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"此项服务不面向个人出售!");
-            }
 
-            OrderData orderData = orderDao.getOrder(orderId);
-            if(orderData == null){
-                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
-            }
-            if(!orderData.getPoiId().equalsIgnoreCase(userData.getPoiId())){
-                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你的当前店铺与订单所属店铺不一致!");
-            }
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"此项服务不面向个人出售!");
+        }
+        PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+        if(poiData == null){
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"此项服务不面向个人出售!");
+        }
 
-            if(orderData.getPayStatus() == PayStatus.PAIED.value()){
-                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"订单已不可编辑!");
-            }
+        OrderData orderData = orderDao.getOrder(orderId);
+        if(orderData == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
+        }
+        if(!orderData.getPoiId().equalsIgnoreCase(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你的当前店铺与订单所属店铺不一致!");
+        }
 
-            GoodsData goodsData = getGoodsData(goodsType,goodsId);
-            if(goodsData == null){
-                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"物品不存在!");
-            }
+        if(orderData.getPayStatus() == PayStatus.PAIED.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"订单已不可编辑!");
+        }
 
+        GoodsData goodsData = getGoodsData(goodsType,goodsId);
+        if(goodsData == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"物品不存在!");
+        }
+
+
+        JSONObject jsonObject = new JSONObject();
+
+        OrderItemData updOrderItemData =  orderDao.getMyOrderItem(orderData.getOrderId(),goodsType,goodsId);
+        if(updOrderItemData != null){
+            updOrderItemData.setNum(updOrderItemData.getNum() + num);
+            updOrderItemData.setTotal(updOrderItemData.getUnitPrice() * updOrderItemData.getNum());
+            orderDao.updateOrderItemData(updOrderItemData);
+
+            jsonObject.put("id",updOrderItemData.getId());
+        }else{
             boolean isPoiMember = poiService.isMember(poiData.getId());
 
             // 构建订单项
-            OrderItemData data = createItemData(orderData,goodsType,goodsData,num,isPoiMember);
-            int orderItemId = orderDao.addOrderItemData(data);
-
-
-
-            // 变更订单相应的总价
-            orderData.setTotal(orderData.getTotal() + data.getTotal());
-            orderDao.updateTotal(orderData.getOrderId(),orderData.getTotal());
-
-            JSONObject jsonObject = new JSONObject();
+            updOrderItemData = createItemData(orderData,goodsType,goodsData,num,isPoiMember);
+            int orderItemId = orderDao.addOrderItemData(updOrderItemData);
             jsonObject.put("id",orderItemId);
-            jsonObject.put("goodsName",goodsData.getName());
-            jsonObject.put("imgUrl",goodsData.getCoverImg());
-
-            return BizPacket.success(jsonObject);
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+
+        // 变更订单相应的总价
+        orderData.setTotal(orderData.getTotal() + updOrderItemData.getTotal());
+        orderDao.updateTotal(orderData.getTotal(),orderData.getOrderId());
+
+        jsonObject.put("goodsName",goodsData.getName());
+        jsonObject.put("imgUrl",goodsData.getCoverImg());
+
+        return BizPacket.success(jsonObject);
+    }
+
+
+    private OrderItemData in(List<OrderItemData> itemList,int goodsType,Integer goodsId){
+        for(OrderItemData o:itemList){
+            if(o.getGoodsType() == goodsId && o.getGoodsId() == goodsId){
+                return o;
+            }
+        }
+        return null;
     }
 
     private OrderItemData createItemData(OrderData orderData,int goodsType,GoodsData goodsData,int num,boolean isMember){
@@ -425,36 +438,36 @@ public class OrderServiceImpl implements  OrderService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket orderItemRM(PoiUserData userData,String orderId,Integer goodsId, int orderItemId){
-        try {
-            OrderData orderData = orderDao.getOrder(orderId);
-            if(orderData == null){
-                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
-            }
 
-            if(!userData.getPoiId().equalsIgnoreCase(orderData.getPoiId())){
-                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:只能删除自己店铺的订单!");
-            }
-
-            if(orderData.getPayStatus() == PayStatus.PAIED.value()){
-                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"订单已不可编辑!");
-            }
-
-            OrderItemData data = orderDao.getOrderItem(orderItemId);
-            if(data == null){
-                return BizPacket.success();
-            }
-            if(data.getGoodsId() != goodsId){
-                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单项不存在!");
-            }
-
-            orderDao.deleteOrderItemData(orderItemId);
-            return BizPacket.success();
-        } catch (Exception e) {
-            logger.error(e.getMessage(),e);
-            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        OrderData orderData = orderDao.getOrder(orderId);
+        if(orderData == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
         }
+
+        if(!userData.getPoiId().equalsIgnoreCase(orderData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:只能删除自己店铺的订单!");
+        }
+
+        if(orderData.getPayStatus() == PayStatus.PAIED.value()){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"订单已不可编辑!");
+        }
+
+        OrderItemData data = orderDao.getOrderItem(orderItemId);
+        if(data == null){
+            return BizPacket.success();
+        }
+        if(data.getGoodsId() != goodsId){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单项不存在!");
+        }
+
+        orderDao.deleteOrderItemData(orderItemId);
+
+        orderData.setTotal(orderData.getTotal() - data.getTotal());
+        orderDao.updateTotal(orderData.getTotal(),orderData.getOrderId());
+        return BizPacket.success();
     }
 
     @Transactional(rollbackFor = Exception.class)

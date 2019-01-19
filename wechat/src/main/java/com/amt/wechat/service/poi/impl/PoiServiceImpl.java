@@ -17,6 +17,7 @@ import com.amt.wechat.model.poi.*;
 import com.amt.wechat.service.order.PayStatus;
 import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.PoiService;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class PoiServiceImpl implements PoiService {
     private @Resource MemberDao memberDao;
     private @Resource PoiUserDao poiUserDao;
     private @Resource GlobalSettingDao globalSettingDao;
+    private @Resource RedisService redisService;
 
 
 
@@ -133,38 +136,6 @@ public class PoiServiceImpl implements PoiService {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }
-
-
-    //poiDao.addPoiData(poiData);
-
-    /**
-     * 创建一个缺省的店铺数据
-     * @return
-     */
-    private PoiData defaultPoiData(){
-        PoiData poiData = new PoiData();
-        poiData.setId(Generator.uuid());
-        poiData.setName("");
-        poiData.setCountry("中国");
-        poiData.setProvince("");
-        poiData.setCity("");
-        poiData.setStreet("");
-        poiData.setAddress("");
-
-        poiData.setBrandName("");
-        poiData.setCateId(-1);
-
-        poiData.setAccountName("");
-        poiData.setAccountPassword("");
-        poiData.setEleShopId("");
-        poiData.setMtAppAuthToken("");
-
-        poiData.setCreateTime(DateTimeUtil.now());
-        poiData.setUpdTime(poiData.getUpdTime());
-        return poiData;
-    }
-
-
     @Override
     public BizPacket memberDataFetch(PoiUserData userData){
         try {
@@ -285,7 +256,6 @@ public class PoiServiceImpl implements PoiService {
         }
 
 
-
         boolean isMemberNewbie = memberNewbie(userData.getPoiId());
         PoiMemberRDData rdData = writeMemberCardBoughtRD(userData,cardData,feeRenew,isMemberNewbie);
 
@@ -293,9 +263,9 @@ public class PoiServiceImpl implements PoiService {
         if(devMode){
             PoiMemberData memberData = poiDao.getPoiMemberData(userData.getPoiId());
             if(memberData == null){
-                addMemberData(rdData,cardData);
+                memberData =addMemberData(rdData,cardData);
             }else{
-                updateMemberData(memberData,rdData,cardData);
+                memberData =updateMemberData(memberData,rdData,cardData);
             }
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("isMemberNewbie",isMemberNewbie);
@@ -518,9 +488,17 @@ public class PoiServiceImpl implements PoiService {
             if(ret.getCode() != HttpStatus.OK.value()){
                 return  ret;
             }
+
+            userData.setUpdTime(DateTimeUtil.now());
             userData.setIsMaster(EmplIdentity.MASTER.value());
-            poiUserDao.updatePoiUserMaster(EmplIdentity.MASTER.value(),userData.getId());
-            poiUserDao.updatePoiUserMaster(EmplIdentity.EMPLOYEE.value(),boss.getId());
+            poiUserDao.updatePoiUserMaster(userData.getIsMaster(),userData.getUpdTime(),userData.getId());
+            redisService.addPoiUser(userData);
+
+            boss.setUpdTime(DateTimeUtil.now());
+            boss.setIsMaster(EmplIdentity.EMPLOYEE.value());
+            poiUserDao.updatePoiUserMaster(boss.getIsMaster(),boss.getUpdTime(),boss.getId());
+            redisService.addPoiUser(boss);
+
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("boss="+boss+",userId="+userId+",e="+e.getMessage(),e);
@@ -538,11 +516,147 @@ public class PoiServiceImpl implements PoiService {
 
             userData.setIsEnabled(0);
             userData.setPoiId("");
-            poiUserDao.removePOIUser(0,"",userData.getId());
+            userData.setUpdTime(DateTimeUtil.now());
+            poiUserDao.removePOIUser(0,"",userData.getUpdTime(),userData.getId());
+            redisService.onUserRemoved(userData.getId());
+
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("boss="+boss+",userId="+boss+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+    }
+
+
+    @Override
+    public BizPacket eleAuth(PoiUserData userData,String accountName,String accountPwd){
+        try {
+            if(!StringUtils.isEmpty(userData.getPoiId())){
+
+                // 店铺存在时:
+                PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+                if(poiData == null) {
+                    return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "店铺实体信息不存在!");
+                }
+
+                if(!StringUtils.isEmpty(poiData.getEleShopId())){
+                    return BizPacket.error(HttpStatus.NOT_MODIFIED.value(),"已经认证过了!");
+                }
+                poiData.setEleShopId("eleId-temp");
+                poiData.setAccountName(accountName);
+                poiData.setAccountPassword(accountPwd);
+                poiData.setUpdTime(DateTimeUtil.now());
+                poiDao.eleAuth(poiData);
+                return BizPacket.success(PoiData.createFrom(poiData));
+            }
+
+            // 店铺不存在时:
+            PoiData poiData = createPoiData(userData,accountName,accountPwd);
+            poiData.setEleShopId("eleId-temp");
+            poiDao.addPoiData(poiData);
+
+            PoiAccountData accountData =  createPoiAccount(poiData);
+            poiDao.addPoiAccountData(accountData);
+
+            onPOICreated(userData,poiData);
+            return BizPacket.success(PoiData.createFrom(poiData));
+        } catch (Exception e) {
+            logger.error("userData="+userData+",accountName="+accountName+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+
+
+    @Override
+    public BizPacket mtAuth(PoiUserData userData,String accountName,String accountPwd){
+        try {
+            if(!StringUtils.isEmpty(userData.getPoiId())){
+
+                // 店铺存在时:
+                PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+                if(poiData == null) {
+                    return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "店铺实体信息不存在!");
+                }
+
+                if(!StringUtils.isEmpty(poiData.getEleShopId())){
+                    return BizPacket.error(HttpStatus.NOT_MODIFIED.value(),"已经认证过了!");
+                }
+                poiData.setMtAppAuthToken("mtShopId-temp");
+                poiData.setAccountName(accountName);
+                poiData.setAccountPassword(accountPwd);
+                poiData.setUpdTime(DateTimeUtil.now());
+                poiDao.mtAuth(poiData);
+                return BizPacket.success(PoiData.createFrom(poiData));
+            }
+
+            // 店铺不存在时:
+            PoiData poiData = createPoiData(userData,accountName,accountPwd);
+            poiData.setMtAppAuthToken("mtShopId-temp");
+            poiDao.addPoiData(poiData);
+
+            PoiAccountData accountData =  createPoiAccount(poiData);
+            poiDao.addPoiAccountData(accountData);
+
+            onPOICreated(userData,poiData);
+            return BizPacket.success(PoiData.createFrom(poiData));
+        } catch (Exception e) {
+            logger.error("userData="+userData+",accountName="+accountName+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    /**
+     * 店铺创建成功
+     * @param userData
+     * @param poiData
+     */
+    private void onPOICreated(PoiUserData userData,PoiData poiData) throws IOException {
+        userData.setPoiId(poiData.getId());
+        userData.setUpdTime(DateTimeUtil.now());
+        poiUserDao.updateUserPoiId(poiData.getId(),userData.getUpdTime(),userData.getId());
+        redisService.addPoiUser(userData);
+    }
+
+
+    private PoiAccountData createPoiAccount(PoiData poiData){
+        PoiAccountData accountData = new PoiAccountData();
+
+        accountData.setCurrShareBalance(0);
+        accountData.setCurRedBalance(0);
+        accountData.setCurBiddingBalance(0);
+        accountData.setCostSave(0);
+        accountData.setCurBalance(0);
+        accountData.setPoiId(poiData.getId());
+
+        return accountData;
+    }
+
+    /**
+     * 创建一个缺省的店铺数据
+     * @return
+     */
+    private PoiData createPoiData(PoiUserData userData,String accountName,String accountPwd){
+        PoiData poiData = new PoiData();
+        poiData.setId(Generator.uuid());
+        poiData.setName(userData.getName()+"的店铺");
+        poiData.setCountry("中国");
+        poiData.setProvince(userData.getProvince());
+        poiData.setCity(userData.getCity());
+        poiData.setStreet(userData.getCity());
+        poiData.setAddress(userData.getCity());
+        poiData.setDistricts("");
+
+        poiData.setBrandName("");
+        poiData.setCateId(-1);
+
+        poiData.setAccountName(accountName);
+        poiData.setAccountPassword(accountPwd);
+        poiData.setEleShopId("");
+        poiData.setMtAppAuthToken("");
+
+        poiData.setCreateTime(DateTimeUtil.now());
+        poiData.setUpdTime(poiData.getUpdTime());
+        return poiData;
     }
 }

@@ -13,12 +13,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Copyright (c) 2018 by CANSHU
- *
- * @author adu Create on 2018-12-18 19:23
- * @version 1.0
- */
 @Service("redisService")
 public class RedisServiceImpl implements RedisService {
 
@@ -62,6 +56,25 @@ public class RedisServiceImpl implements RedisService {
         return null;
     }
 
+    @Override
+    public PoiUserData getPoiUserById(String poiUserId){
+        String ukey =  RedisConstants.WECHAT_POI_USER+poiUserId;
+        Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
+        if(objUser == null){
+            return null;
+        }
+        return (PoiUserData)objUser;
+    }
+
+    @Override
+    public void onUserRemoved(String poiUserId){
+        String ukey =  RedisConstants.WECHAT_POI_USER+poiUserId;
+        Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
+        if(objUser == null){
+            return;
+        }
+        redisTemplate.delete(ukey);
+    }
 
 
     @Override

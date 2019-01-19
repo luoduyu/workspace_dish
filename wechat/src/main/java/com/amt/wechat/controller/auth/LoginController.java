@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -92,10 +93,10 @@ public class LoginController{
         return BizPacket.error_param_null("code参数为空!");
     }
 
-    @RequestMapping(value = "/wechat/test/login")
-    public BizPacket testLogin(){
+    @RequestMapping(value = "/wechat/login/mobile",method = {RequestMethod.POST,RequestMethod.GET})
+    public BizPacket login4mobile(@RequestParam("mobile") String mobile){
         try {
-            return poiUserService.testLogin();
+            return poiUserService.login4mobile(mobile.trim());
         } catch (IOException e) {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }

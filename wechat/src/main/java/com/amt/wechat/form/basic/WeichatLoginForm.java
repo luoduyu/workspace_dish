@@ -34,23 +34,16 @@ public class  WeichatLoginForm implements Serializable {
      */
     private PoiBasicData poiBasicData;
 
-    /**
-     * 是否会员;0:否;1:是
-     */
-    private int isMember=0;
 
     /**
-     * 是否完成了授权认证
+     * 是否完成了美团授权认证
      */
-    private int isAuthDone;
-
+    private boolean mtAuth = false;
 
     /**
-     * 是否有设置余额支付密码;false:没有设置,true:有设置
+     * 是否完成了饿了么授权认证
      */
-    private boolean isBalancePwdSet = false;
-
-
+    private boolean eleAuth = false;
 
     public WeichatLoginForm() {
 
@@ -111,29 +104,20 @@ public class  WeichatLoginForm implements Serializable {
         this.poiBasicData = poiBasicData;
     }
 
-    public int getIsAuthDone() {
-        return isAuthDone;
+    public boolean isMtAuth() {
+        return mtAuth;
     }
 
-    public void setIsAuthDone(int isAuthDone) {
-        this.isAuthDone = isAuthDone;
+    public void setMtAuth(boolean mtAuth) {
+        this.mtAuth = mtAuth;
     }
 
-    public int getIsMember() {
-        return isMember;
+    public boolean isEleAuth() {
+        return eleAuth;
     }
 
-    public void setIsMember(int isMember) {
-        this.isMember = isMember;
-    }
-
-
-    public boolean isBalancePwdSet() {
-        return isBalancePwdSet;
-    }
-
-    public void setBalancePwdSet(boolean balancePwdSet) {
-        isBalancePwdSet = balancePwdSet;
+    public void setEleAuth(boolean eleAuth) {
+        this.eleAuth = eleAuth;
     }
 
     @Override
@@ -145,7 +129,6 @@ public class  WeichatLoginForm implements Serializable {
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", isMaster=" + isMaster +
-                ", isAuthDone=" + isAuthDone +
                 '}';
     }
 }

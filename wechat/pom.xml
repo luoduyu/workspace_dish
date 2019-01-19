@@ -8,35 +8,109 @@
         <version>2.1.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.amt</groupId>
     <artifactId>wechat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>wechat</name>
-    <description>Demo project for Spring Boot</description>
+    <description>for wechat</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <finalName>ROOT</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <!--<skipTests>true</skipTests>-->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>key</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash; 用于指示是否应分叉运行进程的标志。-->
+                    <!--如果指定了代理、jvmArguments或工作目录，则自动启用或者如果存在devtools。&ndash;&gt;-->
+                    <!--<fork>true</fork>-->
+                    <!--<executable>false</executable>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault></activation>
+            <properties><profileActive>dev</profileActive></properties>
+            <activation><activeByDefault>true</activeByDefault></activation>
             <build>
-                <filters><filter>application-dev.properties</filter></filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <exclude>application-pro.properties</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+                <filters>
+                    <filter>src/main/resources/application-dev.properties</filter>
+                </filters>
             </build>
         </profile>
         <profile>
             <id>pro</id>
+            <properties><profileActive>pro</profileActive></properties>
             <activation><activeByDefault>false</activeByDefault></activation>
             <build>
-                <filters><filter>applications-pro.properties</filter></filters>
                 <resources>
                     <resource>
-                        <excludes><exclude>tomcat.key</exclude></excludes>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <exclude>application-dev.properties</exclude>
+                            <exclude>tomcat.key</exclude>
+                        </excludes>
                     </resource>
                 </resources>
+                <filters>
+                    <filter>src/main/resources/application-pro.properties</filter>
+                </filters>
             </build>
         </profile>
     </profiles>
@@ -45,30 +119,30 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<groupId>redis.clients</groupId>-->
-            <!--<artifactId>jedis</artifactId>-->
-            <!--</exclusion>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>redis.clients</groupId>
+                    <artifactId>jedis</artifactId>
+                </exclusion>
             <!--<exclusion>-->
             <!--<groupId>io.lettuce</groupId>-->
             <!--<artifactId>lettuce-core</artifactId>-->
             <!--</exclusion>-->
-            <!--</exclusions>-->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session-data-redis</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -78,12 +152,6 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>1.3.2</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -130,25 +198,17 @@
             <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
             <!--<scope>provided</scope>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- 用于指示是否应分叉运行进程的标志。
-                    如果指定了代理、jvmArguments或工作目录，则自动启用或者如果存在devtools。-->
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-        </plugins>
-        <finalName>ROOT</finalName>
-    </build>
 </project>

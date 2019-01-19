@@ -7,12 +7,12 @@ import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.order.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -26,6 +26,7 @@ import javax.annotation.Resource;
  */
 @RestController
 public class OrderController extends BaseController {
+    private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     private @Resource OrderService orderService;
 
@@ -39,7 +40,7 @@ public class OrderController extends BaseController {
         }
         PoiUserData userData = getUser();
 
-        return orderService.getOrderDataList(userData.getPoiId(),index,pageSize);
+        return orderService.getOrderDataList(userData,index,pageSize);
     }
 
     @PostMapping(value = "/order/detail")
@@ -53,6 +54,15 @@ public class OrderController extends BaseController {
     }
 
 
+    /**
+     * 订单评论提交
+     * @param orderId
+     * @param scoreService
+     * @param scoreProfess
+     * @param scoreResponse
+     * @param commentText
+     * @return
+     */
     @PostMapping(value = "/order/comment/submit")
     public BizPacket commentSubmit(String orderId,Integer scoreService,Integer scoreProfess,Integer scoreResponse,String commentText){
         if(StringUtils.isEmpty(orderId)){
@@ -79,8 +89,8 @@ public class OrderController extends BaseController {
     }
 
 
-    @PostMapping(value = "/order/submit",produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public BizPacket orderSubmit(OrderSubmitForm orderSubmitForm){
+    @PostMapping(value = "/order/submit",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BizPacket orderSubmit(@RequestBody OrderSubmitForm orderSubmitForm){
         if(orderSubmitForm == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"未收到订单参数!");
         }
@@ -98,11 +108,16 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
         }
 
-        return orderService.orderSubmit(userData,orderSubmitForm);
+        try {
+            return orderService.orderSubmit(userData,orderSubmitForm);
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderSubmitForm="+orderSubmitForm+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 
 
-    @PostMapping(value = "/order/rm",produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/order/rm")
     public BizPacket orderRM(String orderId){
         if(StringUtils.isEmpty(orderId)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单Id是必须参数!");
@@ -112,11 +127,16 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
         }
 
-        return orderService.orderRM(userData,orderId);
+        try {
+            return orderService.orderRM(userData,orderId);
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderId="+orderId+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 
-    @PostMapping(value = "/order/item/num",produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public BizPacket orderEditNum(OrderItemForm orderItemForm){
+    @PostMapping(value = "/order/item/num",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BizPacket orderEditNum(@RequestBody OrderItemForm orderItemForm){
         if(orderItemForm == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少必要的参数!");
         }
@@ -129,16 +149,21 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
         }
 
-        BizPacket packet =  orderService.orderEditNum(userData,orderItemForm);
-        if(packet == null){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数非法!");
+        try {
+            BizPacket packet =  orderService.orderEditNum(userData,orderItemForm);
+            if(packet == null){
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数非法!");
+            }
+            return packet;
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderItemForm="+orderItemForm+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
-        return packet;
     }
 
 
 
-    @PostMapping(value = "/order/item/add",produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/order/item/add")
     public BizPacket orderItemAdd(@RequestParam("orderId") String orderId, @RequestParam("goodsType") Integer goodsType, @RequestParam("goodsId") Integer goodsId, @RequestParam("num") Integer num){
         if(StringUtils.isEmpty(orderId)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单Id是必须参数!");
@@ -162,10 +187,15 @@ public class OrderController extends BaseController {
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
         }
-        return orderService.orderItemAdd(userData,orderId,goodsType,goodsId,num);
+        try {
+            return orderService.orderItemAdd(userData,orderId,goodsType,goodsId,num);
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderId="+orderId+",goodsType="+goodsType+",goodsId="+goodsId+",num="+num+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 
-    @PostMapping(value = "/order/item/rm",produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/order/item/rm")
     public BizPacket orderEdit(@RequestParam("orderId") String orderId, @RequestParam("goodsId") Integer goodsId, @RequestParam("id") Integer id){
         if(StringUtils.isEmpty(orderId)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单Id是必须参数!");
@@ -183,6 +213,11 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
         }
 
-        return orderService.orderItemRM(userData,orderId,goodsId,id);
+        try {
+            return orderService.orderItemRM(userData,orderId,goodsId,id);
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderId="+orderId+",goodsId="+goodsId+",id="+id+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 }

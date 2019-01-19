@@ -3,6 +3,7 @@ package com.amt.wechat.dao.decoration;
 import com.amt.wechat.model.decoration.MaterialData;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +33,7 @@ public interface PoiMaterialDao {
 
     @Select("SELECT * FROM poi_material WHERE id IN (${ids})")
     @MapKey("id")
-    public Map<Integer,MaterialData> getPoiMaterialDataMap(String ids);
+    public Map<Integer,MaterialData> getPoiMaterialDataMap(@Param("ids") String ids);
 
 
     @Select("SELECT * FROM poi_material WHERE id=#{id}")

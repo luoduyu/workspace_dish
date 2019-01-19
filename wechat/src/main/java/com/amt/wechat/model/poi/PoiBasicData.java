@@ -73,6 +73,11 @@ public class PoiBasicData implements Serializable {
      */
     private String createTime;
 
+    /**
+     * 是否有设置余额支付密码;false:没有设置,true:有设置
+     */
+    private boolean isBalancePwdSet = false;
+
 
     public String getId() {
         return id;
@@ -160,6 +165,14 @@ public class PoiBasicData implements Serializable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public boolean isBalancePwdSet() {
+        return isBalancePwdSet;
+    }
+
+    public void setBalancePwdSet(boolean balancePwdSet) {
+        isBalancePwdSet = balancePwdSet;
     }
 
     @Override

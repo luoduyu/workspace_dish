@@ -1,6 +1,7 @@
 package com.amt.wechat.model.poi;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.util.StringUtils;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -97,5 +98,25 @@ public class PoiData extends PoiBasicData {
     @Override
     public String toString() {
         return JSON.toJSONString(this);
+    }
+
+    public static  PoiBasicData createFrom(PoiData o){
+        PoiBasicData basicData = new PoiBasicData();
+
+        basicData.setId(o.getId());
+        basicData.setName(o.getName());
+        basicData.setBrandName(o.getBrandName());
+        basicData.setCateId(o.getCateId());
+
+        basicData.setCountry(o.getCountry());
+        basicData.setProvince(o.getProvince());
+        basicData.setCity(o.getCity());
+        basicData.setDistricts(o.getDistricts());
+        basicData.setStreet(o.getStreet());
+        basicData.setAddress(o.getAddress());
+
+        basicData.setBalancePwdSet(!StringUtils.isEmpty(o.getBalancePwd()));
+
+        return basicData;
     }
 }

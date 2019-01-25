@@ -1,10 +1,9 @@
 package com.amt.wechat.service.bidding;
 
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.bidding.BiddingStageData;
 import com.amt.wechat.model.poi.PoiUserData;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public interface BiddingService {
 
-    public List<BiddingStageData> getStageDataList();
+
 
 
     /**
@@ -44,5 +43,8 @@ public interface BiddingService {
      * @param amount
      * @return
      */
-    public BizPacket recharge(PoiUserData userData,int amount);
+    public BizPacket recharge(PoiUserData userData,int amount) throws Exception;
+
+
+    public BizPacket rechargeCallback(Map<String,String> wechatPayCallbackParams);
 }

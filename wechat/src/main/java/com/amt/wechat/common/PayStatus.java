@@ -1,4 +1,4 @@
-package com.amt.wechat.service.order;
+package com.amt.wechat.common;
 
 /**
  * Copyright (c) 2019 by CANSHU

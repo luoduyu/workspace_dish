@@ -17,7 +17,6 @@ import java.io.Serializable;
 public class OrderData implements Serializable {
     private static final long serialVersionUID = 7130372310462400335L;
 
-
     /**
      * 店铺Id
      */
@@ -38,23 +37,9 @@ public class OrderData implements Serializable {
      */
     private int total;
 
-    /**
-     * 优惠券扣减金额,单位:分
-     */
-    private int couponPaid;
 
     /**
-     * 余额扣减金额,单位:分
-     */
-    private int balancePaid;
-
-    /**
-     * 微信扣减金额,单位:分
-     */
-    private int wechatPaid;
-
-    /**
-     * 实付金额;单位:分;
+     * (通过余额或者微信)实付金额;单位:分;
      */
     private int payment;
 
@@ -70,21 +55,34 @@ public class OrderData implements Serializable {
      */
     private String createTime;
 
-    /**
-     * 订单支付时间
-     */
-    private String payTime;
-
-    /**
-     * 支付编号
-     */
-    private String payNo;
-
 
     /**
      * 服务状态;0:未处理;1:处理中;2:已完成
      */
     private int serviceStatus;
+
+    /**
+     * 支付途径,1:银联,2:支付宝,3:微信,4:余额支付
+     */
+    private Integer payWay=3;
+
+
+
+    /**
+     * 微信支付订单号
+     */
+    private String transactionId="";
+
+
+    /**
+     * 支付完成时间
+     */
+    private String timeEnd="";
+
+    /**
+     * 摘要
+     */
+    private String summary="";
 
     public String getPoiId() {
         return poiId;
@@ -118,30 +116,6 @@ public class OrderData implements Serializable {
         this.total = total;
     }
 
-    public int getCouponPaid() {
-        return couponPaid;
-    }
-
-    public void setCouponPaid(int couponPaid) {
-        this.couponPaid = couponPaid;
-    }
-
-    public int getBalancePaid() {
-        return balancePaid;
-    }
-
-    public void setBalancePaid(int balancePaid) {
-        this.balancePaid = balancePaid;
-    }
-
-    public int getWechatPaid() {
-        return wechatPaid;
-    }
-
-    public void setWechatPaid(int wechatPaid) {
-        this.wechatPaid = wechatPaid;
-    }
-
     public int getPayment() {
         return payment;
     }
@@ -166,13 +140,6 @@ public class OrderData implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(String payTime) {
-        this.payTime = payTime;
-    }
 
     public int getServiceStatus() {
         return serviceStatus;
@@ -181,12 +148,37 @@ public class OrderData implements Serializable {
     public void setServiceStatus(int serviceStatus) {
         this.serviceStatus = serviceStatus;
     }
-    public String getPayNo() {
-        return payNo;
+
+    public Integer getPayWay() {
+        return payWay;
     }
 
-    public void setPayNo(String payNo) {
-        this.payNo = payNo;
+    public void setPayWay(Integer payWay) {
+        this.payWay = payWay;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     @Override

@@ -1,26 +1,37 @@
 package com.amt.wechat.service.order;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.PayStatus;
+import com.amt.wechat.common.PayWay;
+import com.amt.wechat.dao.decoration.PoiMaterialDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;
-import com.amt.wechat.dao.decoration.PoiMaterialDao;
 import com.amt.wechat.dao.poster.PosterDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.order.*;
 import com.amt.wechat.model.common.GoodsData;
+import com.amt.wechat.model.decoration.MaterialData;
 import com.amt.wechat.model.order.MyOrderForm;
 import com.amt.wechat.model.order.OrderData;
 import com.amt.wechat.model.order.OrderItemData;
 import com.amt.wechat.model.order.OrderServiceData;
-import com.amt.wechat.model.decoration.MaterialData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
-import com.amt.wechat.service.poi.PoiService;
+import com.amt.wechat.service.balance.BalanceService;
+import com.amt.wechat.service.pay.PayWechatService;
+import com.amt.wechat.service.pay.util.MD5Util;
+import com.amt.wechat.service.pay.util.Sha1Util;
+import com.amt.wechat.service.pay.util.WechatXMLParser;
+import com.amt.wechat.service.poi.PoiMemberService;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,21 +40,18 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.*;
 
-/**
- * Copyright (c) 2019 by CANSHU
- *
- * @author adu Create on 2019-01-04 19:26
- * @version 1.0
- */
 @Service("orderService")
 public class OrderServiceImpl implements  OrderService {
     private static Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private @Value("${devMode}") boolean devMode;
 
     private @Resource OrderDao orderDao;
     private @Resource PosterDao posterDao;
     private @Resource PoiMaterialDao poiMaterialDao;
     private @Resource PoiDao poiDao;
-    private @Resource PoiService poiService;
+    private @Resource PoiMemberService poiMemberService;
+    private @Resource BalanceService balanceService;
+    private @Resource PayWechatService payWechatService;
 
     @Override
     public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize) {
@@ -61,10 +69,13 @@ public class OrderServiceImpl implements  OrderService {
     }
 
     @Override
-    public BizPacket getOrderDetail(String orderId) {
+    public BizPacket getOrderDetail(PoiUserData userData,String orderId) {
         OrderData data = orderDao.getOrder(orderId);
         if(data == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"请求的订单不存在!");
+        }
+        if(!data.getPoiId().equalsIgnoreCase(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"非法请求!");
         }
 
         // 订单信息
@@ -92,13 +103,15 @@ public class OrderServiceImpl implements  OrderService {
         form.setCreateTime(data.getCreateTime());
         form.setGoodsType(data.getGoodsType());
         form.setOrderId(data.getOrderId());
+
+        form.setTimeEnd(data.getTimeEnd());
         form.setPayment(data.getPayment());
         form.setPayStatus(data.getPayStatus());
         form.setTotal(data.getTotal());
-        form.setBalancePaid(data.getBalancePaid());
-        form.setCouponPaid(data.getCouponPaid());
-        form.setWechatPaid(data.getWechatPaid());
-        form.setPayTime(data.getPayTime());
+        form.setPayWay(data.getPayWay());
+        form.setSummary(data.getSummary());
+        form.setTransactionId(data.getTransactionId());
+
         form.setServiceStatus(data.getServiceStatus());
         return form;
     }
@@ -195,7 +208,7 @@ public class OrderServiceImpl implements  OrderService {
 
         OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
 
-        boolean isPoiMember = poiService.isMember(poiData.getId());
+        boolean isPoiMember = poiMemberService.isMember(poiData.getId());
         List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
         orderDao.addOrderItemDataList(itemList);
         orderDao.addOrderData(orderData);
@@ -220,15 +233,15 @@ public class OrderServiceImpl implements  OrderService {
     private OrderData createOrderData(String poiId,int goodsType){
         OrderData orderData = new OrderData();
         orderData.setPoiId(poiId);
-        orderData.setBalancePaid(0);
-        orderData.setCouponPaid(0);
-        orderData.setWechatPaid(0);
 
         orderData.setCreateTime(DateTimeUtil.now());
         orderData.setGoodsType(goodsType);
 
-        orderData.setPayTime("");
-        orderData.setPayNo("");
+        orderData.setTimeEnd("");
+        orderData.setTransactionId("");
+        orderData.setSummary("");
+        orderData.setPayWay(-1);
+
         orderData.setPayStatus(PayStatus.NOT_PAID.value());
         orderData.setServiceStatus(ServiceStatus.NONE.value());
         orderData.setOrderId(Generator.generate());
@@ -260,9 +273,8 @@ public class OrderServiceImpl implements  OrderService {
             itemData.setTotal(total);
             itemDataList.add(itemData);
 
-            totalCost += e.getNum() * goodsData.getPrice();
+            totalCost += (e.getNum() * goodsData.getPrice());
             totalPayment += total;
-
         }
         orderData.setTotal(totalCost);
         orderData.setPayment(totalPayment);
@@ -270,7 +282,7 @@ public class OrderServiceImpl implements  OrderService {
     }
 
     /**
-     * 获得售卖的资源(TODO 替换为 基于 redis 的实现?)
+     * 获得售卖的资源( XXX 替换为 基于 redis 的实现?)
      * @param orderSubmitForm
      * @return
      */
@@ -370,7 +382,7 @@ public class OrderServiceImpl implements  OrderService {
 
             jsonObject.put("id",updOrderItemData.getId());
         }else{
-            boolean isPoiMember = poiService.isMember(poiData.getId());
+            boolean isPoiMember = poiMemberService.isMember(poiData.getId());
 
             // 构建订单项
             updOrderItemData = createItemData(orderData,goodsType,goodsData,num,isPoiMember);
@@ -488,6 +500,124 @@ public class OrderServiceImpl implements  OrderService {
         orderDao.removeOrderItemByOrderId(orderId);
         orderDao.removeOrder(orderData.getOrderId());
 
+        return BizPacket.success();
+    }
+
+
+
+    @Override
+    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay) throws Exception{
+        OrderData orderData = orderDao.getOrder(orderId);
+        if(orderData == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
+        }
+        if(!orderData.getPoiId().equalsIgnoreCase(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法请求!");
+        }
+        if(orderData.getPayStatus() == PayStatus.PAIED.value()){
+            return BizPacket.error(HttpStatus.NOT_ACCEPTABLE.value(),"订单已经支付过了!");
+        }
+
+        if(payWay == PayWay.BALANCE){
+            return balanceService.onOrderPayConfirm(userData,orderData);
+        }
+        return payConfirm4WX(userData,orderData);
+    }
+
+
+    private static final String POI_ID = "poiId=";
+
+    /**
+     * 微信帐户支付
+     * @param userData
+     * @param rd
+     * @return
+     * @throws Exception
+     */
+    private BizPacket payConfirm4WX(PoiUserData userData,OrderData rd)throws Exception{
+
+        String nonce_str = Sha1Util.getNonceStr();
+        String body = buildBody(rd.getPayment());
+        String attach = POI_ID +rd.getPoiId();
+
+        int payment = rd.getPayment();
+        if(devMode){
+            payment = 1;
+        }
+
+        BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),payment, Constants.PAY_CALLBACK_URL_ALL_ORDER);
+        logger.info("订单付款--统一下单结果={}",bizPacket.toString());
+
+        if(bizPacket.getCode() != HttpStatus.OK.value()){
+            throw new Exception(bizPacket.getMsg());
+        }
+
+        List<NameValuePair> signParams = new ArrayList<>(5);
+        signParams.add(new BasicNameValuePair("appId", Constants.WEICHAT_APP_ID));
+        signParams.add(new BasicNameValuePair("nonceStr", nonce_str));
+
+        String sPackage = "prepay_id="+bizPacket.getData().toString();
+        signParams.add(new BasicNameValuePair("package", sPackage));
+
+        signParams.add(new BasicNameValuePair("signType", "MD5"));
+        String timestamp = DateTimeUtil.getTimeSeconds();
+        signParams.add(new BasicNameValuePair("timeStamp",timestamp));
+
+        String paySign = MD5Util.makeSign(signParams,Constants.WECHAT_API_KEY);
+
+        JSONObject prePayParams = new JSONObject();
+        prePayParams.put("timeStamp",timestamp);
+        prePayParams.put("nonceStr",nonce_str);
+        prePayParams.put("package",sPackage);
+        prePayParams.put("signType","MD5");
+        prePayParams.put("paySign",paySign);
+
+        prePayParams.put("payWay",PayWay.WECHAT.value());
+
+        logger.info("用户[{}]订单付款={},nonce_str={},prepay_id={}",userData,rd,nonce_str,bizPacket.getData().toString());
+        return BizPacket.success(prePayParams);
+    }
+
+
+    private String buildBody(int amount){
+        return "order-pay-"+amount+"fen";
+    }
+
+    @Override
+    public BizPacket payCallback(Map<String,String> wechatPayCallbackParams){
+
+        String orderId = wechatPayCallbackParams.get(WechatXMLParser.ORDER_ID);
+        if(StringUtils.isEmpty(orderId)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单付款回调中缺少attch(orderId):null");
+        }
+
+        OrderData rd = orderDao.getOrder(orderId);
+        if(rd == null) {
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "根据orderId未能找到订单!orderId="+orderId);
+        }
+
+        String attch = wechatPayCallbackParams.get("attach");
+        if(StringUtils.isEmpty(attch)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单付款回调中缺少attch(poiId):null");
+        }
+        String poiId= attch.replace(POI_ID,"");
+        if(!rd.getPoiId().equals(poiId)){
+            return BizPacket.error(HttpStatus.CONFLICT.value(), "订单付款回调中的参数冲突(分别代表了不同的订单)!orderId="+orderId+",poiId="+poiId);
+        }
+
+
+        // 更新购买记录
+
+        rd.setPayWay(PayWay.WECHAT.value());
+        rd.setTransactionId(wechatPayCallbackParams.get("transactionId"));
+        String summary = WechatXMLParser.joinSummary(wechatPayCallbackParams);
+        rd.setSummary(summary);
+        rd.setPayStatus(PayStatus.PAIED.value());
+        String timeEnd = wechatPayCallbackParams.containsKey("timeEnd")? wechatPayCallbackParams.get("timeEnd"):"";
+        rd.setTimeEnd(timeEnd);
+        orderDao.updateOrderData(rd);
+
+        logger.info("订单微信付款回调成功!rd={}",rd);
         return BizPacket.success();
     }
 }

@@ -42,6 +42,7 @@ public class RedisServiceImpl implements RedisService {
             String ukey =  RedisConstants.WECHAT_POI_USER+poiUserId;
             Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
             if(objUser == null){
+                stringRedisTemplate.delete(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken);
                 return null;
             }
 
@@ -130,5 +131,23 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public String getSMSCode(String mobile){
         return stringRedisTemplate.opsForValue().get(RedisConstants.WECHAT_SMS_CODE + mobile);
+    }
+
+    @Override
+    public void onSmsVerify(boolean verifyResult,String userId,String mobile){
+        if(verifyResult){
+            stringRedisTemplate.opsForValue().set(RedisConstants.WECHAT_SMS_RESULT + userId, mobile, 1, TimeUnit.MINUTES);
+        }
+        else{
+            stringRedisTemplate.delete(RedisConstants.WECHAT_SMS_RESULT + userId);
+        }
+    }
+
+    @Override
+    public String getMobile4Forget(String userId){
+        String k = RedisConstants.WECHAT_SMS_RESULT + userId;
+        String mobile = stringRedisTemplate.opsForValue().get(k);
+        stringRedisTemplate.delete(k);
+        return mobile;
     }
 }

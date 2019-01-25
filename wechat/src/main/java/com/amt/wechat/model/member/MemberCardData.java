@@ -43,7 +43,7 @@ public class MemberCardData implements Serializable {
     /**
      * 新用户立减额度,单位:分
      */
-    private int newDiscount=0;
+    private int discount =0;
 
     public int getId() {
         return id;
@@ -100,12 +100,12 @@ public class MemberCardData implements Serializable {
         this.mainRecmd = mainRecmd;
     }
 
-    public int getNewDiscount() {
-        return newDiscount;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setNewDiscount(int newDiscount) {
-        this.newDiscount = newDiscount;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     @Override

@@ -1,12 +1,16 @@
 package com.amt.wechat.service.order;
 
+import com.amt.wechat.common.PayWay;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
 import com.amt.wechat.model.poi.PoiUserData;
 
+import java.util.Map;
+
 /**
  * Copyright (c) 2019 by CANSHU
+ * 订单类业务
  *
  * @author adu Create on 2019-01-04 19:25
  * @version 1.0
@@ -27,7 +31,7 @@ public interface OrderService {
      * @param orderId 订单Id
      * @return
      */
-    public BizPacket getOrderDetail(String orderId);
+    public BizPacket getOrderDetail(PoiUserData userData,String orderId);
 
 
     /**
@@ -79,4 +83,7 @@ public interface OrderService {
      * @return
      */
     public BizPacket orderRM(PoiUserData userData,String orderId);
+
+    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay) throws Exception;
+    public BizPacket payCallback(Map<String,String> wechatPayCallbackParams);
 }

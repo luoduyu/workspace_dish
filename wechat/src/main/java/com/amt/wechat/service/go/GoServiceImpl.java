@@ -2,14 +2,12 @@ package com.amt.wechat.service.go;
 
 import com.amt.wechat.dao.go.GoDao;
 import com.amt.wechat.dao.poi.PoiDao;
-import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.yunying.ShenQingForm;
 import com.amt.wechat.model.go.GOData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
-import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,8 +28,6 @@ public class GoServiceImpl implements  GoService {
     private static final Logger logger = LoggerFactory.getLogger(GoServiceImpl.class);
 
     private @Resource  GoDao goDao;
-    private @Resource PoiUserDao userDAO;
-    private @Resource RedisService redisService;
     private @Resource PoiDao poiDao;
 
     @Override

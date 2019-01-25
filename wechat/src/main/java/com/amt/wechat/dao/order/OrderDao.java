@@ -19,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface OrderDao {
 
-    @Insert("INSERT INTO `order`(poiId,orderId,goodsType,total,couponPaid,balancePaid,wechatPaid,payment,payStatus,createTime,payTime,serviceStatus) VALUES(#{poiId},#{orderId},#{goodsType},#{total},#{couponPaid},#{balancePaid},#{wechatPaid},#{payment},#{payStatus},#{createTime},#{payTime},#{serviceStatus})")
+    @Insert("INSERT INTO `order`(poiId,orderId,goodsType,total,payWay,payment,payStatus,createTime,timeEnd,transactionId,summary,serviceStatus) VALUES(#{poiId},#{orderId},#{goodsType},#{total},#{payWay},#{payment},#{payStatus},#{createTime},#{timeEnd},#{transactionId},#{summary},#{serviceStatus})")
     public void addOrderData(OrderData orderData);
 
     @Select("SELECT * FROM `order` WHERE orderId=#{orderId}")
@@ -31,6 +31,12 @@ public interface OrderDao {
 
     @Update("UPDATE `order` SET total =#{total} WHERE orderId=#{id}")
     public void updateTotal(int total,String id);
+
+    @Update("UPDATE `order` SET payWay=#{payWay},payStatus=#{payStatus},transactionId=#{transactionId},timeEnd=#{timeEnd},summary=#{summary} WHERE orderId = #{orderId}")
+    public void updateOrderData(OrderData orderData);
+
+
+
 
     public List<MyOrderForm> getMyOrderList(String poiId,int index, int pageSize);
 

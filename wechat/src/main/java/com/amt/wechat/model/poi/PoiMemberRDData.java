@@ -26,20 +26,48 @@ public class PoiMemberRDData implements Serializable {
     /**
      * 折扣额度,单位:分
      */
-	private int newDiscount;
+	private int discount;
+
+    /**
+     * 实付款,单位:分
+     */
 	private int payment;
+
+    private String orderId;
 
     /**
      * 付状态;1:待付款;2:已付款;
      */
 	private int payStatus;
-	private String payTime;
-	private String payNo;
+
 
     /**
      * 是否自动续费:0:否,1:是
      */
 	private int feeRenew;
+
+    /**
+     * 支付途径,1:银联,2:支付宝,3:微信,4:余额支付
+     */
+    private Integer payWay=3;
+
+
+
+    /**
+     * 微信支付订单号
+     */
+    private String transactionId="";
+
+
+    /**
+     * 支付完成时间
+     */
+    private String timeEnd="";
+
+    /**
+     * 摘要
+     */
+    private String summary="";
 
     public long getId() {
         return id;
@@ -97,12 +125,12 @@ public class PoiMemberRDData implements Serializable {
         this.total = total;
     }
 
-    public int getNewDiscount() {
-        return newDiscount;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setNewDiscount(int newDiscount) {
-        this.newDiscount = newDiscount;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     public int getPayment() {
@@ -120,29 +148,52 @@ public class PoiMemberRDData implements Serializable {
     public void setPayStatus(int payStatus) {
         this.payStatus = payStatus;
     }
-
-    public String getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(String payTime) {
-        this.payTime = payTime;
-    }
-
-    public String getPayNo() {
-        return payNo;
-    }
-
-    public void setPayNo(String payNo) {
-        this.payNo = payNo;
-    }
-
     public int getFeeRenew() {
         return feeRenew;
     }
 
     public void setFeeRenew(int feeRenew) {
         this.feeRenew = feeRenew;
+    }
+
+    public Integer getPayWay() {
+        return payWay;
+    }
+
+    public void setPayWay(Integer payWay) {
+        this.payWay = payWay;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     @Override

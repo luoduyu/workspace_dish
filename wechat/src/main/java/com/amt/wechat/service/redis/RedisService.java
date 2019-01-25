@@ -55,4 +55,20 @@ public interface RedisService {
      * @return
      */
     public String getSMSCode(String mobile);
+
+
+    /**
+     *
+     * @param verifyResult true:表示校验成功,false:表示校验失败;
+     * @param userId
+     * @param mobile
+     */
+    public void onSmsVerify(boolean verifyResult,String userId,String mobile);
+
+    /**
+     * 获得暂存的手机号
+     * @param userId
+     * @return
+     */
+    public String getMobile4Forget(String userId);
 }

@@ -1,12 +1,20 @@
 package com.amt.wechat.controller.poi;
 
+import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.PayWay;
 import com.amt.wechat.controller.base.BaseController;
+import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.order.MyOrderItemForm;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
+import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.order.OrderService;
+import com.amt.wechat.service.pay.util.WechatXMLParser;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,6 +23,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -29,6 +41,7 @@ public class OrderController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     private @Resource OrderService orderService;
+    private @Resource PoiDao poiDao;
 
     @PostMapping(value = "/order/my")
     public BizPacket findOrderList(Integer index,Integer pageSize){
@@ -49,7 +62,9 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单Id为必填项!");
         }
 
-        BizPacket packet =  orderService.getOrderDetail(orderId);
+        PoiUserData userData = getUser();
+
+        BizPacket packet =  orderService.getOrderDetail(userData,orderId);
         return packet;
     }
 
@@ -113,6 +128,88 @@ public class OrderController extends BaseController {
         } catch (Exception e) {
             logger.error("userData="+userData+",orderSubmitForm="+orderSubmitForm+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+
+    /**
+     * 订单付款确认
+     * @param orderId 订单Id
+     * @return
+     */
+    @PostMapping(value = "/order/pay/confirm")
+    public BizPacket memberBuyConfirm(@RequestParam("orderId") String orderId,Integer payWay,String balancePwd){
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        PayWay pw = PayWay.valueOf(payWay);
+        if(pw == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"付款方式参数非法:"+payWay);
+        }
+        if(pw != PayWay.WECHAT && pw != PayWay.BALANCE){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"暂时不支持其它付款方式:"+pw.toString());
+        }
+        if(pw == PayWay.BALANCE){
+            PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+            if(poiData.getBalancePwdFree() != 1){
+                if(StringUtils.isEmpty(balancePwd)){
+                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"余额密码是必填!");
+                }
+                if(!balancePwd.equals(poiData.getBalancePwd())){
+                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码错误!");
+                }
+            }
+        }
+
+
+        try {
+            BizPacket ret= orderService.payConfirm(userData,orderId,pw);
+            return ret;
+        } catch (Exception e) {
+            logger.error("userData="+userData+",orderId="+orderId+",payWay="+payWay+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    /**
+     * 微信付款回调接口
+     */
+    @RequestMapping(value = Constants.PAY_CALLBACK_URL_ORDER,method = {RequestMethod.POST,RequestMethod.GET})
+    public void memberBuyCallback(HttpServletRequest request, HttpServletResponse response){
+
+        Document doc = null;
+        try {
+
+            String responseText = WechatUtil.getResponseText(request);
+            logger.info("订单付款回调responseText={}",responseText);
+            doc = WechatUtil.getResponseXML(responseText);
+
+        }catch (IOException | DocumentException e){
+            logger.error(e.getMessage(),e);
+
+            // 通信就失败了
+            WechatUtil.responseFail(response,Constants.WE_FAIL,null);
+            return;
+        }
+
+        Map<String,String> result = WechatXMLParser.callbackResultParse(doc.getRootElement());
+        // 根据微信的result_code判断微信端是否支付成功,支付成功则执行成功后的后台处理
+        if (result == null || !Constants.WE_SUCCESS.equals(result.get("result_code"))) {
+            // 虽通信成功,但最终是失败
+            WechatUtil.responseFail(response,Constants.WE_SUCCESS,result);
+            return;
+        }
+        try {
+            // TODO 拿到一个订单的分布式锁(基于redis)
+
+            BizPacket bizPacket = orderService.payCallback(result);
+            logger.info("订单付回调处理结果={}", bizPacket);
+
+            response.getWriter().write(WechatUtil.WECHAT_PAY_CALLBACK_SUCC);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
         }
     }
 

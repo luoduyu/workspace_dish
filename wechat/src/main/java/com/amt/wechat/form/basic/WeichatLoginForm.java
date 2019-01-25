@@ -45,6 +45,7 @@ public class  WeichatLoginForm implements Serializable {
      */
     private boolean eleAuth = false;
 
+
     public WeichatLoginForm() {
 
     }

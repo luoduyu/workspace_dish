@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.Constants;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.model.poi.PoiUserData;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -16,12 +18,19 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.security.AlgorithmParameters;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,29 +47,29 @@ public class WechatUtil {
 
     /**
      * 获取登录凭证信息
+     *
      * @param wxCode
      * @return
      */
-    public static JSONObject getSessionKeyOrOpenId(String wxCode){
-        String url = String.format(Constants.URL_TEMPLATE, Constants.WEICHAT_APP_ID,Constants.AppSecret,wxCode);
+    public static JSONObject getSessionKeyOrOpenId(String wxCode) {
+        String url = String.format(Constants.URL_TEMPLATE, Constants.WEICHAT_APP_ID, Constants.WECHAT_APP_SECRET, wxCode);
         Document document = null;
         try {
             document = Jsoup.connect(url).get();
         } catch (IOException e) {
-            logger.info("wxCode={},登录凭证校验失败! ex={}",wxCode,e.getMessage(),e);
+            logger.info("wxCode={},登录凭证校验失败! ex={}", wxCode, e.getMessage(), e);
             return null;
         }
         String resultText = document.text();
         JSONObject json = JSON.parseObject(resultText);
 
         Integer errcode = json.getInteger("errcode");
-        if(errcode != null && errcode != 0){
-            logger.info("登录凭证校验失败!errcode={},errmsg={}",errcode,json.getString("errmsg"));
+        if (errcode != null && errcode != 0) {
+            logger.info("登录凭证校验失败!errcode={},errmsg={}", errcode, json.getString("errmsg"));
             return null;
         }
         return json;
     }
-
 
 
     private static final String KEY_ALGORITHM = "AES";
@@ -68,6 +77,7 @@ public class WechatUtil {
 
     /**
      * 生成密钥
+     *
      * @return
      * @throws Exception
      */
@@ -80,6 +90,7 @@ public class WechatUtil {
 
     /**
      * 生成iv
+     *
      * @return
      * @throws Exception
      */
@@ -93,6 +104,7 @@ public class WechatUtil {
 
     /**
      * 生成iv
+     *
      * @param iv
      * @return
      * @throws Exception
@@ -105,6 +117,7 @@ public class WechatUtil {
 
     /**
      * 转化成JAVA的密钥格式
+     *
      * @param keyBytes
      * @return
      * @throws Exception
@@ -138,60 +151,58 @@ public class WechatUtil {
     }
 
     /**
-     *
      * 解密用户敏感数据获取用户信息:
-     *{
-     *   "openId": "OPENID",
-     *   "nickName": "NICKNAME",
-     *   "gender": GENDER,
-     *   "city": "CITY",
-     *   "province": "PROVINCE",
-     *   "country": "COUNTRY",
-     *   "avatarUrl": "AVATARURL",
-     *   "unionId": "UNIONID",
-     *   "watermark": {
-     *     "appid": "APPID",
-     *     "timestamp": TIMESTAMP
-     *   }
+     * {
+     * "openId": "OPENID",
+     * "nickName": "NICKNAME",
+     * "gender": GENDER,
+     * "city": "CITY",
+     * "province": "PROVINCE",
+     * "country": "COUNTRY",
+     * "avatarUrl": "AVATARURL",
+     * "unionId": "UNIONID",
+     * "watermark": {
+     * "appid": "APPID",
+     * "timestamp": TIMESTAMP
+     * }
      * }
      * 解密 for 用户信息
+     *
      * @param encryptedData
      * @param session_key
      * @param iv
      * @return
      */
-    public static JSONObject getUserInfo(String encryptedData,String session_key,String iv){
-        return decode(encryptedData,session_key,iv);
+    public static JSONObject getUserInfo(String encryptedData, String session_key, String iv) {
+        return decode(encryptedData, session_key, iv);
     }
 
     /**
-     *
-     *
-     * @param session_key 数据进行加密签名的密钥
+     * @param session_key   数据进行加密签名的密钥
      * @param encryptedData 包括敏感数据在内的完整用户信息的加密数据
-     * @param iv 加密算法的初始向量
+     * @param iv            加密算法的初始向量
      * @return
      */
-    private static JSONObject decode(String encryptedData,String session_key,String iv){
+    private static JSONObject decode(String encryptedData, String session_key, String iv) {
         java.util.Base64.Decoder decoder = Base64.getDecoder();
         try {
             byte[] bytData = decoder.decode(encryptedData);
-            byte[] bytSessionkey =decoder.decode(session_key);
+            byte[] bytSessionkey = decoder.decode(session_key);
             byte[] bytIV = decoder.decode(iv);
 
-            byte[] result = decrypt(bytData, bytSessionkey,generateIV(bytIV));
-            String strResult = new String(result,"UTF-8");
+            byte[] result = decrypt(bytData, bytSessionkey, generateIV(bytIV));
+            String strResult = new String(result, "UTF-8");
 
             JSONObject json = JSON.parseObject(strResult);
 
             return json;
         } catch (Exception e) {
-           logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
 
-    public static PhoneData getPhoneData(String encryptedData,String session_key,String iv){
+    public static PhoneData getPhoneData(String encryptedData, String session_key, String iv) {
 
         /*
         {
@@ -204,23 +215,21 @@ public class WechatUtil {
               }
          }
          */
-        JSONObject jsonObject = decode(encryptedData,session_key,iv);
-        if(jsonObject == null){
+        JSONObject jsonObject = decode(encryptedData, session_key, iv);
+        if (jsonObject == null) {
             return null;
         }
 
         String phoneNumber = jsonObject.getString("phoneNumber");
         String purePhoneNumber = jsonObject.getString("purePhoneNumber");
         String countryCode = jsonObject.getString("countryCode");
-        if(phoneNumber != null && phoneNumber.trim().length()!= 0){
-            if(!phoneNumber.startsWith(countryCode)){
-                return new PhoneData(phoneNumber,countryCode);
+        if (phoneNumber != null && phoneNumber.trim().length() != 0) {
+            if (!phoneNumber.startsWith(countryCode)) {
+                return new PhoneData(phoneNumber, countryCode);
             }
         }
-        return new PhoneData(purePhoneNumber,countryCode);
+        return new PhoneData(purePhoneNumber, countryCode);
     }
-
-
 
 
     /**
@@ -232,7 +241,7 @@ public class WechatUtil {
     public static boolean isMobileNO(String mobiles) {
         boolean flag = false;
         try {
-			// Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
+            // Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
             Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(14[5,7])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\\d{8}$");
             Matcher m = p.matcher(mobiles);
             flag = m.matches();
@@ -242,29 +251,12 @@ public class WechatUtil {
         return flag;
     }
 
-    public static void main(String[] args) {
-        /*
-        String encryptedData ="dXp+e+upG3at0SGnCBNZtQ+++w/hbuwFo2satyK5qTD4xGI8CCM6PHyIlbejVTPgFKr1PUTJmNQVTBKiKCKWf0VoOr+ReC+S5RdqlE0uD2eX9cTP9Oj+EzRm3AdoveJHLun74doXBxDccFTQuuNsCeJv6e2H8JH1awz3kvadGOPvEnMrDKrA99Vm+JTHZK7hy2wGQvdXOQgzFuK8lA3Ow3BJS4IYdIRNXwm8j1K7jxySyWvlIWuT1eHP3B345NYvQ3HxI23T0JC9WkiP6Cop13I97+nO6pl5RcBfOjLGAc4=";
-        String session_key  = "Tm9ZwkjBGdSZ8zmnFlHy8Q==";
-        String iv= "rZZxbQgeeQSt0+7qyoyLHA==";
-
-        JSONObject json = getUserInfo(encryptedData,session_key,iv);
-        System.out.println(json);
-        */
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id","123456");
-        jsonObject.put("goodsName","i am is goods");
-        jsonObject.put("imgUrl","https://www.wmt.com/a/b/c.jpg");
-
-        String result = JSON.toJSONString(BizPacket.success(jsonObject));
-        System.out.println(result);
-    }
 
     /**
      * Copyright (c) 2018 by CANSHU
+     * <p>
+     * 电话号码
      *
-     *  电话号码
      * @author adu Create on 2018-12-27 14:36
      * @version 1.0
      */
@@ -274,7 +266,7 @@ public class WechatUtil {
         /**
          * 临时存储在session中的电话号码(不带区号)
          */
-        public  transient static final String SESSION_PHONE = "POI_USER_PHONE";
+        public transient static final String SESSION_PHONE = "POI_USER_PHONE";
 
         /**
          * 临时存储在session中的电话号码的区号
@@ -314,16 +306,129 @@ public class WechatUtil {
         }
 
         if (user.getIsEnabled() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value() ,"User is disabled");
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User is disabled");
         }
 
         if (user.getIsAccountNonExpired() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User account has expired");
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User account has expired");
         }
 
-        if(user.getIsCredentialsNonExpired() != 1){
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(),"User credentials have expired");
+        if (user.getIsCredentialsNonExpired() != 1) {
+            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User credentials have expired");
         }
         return BizPacket.success();
+    }
+
+
+
+    /**
+     * 有两种失败法:
+     * 1)有错误返回标记,通信成功
+     * 2)有错误返回标记,通信失败
+     *
+     * @param response
+     * @param flag
+     * @param result
+     * @throws IOException
+     */
+    public static void responseFail(HttpServletResponse response, String flag, Map<String,String> result){
+        try {
+            if(result != null && result.containsKey("return_msg")){
+                String xml = failXML(flag,result.get("return_msg"));
+                response.getWriter().write(xml);
+                return;
+            }
+
+            String xml = failXML(flag,"未知错误!");
+            response.getWriter().write(xml);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+        }
+    }
+
+
+    public static final String WECHAT_PAY_CALLBACK_SUCC= "<xml><return_code><![CDATA["+Constants.WE_SUCCESS+"]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+    public static final String WECHAT_PAY_CALLBACK_FAIL= "<xml><return_code><![CDATA[%s]]></return_code><return_msg><![CDATA[%s]]></return_msg></xml>";
+
+    /**
+     * 成功后设置返回的xml
+     * @Title: setXML
+     * @Description:
+     * @param @param return_code
+     * @param @param return_msg
+     * @param @return
+     * @return String
+     * @throws
+     */
+    private static String failXML(String return_code, String return_msg) {
+        String xml = String.format(WECHAT_PAY_CALLBACK_FAIL, return_code, return_msg);
+        return xml;
+    }
+
+    public static String getResponseText(HttpServletRequest request) throws IOException {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()))){
+            String line = null;
+            StringBuilder response = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        }
+    }
+
+    /**
+     * 将字符串转为XML
+     * @param responseText
+     * @return
+     */
+    public static  org.dom4j.Document getResponseXML(String responseText) throws DocumentException {
+        org.dom4j.Document doc = DocumentHelper.parseText(responseText);
+        return doc;
+    }
+
+
+    public static void main(String[] args) {
+        /*
+        String encryptedData ="dXp+e+upG3at0SGnCBNZtQ+++w/hbuwFo2satyK5qTD4xGI8CCM6PHyIlbejVTPgFKr1PUTJmNQVTBKiKCKWf0VoOr+ReC+S5RdqlE0uD2eX9cTP9Oj+EzRm3AdoveJHLun74doXBxDccFTQuuNsCeJv6e2H8JH1awz3kvadGOPvEnMrDKrA99Vm+JTHZK7hy2wGQvdXOQgzFuK8lA3Ow3BJS4IYdIRNXwm8j1K7jxySyWvlIWuT1eHP3B345NYvQ3HxI23T0JC9WkiP6Cop13I97+nO6pl5RcBfOjLGAc4=";
+        String session_key  = "Tm9ZwkjBGdSZ8zmnFlHy8Q==";
+        String iv= "rZZxbQgeeQSt0+7qyoyLHA==";
+
+        JSONObject json = getUserInfo(encryptedData,session_key,iv);
+        System.out.println(json);
+        */
+
+
+        /*
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", "123456");
+        jsonObject.put("goodsName", "i am is goods");
+        jsonObject.put("imgUrl", "https://www.wmt.com/a/b/c.jpg");
+
+        String result = JSON.toJSONString(BizPacket.success(jsonObject));
+        System.out.println(result);
+        */
+
+        int r = roundDown(mul4Float(123,0.1f));
+        System.out.println(r);
+    }
+
+    public static int roundDown(float v) {
+        BigDecimal b = new BigDecimal(Float.toString(v));
+        b.setScale(0,BigDecimal.ROUND_DOWN);
+        return b.intValue();
+    }
+
+    /**
+     *
+     * 提供精确的乘法运算。
+     *
+     * @param v1 被乘数
+     * @param v2 乘数
+     * @return 两个参数的积
+     */
+    public static float mul4Float(float v1, float v2) {
+        BigDecimal b1 = new BigDecimal(Float.toString(v1));
+        BigDecimal b2 = new BigDecimal(Float.toString(v2));
+        return b1.multiply(b2).floatValue();
     }
 }

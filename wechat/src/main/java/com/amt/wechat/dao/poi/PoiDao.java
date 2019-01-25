@@ -1,13 +1,11 @@
 package com.amt.wechat.dao.poi;
 
-import com.amt.wechat.model.poi.PoiAccountData;
 import com.amt.wechat.model.poi.PoiData;
-import com.amt.wechat.model.poi.PoiMemberData;
-import com.amt.wechat.model.poi.PoiMemberRDData;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -40,59 +38,7 @@ public interface PoiDao {
     public void mtAuth(PoiData poiData);
 
 
-    @Select("SELECT * FROM poi_account WHERE poiId=#{poiId} LIMIT 1")
-    public PoiAccountData getAccountData(String poiId);
-
-    @Insert("INSERT INTO poi_account(poiId,curBalance,curRedBalance,curBiddingBalance,currShareBalance)VALUES(#{poiId},#{curBalance},#{curRedBalance},#{curBiddingBalance},#{currShareBalance})")
-    public void addPoiAccountData(PoiAccountData data);
-
-    @Update("UPDATE poi_account SET curBiddingBalance = curBiddingBalance+ #{amount} WHERE poiId=#{poiId}")
-    public void updatePoiBiddingBalance(int amount,String poiId);
-
-    @Update("UPDATE poi_account SET curBalance = curBalance + #{amount} WHERE poiId=#{poiId}")
-    public void updatePoiBalance(int amount,String poiId);
 
 
 
-
-    @Insert("INSERT INTO poi_member(poiId,durationUnit,duration,buyTime,expiredAt,autoFeeRenew,autoFee) VALUES(#{poiId},#{durationUnit},#{duration},#{buyTime},#{expiredAt},#{autoFeeRenew},#{autoFee})")
-    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
-    public void addPoiMemberData(PoiMemberData memberData);
-
-    @Update("UPDATE poi_member SET durationUnit=#{durationUnit},duration=#{duration},buyTime=#{buyTime},expiredAt=#{expiredAt},autoFeeRenew=#{autoFeeRenew},autoFee=#{autoFee} WHERE poiId = #{poiId}")
-    public void updatePoiMemberData(PoiMemberData memberData);
-
-    @Update("UPDATE poi_member SET autoFeeRenew=#{autoFeeRenew} WHERE poiId = #{poiId}")
-    public void updatePoiMemberFreeRenew(int autoFeeRenew,String poiId);
-
-    @Select("SELECT * FROM poi_member WHERE poiId=#{poiId} LIMIT 1")
-    public PoiMemberData getPoiMemberData(String poiId);
-
-    @Update("UPDATE poi_member SET autoFeeRenew=#{autoFeeRenew} WHERE poiId=#{poiId}")
-    public void updateMemberFeeAutoRenew(int autoFeeRenew,String poiId);
-
-
-
-
-
-
-    @Insert("INSERT INTO poi_member_rd(poiId,durationUnit,duration,buyTime,userId,total,newDiscount,payment,payStatus,payTime,payNo,feeRenew)VALUES(#{poiId},#{durationUnit},#{duration},#{buyTime},#{userId},#{total},#{newDiscount},#{payment},#{payStatus},#{payTime},#{payNo},#{feeRenew})")
-    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
-    public void addMemberBoughtRD(PoiMemberRDData rdData);
-    /**
-     *  购买会员的次数
-     * @param poiId
-     * @return
-     */
-    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId} AND payStatus=2")
-    public int countPoiMemberRD(String poiId);
-    /**
-     * 会员卡购买记录
-     * @param poiId
-     * @param index
-     * @param pageSize
-     * @return
-     */
-    @Select("SELECT * FROM poi_member_rd WHERE poiId=#{poiId} ORDER BY buyTime DESC LIMIT #{index},#{pageSize}")
-    public List<PoiMemberRDData> getMemberBoughtList(String poiId, int index, int pageSize);
 }

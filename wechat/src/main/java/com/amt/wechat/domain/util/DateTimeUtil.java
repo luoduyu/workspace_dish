@@ -41,6 +41,10 @@ public class DateTimeUtil {
         return ldt;
     }
 
+    public static String getTimeSeconds() {
+        return String.valueOf(System.currentTimeMillis() / 1000);
+    }
+
 
     public static void main(String[] args) {
         //getTime("2019-01-10 17:56:03");

@@ -24,4 +24,8 @@ public interface MemberDao {
     @Select("SELECT * FROM card_items WHERE id=#{id} LIMIT 1")
     public MemberCardData getMemberCardData(int id);
 
+
+    @Select("SELECT * FROM card_items WHERE durationUnit=#{durationUnit} AND duration=#{duration} LIMIT 1")
+    public MemberCardData getMemberCardDataByDur(String  durationUnit,int duration);
+
 }

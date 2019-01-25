@@ -14,9 +14,21 @@ public class PoiAccountData implements Serializable {
     private static final long serialVersionUID = -1416441025244934010L;
 
     private String poiId;
+
+    /**
+     * 当前帐户余额,单位:分
+     */
     private int curBalance;
     private int curRedBalance;
+
+    /**
+     * 当前竞价充值余额,单位:分
+     */
     private int curBiddingBalance;
+
+    /**
+     * 当前分享金余额,单位:分
+     */
     private int currShareBalance;
 
 

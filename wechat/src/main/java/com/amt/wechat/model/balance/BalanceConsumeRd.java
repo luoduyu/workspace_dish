@@ -15,13 +15,21 @@ public class BalanceConsumeRd implements Serializable {
 
     private int id;
     private String poiId;
-    private int amount;
-    private String consumeNo;
     private String createTime;
-    private int balance;
-
     private String userId;
     private String userName;
+
+    private String orderId;
+
+    /**
+     * 消费类别
+     */
+    private int cateId;
+
+    /**
+     * 消费金额 =正常余额+ 红包金额
+     */
+    private int amount;
 
     /**
      * 接要
@@ -46,20 +54,12 @@ public class BalanceConsumeRd implements Serializable {
     }
 
 
-    public int getAmount() {
-        return amount;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getConsumeNo() {
-        return consumeNo;
-    }
-
-    public void setConsumeNo(String consumeNo) {
-        this.consumeNo = consumeNo;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getCreateTime() {
@@ -68,14 +68,6 @@ public class BalanceConsumeRd implements Serializable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
 
@@ -103,15 +95,34 @@ public class BalanceConsumeRd implements Serializable {
         this.summary = summary;
     }
 
+
+    public int getCateId() {
+        return cateId;
+    }
+
+    public void setCateId(int cateId) {
+        this.cateId = cateId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "BalanceConsumeRd{" +
                 "id=" + id +
                 ", poiId='" + poiId + '\'' +
-                ", amount=" + amount +
-                ", consumeNo='" + consumeNo + '\'' +
                 ", createTime='" + createTime + '\'' +
-                ", balance=" + balance +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", cateId=" + cateId +
+                ", summary='" + summary + '\'' +
                 '}';
     }
 }

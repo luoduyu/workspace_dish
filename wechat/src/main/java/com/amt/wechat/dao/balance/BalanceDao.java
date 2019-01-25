@@ -2,10 +2,8 @@ package com.amt.wechat.dao.balance;
 
 import com.amt.wechat.model.balance.BalanceConsumeRd;
 import com.amt.wechat.model.balance.BalanceRechargeRD;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.amt.wechat.model.balance.CurrencyStageData;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,9 +18,13 @@ import java.util.List;
 @Mapper
 public interface BalanceDao {
 
-    @Insert("INSERT INTO balance_recharge (poiId, userId, userName,amount, rechargeNo, createTime, balance)VALUES(#{poiId},#{userId},#{userName},#{amount},#{rechargeNo},#{createTime},#{balance})")
+    @Insert("INSERT INTO balance_recharge (poiId, userId,userName,amount, orderId, createTime, balance,redBalance,payStatus,payWay,transactionId,timeEnd,summary)VALUES(#{poiId},#{userId},#{userName},#{amount},#{orderId},#{createTime},#{balance},#{redBalance},#{payStatus},#{payWay},#{transactionId},#{timeEnd},#{summary})")
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn ="id")
-    public void addRechargeRd(BalanceRechargeRD biddingRechargeRd);
+    public void addRechargeRd(BalanceRechargeRD balanceRechargeRD);
+
+
+    @Update("UPDATE balance_recharge SET payStatus=#{payStatus},transactionId=#{transactionId},balance=#{balance},redBalance=#{redBalance},timeEnd=#{timeEnd},summary=#{summary} WHERE id = #{id}")
+    public void updateRechargeRd(BalanceRechargeRD balanceRechargeRD);
 
     @Select("SELECT * FROM balance_recharge WHERE poiId=#{poiId} ORDER BY createTime DESC LIMIT #{index},#{pageSize}")
     public List<BalanceRechargeRD> getRechargeDataList(String poiId, int index, int pageSize);
@@ -30,7 +32,19 @@ public interface BalanceDao {
     @Select("SELECT COUNT(*) FROM balance_recharge WHERE poiId=#{poiId}")
     public int countRechargeData(String poiId);
 
+    @Select("SELECT * FROM balance_recharge WHERE id=#{id}")
+    public BalanceRechargeRD getRechargeData(String id);
 
+
+    @Select("SELECT * FROM currency_stage ORDER BY showSeq ASC LIMIT 100")
+    public List<CurrencyStageData> getStageDataList();
+
+
+
+
+    @Insert("INSERT INTO balance_consume (poiId,orderId,createTime,summary,userId,userName,cateId,amount)VALUES(#{poiId},#{orderId},#{createTime},#{summary},#{userId},#{userName},#{cateId},#{amount})")
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn ="id")
+    public void addConsumeRd(BalanceConsumeRd consumeRd);
 
     @Select("SELECT * FROM balance_consume WHERE poiId=#{poiId} ORDER BY createTime DESC LIMIT #{index},#{pageSize}")
     public List<BalanceConsumeRd> getConsumeDataList(String poiId, int index, int pageSize);

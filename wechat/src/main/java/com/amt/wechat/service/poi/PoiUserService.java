@@ -9,10 +9,12 @@ import java.io.IOException;
 /**
  * Copyright (c) 2018 by CANSHU
  *
+ * 店铺成员业务
+ *
  * @author adu Create on 2018-12-17 10:38
  * @version 1.0
  */
-public interface IPoiUserService {
+public interface PoiUserService {
 
     /**
      * 根据授权个人微信信息和存储至HttpSession中的手机号注册(若未注册)并登录
@@ -61,4 +63,30 @@ public interface IPoiUserService {
      * @return
      */
     public BizPacket employeeList(PoiUserData userData);
+
+    /**
+     * 店铺老枪邀请店员认领店铺
+     * @param userData
+     * @param name
+     * @param mobile
+     * @return
+     */
+    public BizPacket bossInviteIn(PoiUserData userData,String name,String mobile);
+
+    /**
+     * 转让老板
+     * @param boss
+     * @param userId
+     * @return
+     */
+    public BizPacket bossTransferTo(PoiUserData boss,String userId);
+
+
+    /**
+     * 店员删除
+     * @param boss
+     * @param userId
+     * @return
+     */
+    public BizPacket employeeRM(PoiUserData boss,String userId);
 }

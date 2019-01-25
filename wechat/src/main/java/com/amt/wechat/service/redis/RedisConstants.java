@@ -32,4 +32,9 @@ public class RedisConstants {
      * 手机验证码存储
      */
     public static final String WECHAT_SMS_CODE = "wmt_wechat:sms_code:";
+
+    /**
+     * 余额密码修改之-验证码校验结果
+     */
+    public static final String WECHAT_SMS_RESULT = "wmt_wechat:sms_forget:";
 }

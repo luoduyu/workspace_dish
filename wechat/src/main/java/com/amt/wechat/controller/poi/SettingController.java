@@ -1,17 +1,19 @@
 package com.amt.wechat.controller.poi;
 
 import com.amt.wechat.controller.base.BaseController;
+import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.sms.AliSMS;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.BasicSettingForm;
+import com.amt.wechat.model.poi.PoiAccountData;
 import com.amt.wechat.model.poi.PoiBasicData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.login.LoginService;
 import com.amt.wechat.service.poi.EmplIdentity;
-import com.amt.wechat.service.poi.IPoiUserService;
+import com.amt.wechat.service.poi.PoiUserService;
 import com.amt.wechat.service.poi.PoiService;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -34,11 +36,12 @@ import javax.annotation.Resource;
 public class SettingController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(SettingController.class);
 
-    private @Resource IPoiUserService poiUserService;
+    private @Resource PoiUserService poiUserService;
     private @Resource PoiService poiService;
     private @Resource RedisService redisService;
     private @Resource LoginService loginService;
     private @Resource PoiDao poiDao;
+    private @Resource PoiAccountDao poiAccountDao;
 
 
     /**
@@ -139,7 +142,7 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
 
-        return poiService.bossInviteIn(userData,name,mobile);
+        return poiUserService.bossInviteIn(userData,name,mobile);
     }
 
 
@@ -276,7 +279,8 @@ public class SettingController extends BaseController {
 
         try {
             PoiData poiData =  poiDao.getPoiData(userData.getPoiId());
-            PoiBasicData basicData = PoiData.createFrom(poiData);
+            PoiAccountData accountData =  poiAccountDao.getAccountData(userData.getPoiId());
+            PoiBasicData basicData = PoiData.createFrom(poiData,accountData);
             return BizPacket.success(basicData);
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
@@ -305,10 +309,15 @@ public class SettingController extends BaseController {
         if(StringUtils.isEmpty(basicSettingForm.getPoiBrandName())){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"品牌名称不能为空!");
         }
+
         // 更新会员名称
-        BizPacket  packet = poiUserService.updatePoiUserName(userData,basicSettingForm.getMemberName());
-        if(packet.getCode() != HttpStatus.OK.value()){
-            return packet;
+        if(!StringUtils.isEmpty(basicSettingForm.getMemberName())){
+            if(!userData.getName().equalsIgnoreCase(basicSettingForm.getMemberName().trim())){
+                BizPacket  packet = poiUserService.updatePoiUserName(userData,basicSettingForm.getMemberName());
+                if(packet.getCode() != HttpStatus.OK.value()){
+                    return packet;
+                }
+            }
         }
 
         // 更新店铺信息
@@ -375,6 +384,76 @@ public class SettingController extends BaseController {
         return poiService.balancePwdReset(userData,oldPwd,newPwd);
     }
 
+    /**
+     * 密码忘记--验证码校验
+     * @param smsCode
+     * @return
+     */
+    @PostMapping(value = "/setting/poi/balance/forget/sms")
+    public BizPacket forget_sms_verify(String smsCode){
+        try {
+            PoiUserData userData = getUser();
+            if(StringUtils.isEmpty(userData.getPoiId())){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+            }
+
+            if(StringUtils.isEmpty(userData.getMobile())){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有设置手机号!");
+            }
+
+            // 手机及验证码校验
+            String _smsCode = redisService.getSMSCode(userData.getMobile());
+            if(smsCode == null || smsCode.trim().length() ==0 || !smsCode.equalsIgnoreCase(_smsCode)){
+                redisService.onSmsVerify(false,userData.getId(),userData.getMobile());
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机验证码不对!");
+            }
+
+            redisService.onSmsVerify(true,userData.getId(),userData.getMobile());
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    /**
+     * 密码忘记--密码设置
+     * @param newPwd
+     * @return
+     */
+    @PostMapping(value = "/setting/poi/balance/forget/set")
+    public BizPacket forget_pwd_set(String newPwd){
+        PoiUserData userData = getUser();
+        try {
+            if(StringUtils.isEmpty(newPwd)){
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码不能为空!");
+            }
+
+            if(newPwd.trim().length() >50){
+                return BizPacket.error(HttpStatus.URI_TOO_LONG.value(),"密码过长(最长50个字符)!");
+            }
+
+            if(StringUtils.isEmpty(userData.getPoiId())){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+            }
+
+            if(StringUtils.isEmpty(userData.getMobile())){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有设置手机号!");
+            }
+
+            String _mobile = redisService.getMobile4Forget(userData.getId());
+            if(!userData.getMobile().equalsIgnoreCase(_mobile)){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"请使用当前手机!");
+            }
+
+            return poiService.forgetReset(userData,newPwd);
+        } catch (Exception e) {
+            logger.error("userData="+userData+",newPwd="+newPwd+",e"+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+
     @PostMapping(value = "/setting/poi/boss/transfer")
     public BizPacket bossTransferTo(@RequestParam("userId") String userId){
         if(StringUtils.isEmpty(userId)){
@@ -390,7 +469,7 @@ public class SettingController extends BaseController {
         if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
-        return poiService.bossTransferTo(userData,userId);
+        return poiUserService.bossTransferTo(userData,userId);
     }
 
 
@@ -412,7 +491,7 @@ public class SettingController extends BaseController {
         if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
-        return poiService.employeeRM(userData,userId);
+        return poiUserService.employeeRM(userData,userId);
     }
 
     @PostMapping(value = "/setting/poi/auth/ele")

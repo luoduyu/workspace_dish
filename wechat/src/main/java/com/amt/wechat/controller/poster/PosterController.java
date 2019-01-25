@@ -98,7 +98,7 @@ public class PosterController extends BaseController {
 
     @RequestMapping(value="/poster/addfavorite")
     public BizPacket addFavorite(@RequestParam("posterId") Integer posterId){
-        // TODO
+        //
         
         return BizPacket.success();
     }

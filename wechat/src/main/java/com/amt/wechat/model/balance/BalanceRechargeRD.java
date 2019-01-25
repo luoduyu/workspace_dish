@@ -1,5 +1,7 @@
 package com.amt.wechat.model.balance;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.Serializable;
 
 /**
@@ -17,10 +19,43 @@ public class BalanceRechargeRD implements Serializable {
     private String poiId;
     private String userId;
     private String userName;
+
+    /**
+     * 实付,单位:分
+     */
     private int amount;
-    private String rechargeNo;
+    private String orderId;
     private String createTime;
     private int balance;
+    private int redBalance;
+
+
+    /**
+     * 支付途径,1:银联,2:支付宝,3:微信
+     */
+    private Integer payWay=3;
+
+    /**
+     * 支付状态;1:待付款;2:已付款;
+     */
+    private int payStatus;
+
+
+    /**
+     * 微信支付订单号
+     */
+    private String transactionId="";
+
+
+    /**
+     * 支付完成时间
+     */
+    private String timeEnd="";
+
+    /**
+     * 摘要
+     */
+    private String summary="";
 
 
     public int getId() {
@@ -55,12 +90,12 @@ public class BalanceRechargeRD implements Serializable {
         this.amount = amount;
     }
 
-    public String getRechargeNo() {
-        return rechargeNo;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setRechargeNo(String rechargeNo) {
-        this.rechargeNo = rechargeNo;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getCreateTime() {
@@ -79,6 +114,15 @@ public class BalanceRechargeRD implements Serializable {
         this.balance = balance;
     }
 
+
+    public int getRedBalance() {
+        return redBalance;
+    }
+
+    public void setRedBalance(int redBalance) {
+        this.redBalance = redBalance;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -87,16 +131,48 @@ public class BalanceRechargeRD implements Serializable {
         this.userName = userName;
     }
 
+    public Integer getPayWay() {
+        return payWay;
+    }
+
+    public void setPayWay(Integer payWay) {
+        this.payWay = payWay;
+    }
+
+    public int getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(int payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
-        return "BalanceRechargeRD{" +
-                "id=" + id +
-                ", poiId='" + poiId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", amount=" + amount +
-                ", rechargeNo='" + rechargeNo + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", balance=" + balance +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

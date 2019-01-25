@@ -20,7 +20,6 @@ import java.util.List;
 @Mapper
 public interface PoiUserDao {
 
-
     @Insert("INSERT INTO poi_user (id, accessToken, isAccountNonExpired,isAccountNonLocked, isCredentialsNonExpired, isEnabled,isMaster, password, mobile, gender, countryCode, province, city, openid, unionid, name,nickName, avatarUrl, createTime,updTime) VALUES(#{id}, #{accessToken}, #{isAccountNonExpired},#{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled},#{isMaster},#{password}, #{mobile}, #{gender}, #{countryCode}, #{province},#{city}, #{openid}, #{unionid},#{name},#{nickName}, #{avatarUrl}, #{createTime},#{updTime})")
     public void addPOIUser(PoiUserData poiUserData);
 
@@ -46,8 +45,8 @@ public interface PoiUserDao {
     @Update("UPDATE poi_user SET isMaster = #{isMaster},updTime=#{updTime} WHERE id=#{id}")
     public void updatePoiUserMaster(int isMaster,String updTime,String id);
 
-    @Update("UPDATE poi_user SET isEnabled = #{isEnabled},poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
-    public void removePOIUser(int isEnabled,String poiId,String updTime,String id);
+    @Update("UPDATE poi_user SET poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
+    public void removeUserFomPOI(String poiId,String updTime,String id);
 
     @Update("UPDATE poi_user SET name = #{name},updTime=#{updTime} WHERE id=#{id}")
     public void updatePOIUserName(String name ,String updTime,String id);
@@ -58,6 +57,9 @@ public interface PoiUserDao {
 
     @Select("SELECT * FROM poi_user WHERE mobile=#{mobile}")
     public PoiUserData getPOIUserDataByMobile(String mobile);
+
+    @Select("SELECT * FROM poi_user WHERE mobile=#{mobile} AND id != #{excludeId}")
+    public PoiUserData getPOIUserDataByMobileExcludeId(String mobile,String excludeId);
 
     @Select("SELECT * FROM poi_user WHERE id=#{id}")
     public PoiUserData getPOIUserDataById(String id);

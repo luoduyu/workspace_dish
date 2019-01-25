@@ -50,6 +50,16 @@ public class BizPacket implements Serializable {
         this.data = data;
     }
 
+
+    @Override
+    public String toString() {
+        return "BizPacket{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     /**
      * 成功包
      *

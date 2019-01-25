@@ -1,81 +1,187 @@
 package com.amt.wechat.service.balance;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.CostCate;
+import com.amt.wechat.common.PayStatus;
+import com.amt.wechat.common.PayWay;
 import com.amt.wechat.dao.balance.BalanceDao;
+import com.amt.wechat.dao.order.OrderDao;
+import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
+import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.model.balance.BalanceConsumeRd;
 import com.amt.wechat.model.balance.BalanceRechargeRD;
+import com.amt.wechat.model.balance.CurrencyStageData;
+import com.amt.wechat.model.order.OrderData;
 import com.amt.wechat.model.poi.PoiAccountData;
 import com.amt.wechat.model.poi.PoiData;
+import com.amt.wechat.model.poi.PoiMemberRDData;
 import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.service.pay.PayWechatService;
+import com.amt.wechat.service.pay.util.MD5Util;
+import com.amt.wechat.service.pay.util.Sha1Util;
+import com.amt.wechat.service.pay.util.WechatXMLParser;
+import com.amt.wechat.service.poi.PoiMemberService;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service("balanceService")
 public class BalanceServiceImpl implements  BalanceService {
 
     private static Logger logger = LoggerFactory.getLogger(BalanceServiceImpl.class);
 
+    private @Value("${devMode}") boolean devMode;
     private @Resource BalanceDao balanceDao;
     private @Resource PoiDao poiDao;
+    private @Resource PoiMemberService poiMemberService;
+    private @Resource PoiAccountDao poiAccountDao;
+    private @Resource PayWechatService payWechatService;
+    private @Resource OrderDao orderDao;
+
+
+
 
     @Override
-    public BizPacket recharge(PoiUserData userData, int amount) {
-        // TODO 请求一个 '店铺帐户全局分布式锁’
+    public List<CurrencyStageData> getStageDataList() {
 
-        try {
-
-            // TODO 店铺的帐户需要在帐户认证时预先生成
-
-            PoiAccountData accountData =  poiDao.getAccountData(userData.getPoiId());
-
-            int totalBalance = accountData.getCurBalance() + amount;
-            BalanceRechargeRD rd = createRechargeRd(userData,amount,totalBalance);
-
-            balanceDao.addRechargeRd(rd);
-            poiDao.updatePoiBalance(amount,userData.getPoiId());
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id",rd.getId());
-            jsonObject.put("amount",rd.getAmount());
-            jsonObject.put("rechargeNo",rd.getRechargeNo());
-            jsonObject.put("createTime",rd.getCreateTime());
-
-            return BizPacket.success(jsonObject);
-        } catch (Exception e) {
-            logger.error("u="+userData+",amount="+amount+",e="+e.getMessage(),e);
-            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
-        }
+        // XXX 考虑基于redis存储
+        return balanceDao.getStageDataList();
     }
 
+
+    private static final String RECHARGE_ID = "rdId=";
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public BizPacket recharge(PoiUserData userData, int amount)throws Exception {
+        BalanceRechargeRD rd = createRechargeRd(userData,PayWay.WECHAT,amount,-1,-1);
+        balanceDao.addRechargeRd(rd);
+
+        String nonce_str = Sha1Util.getNonceStr();
+        String body = buildBody(amount);
+        String attach = RECHARGE_ID +rd.getId();
+
+        BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),amount, Constants.PAY_CALLBACK_URL_ALL_BALANCE);
+        logger.info("余额充值--统一下单结果={}",bizPacket.toString());
+
+        if(bizPacket.getCode() != HttpStatus.OK.value()){
+            throw new Exception(bizPacket.getMsg());
+        }
+
+        List<NameValuePair> signParams = new ArrayList<>(5);
+        signParams.add(new BasicNameValuePair("appId", Constants.WEICHAT_APP_ID));
+        signParams.add(new BasicNameValuePair("nonceStr", nonce_str));
+
+        String sPackage = "prepay_id="+bizPacket.getData().toString();
+        signParams.add(new BasicNameValuePair("package", sPackage));
+
+        signParams.add(new BasicNameValuePair("signType", "MD5"));
+        String timestamp = DateTimeUtil.getTimeSeconds();
+        signParams.add(new BasicNameValuePair("timeStamp",timestamp));
+
+        String paySign = MD5Util.makeSign(signParams,Constants.WECHAT_API_KEY);
+
+        JSONObject prePayParams = new JSONObject();
+        prePayParams.put("timeStamp",timestamp);
+        prePayParams.put("nonceStr",nonce_str);
+        prePayParams.put("package",sPackage);
+        prePayParams.put("signType","MD5");
+        prePayParams.put("paySign",paySign);
+
+        logger.info("用户[{}]余额充值,充值记录={},nonce_str={},prepay_id={}",userData,rd,nonce_str,bizPacket.getData().toString());
+        return BizPacket.success(prePayParams);
+    }
+
+
+    private String buildBody(int amount){
+        return "poi-balance-"+amount+"fen";
+    }
 
     /**
      * 充值rd
      * @param userData
      * @param amount
-     * @param currentTotalBiddingBalance
+     * @param totalBalance
      * @return
      */
-    private BalanceRechargeRD createRechargeRd(PoiUserData userData, int amount, int currentTotalBiddingBalance){
+    private BalanceRechargeRD createRechargeRd(PoiUserData userData, PayWay payWay, int amount, int totalBalance,int totalRedBalance){
         BalanceRechargeRD rd = new BalanceRechargeRD();
         rd.setAmount(amount);
-        rd.setAmount(currentTotalBiddingBalance);
+        rd.setBalance(totalBalance);
+        rd.setRedBalance(totalRedBalance);
         rd.setCreateTime(DateTimeUtil.now());
         rd.setPoiId(userData.getPoiId());
         rd.setUserId(userData.getId());
         rd.setUserName(userData.getName());
-
-        // TODO 等待充值完成后回填
-        rd.setRechargeNo("");
-
+        rd.setPayStatus(PayStatus.NOT_PAID.value());
+        rd.setOrderId(Generator.generate());
+        rd.setPayWay(payWay.value());
+        rd.setTransactionId("");
+        rd.setSummary("");
+        rd.setTimeEnd("");
         return rd;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public BizPacket rechargeCallback(Map<String,String> wechatPayCallbackParams){
+        String attch = wechatPayCallbackParams.get("attach");
+        if(StringUtils.isEmpty(attch)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"余额充值回调中缺少attch(rechargeId):null");
+        }
+
+        String rdId= attch.replace(RECHARGE_ID,"");
+        BalanceRechargeRD rd = balanceDao.getRechargeData(rdId);
+        if(rd == null) {
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "根据rechargeId未能找到充值记录!attch(rdId)=" + rdId);
+        }
+
+        String orderId = wechatPayCallbackParams.get("orderId");
+        if(StringUtils.isEmpty(orderId)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "余额充值回调中缺少orderId="+orderId);
+        }
+        if(!rd.getOrderId().equals(orderId)){
+            return BizPacket.error(HttpStatus.CONFLICT.value(), "余额充值回调中的参数冲突(分别代表了不同的订单)!orderId="+orderId+",rdId="+rdId);
+        }
+
+
+        rd.setPayStatus(PayStatus.PAIED.value());
+        rd.setTransactionId(wechatPayCallbackParams.get("transactionId"));
+
+        String summary = WechatXMLParser.joinSummary(wechatPayCallbackParams);
+        rd.setSummary(summary);
+
+
+        // TODO 请求一个 '店铺帐户全局分布式锁’(基于redis)
+        PoiAccountData accountData =  poiAccountDao.getAccountData(rd.getPoiId());
+        int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
+        int red = devMode ? 1:WechatUtil.roundDown(WechatUtil.mul4Float(amount,0.1f));
+        poiAccountDao.updatePoiBalance(accountData.getCurBalance()+amount,accountData.getCurRedBalance()+red,rd.getPoiId());
+
+        rd.setBalance(accountData.getCurBalance() + amount);
+        rd.setRedBalance(accountData.getCurRedBalance() + red);
+        rd.setTimeEnd(wechatPayCallbackParams.get("timeEnd"));
+        balanceDao.updateRechargeRd(rd);
+
+        logger.info("余额充值成功!rd={},充值额={}分,充值前余额={},充值前红包余额={}",rd,amount,accountData.getCurBalance(),accountData.getCurRedBalance());
+
+        return BizPacket.success();
     }
 
     @Override
@@ -127,5 +233,130 @@ public class BalanceServiceImpl implements  BalanceService {
             logger.error("usr="+userData+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public BizPacket memberBuy(PoiUserData userData, PoiMemberRDData rd) throws Exception {
+        // TODO 获取一个店铺帐户的全局分布式锁
+
+        PoiAccountData accountData = poiAccountDao.getAccountData(rd.getPoiId());
+        int total = accountData.getCurBalance()+accountData.getCurRedBalance();
+        if(total < (rd.getTotal()-rd.getDiscount()) ){
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"余额不足!");
+        }
+
+        // 从红包帐户中扣减额度
+        int takeout_red = 0;
+
+        // 从红余额中扣减额度
+        int takeout_balance  = 0;
+
+
+        if(accountData.getCurRedBalance() <= (rd.getTotal()-rd.getDiscount()) ){
+            // 优先扣减红包帐户
+            takeout_red = accountData.getCurRedBalance();
+
+            // 余额帐户应扣款 = 总款 - 折扣款- 红包抵扣款
+            takeout_balance  = rd.getTotal() - rd.getDiscount() - accountData.getCurRedBalance();
+            rd.setPayment(takeout_balance);
+            accountData.setCurRedBalance(0);
+
+            // 再从余额帐户中扣除
+            accountData.setCurBalance(accountData.getCurBalance() -  takeout_balance);
+        }else{
+            takeout_red = (rd.getTotal()-rd.getDiscount());
+            takeout_balance  =0;
+            rd.setPayment(0);
+
+            // 红包帐户就够了
+            accountData.setCurRedBalance(accountData.getCurRedBalance()-takeout_red);
+        }
+
+        // 扣款持久化
+        poiAccountDao.updatePoiBalance(accountData.getCurBalance(),accountData.getCurRedBalance(),accountData.getPoiId());
+
+
+        // 填写消费记录
+        BalanceConsumeRd consumeRd = createBalanceConsumeRd(userData,rd.getOrderId(),takeout_red,takeout_balance,CostCate.MEMBER_BUY);
+
+        // 更新购买记录
+        rd.setPayWay(PayWay.BALANCE.value());
+        rd.setSummary(consumeRd.getSummary());
+        rd.setTransactionId(String.valueOf(consumeRd.getId()));
+
+        return poiMemberService.onMemberBoughtSucc(rd,consumeRd.getCreateTime());
+    }
+
+    private BalanceConsumeRd createBalanceConsumeRd (PoiUserData userData,String orderId,int takeout_red,int takeout_balance,CostCate costCate){
+        BalanceConsumeRd rd = new BalanceConsumeRd();
+        rd.setCreateTime(DateTimeUtil.now());
+        rd.setOrderId(orderId);
+        rd.setPoiId(userData.getPoiId());
+        rd.setUserId(userData.getId());
+        rd.setUserName(userData.getName());
+        rd.setCateId(costCate.ordinal());
+
+        rd.setAmount(takeout_red + takeout_balance);
+        StringBuilder summary = new StringBuilder();
+        summary.append("红包帐户扣减:").append(takeout_red).append(",余额扣减:").append(takeout_balance);
+        rd.setSummary(summary.toString());
+
+        balanceDao.addConsumeRd(rd);
+        return rd;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public BizPacket onOrderPayConfirm(PoiUserData userData, OrderData rd) throws Exception {
+        // TODO 获取一个店铺帐户的全局分布式锁
+
+        PoiAccountData accountData = poiAccountDao.getAccountData(rd.getPoiId());
+        int total = accountData.getCurBalance() + accountData.getCurRedBalance();
+        if (total < rd.getPayment()) {
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(), "余额不足!");
+        }
+
+        // 从红包帐户中扣减额度
+        int takeout_red = 0;
+
+        // 从红余额中扣减额度
+        int takeout_balance = 0;
+
+
+        if (accountData.getCurRedBalance() <= rd.getPayment() ) {
+            // 优先扣减红包帐户
+            takeout_red = accountData.getCurRedBalance();
+
+            // 余额帐户应扣款 = 总款 - 折扣款- 红包抵扣款
+            takeout_balance = rd.getPayment() - accountData.getCurRedBalance();
+            accountData.setCurRedBalance(0);
+
+            // 再从余额帐户中扣除
+            accountData.setCurBalance(accountData.getCurBalance() - takeout_balance);
+        } else {
+            takeout_red = rd.getTotal();
+            takeout_balance = 0;
+
+            // 红包帐户就够了
+            accountData.setCurRedBalance(accountData.getCurRedBalance() - takeout_red);
+        }
+
+        // 扣款持久化
+        poiAccountDao.updatePoiBalance(accountData.getCurBalance(), accountData.getCurRedBalance(), accountData.getPoiId());
+
+
+        // 填写消费记录
+        BalanceConsumeRd consumeRd = createBalanceConsumeRd(userData, rd.getOrderId(), takeout_red, takeout_balance,CostCate.ORDER_PAY);
+
+        // 更新购买记录
+        rd.setPayWay(PayWay.BALANCE.value());
+        rd.setSummary(consumeRd.getSummary());
+        rd.setTimeEnd(DateTimeUtil.now());
+        rd.setPayStatus(PayStatus.PAIED.value());
+        rd.setTransactionId(String.valueOf(consumeRd.getId()));
+        orderDao.updateOrderData(rd);
+
+        return BizPacket.success();
     }
 }

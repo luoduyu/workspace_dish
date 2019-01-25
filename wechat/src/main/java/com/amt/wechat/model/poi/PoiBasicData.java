@@ -79,6 +79,36 @@ public class PoiBasicData implements Serializable {
     private boolean isBalancePwdSet = false;
 
 
+    /**
+     * 是否余额免密支付,0:否,1:是
+     */
+    private int balancePwdFree;
+
+    /**
+     * 当前帐户余额,单位:分
+     */
+    private int curBalance;
+
+
+
+    /**
+     * 当前红包帐户余额,单位:分
+     */
+    private int curRedBalance;
+
+    /**
+     * 当前竞价充值余额,单位:分
+     */
+    private int curBiddingBalance;
+
+    /**
+     * 当前分享金余额,单位:分
+     */
+    private int currShareBalance;
+
+
+
+
     public String getId() {
         return id;
     }
@@ -173,6 +203,48 @@ public class PoiBasicData implements Serializable {
 
     public void setBalancePwdSet(boolean balancePwdSet) {
         isBalancePwdSet = balancePwdSet;
+    }
+
+
+    public int getCurBalance() {
+        return curBalance;
+    }
+
+    public void setCurBalance(int curBalance) {
+        this.curBalance = curBalance;
+    }
+
+
+    public int getCurRedBalance() {
+        return curRedBalance;
+    }
+
+    public void setCurRedBalance(int curRedBalance) {
+        this.curRedBalance = curRedBalance;
+    }
+
+    public int getCurBiddingBalance() {
+        return curBiddingBalance;
+    }
+
+    public void setCurBiddingBalance(int curBiddingBalance) {
+        this.curBiddingBalance = curBiddingBalance;
+    }
+
+    public int getCurrShareBalance() {
+        return currShareBalance;
+    }
+
+    public void setCurrShareBalance(int currShareBalance) {
+        this.currShareBalance = currShareBalance;
+    }
+
+    public int getBalancePwdFree() {
+        return balancePwdFree;
+    }
+
+    public void setBalancePwdFree(int balancePwdFree) {
+        this.balancePwdFree = balancePwdFree;
     }
 
     @Override

@@ -100,7 +100,9 @@ public class PoiData extends PoiBasicData {
         return JSON.toJSONString(this);
     }
 
-    public static  PoiBasicData createFrom(PoiData o){
+
+
+    public static  PoiBasicData createFrom(PoiData o,PoiAccountData accountData){
         PoiBasicData basicData = new PoiBasicData();
 
         basicData.setId(o.getId());
@@ -114,8 +116,14 @@ public class PoiData extends PoiBasicData {
         basicData.setDistricts(o.getDistricts());
         basicData.setStreet(o.getStreet());
         basicData.setAddress(o.getAddress());
-
         basicData.setBalancePwdSet(!StringUtils.isEmpty(o.getBalancePwd()));
+
+        basicData.setCurRedBalance(accountData.getCurRedBalance());
+        basicData.setCurBalance(accountData.getCurBalance());
+        basicData.setCurBiddingBalance(accountData.getCurBiddingBalance());
+        basicData.setCurrShareBalance(accountData.getCurrShareBalance());
+
+        basicData.setBalancePwdFree(o.getBalancePwdFree());
 
         return basicData;
     }

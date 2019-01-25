@@ -10,6 +10,7 @@ watermark参数说明：
 package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.id.Generator;
@@ -19,7 +20,7 @@ import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.WeichatLoginForm;
 import com.amt.wechat.model.poi.*;
 import com.amt.wechat.service.poi.EmplIdentity;
-import com.amt.wechat.service.poi.IPoiUserService;
+import com.amt.wechat.service.poi.PoiUserService;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,19 +33,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Copyright (c) 2018 by CANSHU
- *
- * @author adu Create on 2018-12-17 10:40
- * @version 1.0
- */
 @Service("poiUserService")
-public class PoiUserServiceImpl implements IPoiUserService {
-
+public class PoiUserServiceImpl implements PoiUserService {
     private static Logger logger = LoggerFactory.getLogger(PoiUserServiceImpl.class);
     private @Resource PoiUserDao poiUserDao;
     private @Resource PoiDao poiDao;
     private @Resource RedisService redisService;
+    private @Resource PoiAccountDao poiAccountDao;
+
 
     @Override
     public BizPacket weichatLogin(String code, String encryptedData, String iv) {
@@ -142,6 +138,12 @@ public class PoiUserServiceImpl implements IPoiUserService {
     @Override
     public BizPacket auth4Boss(String name, String mobile, PoiUserData userData){
         try {
+            PoiUserData existUser = poiUserDao.getPOIUserDataByMobileExcludeId(mobile,userData.getId());
+            if(existUser != null){
+                return BizPacket.error(HttpStatus.CONFLICT.value(),"抱歉,手机号'"+mobile+"'已被使用!");
+            }
+
+
             // 个人资料之缓存的更新
             userData.setUpdTime(DateTimeUtil.now());
             userData.setName(name);
@@ -165,6 +167,11 @@ public class PoiUserServiceImpl implements IPoiUserService {
 
     @Override
     public BizPacket auth4Empl(String name, String mobile, PoiUserData userData){
+        PoiUserData existUser = poiUserDao.getPOIUserDataByMobileExcludeId(mobile,userData.getId());
+        if(existUser != null){
+            return BizPacket.error(HttpStatus.CONFLICT.value(),"抱歉,手机号'"+mobile+"'已被使用!");
+        }
+
         PoiCandidate candidate = null;
         PoiData poiData = null;
         try {
@@ -197,8 +204,25 @@ public class PoiUserServiceImpl implements IPoiUserService {
             // 删除邀请
             poiUserDao.removeInvoteById(candidate.getId());
 
+            JSONObject jsonObject = new JSONObject();
 
-            return BizPacket.success(PoiData.createFrom(poiData));
+            PoiAccountData accountData =  poiAccountDao.getAccountData(poiData.getId());
+            PoiBasicData basicData = PoiData.createFrom(poiData,accountData);
+            jsonObject.put("poiBasicData",basicData);
+
+
+            if(!StringUtils.isEmpty(poiData.getEleShopId())){
+                jsonObject.put("eleAuth",true);
+            }else{
+                jsonObject.put("eleAuth",false);
+            }
+            if(!StringUtils.isEmpty(poiData.getMtAppAuthToken())){
+                jsonObject.put("mtAuth",true);
+            }else{
+                jsonObject.put("mtAuth",false);
+            }
+
+            return BizPacket.success(jsonObject);
         } catch (Exception e) {
             logger.error("name="+name+",newMobile="+mobile+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -208,6 +232,13 @@ public class PoiUserServiceImpl implements IPoiUserService {
     @Override
     public BizPacket mobileReplace(PoiUserData currUserData,String newMobile){
         try {
+
+            PoiUserData existUser = poiUserDao.getPOIUserDataByMobileExcludeId(newMobile,currUserData.getId());
+            if(existUser != null){
+                return BizPacket.error(HttpStatus.CONFLICT.value(),"冲突:新手机号已被绑定在另一个微信上,不允许使用!");
+            }
+
+
             currUserData.setUpdTime(DateTimeUtil.now());
             currUserData.setMobile(newMobile);
             redisService.addPoiUser(currUserData);
@@ -284,7 +315,8 @@ public class PoiUserServiceImpl implements IPoiUserService {
             return form;
         }
 
-        PoiBasicData basicData = PoiData.createFrom(poiData);
+        PoiAccountData accountData =  poiAccountDao.getAccountData(poiData.getId());
+        PoiBasicData basicData = PoiData.createFrom(poiData,accountData);
         form.setPoiBasicData(basicData);
         if(!StringUtils.isEmpty(poiData.getEleShopId())){
             form.setEleAuth(true);
@@ -315,5 +347,100 @@ public class PoiUserServiceImpl implements IPoiUserService {
         }
         List<PoiBasicUserData> basicUserList = transfer(employeeList,userData.getId());
         return BizPacket.success(basicUserList);
+    }
+
+
+    @Override
+    public BizPacket bossInviteIn(PoiUserData bossData,String name,String mobile){
+        try {
+            PoiUserData employee =  poiUserDao.getPOIUserDataByMobile(mobile);
+            if(employee != null && !StringUtils.isEmpty(employee.getPoiId())){
+                if(!employee.getPoiId().equalsIgnoreCase(bossData.getPoiId())){
+                    return BizPacket.error(HttpStatus.CONFLICT.value(),"抱歉,此店员已经挂靠在其它商户了!");
+                }
+                return BizPacket.success();
+            }
+
+            PoiCandidate candidate = poiUserDao.getPoiCandidate(mobile);
+            if(candidate != null){
+                if(!StringUtils.isEmpty(candidate.getPoiId())){
+                    if(!candidate.getPoiId().equalsIgnoreCase(bossData.getPoiId())){
+                        return BizPacket.error(HttpStatus.CONFLICT.value(), "抱歉,已经有其他老板向此店员发出邀请了!");
+                    }
+                    return BizPacket.success();
+                }
+                candidate.setUserId(bossData.getId());
+                candidate.setCreateTime(DateTimeUtil.now());
+                candidate.setMobile(mobile);
+                candidate.setPoiId(bossData.getPoiId());
+                poiUserDao.updateInvite(candidate);
+                return BizPacket.success();
+            }
+
+
+            candidate = new PoiCandidate();
+            candidate.setUserId(bossData.getId());
+            candidate.setCreateTime(DateTimeUtil.now());
+            candidate.setMobile(mobile);
+            candidate.setPoiId(bossData.getPoiId());
+            poiUserDao.addInvite(candidate);
+
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("bossData="+bossData+",name="+name+",mobile="+mobile+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+
+    @Override
+    public BizPacket bossTransferTo(PoiUserData boss, String userId) {
+        try {
+            PoiUserData userData = poiUserDao.getPOIUserDataById(userId);
+            if(userData == null){
+                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"受让人不存在,无法转让!");
+            }
+
+
+            BizPacket ret = WechatUtil.check(userData);
+            if(ret.getCode() != HttpStatus.OK.value()){
+                return  ret;
+            }
+
+            userData.setUpdTime(DateTimeUtil.now());
+            userData.setIsMaster(EmplIdentity.MASTER.value());
+            poiUserDao.updatePoiUserMaster(userData.getIsMaster(),userData.getUpdTime(),userData.getId());
+            //redisService.addPoiUser(userData);
+            redisService.onUserRemoved(userData.getId());
+
+            boss.setUpdTime(DateTimeUtil.now());
+            boss.setIsMaster(EmplIdentity.EMPLOYEE.value());
+            poiUserDao.updatePoiUserMaster(boss.getIsMaster(),boss.getUpdTime(),boss.getId());
+            redisService.addPoiUser(boss);
+
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("boss="+boss+",userId="+userId+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    @Override
+    public BizPacket employeeRM(PoiUserData boss,String userId){
+        try {
+            PoiUserData userData = poiUserDao.getPOIUserDataById(userId);
+            if(userData == null){
+                return BizPacket.success();
+            }
+            userData.setPoiId("");
+            userData.setUpdTime(DateTimeUtil.now());
+            poiUserDao.removeUserFomPOI("",userData.getUpdTime(),userData.getId());
+            redisService.onUserRemoved(userData.getId());
+
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("boss="+boss+",userId="+boss+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
 }

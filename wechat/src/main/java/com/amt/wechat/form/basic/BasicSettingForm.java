@@ -18,7 +18,7 @@ public class BasicSettingForm implements Serializable {
     /**
      * 店主姓名
      */
-    private String memberName;
+    private String memberName="";
 
     /**
      * 品牌名称

@@ -20,26 +20,29 @@ public class MyOrderFormEx extends MyOrderForm implements Serializable {
      */
     private int total;
 
-    /**
-     * 优惠券扣减金额,单位:分
-     */
-    private int couponPaid;
-
-    /**
-     * 余额扣减金额,单位:分
-     */
-    private int balancePaid;
-
-    /**
-     * 微信扣减金额,单位:分
-     */
-    private int wechatPaid;
-
 
     /**
      * 订单支付时间
      */
-    private String payTime;
+    private String timeEnd;
+
+
+    /**
+     * 支付途径,1:银联,2:支付宝,3:微信,4:余额支付
+     */
+    private Integer payWay=3;
+
+
+    /**
+     * 微信支付订单号
+     */
+    private String transactionId="";
+
+
+    /**
+     * 摘要
+     */
+    private String summary="";
 
     /**
      * 服务评价
@@ -55,28 +58,36 @@ public class MyOrderFormEx extends MyOrderForm implements Serializable {
         this.total = total;
     }
 
-    public int getCouponPaid() {
-        return couponPaid;
+    public String getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setCouponPaid(int couponPaid) {
-        this.couponPaid = couponPaid;
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
-    public int getBalancePaid() {
-        return balancePaid;
+    public Integer getPayWay() {
+        return payWay;
     }
 
-    public void setBalancePaid(int balancePaid) {
-        this.balancePaid = balancePaid;
+    public void setPayWay(Integer payWay) {
+        this.payWay = payWay;
     }
 
-    public int getWechatPaid() {
-        return wechatPaid;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setWechatPaid(int wechatPaid) {
-        this.wechatPaid = wechatPaid;
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public OrderServiceData getOrderServiceData() {
@@ -85,14 +96,6 @@ public class MyOrderFormEx extends MyOrderForm implements Serializable {
 
     public void setOrderServiceData(OrderServiceData orderServiceData) {
         this.orderServiceData = orderServiceData;
-    }
-
-    public String getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(String payTime) {
-        this.payTime = payTime;
     }
 
     @Override

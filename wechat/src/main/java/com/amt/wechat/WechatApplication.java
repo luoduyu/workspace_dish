@@ -2,6 +2,7 @@ package com.amt.wechat;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http2.Http2Protocol;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class WechatApplication extends  SpringBootServletInitializer{
     public Connector connector4Pro(){
         Connector connector=new Connector("org.apache.coyote.http11.Http11AprProtocol");
         connector.setPort(80);
+        connector.setRedirectPort(443);
         return connector;
     }
 
@@ -52,6 +54,7 @@ public class WechatApplication extends  SpringBootServletInitializer{
         connector.setScheme("https");
         connector.setSecure(true);
         connector.setRedirectPort(443);
+        connector.addUpgradeProtocol(new Http2Protocol());
 
         // sslProtocol 	指定套接字（Socket）使用的加密/解密协议，默认值为TLS，用户不应该修改这个默认值。
         //connector.setAttribute("sslProtocol", "TLS");

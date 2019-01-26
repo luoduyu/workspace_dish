@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.common.Constants;
 import com.amt.wechat.common.PayStatus;
 import com.amt.wechat.common.PayWay;
-import com.amt.wechat.dao.decoration.PoiMaterialDao;
+import com.amt.wechat.dao.decoration.MaterialDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poster.PosterDao;
@@ -47,7 +47,7 @@ public class OrderServiceImpl implements  OrderService {
 
     private @Resource OrderDao orderDao;
     private @Resource PosterDao posterDao;
-    private @Resource PoiMaterialDao poiMaterialDao;
+    private @Resource MaterialDao materialDao;
     private @Resource PoiDao poiDao;
     private @Resource PoiMemberService poiMemberService;
     private @Resource BalanceService balanceService;
@@ -303,7 +303,7 @@ public class OrderServiceImpl implements  OrderService {
                 return returnMap;
 
             case 2:
-                Map<Integer,MaterialData> materialDataMap = poiMaterialDao.getPoiMaterialDataMap(ids.toString());
+                Map<Integer,MaterialData> materialDataMap = materialDao.getPoiMaterialDataMap(ids.toString());
                 for(Map.Entry<Integer,MaterialData> entry:materialDataMap.entrySet()){
                     returnMap.put(entry.getKey(), entry.getValue());
                 }
@@ -443,7 +443,7 @@ public class OrderServiceImpl implements  OrderService {
                 return posterDao.getPosterData(goodsId);
 
             case 2:
-                return poiMaterialDao.getMaterialData(goodsId);
+                return materialDao.getMaterialData(goodsId);
 
             default:
                 return null;

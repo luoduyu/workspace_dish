@@ -16,9 +16,9 @@ import java.util.Map;
  * @author adu Create on 2019-01-03 20:17
  * @version 1.0
  */
-@Repository("poiMaterialDao")
+@Repository("materialDao")
 @Mapper
-public interface PoiMaterialDao {
+public interface MaterialDao {
 
     /**
      *
@@ -27,15 +27,15 @@ public interface PoiMaterialDao {
      *
      * @return
      */
-    @Select("SELECT * FROM poi_material ORDER BY showSeq ASC LIMIT 100")
+    @Select("SELECT * FROM material ORDER BY showSeq ASC LIMIT 100")
     public List<MaterialData> getPoiMaterialDataList();
 
 
-    @Select("SELECT * FROM poi_material WHERE id IN (${ids})")
+    @Select("SELECT * FROM material WHERE id IN (${ids})")
     @MapKey("id")
     public Map<Integer,MaterialData> getPoiMaterialDataMap(@Param("ids") String ids);
 
 
-    @Select("SELECT * FROM poi_material WHERE id=#{id}")
+    @Select("SELECT * FROM material WHERE id=#{id}")
     public MaterialData getMaterialData(int id);
 }

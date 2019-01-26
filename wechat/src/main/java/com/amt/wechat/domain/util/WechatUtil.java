@@ -321,6 +321,8 @@ public class WechatUtil {
 
 
 
+
+
     /**
      * 有两种失败法:
      * 1)有错误返回标记,通信成功

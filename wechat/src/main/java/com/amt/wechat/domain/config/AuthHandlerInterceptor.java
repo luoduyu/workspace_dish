@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.amt.wechat.common.Constants;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -37,51 +38,34 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         String accessToken = request.getParameter(Constants.REQ_PARAM_ACCESSTOKEN);
         if (StringUtils.isEmpty(accessToken)) {
             traceLog(request, accessToken,"");
-            return handlerError(response,HttpStatus.UNAUTHORIZED, "access_token is empty!");
+            return handlerError(response,HttpStatus.UNAUTHORIZED.value(), "access_token is empty!");
         }
 
         try {
             PoiUserData user = redisService.getPoiUser(accessToken);
             if (user == null) {
                 traceLog(request, accessToken,"");
-                return handlerError(response,HttpStatus.UNAUTHORIZED,"user not found or frozen!");
+                return handlerError(response,HttpStatus.UNAUTHORIZED.value(),"user not found or frozen!");
             }
-            if(!check(response,user)){
-                return false;
+
+            BizPacket result = WechatUtil.check(user);
+            if(result.getCode() != HttpStatus.OK.value()){
+                return handlerError(response,result.getCode(), result.getMsg());
             }
 
             request.setAttribute(Constants.WECHAT_LOGGED_USER, user);
             traceLog(request, accessToken, user.getId());
             return true;
         } catch (Exception e) {
-            return handlerError(response, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return handlerError(response, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
 
 
-    public  static boolean check(HttpServletResponse response,PoiUserData user) throws IOException {
-        if (user.getIsAccountNonLocked() != 1) {
-            return handlerError(response,HttpStatus.UNAUTHORIZED, "User account is locked");
-        }
-
-        if (user.getIsEnabled() != 1) {
-            return handlerError(response,HttpStatus.UNAUTHORIZED ,"User is disabled");
-        }
-
-        if (user.getIsAccountNonExpired() != 1) {
-            return handlerError(response,HttpStatus.UNAUTHORIZED,"User account has expired");
-        }
-
-        if (user.getIsCredentialsNonExpired() != 1) {
-            return handlerError(response,HttpStatus.UNAUTHORIZED,"User credentials have expired");
-        }
-        return true;
-    }
-
-    private static boolean handlerError(HttpServletResponse response,HttpStatus status, String msg) throws IOException {
+    private static boolean handlerError(HttpServletResponse response,int statusCode, String msg) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
-        BizPacket bizPacket =  BizPacket.error(HttpStatus.UNAUTHORIZED.value(),msg);
+        BizPacket bizPacket =  BizPacket.error(statusCode,msg);
         String s = JSON.toJSONString(bizPacket);
         response.getWriter().write(s);
         return false;

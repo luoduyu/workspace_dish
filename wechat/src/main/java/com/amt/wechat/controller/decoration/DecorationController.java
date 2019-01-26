@@ -1,6 +1,6 @@
 package com.amt.wechat.controller.decoration;
 
-import com.amt.wechat.dao.decoration.PoiMaterialDao;
+import com.amt.wechat.dao.decoration.MaterialDao;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.model.decoration.MaterialData;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +19,11 @@ import java.util.List;
  */
 @RestController
 public class DecorationController {
-    private @Resource PoiMaterialDao poiMaterialDao;
+    private @Resource MaterialDao materialDao;
 
     @GetMapping(value = "/decoration/material/list")
     public BizPacket poiMaterialList(){
-        List<MaterialData> list =  poiMaterialDao.getPoiMaterialDataList();
+        List<MaterialData> list =  materialDao.getPoiMaterialDataList();
         return BizPacket.success(list);
     }
 }

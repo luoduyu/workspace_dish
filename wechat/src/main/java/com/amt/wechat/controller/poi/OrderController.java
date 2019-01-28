@@ -116,6 +116,11 @@ public class OrderController extends BaseController {
             if(o.getNum() <= 0 ){
                 return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"购买数量非法!");
             }
+            if(orderSubmitForm.getGoodsType() == 3){
+                if(o.getSnapSeq() <= 0 || o.getSnapSeq() >= Long.MAX_VALUE){
+                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抢购序列参数必传!");
+                }
+            }
         }
 
         PoiUserData userData = getUser();

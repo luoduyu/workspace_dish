@@ -4,10 +4,12 @@ import com.amt.wechat.model.order.MyOrderForm;
 import com.amt.wechat.model.order.OrderData;
 import com.amt.wechat.model.order.OrderItemData;
 import com.amt.wechat.model.order.OrderServiceData;
+import com.amt.wechat.model.order.SnapSoldData;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -52,7 +54,7 @@ public interface OrderDao {
 
 
 
-    @Insert("INSERT INTO order_item (orderId,goodsType,goodsId,goodsName,imgUrl,num,unitPrice,total) VALUES(#{orderId},#{goodsType},#{goodsId},#{goodsName},#{imgUrl},#{num},#{unitPrice},#{total})")
+    @Insert("INSERT INTO order_item (orderId,goodsType,goodsId,goodsName,imgUrl,num,unitPrice,total,snapSeq,createTime) VALUES(#{orderId},#{goodsType},#{goodsId},#{goodsName},#{imgUrl},#{num},#{unitPrice},#{total},#{snapSeq},#{createTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public int addOrderItemData(OrderItemData orderItemData);
 
@@ -89,4 +91,10 @@ public interface OrderDao {
 
     @Select("SELECT (AVG(scoreService) +AVG(scoreProfess)+AVG(scoreResponse)) AS totalScore FROM order_service WHERE servicerId=#{servicerId}")
     public Integer sumTotalScore(int servicerId);
+
+
+
+    @Select("SELECT snapSeq,SUM(num) AS soldNum FROM order_item WHERE DATE(`createTime`) = #{todayDate} AND goodsType =3 GROUP BY snapSeq")
+    @MapKey("snapSeq")
+    public Map<Long, SnapSoldData> getSnapSoldMap(String todayDate);
 }

@@ -28,7 +28,7 @@ public class OrderData implements Serializable {
     private String orderId;
 
     /**
-     * 物品类型;1:海报;2:装修服务
+     * 物品类型;1:海报;2:装修服务;3:抢购物品
      */
     private int goodsType;
 

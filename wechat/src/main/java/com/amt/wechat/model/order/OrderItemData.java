@@ -34,6 +34,12 @@ public class OrderItemData implements Serializable {
      */
     private int goodsId;
 
+
+    /**
+     * 抢购序列
+     */
+    private Long snapSeq;
+
     /**
      * 海服名称/服务项名称
      */
@@ -58,6 +64,12 @@ public class OrderItemData implements Serializable {
      * 总金额,单位:分
      */
     private int total;
+
+
+    /**
+     * 订单创建时间
+     */
+    private String createTime;
 
     public int getId() {
         return id;
@@ -89,6 +101,14 @@ public class OrderItemData implements Serializable {
 
     public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public Long getSnapSeq() {
+        return snapSeq;
+    }
+
+    public void setSnapSeq(Long snapSeq) {
+        this.snapSeq = snapSeq;
     }
 
     public String getGoodsName() {
@@ -129,6 +149,14 @@ public class OrderItemData implements Serializable {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     @Override

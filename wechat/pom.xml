@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.1.RELEASE</version>
+        <version>2.1.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -77,7 +77,7 @@
         <profile>
             <id>dev</id>
             <properties><profileActive>dev</profileActive></properties>
-            <activation><activeByDefault>true</activeByDefault></activation>
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>
@@ -96,7 +96,7 @@
         <profile>
             <id>pro</id>
             <properties><profileActive>pro</profileActive></properties>
-            <activation><activeByDefault>false</activeByDefault></activation>
+            <activation><activeByDefault>true</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>

@@ -132,7 +132,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return false;
         }
         try {
-            int flag = DateTimeUtil.getTime(memberData.getExpiredAt()).compareTo(LocalDateTime.now());
+            int flag = DateTimeUtil.getDateTime(memberData.getExpiredAt()).compareTo(LocalDateTime.now());
             if(flag <= 0 ){
                 return false;
             }
@@ -288,7 +288,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
         memberData.setPoiId(rdData.getPoiId());
 
 
-        LocalDateTime begin = DateTimeUtil.getTime(memberData.getExpiredAt());
+        LocalDateTime begin = DateTimeUtil.getDateTime(memberData.getExpiredAt());
         String expiredAt = calculateExpiredDate(begin,rdData);
         memberData.setExpiredAt(expiredAt);
         poiMemberDao.updatePoiMemberData(memberData);

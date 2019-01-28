@@ -266,9 +266,12 @@ public class OrderServiceImpl implements  OrderService {
             itemData.setGoodsName(goodsData.getName());
             itemData.setGoodsType(orderData.getGoodsType());
             itemData.setGoodsId(goodsData.getId());
+            itemData.setSnapSeq(e.getSnapSeq());
+            itemData.setCreateTime(orderData.getCreateTime());
 
             itemData.setUnitPrice(isMember? goodsData.getMemberPrice():goodsData.getPrice());
             itemData.setNum(e.getNum());
+
             int total = itemData.getUnitPrice() * itemData.getNum();
             itemData.setTotal(total);
             itemDataList.add(itemData);
@@ -417,7 +420,8 @@ public class OrderServiceImpl implements  OrderService {
         data.setGoodsName(goodsData.getName());
         data.setGoodsType(goodsType);
         data.setOrderId(orderData.getOrderId());
-
+        data.setCreateTime(orderData.getCreateTime());
+        data.setSnapSeq(-1L);
 
         if(isMember){
             int total =  num * goodsData.getPrice();

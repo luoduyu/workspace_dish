@@ -26,6 +26,12 @@ public class MyOrderItemForm implements Serializable {
      */
     private int num;
 
+
+    /**
+     * 抢购序列
+     */
+    private Long snapSeq= -1L;
+
     public int getId() {
         return id;
     }
@@ -48,6 +54,14 @@ public class MyOrderItemForm implements Serializable {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public Long getSnapSeq() {
+        return snapSeq;
+    }
+
+    public void setSnapSeq(Long snapSeq) {
+        this.snapSeq = snapSeq;
     }
 
     @Override

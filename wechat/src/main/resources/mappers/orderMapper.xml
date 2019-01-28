@@ -20,9 +20,9 @@
 
     <!--insert id="addOrderItemDataList" useGeneratedKeys="true" keyProperty="id"-->
     <insert id="addOrderItemDataList" parameterType="java.util.List">
-        INSERT INTO order_item (orderId,goodsType,goodsId,goodsName,imgUrl,num,unitPrice,total) VALUES
+        INSERT INTO order_item (orderId,goodsType,goodsId,snapSeq,goodsName,imgUrl,num,unitPrice,total,createTime) VALUES
         <foreach item="item" collection="orderItemDataList" separator=",">
-            (#{item.orderId},#{item.goodsType},#{item.goodsId},#{item.goodsName},#{item.imgUrl},#{item.num},#{item.unitPrice},#{item.total})
+            (#{item.orderId},#{item.goodsType},#{item.goodsId},#{item.snapSeq},#{item.goodsName},#{item.imgUrl},#{item.num},#{item.unitPrice},#{item.total},#{item.createTime})
         </foreach>
     </insert>
 </mapper>

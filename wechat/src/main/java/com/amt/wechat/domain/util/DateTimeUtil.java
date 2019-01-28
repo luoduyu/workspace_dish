@@ -1,5 +1,6 @@
 package com.amt.wechat.domain.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -15,6 +16,9 @@ public class DateTimeUtil {
 
     public final static DateTimeFormatter FRIENDLY_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
+    public final static DateTimeFormatter FRIENDLY_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
+
+    public final static DateTimeFormatter FRIENDLY_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
     /**
      * 获取指定时间的
@@ -36,9 +40,17 @@ public class DateTimeUtil {
         return d2;
     }
 
-    public static LocalDateTime getTime(String timestamp) {
-        LocalDateTime ldt = LocalDateTime.parse(timestamp,FRIENDLY_DATE_TIME_FORMAT);
+    public static LocalDateTime getDateTime(String dateTimestamp) {
+        LocalDateTime ldt = LocalDateTime.parse(dateTimestamp,FRIENDLY_DATE_TIME_FORMAT);
         return ldt;
+    }
+
+    public static LocalTime getTime(String timestamp) {
+        LocalTime lt = LocalTime.parse(timestamp,FRIENDLY_TIME_FORMAT);
+        return lt;
+    }
+    public static String getDate(LocalDate date) {
+        return date.format(FRIENDLY_DATE_FORMAT);
     }
 
     public static String getTimeSeconds() {
@@ -49,9 +61,10 @@ public class DateTimeUtil {
     public static void main(String[] args) {
         //getTime("2019-01-10 17:56:03");
 
+        /*
         LocalDateTime ldt = LocalDateTime.now().plusYears(1).withHour(23).withMinute(59).withSecond(59).minusDays(1);
         System.out.println(ldt.format(FRIENDLY_DATE_TIME_FORMAT));
-
         System.out.println(Math.multiplyExact(2, 7));
+        */
     }
 }

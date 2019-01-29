@@ -23,15 +23,17 @@ public class SnapGoodsData implements Serializable {
      */
     private Integer cateId;
 
+
+    /**
+     * 物品名称
+     */
+    private String name;
+
     /**
      * 物品Id
      */
     private Integer goodsId;
 
-    /**
-     * 物品库存
-     */
-    private Integer stockNum;
 
     /**
      * 抢购日期
@@ -58,6 +60,12 @@ public class SnapGoodsData implements Serializable {
      */
     private Integer oriPrice;
 
+
+    /**
+     * 抢购数量
+     */
+    private Integer snapNumEnable=1;
+
     public Long getSeq() {
         return seq;
     }
@@ -74,6 +82,14 @@ public class SnapGoodsData implements Serializable {
         this.cateId = cateId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getGoodsId() {
         return goodsId;
     }
@@ -82,13 +98,7 @@ public class SnapGoodsData implements Serializable {
         this.goodsId = goodsId;
     }
 
-    public Integer getStockNum() {
-        return stockNum;
-    }
 
-    public void setStockNum(Integer stockNum) {
-        this.stockNum = stockNum;
-    }
 
     public String getSnapDate() {
         return snapDate;
@@ -130,12 +140,20 @@ public class SnapGoodsData implements Serializable {
         this.oriPrice = oriPrice;
     }
 
+
+    public Integer getSnapNumEnable() {
+        return snapNumEnable;
+    }
+
+    public void setSnapNumEnable(Integer snapNumEnable) {
+        this.snapNumEnable = snapNumEnable;
+    }
+
     @Override
     public String toString() {
         return "SnapGoodsData{" +
                 "cateId=" + cateId +
                 ", goodsId=" + goodsId +
-                ", stockNum=" + stockNum +
                 ", snapDate='" + snapDate + '\'' +
                 ", timeFrameStart='" + timeFrameStart + '\'' +
                 ", timeFrameEnd='" + timeFrameEnd + '\'' +

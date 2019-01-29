@@ -27,6 +27,7 @@ import com.amt.wechat.service.pay.util.MD5Util;
 import com.amt.wechat.service.pay.util.Sha1Util;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
 import com.amt.wechat.service.poi.PoiMemberService;
+import com.amt.wechat.service.redis.RedisService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -52,6 +53,7 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource PoiMemberService poiMemberService;
     private @Resource BalanceService balanceService;
     private @Resource PayWechatService payWechatService;
+    private @Resource RedisService redisService;
 
     @Override
     public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize) {
@@ -217,7 +219,6 @@ public class OrderServiceImpl implements  OrderService {
         jsonObject.put("totalCost",orderData.getTotal());
         jsonObject.put("totalPayment",orderData.getPayment());
         jsonObject.put("orderId",orderData.getOrderId());
-
         return BizPacket.success(jsonObject);
     }
 

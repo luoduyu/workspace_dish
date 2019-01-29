@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class SnapGoodsTemplateData implements Serializable {
     private static final long serialVersionUID = 159193267058543523L;
 
+    private Integer goodsId;
 
     /**
      * 物品名称
@@ -30,11 +31,13 @@ public class SnapGoodsTemplateData implements Serializable {
      */
     private String unitName;
 
-    /**
-     * 可抢购数量
-     */
-    private int snapNumEnable;
+    public Integer getGoodsId() {
+        return goodsId;
+    }
 
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
 
     public String getName() {
         return name;
@@ -58,14 +61,6 @@ public class SnapGoodsTemplateData implements Serializable {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
-    }
-
-    public int getSnapNumEnable() {
-        return snapNumEnable;
-    }
-
-    public void setSnapNumEnable(int snapNumEnable) {
-        this.snapNumEnable = snapNumEnable;
     }
 
     @Override

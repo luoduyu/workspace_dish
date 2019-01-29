@@ -1,6 +1,8 @@
 package com.amt.wechat.service.snap;
 
 import com.amt.wechat.domain.packet.BizPacket;
+import com.amt.wechat.form.order.OrderSubmitForm;
+import com.amt.wechat.model.poi.PoiUserData;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -13,5 +15,9 @@ import com.amt.wechat.domain.packet.BizPacket;
 public interface SnapService {
 
 
+    public BizPacket snapCateList();
     public BizPacket todaySnapGoodsList(int cateId);
+
+
+    public BizPacket snapOrderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm);
 }

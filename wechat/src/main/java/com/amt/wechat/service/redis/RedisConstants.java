@@ -26,7 +26,7 @@ public class RedisConstants {
     /**
      * 短信验证码每日次数
      */
-    public static final String WECHAT_SMS_COUNT = "wmt_wechat:sms_day_count:";
+    public static final String WECHAT_SMS_COUNT = "wmt_wechat:sms_dayount";
 
     /**
      * 手机验证码存储
@@ -37,4 +37,10 @@ public class RedisConstants {
      * 余额密码修改之-验证码校验结果
      */
     public static final String WECHAT_SMS_RESULT = "wmt_wechat:sms_forget:";
+
+
+    /**
+     * 短信验证码每日次数
+     */
+    public static final String WECHAT_SNAP_COUNT = "wmt_wechat:snapnum";
 }

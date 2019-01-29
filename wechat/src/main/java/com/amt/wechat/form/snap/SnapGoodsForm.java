@@ -27,11 +27,6 @@ public class SnapGoodsForm implements Serializable {
      */
     private Integer goodsId;
 
-    /**
-     * 物品库存
-     */
-    private Integer stockNum;
-
 
     /**
      * 可抢购数量
@@ -42,6 +37,12 @@ public class SnapGoodsForm implements Serializable {
      * 已售数量
      */
     private int soldNum;
+
+
+    /**
+     * 库存量
+     */
+    private int stockNum;
 
 
     /**
@@ -86,13 +87,6 @@ public class SnapGoodsForm implements Serializable {
         this.goodsId = goodsId;
     }
 
-    public Integer getStockNum() {
-        return stockNum;
-    }
-
-    public void setStockNum(Integer stockNum) {
-        this.stockNum = stockNum;
-    }
 
     public Integer getDisPrice() {
         return disPrice;
@@ -148,6 +142,15 @@ public class SnapGoodsForm implements Serializable {
 
     public void setSoldNum(int soldNum) {
         this.soldNum = soldNum;
+    }
+
+
+    public int getStockNum() {
+        return stockNum;
+    }
+
+    public void setStockNum(int stockNum) {
+        this.stockNum = stockNum;
     }
 
     @Override

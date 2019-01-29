@@ -39,9 +39,9 @@ import java.util.Map;
 @RestController
 public class OrderController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(OrderController.class);
-
     private @Resource OrderService orderService;
     private @Resource PoiDao poiDao;
+
 
     @PostMapping(value = "/order/my")
     public BizPacket findOrderList(Integer index,Integer pageSize){
@@ -116,11 +116,6 @@ public class OrderController extends BaseController {
             if(o.getNum() <= 0 ){
                 return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"购买数量非法!");
             }
-            if(orderSubmitForm.getGoodsType() == 3){
-                if(o.getSnapSeq() <= 0 || o.getSnapSeq() >= Long.MAX_VALUE){
-                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抢购序列参数必传!");
-                }
-            }
         }
 
         PoiUserData userData = getUser();
@@ -135,7 +130,6 @@ public class OrderController extends BaseController {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }
-
 
     /**
      * 订单付款确认

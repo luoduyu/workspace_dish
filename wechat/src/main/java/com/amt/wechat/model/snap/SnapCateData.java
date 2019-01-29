@@ -1,6 +1,5 @@
 package com.amt.wechat.model.snap;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 
 import java.io.Serializable;
 
@@ -26,6 +25,11 @@ public class SnapCateData implements Serializable{
 	private String name;
 
 	/**
+	 * 库存量
+	 */
+	private int stockNum;
+
+	/**
 	 * 是否可用;0:不可用;1:可用;
 	 */
 	private Integer isEnabled;
@@ -47,11 +51,6 @@ public class SnapCateData implements Serializable{
 	private String tags;
 
 	/**
-	 * 抢购时间段
-	 */
-	private JSONArray timeFrames;
-
-	/**
 	 * 显示顺序
 	 */
 	private Integer showSeq;
@@ -71,6 +70,14 @@ public class SnapCateData implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getStockNum() {
+		return stockNum;
+	}
+
+	public void setStockNum(int stockNum) {
+		this.stockNum = stockNum;
 	}
 
 	public Integer getIsEnabled() {
@@ -103,14 +110,6 @@ public class SnapCateData implements Serializable{
 
 	public void setTags(String tags) {
 		this.tags = tags;
-	}
-
-	public JSONArray getTimeFrames() {
-		return timeFrames;
-	}
-
-	public void setTimeFrames(JSONArray timeFrames) {
-		this.timeFrames = timeFrames;
 	}
 
 	public Integer getShowSeq() {

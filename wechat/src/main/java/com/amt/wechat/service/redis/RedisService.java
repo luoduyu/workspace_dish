@@ -71,4 +71,9 @@ public interface RedisService {
      * @return
      */
     public String getMobile4Forget(String userId);
+
+
+    public void onSnapSucc(String poiId,int cateId, String timeStart);
+
+    public int getSnapNum(String poiId,int cateId, String timeStart);
 }

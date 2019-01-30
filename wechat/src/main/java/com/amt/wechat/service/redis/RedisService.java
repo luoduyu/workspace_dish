@@ -4,6 +4,7 @@ package com.amt.wechat.service.redis;
 import com.amt.wechat.model.poi.PoiUserData;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Copyright (c) 2018 by CANSHU
@@ -73,7 +74,14 @@ public interface RedisService {
     public String getMobile4Forget(String userId);
 
 
-    public void onSnapSucc(String poiId,int cateId, String timeStart);
+    public void onSnapSucc(int cateId,String timeFrameStart);
 
-    public int getSnapNum(String poiId,int cateId, String timeStart);
+    public int getSnapNum(int cateId,String timeFrameStart);
+
+    /**
+     * 当天某分类下的销量统计
+     * @param cateId
+     * @return k:hhMMss
+     */
+    public Map<String,Integer> countTodaySnapSoldNum(int cateId);
 }

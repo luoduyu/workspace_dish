@@ -4,8 +4,8 @@ import com.amt.wechat.model.poi.PoiUserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service("redisService")
@@ -39,14 +41,17 @@ public class RedisServiceImpl implements RedisService {
     public PoiUserData getPoiUser(String accessToken) {
         try {
             String poiUserId = stringRedisTemplate.opsForValue().get(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken);
+
+            // accessToken不存在的时候同时删除其对应的 'UserData'
             if(poiUserId == null || poiUserId.trim().length() ==0){
+                String ukey = RedisConstants.WECHAT_POI_USER+poiUserId;
+                redisTemplate.delete(ukey);
                 return null;
             }
 
-            String ukey =  RedisConstants.WECHAT_POI_USER+poiUserId;
+            String ukey = RedisConstants.WECHAT_POI_USER+poiUserId;
             Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
             if(objUser == null){
-                stringRedisTemplate.delete(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken);
                 return null;
             }
 
@@ -79,6 +84,7 @@ public class RedisServiceImpl implements RedisService {
             return;
         }
         redisTemplate.delete(ukey);
+        logger.info("删除成员={},has={}",objUser,redisTemplate.hasKey(ukey));
     }
 
 
@@ -158,32 +164,66 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public void onSnapSucc(String poiId,int cateId, String timeStart){
+    public void onSnapSucc(int cateId, String timeFrameStart){
         // 当天的次数增1
         try {
 
-            String postfix = poiId+"_"+cateId+"_"+timeStart;
-            String today = LocalDate.now().format(DATE_COMPACT);
-            String k_daycount = RedisConstants.WECHAT_SNAP_COUNT +"_" + today+":"+postfix;
+            String key = RedisConstants.WECHAT_SNAP_COUNT_CATE + LocalDate.now().format(DATE_COMPACT)+":"+cateId+":"+timeFrameStart.replaceAll(":","");
 
-            long count = stringRedisTemplate.opsForValue().increment(k_daycount, 1);
+            long count = stringRedisTemplate.opsForValue().increment(key, 1);
             if(count ==1){
-                redisTemplate.expire(k_daycount, 24, TimeUnit.HOURS);
+                redisTemplate.expire(key, 24, TimeUnit.HOURS);
             }
 
         } catch (Exception e) {
             //如果redis发现异常，仍然返回正常，保证业务继续运行
-            logger.error("poiId="+poiId+",cateId="+cateId+",timeStart="+timeStart+",e="+e.getMessage(),e);
+            logger.error("cateId="+cateId+",timeFrameStart="+timeFrameStart+",e="+e.getMessage(),e);
         }
     }
 
     @Override
-    public int getSnapNum(String poiId,int cateId, String timeStart){
-        String postfix = poiId+"_"+cateId+"_"+timeStart;
-        String today = LocalDate.now().format(DATE_COMPACT);
-        String k_daycount = RedisConstants.WECHAT_SNAP_COUNT +"_" + today+":"+postfix;
+    public int getSnapNum(int cateId,String timeFrameStart){
+        String key = RedisConstants.WECHAT_SNAP_COUNT_CATE + LocalDate.now().format(DATE_COMPACT)+":"+cateId+":"+timeFrameStart.replaceAll(":","");
 
-        String obj = stringRedisTemplate.opsForValue().get(k_daycount);
+        String obj = stringRedisTemplate.opsForValue().get(key);
         return obj==null? 0: Integer.parseInt(obj);
     }
+
+
+    @Override
+    public Map<String,Integer> countTodaySnapSoldNum(int cateId){
+        String pattern = RedisConstants.WECHAT_SNAP_COUNT_CATE + LocalDate.now().format(DATE_COMPACT)+":"+cateId+":";
+
+        RedisConnection connection = stringRedisTemplate.getConnectionFactory().getConnection();
+        ScanOptions options = ScanOptions.scanOptions().match(pattern+"*").build();
+        Cursor<byte[]> cursor = connection.scan(options);
+
+
+        Map<String,Integer> result = new HashMap<>();
+        while (cursor.hasNext()) {
+            String key = new String(cursor.next());
+
+            String value = stringRedisTemplate.opsForValue().get(key);
+            //result.put(key,value);
+            //System.out.println(key+"="+value);
+            if(value  == null){
+                continue;
+            }
+            result.put(key.replace(pattern,""),Integer.parseInt(value));
+        }
+        //System.out.println("total="+total);
+        try {
+            cursor.close();
+        } catch (Exception e) {
+            logger.error("key="+pattern+",e="+e.getMessage(),e);
+        }
+        try {
+            logger.info("connection.isClosed():{}",connection.isClosed());
+            RedisConnectionUtils.releaseConnection(connection, redisTemplate.getConnectionFactory());
+        } catch (Exception e) {
+            logger.error("key="+pattern+",e="+e.getMessage(),e);
+        }
+        return result;
+    }
+
 }

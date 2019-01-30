@@ -1,6 +1,7 @@
 package com.amt.wechat.form.snap;
 
 import com.alibaba.fastjson.JSON;
+import com.amt.wechat.service.snap.SnapStatus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,9 +25,26 @@ public class FrameGoods  implements Serializable {
     private int frameStatus;
 
     /**
-     * 时段
+     * 时段开始
      */
-    private String timeFrames;
+    private String timeFrameStart;
+
+    /**
+     * 时段结束
+     */
+    private String timeFrameEnd;
+
+
+    /**
+     * 本时段库存量
+     */
+    private int timeFrameStockNum;
+
+    /**
+     * 已售数量
+     */
+    private int soldNum = 0;
+
 
     /**
      * 时段物品
@@ -37,11 +55,30 @@ public class FrameGoods  implements Serializable {
 
     }
 
-    public FrameGoods(int frameStatus, String timeFrames) {
-        this.frameStatus = frameStatus;
-        this.timeFrames = timeFrames;
+    public FrameGoods(SnapStatus frameStatus, String timeFrameStart, String timeFrameEnd, int timeFrameStockNum, Integer soldNum) {
+        this.frameStatus = frameStatus.ordinal();
+        if(frameStatus == SnapStatus.CURRENT){
+            if(soldNum != null) {
+                this.soldNum = soldNum;
+            }
+
+            // 如果已售完,当前状态置灰
+            if(this.soldNum >= this.timeFrameStockNum){
+                this.frameStatus = SnapStatus.OVER.ordinal();
+            }
+
+        }else if (frameStatus == SnapStatus.OVER){
+            this.soldNum = this.timeFrameStockNum;
+        }else {
+            this.soldNum = 0;
+        }
+
+        this.timeFrameStart = timeFrameStart;
+        this.timeFrameEnd = timeFrameEnd;
+        this.timeFrameStockNum = timeFrameStockNum;
         this.goodsList = new ArrayList<>();
     }
+
 
     public int getFrameStatus() {
         return frameStatus;
@@ -51,12 +88,28 @@ public class FrameGoods  implements Serializable {
         this.frameStatus = frameStatus;
     }
 
-    public String getTimeFrames() {
-        return timeFrames;
+    public String getTimeFrameStart() {
+        return timeFrameStart;
     }
 
-    public void setTimeFrames(String timeFrames) {
-        this.timeFrames = timeFrames;
+    public void setTimeFrameStart(String timeFrameStart) {
+        this.timeFrameStart = timeFrameStart;
+    }
+
+    public String getTimeFrameEnd() {
+        return timeFrameEnd;
+    }
+
+    public void setTimeFrameEnd(String timeFrameEnd) {
+        this.timeFrameEnd = timeFrameEnd;
+    }
+
+    public int getTimeFrameStockNum() {
+        return timeFrameStockNum;
+    }
+
+    public void setTimeFrameStockNum(int timeFrameStockNum) {
+        this.timeFrameStockNum = timeFrameStockNum;
     }
 
     public List<SnapGoodsForm> getGoodsList() {
@@ -65,6 +118,15 @@ public class FrameGoods  implements Serializable {
 
     public void setGoodsList(List<SnapGoodsForm> goodsList) {
         this.goodsList = goodsList;
+    }
+
+
+    public int getSoldNum() {
+        return soldNum;
+    }
+
+    public void setSoldNum(int soldNum) {
+        this.soldNum = soldNum;
     }
 
     @Override

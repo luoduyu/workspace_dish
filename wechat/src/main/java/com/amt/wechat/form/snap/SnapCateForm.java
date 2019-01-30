@@ -1,7 +1,5 @@
 package com.amt.wechat.form.snap;
 
-import com.alibaba.fastjson.JSONArray;
-
 import java.io.Serializable;
 
 /**
@@ -21,10 +19,6 @@ public class SnapCateForm implements Serializable {
      */
     private String name;
 
-    /**
-     * 库存量
-     */
-    private int stockNum;
 
     /**
      * 封面图片地址
@@ -47,14 +41,7 @@ public class SnapCateForm implements Serializable {
      */
     private Integer showSeq;
 
-    /**
-     * 时间段数组
-     */
-    private JSONArray timeFrames;
 
-    public SnapCateForm() {
-        this.timeFrames = new JSONArray();
-    }
 
     public Integer getId() {
         return id;
@@ -72,13 +59,6 @@ public class SnapCateForm implements Serializable {
         this.name = name;
     }
 
-    public int getStockNum() {
-        return stockNum;
-    }
-
-    public void setStockNum(int stockNum) {
-        this.stockNum = stockNum;
-    }
 
     public String getCoverImg() {
         return coverImg;
@@ -110,15 +90,6 @@ public class SnapCateForm implements Serializable {
 
     public void setShowSeq(Integer showSeq) {
         this.showSeq = showSeq;
-    }
-
-
-    public JSONArray getTimeFrames() {
-        return timeFrames;
-    }
-
-    public void setTimeFrames(JSONArray timeFrames) {
-        this.timeFrames = timeFrames;
     }
 
     @Override

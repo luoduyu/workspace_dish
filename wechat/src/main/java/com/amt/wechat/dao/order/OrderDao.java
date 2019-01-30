@@ -94,7 +94,7 @@ public interface OrderDao {
 
 
 
-    @Select("SELECT snapSeq,SUM(num) AS soldNum FROM order_item WHERE DATE(`createTime`) = #{todayDate} AND goodsType =3 GROUP BY snapSeq")
-    @MapKey("snapSeq")
-    public Map<Long, SnapSoldData> getSnapSoldMap(String todayDate);
+    @Select("SELECT SUM(num) AS soldNum ,LEFT(TIME(`createTime`),2) AS hr FROM order_item WHERE DATE(`createTime`) = #{todayDate} AND goodsType =3 GROUP BY hr")
+    @MapKey("hr")
+    public Map<String, SnapSoldData> getSnapSoldMap(String todayDate);
 }

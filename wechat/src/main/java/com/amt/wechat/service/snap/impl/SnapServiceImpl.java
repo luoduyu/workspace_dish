@@ -1,7 +1,5 @@
 package com.amt.wechat.service.snap.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.snap.SnapDao;
 import com.amt.wechat.domain.packet.BizPacket;
@@ -11,12 +9,9 @@ import com.amt.wechat.form.order.OrderSubmitForm;
 import com.amt.wechat.form.snap.FrameGoods;
 import com.amt.wechat.form.snap.SnapCateForm;
 import com.amt.wechat.form.snap.SnapGoodsForm;
-import com.amt.wechat.model.order.SnapSoldData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.snap.SnapCateData;
 import com.amt.wechat.model.snap.SnapGoodsData;
-import com.amt.wechat.model.snap.SnapGoodsTemplateData;
-import com.amt.wechat.model.snap.SnapTimeframeData;
 import com.amt.wechat.service.order.OrderService;
 import com.amt.wechat.service.redis.RedisService;
 import com.amt.wechat.service.snap.SnapService;
@@ -45,17 +40,12 @@ public class SnapServiceImpl implements SnapService {
 
     @Override
     public BizPacket snapCateList(){
-        List<SnapTimeframeData> timeframeDataList = snapDao.getSnapTimeframeDataList();
-        Map<Integer,List<SnapTimeframeData>> timeFramsMap = toMap(timeframeDataList);
-
-
         List<SnapCateData> cateDataList =  snapDao.getSnapCateList();
-        List<SnapCateForm>  snapCateFormList = toFormList(cateDataList,timeFramsMap);
-
+        List<SnapCateForm>  snapCateFormList = toFormList(cateDataList);
         return BizPacket.success(snapCateFormList);
     }
 
-    private List<SnapCateForm> toFormList(List<SnapCateData> cateDataList,Map<Integer,List<SnapTimeframeData>> timeFramsMap){
+    private List<SnapCateForm> toFormList(List<SnapCateData> cateDataList){
 
         List<SnapCateForm> formList = new ArrayList<>(cateDataList.size());
 
@@ -63,46 +53,14 @@ public class SnapServiceImpl implements SnapService {
             SnapCateForm form = new SnapCateForm();
             formList.add(form);
 
-            form.setCoverImg(e.getCoverImg());
-            form.setDrcp(e.getDrcp());
             form.setId(e.getId());
             form.setName(e.getName());
-            form.setShowSeq(e.getShowSeq());
+            form.setCoverImg(e.getCoverImg());
+            form.setDrcp(e.getDrcp());
             form.setTags(e.getTags());
-            form.setStockNum(e.getStockNum());
-
-            List<SnapTimeframeData> timeFrames = timeFramsMap.get(e.getId());
-            if(timeFrames == null || timeFrames.isEmpty()){
-                continue;
-            }
-
-            JSONArray timeFrams = form.getTimeFrames();
-            for(SnapTimeframeData timeframeData:timeFrames){
-
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("id",timeframeData.getId());
-                jsonObject.put("timeStart",timeframeData.getTimeStart());
-                jsonObject.put("timeEnd",timeframeData.getTimeEnd());
-                jsonObject.put("showSeq",timeframeData.getShowSeq());
-                timeFrams.add(jsonObject);
-            }
+            form.setShowSeq(e.getShowSeq());
         }
         return formList;
-    }
-
-
-
-    private Map<Integer,List<SnapTimeframeData>> toMap(List<SnapTimeframeData> allList ){
-        Map<Integer,List<SnapTimeframeData>> maps = new HashMap<>();
-        for(SnapTimeframeData e:allList){
-            List<SnapTimeframeData> list = maps.get(e.getCateId());
-            if(list == null){
-                list = new ArrayList<>();
-                maps.put(e.getCateId(),list);
-            }
-            list.add(e);
-        }
-        return maps;
     }
 
     @Override
@@ -114,15 +72,11 @@ public class SnapServiceImpl implements SnapService {
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"当前无抢购!");
         }
 
+        Map<String,FrameGoods> frameGoodsMap = new HashMap<>();
+        Map<String,Integer> soldNumMap = redisService.countTodaySnapSoldNum(cateId);
 
-        Map<Integer, SnapGoodsTemplateData> templateDataMap =  snapDao.getSnapTemplateMap(cateId);
-        Map<Long, SnapSoldData> soldMap = orderDao.getSnapSoldMap(DateTimeUtil.getDate(LocalDate.now()));
 
         LocalTime localTime = LocalTime.now();
-        Map<String,FrameGoods> frameGoodsMap = new HashMap<>();
-
-        SnapCateData  cateDataData =  snapDao.getSnapCate(cateId);
-
         for(SnapGoodsData goodsData:snapGoodsDataList){
             SnapStatus snapStatus = isTimeIn(localTime,goodsData.getTimeFrameStart(),goodsData.getTimeFrameEnd());
             if(snapStatus == SnapStatus.NONE){
@@ -131,21 +85,18 @@ public class SnapServiceImpl implements SnapService {
 
             FrameGoods frameGoods =  frameGoodsMap.get(goodsData.getTimeFrameStart());
             if(frameGoods == null){
-                frameGoods = new FrameGoods(snapStatus.ordinal(),goodsData.getTimeFrameStart());
+                String hhmmss = goodsData.getTimeFrameStart().replaceAll(":","");
+                frameGoods = new FrameGoods(snapStatus,goodsData.getTimeFrameStart(),goodsData.getTimeFrameEnd(),goodsData.getTimeFrameStockNum(),soldNumMap.get(hhmmss));
                 frameGoodsMap.put(goodsData.getTimeFrameStart(),frameGoods);
             }
 
-            SnapGoodsForm form = build(goodsData,templateDataMap.get(goodsData.getGoodsId()),soldMap.get(goodsData.getSeq()));
-            if(cateDataData != null){
-                form.setStockNum(cateDataData.getStockNum());
-            }
-
+            SnapGoodsForm form = build(goodsData);
             frameGoods.getGoodsList().add(form);
         }
 
         List<FrameGoods> sortableList = new ArrayList<>(frameGoodsMap.values());
         Collections.sort(sortableList,(FrameGoods o1,FrameGoods o2) ->(
-                o1.getTimeFrames().compareTo(o2.getTimeFrames())
+                o1.getTimeFrameStart().compareTo(o2.getTimeFrameStart())
         ));
 
         return BizPacket.success(sortableList);
@@ -170,7 +121,7 @@ public class SnapServiceImpl implements SnapService {
         return map;
     }
 
-    private SnapGoodsForm build(SnapGoodsData goodsData,SnapGoodsTemplateData templateData,SnapSoldData soldData){
+    private SnapGoodsForm build(SnapGoodsData goodsData){
         SnapGoodsForm form = new SnapGoodsForm();
 
         form.setSnapSeq(goodsData.getSeq());
@@ -184,21 +135,9 @@ public class SnapServiceImpl implements SnapService {
             form.setSnapNumEnable(1);
         }
 
-
-        if(templateData != null) {
-            form.setName(templateData.getName());
-            form.setCoverImg(templateData.getCoverImg());
-            form.setUnitName(templateData.getUnitName());
-        }else{
-            form.setName("");
-            form.setCoverImg("");
-            form.setUnitName("项");
-        }
-        if(soldData != null){
-            form.setSoldNum(soldData.getSoldNum());
-        }else{
-            form.setSoldNum(0);
-        }
+        form.setName(goodsData.getName());
+        form.setCoverImg(goodsData.getCoverImg());
+        form.setUnitName(goodsData.getUnitName());
 
         return form;
     }
@@ -225,23 +164,28 @@ public class SnapServiceImpl implements SnapService {
 
     @Override
     public BizPacket snapOrderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm) {
-        SnapCateData snapCateData = snapDao.getSnapCate(orderSubmitForm.getCateId());
-        if(snapCateData == null){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"此服务不存在:"+ snapCateData.getName());
-        }
 
+        // 拿到当前类别下应该正在抢购的物品
         Map<Long, SnapGoodsData> currentSnapGoods = getCurrentSnap(orderSubmitForm.getCateId());
         if(currentSnapGoods == null || currentSnapGoods.isEmpty()){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"不存在此类服务:"+orderSubmitForm.getCateId());
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"此类服务已售:"+orderSubmitForm.getCateId());
         }
-        String timeStart = getTimeStart(currentSnapGoods);
-        int snapnum = redisService.getSnapNum(userData.getPoiId(),snapCateData.getId(),timeStart);
-        if(snapnum >= snapCateData.getStockNum()){
-            return BizPacket.error(HttpStatus.GONE.value(),"已售罄:"+snapCateData.getName());
+        if(!isCateExist(currentSnapGoods.values(),orderSubmitForm.getCateId())){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"此服务不存在:"+ orderSubmitForm.getCateId());
+        }
+
+        // 任意取其中一个
+        SnapGoodsData anyCurrentGoodsData = getCurrentGoodsData(currentSnapGoods);
+        int snapnum = redisService.getSnapNum(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeFrameStart());
+        if(snapnum >= anyCurrentGoodsData.getTimeFrameStockNum()){
+            return BizPacket.error(HttpStatus.GONE.value(),"已售罄:"+anyCurrentGoodsData.getCateId());
         }
 
 
-        Map<Integer, SnapGoodsData> goodsDataMap =  snapDao.getSnapGoodsMap(orderSubmitForm.buildSeqs());
+        String seqs = orderSubmitForm.buildSeqs();
+        logger.info("{}提交抢购订单,snapSeqs={},orderSubmitForm={}",userData,seqs,orderSubmitForm);
+
+
         for(MyOrderItemForm myOrderItemForm:orderSubmitForm.getOrderItemList()){
             if(myOrderItemForm.getNum() <= 0 ){
                 return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"购买数量非法!");
@@ -255,9 +199,9 @@ public class SnapServiceImpl implements SnapService {
                 return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抢购序列参数(seq)值越界!");
             }
 
-            SnapGoodsData goodsData = goodsDataMap.get(myOrderItemForm.getSnapSeq());
+            SnapGoodsData goodsData = currentSnapGoods.get(myOrderItemForm.getSnapSeq());
             if(goodsData == null){
-                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抢购了不存在的服务:name"+goodsData.getName());
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"抢购了不存在的服务:"+goodsData.getName());
             }
 
             if(myOrderItemForm.getNum()> goodsData.getSnapNumEnable()){
@@ -271,9 +215,9 @@ public class SnapServiceImpl implements SnapService {
         }
 
         try {
-            BizPacket bizPacket =  orderService.orderSubmit(userData,orderSubmitForm);
+            BizPacket bizPacket =  orderService.orderSnapSubmit(userData,orderSubmitForm,currentSnapGoods);
             if(bizPacket.getCode() == HttpStatus.OK.value()){
-                redisService.onSnapSucc(userData.getPoiId(),snapCateData.getId(),timeStart);
+                redisService.onSnapSucc(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeFrameStart());
             }
             return bizPacket;
         } catch (Exception e) {
@@ -282,9 +226,18 @@ public class SnapServiceImpl implements SnapService {
         }
     }
 
-    private String getTimeStart(Map<Long, SnapGoodsData> currentSnapGoods){
+
+    private boolean isCateExist(Collection<SnapGoodsData> currentSnapGoods,int cateId){
+        for(SnapGoodsData e:currentSnapGoods){
+            if(e.getCateId() == cateId){
+                return true;
+            }
+        }
+        return false;
+    }
+    private SnapGoodsData getCurrentGoodsData(Map<Long, SnapGoodsData> currentSnapGoods){
         for(SnapGoodsData o:currentSnapGoods.values()){
-            return o.getTimeFrameStart();
+            return o;
         }
         return null;
     }

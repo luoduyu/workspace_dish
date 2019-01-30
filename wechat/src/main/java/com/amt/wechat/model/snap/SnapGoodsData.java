@@ -1,6 +1,9 @@
 package com.amt.wechat.model.snap;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -14,31 +17,19 @@ public class SnapGoodsData implements Serializable {
     private static final long serialVersionUID = -789291313502629104L;
 
     /**
-     * 抢购序列
+     * 序列号
      */
     private Long seq;
+
+    /**
+     * 抢购日期
+     */
+    private Date snapDate;
 
     /**
      * 所属分类Id
      */
     private Integer cateId;
-
-
-    /**
-     * 物品名称
-     */
-    private String name;
-
-    /**
-     * 物品Id
-     */
-    private Integer goodsId;
-
-
-    /**
-     * 抢购日期
-     */
-    private String snapDate;
 
     /**
      * 拾购开始时间
@@ -51,6 +42,36 @@ public class SnapGoodsData implements Serializable {
     private String timeFrameEnd;
 
     /**
+     * 所属时段库存量
+     */
+    private Integer timeFrameStockNum;
+
+    /**
+     * 物品Id
+     */
+    private Integer goodsId;
+
+    /**
+     * 物品名称
+     */
+    private String name;
+
+    /**
+     * 物品单位名称
+     */
+    private String unitName;
+
+    /**
+     * 图片地址
+     */
+    private String coverImg;
+
+    /**
+     * 抢购数量
+     */
+    private Integer snapNumEnable;
+
+    /**
      * 抢购价,单位:分
      */
     private Integer disPrice;
@@ -60,12 +81,6 @@ public class SnapGoodsData implements Serializable {
      */
     private Integer oriPrice;
 
-
-    /**
-     * 抢购数量
-     */
-    private Integer snapNumEnable=1;
-
     public Long getSeq() {
         return seq;
     }
@@ -74,38 +89,20 @@ public class SnapGoodsData implements Serializable {
         this.seq = seq;
     }
 
+    public Date getSnapDate() {
+        return snapDate;
+    }
+
+    public void setSnapDate(Date snapDate) {
+        this.snapDate = snapDate;
+    }
+
     public Integer getCateId() {
         return cateId;
     }
 
     public void setCateId(Integer cateId) {
         this.cateId = cateId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-
-
-    public String getSnapDate() {
-        return snapDate;
-    }
-
-    public void setSnapDate(String snapDate) {
-        this.snapDate = snapDate;
     }
 
     public String getTimeFrameStart() {
@@ -124,6 +121,54 @@ public class SnapGoodsData implements Serializable {
         this.timeFrameEnd = timeFrameEnd;
     }
 
+    public Integer getTimeFrameStockNum() {
+        return timeFrameStockNum;
+    }
+
+    public void setTimeFrameStockNum(Integer timeFrameStockNum) {
+        this.timeFrameStockNum = timeFrameStockNum;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
+    }
+
+    public Integer getSnapNumEnable() {
+        return snapNumEnable;
+    }
+
+    public void setSnapNumEnable(Integer snapNumEnable) {
+        this.snapNumEnable = snapNumEnable;
+    }
+
     public Integer getDisPrice() {
         return disPrice;
     }
@@ -140,25 +185,8 @@ public class SnapGoodsData implements Serializable {
         this.oriPrice = oriPrice;
     }
 
-
-    public Integer getSnapNumEnable() {
-        return snapNumEnable;
-    }
-
-    public void setSnapNumEnable(Integer snapNumEnable) {
-        this.snapNumEnable = snapNumEnable;
-    }
-
     @Override
     public String toString() {
-        return "SnapGoodsData{" +
-                "cateId=" + cateId +
-                ", goodsId=" + goodsId +
-                ", snapDate='" + snapDate + '\'' +
-                ", timeFrameStart='" + timeFrameStart + '\'' +
-                ", timeFrameEnd='" + timeFrameEnd + '\'' +
-                ", disPrice=" + disPrice +
-                ", oriPrice=" + oriPrice +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

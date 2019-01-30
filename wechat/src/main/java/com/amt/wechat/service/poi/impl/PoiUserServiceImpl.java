@@ -432,6 +432,10 @@ public class PoiUserServiceImpl implements PoiUserService {
             if(userData == null){
                 return BizPacket.success();
             }
+            if(!userData.getPoiId().equalsIgnoreCase(boss.getPoiId())){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你删除的不是本店成员!");
+            }
+
             userData.setPoiId("");
             userData.setUpdTime(DateTimeUtil.now());
             poiUserDao.removeUserFomPOI("",userData.getUpdTime(),userData.getId());

@@ -66,5 +66,9 @@ public class DateTimeUtil {
         System.out.println(ldt.format(FRIENDLY_DATE_TIME_FORMAT));
         System.out.println(Math.multiplyExact(2, 7));
         */
+
+        String time ="16:49:40".substring(0,2);
+        System.out.println(time);
+
     }
 }

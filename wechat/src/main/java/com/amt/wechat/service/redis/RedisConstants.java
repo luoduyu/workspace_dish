@@ -11,7 +11,7 @@ public class RedisConstants {
 
 
     /**
-     * 有效期:15天(60分 * 24H * 15天)w
+     * 有效期:15天(60分 * 24H * 15天)
      */
     public static final long WECHAT_TOKEN_TIMEOUT = 60 * 24 * 15;
 
@@ -40,7 +40,13 @@ public class RedisConstants {
 
 
     /**
-     * 短信验证码每日次数
+     * 每天每类别每店铺的抢购订单数
      */
-    public static final String WECHAT_SNAP_COUNT = "wmt_wechat:snapnum";
+    public static final String WECHAT_SNAP_COUNT_POI = "wmt_wechat:snapnum_poi:";
+
+
+    /**
+     * 每天每类别的抢购订单数
+     */
+    public static final String WECHAT_SNAP_COUNT_CATE = "wmt_wechat:snapnum_cate:";
 }

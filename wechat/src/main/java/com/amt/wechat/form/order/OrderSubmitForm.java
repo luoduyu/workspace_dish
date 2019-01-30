@@ -18,17 +18,31 @@ public class OrderSubmitForm implements Serializable {
 
 
     /**
+     * 确认用原价;1:是,0:否(默认)
+     */
+    private Integer oriPriceConfirm;
+
+    /**
      * 抢购类别Id
      */
     private Integer cateId;
 
     /**
-     * 1:海报;2:装修服务
+     * 1:海报;2:装修服务;3:抢购
      */
     private int goodsType;
 
 
     private List<MyOrderItemForm> orderItemList;
+
+
+    public Integer getOriPriceConfirm() {
+        return oriPriceConfirm;
+    }
+
+    public void setOriPriceConfirm(Integer oriPriceConfirm) {
+        this.oriPriceConfirm = oriPriceConfirm;
+    }
 
     public Integer getCateId() {
         return cateId;
@@ -48,6 +62,17 @@ public class OrderSubmitForm implements Serializable {
 
     public List<MyOrderItemForm> getOrderItemList() {
         return orderItemList;
+    }
+
+    public String goodsIdString() {
+        StringBuilder ids = new StringBuilder();
+        for (MyOrderItemForm o : orderItemList) {
+            ids.append(o.getGoodsId()).append(",");
+        }
+        if (ids.length() >= 2) {
+            ids.deleteCharAt(ids.length() - 1);
+        }
+        return ids.toString();
     }
 
     public void setOrderItemList(List<MyOrderItemForm> orderItemList) {

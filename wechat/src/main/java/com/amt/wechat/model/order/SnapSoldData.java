@@ -14,9 +14,9 @@ public class SnapSoldData implements Serializable {
 
 
     /**
-     * 抢购序列号
+     * 小时段
      */
-    private Long snapSeq;
+    private String hr;
 
 
     /**
@@ -29,12 +29,12 @@ public class SnapSoldData implements Serializable {
     public SnapSoldData() {
     }
 
-    public Long getSnapSeq() {
-        return snapSeq;
+    public String getHr() {
+        return hr;
     }
 
-    public void setSnapSeq(Long snapSeq) {
-        this.snapSeq = snapSeq;
+    public void setHr(String hr) {
+        this.hr = hr;
     }
 
     public int getSoldNum() {
@@ -50,7 +50,7 @@ public class SnapSoldData implements Serializable {
     @Override
     public String toString() {
         return "SnapSoldData{" +
-                "snapSeq=" + snapSeq +
+                "hr=" + hr +
                 ", soldNum=" + soldNum +
                 '}';
     }

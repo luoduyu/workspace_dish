@@ -25,11 +25,6 @@ public class SnapCateData implements Serializable{
 	private String name;
 
 	/**
-	 * 库存量
-	 */
-	private int stockNum;
-
-	/**
 	 * 是否可用;0:不可用;1:可用;
 	 */
 	private Integer isEnabled;
@@ -72,13 +67,6 @@ public class SnapCateData implements Serializable{
 		this.name = name;
 	}
 
-	public int getStockNum() {
-		return stockNum;
-	}
-
-	public void setStockNum(int stockNum) {
-		this.stockNum = stockNum;
-	}
 
 	public Integer getIsEnabled() {
 		return isEnabled;

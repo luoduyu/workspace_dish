@@ -115,6 +115,7 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"姓名和手机号已经授权认证过了!");
         }
         */
+        logger.info("{}申请上报姓名(name={})和个人手机号(mobile={})!",userData,mobile);
         if(!StringUtils.isEmpty(userData.getMobile())){
             if(!userData.getMobile().equalsIgnoreCase(mobile)){
                 return BizPacket.error(HttpStatus.CONFLICT.value(),"当前手机号与原有手机号不一致!原手机号:"+userData.getMobile());
@@ -484,14 +485,14 @@ public class SettingController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"受让人参数不能为空!");
         }
 
-        PoiUserData userData = getUser();
-        if(StringUtils.isEmpty(userData.getPoiId())){
+        PoiUserData boss = getUser();
+        if(StringUtils.isEmpty(boss.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
         }
-        if(userData.getIsMaster() != EmplIdentity.MASTER.value()){
+        if(boss.getIsMaster() != EmplIdentity.MASTER.value()){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(), "你不是店主!");
         }
-        return poiUserService.employeeRM(userData,userId);
+        return poiUserService.employeeRM(boss,userId);
     }
 
     @PostMapping(value = "/setting/poi/auth/ele")

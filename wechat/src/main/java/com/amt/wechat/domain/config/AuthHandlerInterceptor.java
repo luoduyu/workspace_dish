@@ -53,6 +53,8 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
                 return handlerError(response,result.getCode(), result.getMsg());
             }
 
+            logger.info("user={},accessToken={}",user,accessToken);
+
             request.setAttribute(Constants.WECHAT_LOGGED_USER, user);
             traceLog(request, accessToken, user.getId());
             return true;

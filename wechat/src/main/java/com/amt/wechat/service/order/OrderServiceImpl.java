@@ -8,6 +8,7 @@ import com.amt.wechat.dao.decoration.MaterialDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poster.PosterDao;
+import com.amt.wechat.dao.snap.SnapDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
@@ -21,6 +22,7 @@ import com.amt.wechat.model.order.OrderServiceData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.model.poster.PosterData;
+import com.amt.wechat.model.snap.SnapGoodsData;
 import com.amt.wechat.service.balance.BalanceService;
 import com.amt.wechat.service.pay.PayWechatService;
 import com.amt.wechat.service.pay.util.MD5Util;
@@ -54,6 +56,7 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource BalanceService balanceService;
     private @Resource PayWechatService payWechatService;
     private @Resource RedisService redisService;
+    private @Resource SnapDao snapDao;
 
     @Override
     public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize) {
@@ -194,15 +197,26 @@ public class OrderServiceImpl implements  OrderService {
     }
 
 
+    private static String jionMapKey(Set<Integer> set){
+        StringBuilder buff = new StringBuilder();
+        for(Integer e:set){
+            buff.append(e).append(",");
+        }
+        if(buff.length() >= 2) {
+            buff.deleteCharAt(buff.length() - 1);
+        }
+        return buff.toString();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket orderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm) {
 
         Map<Integer,GoodsData> goodsMap = getGoodsMap(orderSubmitForm);
-        if(goodsMap.size() != orderSubmitForm.getOrderItemList().size()){
-            return BizPacket.error(HttpStatus.NOT_FOUND.value(),"提交的物品有误!");
+        if (goodsMap.size() != orderSubmitForm.getOrderItemList().size()) {
+            logger.info("提交的物品={},库存物品={}", orderSubmitForm.goodsIdString(), jionMapKey(goodsMap.keySet()));
+            return BizPacket.error(HttpStatus.NOT_FOUND.value(), "提交的物品有误!");
         }
-
         PoiData poiData = poiDao.getPoiData(userData.getPoiId());
         if(poiData == null){
             return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
@@ -222,6 +236,68 @@ public class OrderServiceImpl implements  OrderService {
         return BizPacket.success(jsonObject);
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public BizPacket orderSnapSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm,Map<Long, SnapGoodsData> currentSnapGoods) {
+
+
+        PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+        if(poiData == null){
+            return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
+        }
+
+        OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
+
+        boolean isPoiMember = poiMemberService.isMember(poiData.getId());
+        List<OrderItemData> itemList = createSnapItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),currentSnapGoods);
+        orderDao.addOrderItemDataList(itemList);
+        orderDao.addOrderData(orderData);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("totalCost",orderData.getTotal());
+        jsonObject.put("totalPayment",orderData.getPayment());
+        jsonObject.put("orderId",orderData.getOrderId());
+        return BizPacket.success(jsonObject);
+    }
+
+    private List<OrderItemData> createSnapItemDataList(boolean isMember ,OrderData orderData,List<MyOrderItemForm> itemFormList,Map<Long,SnapGoodsData> goodsMap){
+        List<OrderItemData> itemDataList = new ArrayList<>();
+
+        // 总原价
+        int totalCost= 0;
+
+        // 实付
+        int totalPayment = 0;
+
+        for(MyOrderItemForm e:itemFormList){
+            OrderItemData itemData = new OrderItemData();
+            SnapGoodsData goodsData = goodsMap.get(e.getSnapSeq());
+
+            itemData.setGoodsId(goodsData.getGoodsId());
+            itemData.setImgUrl(goodsData.getCoverImg());
+            itemData.setGoodsName(goodsData.getName());
+
+            itemData.setGoodsType(orderData.getGoodsType());
+            itemData.setOrderId(orderData.getOrderId());
+            itemData.setSnapSeq(e.getSnapSeq());
+            itemData.setCreateTime(orderData.getCreateTime());
+
+            itemData.setUnitPrice(goodsData.getDisPrice());
+            itemData.setNum(e.getNum());
+
+            int total = itemData.getUnitPrice() * e.getNum();
+            itemData.setTotal(total);
+            totalPayment += total;
+            totalCost += (goodsData.getOriPrice() * e.getNum());
+
+            itemDataList.add(itemData);
+
+        }
+        orderData.setTotal(totalCost);
+        orderData.setPayment(totalPayment);
+        return itemDataList;
+    }
 
 
     /**
@@ -262,11 +338,12 @@ public class OrderServiceImpl implements  OrderService {
             OrderItemData itemData = new OrderItemData();
             GoodsData goodsData = goodsMap.get(e.getGoodsId());
 
-            itemData.setOrderId(orderData.getOrderId());
+            itemData.setGoodsId(goodsData.getId());
             itemData.setImgUrl(goodsData.getCoverImg());
             itemData.setGoodsName(goodsData.getName());
+
             itemData.setGoodsType(orderData.getGoodsType());
-            itemData.setGoodsId(goodsData.getId());
+            itemData.setOrderId(orderData.getOrderId());
             itemData.setSnapSeq(e.getSnapSeq());
             itemData.setCreateTime(orderData.getCreateTime());
 
@@ -288,7 +365,7 @@ public class OrderServiceImpl implements  OrderService {
     /**
      * 获得售卖的资源( XXX 替换为 基于 redis 的实现?)
      * @param orderSubmitForm
-     * @return
+     * @return key: 'GoodsData.id',value:'GoodsData'
      */
     private Map<Integer,GoodsData> getGoodsMap(OrderSubmitForm orderSubmitForm){
         StringBuilder ids = new StringBuilder("");
@@ -312,6 +389,13 @@ public class OrderServiceImpl implements  OrderService {
                     returnMap.put(entry.getKey(), entry.getValue());
                 }
                 return returnMap;
+
+//            case 3:
+//                Map<Integer, SnapGoodsTemplateData> map = snapDao.getSnapTemplateMap(orderSubmitForm.getCateId());
+//                for(Map.Entry<Integer,SnapGoodsTemplateData> entry:map.entrySet()){
+//                    returnMap.put(entry.getKey(), entry.getValue());
+//                }
+//                return returnMap;
 
             default:
                 return Collections.emptyMap();

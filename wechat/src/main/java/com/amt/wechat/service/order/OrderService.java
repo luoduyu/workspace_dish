@@ -5,6 +5,7 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;
 import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.model.snap.SnapGoodsData;
 
 import java.util.Map;
 
@@ -48,6 +49,15 @@ public interface OrderService {
      * @return
      */
     public BizPacket orderSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm);
+
+
+    /**
+     * 抢购订单提交
+     * @param userData
+     * @param orderSubmitForm
+     * @return
+     */
+    public BizPacket orderSnapSubmit(PoiUserData userData, OrderSubmitForm orderSubmitForm,Map<Long, SnapGoodsData> currentSnapGoods);
 
     /**
      * 订单数量编辑

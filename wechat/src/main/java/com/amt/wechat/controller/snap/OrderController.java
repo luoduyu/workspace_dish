@@ -39,13 +39,16 @@ public class OrderController extends BaseController {
 
         PoiUserData userData = getUser();
         if(StringUtils.isEmpty(userData.getPoiId())){
-            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你不属于任何商户!");
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"非法操作:你没有店铺!");
         }
 
         if(orderSubmitForm.getOrderItemList() == null || orderSubmitForm.getOrderItemList().isEmpty()){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单数据不完整!");
         }
 
+        if(StringUtils.isEmpty(orderSubmitForm.getCateId())){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少参数:cateId");
+        }
         return snapService.snapOrderSubmit(userData,orderSubmitForm);
     }
 

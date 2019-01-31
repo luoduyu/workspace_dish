@@ -2,6 +2,7 @@ package com.amt.wechat.service.poi;
 
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.basic.WeichatLoginForm;
+import com.amt.wechat.model.poi.PoiCandidate;
 import com.amt.wechat.model.poi.PoiUserData;
 
 import java.io.IOException;
@@ -32,7 +33,16 @@ public interface PoiUserService {
      * @return
      */
     public BizPacket auth4Boss(String name, String mobile, PoiUserData userData);
-    public BizPacket auth4Empl(String name, String mobile, PoiUserData userData);
+
+    /**
+     * 更新个人姓名和手机号
+     * @param name
+     * @param mobile
+     * @param userData
+     * @return
+     */
+    public BizPacket employeeSet(String name, String mobile, PoiUserData userData);
+    public BizPacket poiBind(PoiUserData userData, PoiCandidate candidate);
 
     /**
      * 手机号更换

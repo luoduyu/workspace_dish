@@ -42,7 +42,7 @@ public interface OrderDao {
 
     public List<MyOrderForm> getMyOrderList(String poiId,int index, int pageSize);
 
-    @Select("SELECT COUNT(*) FROM `order` WHERE poiId=#{poiId}")
+    @Select("SELECT COUNT(*) FROM `order` WHERE poiId=#{poiId} AND ((goodsType=1 OR goodsType=2) OR (goodsType=3 AND  payStatus=2))")
     public int countMyOrder(String poiId);
 
 

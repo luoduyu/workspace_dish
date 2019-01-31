@@ -36,8 +36,13 @@ public interface PoiUserDao {
     @Update("UPDATE poi_user SET isMaster=#{isMaster},name = #{name}, mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
     public void update4AuthBoss(int isMaster,String name,String mobile,String updTime,String id);
 
-    @Update("UPDATE poi_user SET isMaster=#{isMaster},poiId=#{poiId}, name = #{name}, mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
-    public void update4AuthEmpl(int isMaster,String poiId,String name,String mobile,String updTime,String id);
+    @Update("UPDATE poi_user SET name = #{name}, mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
+    public void employeeSet(String name,String mobile,String updTime,String id);
+
+
+    @Update("UPDATE poi_user SET isMaster=#{isMaster},poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
+    public void update4PoiBind(int isMaster,String poiId,String updTime,String id);
+
 
     @Update("UPDATE poi_user SET mobile = #{mobile},updTime=#{updTime} WHERE id=#{id}")
     public void updatePOIUserMobile(String mobile,String updTime,String id);
@@ -45,8 +50,8 @@ public interface PoiUserDao {
     @Update("UPDATE poi_user SET isMaster = #{isMaster},updTime=#{updTime} WHERE id=#{id}")
     public void updatePoiUserMaster(int isMaster,String updTime,String id);
 
-    @Update("UPDATE poi_user SET poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
-    public void removeUserFomPOI(String poiId,String updTime,String id);
+    @Update("UPDATE poi_user SET isMaster = #{isMaster},poiId=#{poiId},updTime=#{updTime} WHERE id=#{id}")
+    public void removeUserFomPOI(int isMaster,String poiId,String updTime,String id);
 
     @Update("UPDATE poi_user SET name = #{name},updTime=#{updTime} WHERE id=#{id}")
     public void updatePOIUserName(String name ,String updTime,String id);
@@ -68,21 +73,25 @@ public interface PoiUserDao {
     public List<PoiUserData> getPoiEmployeeList(String poiId);
 
 
-    @Select("SELECT * FROM poi_user WHERE openid=#{openid} OR mobile=#{mobile}")
-    public PoiUserData getPOIUserData(String openid,String mobile);
+    @Select("SELECT mobile FROM poi_user WHERE poiId =#{poiId} AND isMaster=#{isMaster} limit 1")
+    public String getMasterMobile(String poiId,int isMaster);
 
 
 
 
-    @Insert("INSERT INTO poi_user_candidate(poiId,mobile,createTime, userId)VALUES(#{poiId},#{mobile},#{createTime},#{userId})")
+    @Insert("INSERT INTO poi_user_candidate(poiName,poiId,mobile,createTime, userId)VALUES(#{poiName},#{poiId},#{mobile},#{createTime},#{userId})")
     public void addInvite(PoiCandidate data);
 
     @Select("DELETE FROM poi_user_candidate WHERE id=#{id}")
     public void removeInvoteById(int id);
 
-    @Update("UPDATE poi_user_candidate SET poiId =#{poiId},mobile=#{mobile},createTime =#{createTime},userId=#{userId} WHERE id = #{id}")
-    public void updateInvite(PoiCandidate candidate);
 
-    @Select("SELECT * FROM poi_user_candidate WHERE mobile=#{mobile} LIMIT 1")
-    public PoiCandidate getPoiCandidate(String mobile);
+    @Select("SELECT * FROM poi_user_candidate WHERE mobile=#{mobile} AND poiId=#{poiId} LIMIT 1")
+    public PoiCandidate getPoiCandidate(String mobile,String poiId);
+
+    @Select("SELECT * FROM poi_user_candidate WHERE mobile=#{mobile}")
+    public List<PoiCandidate> getPoiCandidateList(String mobile);
+
+    @Select("SELECT * FROM poi_user_candidate WHERE id=#{id} LIMIT 1")
+    public PoiCandidate getPoiCandidateById(int id);
 }

@@ -11,6 +11,7 @@ import com.amt.wechat.form.basic.BasicSettingForm;
 import com.amt.wechat.model.poi.PoiAccountData;
 import com.amt.wechat.model.poi.PoiData;
 import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.PoiService;
 import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -150,6 +151,9 @@ public class PoiServiceImpl implements PoiService {
                 if(poiData == null) {
                     return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "店铺实体信息不存在!");
                 }
+                if(!userData.getPoiId().equalsIgnoreCase(poiData.getId())){
+                    return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "你不是本店成员!");
+                }
 
                 if(!StringUtils.isEmpty(poiData.getEleShopId())){
                     return BizPacket.error(HttpStatus.NOT_MODIFIED.value(),"已经认证过了!");
@@ -160,8 +164,9 @@ public class PoiServiceImpl implements PoiService {
                 poiData.setUpdTime(DateTimeUtil.now());
                 poiDao.eleAuth(poiData);
 
+                String masterMobile = poiUserDao.getMasterMobile(poiData.getId(), EmplIdentity.MASTER.value());
                 PoiAccountData accountData =  poiAccountDao.getAccountData(poiData.getId());
-                return BizPacket.success(PoiData.createFrom(poiData,accountData));
+                return BizPacket.success(PoiData.createFrom(poiData,accountData,masterMobile));
             }
 
             // 店铺不存在时:
@@ -173,7 +178,8 @@ public class PoiServiceImpl implements PoiService {
             poiAccountDao.addPoiAccountData(accountData);
 
             onPOICreated(userData,poiData);
-            return BizPacket.success(PoiData.createFrom(poiData,accountData));
+            String masterMobile = poiUserDao.getMasterMobile(poiData.getId(),EmplIdentity.MASTER.value());
+            return BizPacket.success(PoiData.createFrom(poiData,accountData,masterMobile));
         } catch (Exception e) {
             logger.error("userData="+userData+",accountName="+accountName+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -192,6 +198,9 @@ public class PoiServiceImpl implements PoiService {
                 if(poiData == null) {
                     return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "店铺实体信息不存在!");
                 }
+                if(!userData.getPoiId().equalsIgnoreCase(poiData.getId())){
+                    return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "你不是本店成员!");
+                }
 
                 if(!StringUtils.isEmpty(poiData.getEleShopId())){
                     return BizPacket.error(HttpStatus.NOT_MODIFIED.value(),"已经认证过了!");
@@ -202,8 +211,9 @@ public class PoiServiceImpl implements PoiService {
                 poiData.setUpdTime(DateTimeUtil.now());
                 poiDao.mtAuth(poiData);
 
+                String masterMobile = poiUserDao.getMasterMobile(poiData.getId(),EmplIdentity.MASTER.value());
                 PoiAccountData accountData =  poiAccountDao.getAccountData(poiData.getId());
-                return BizPacket.success(PoiData.createFrom(poiData,accountData));
+                return BizPacket.success(PoiData.createFrom(poiData,accountData,masterMobile));
             }
 
             // 店铺不存在时:
@@ -215,7 +225,8 @@ public class PoiServiceImpl implements PoiService {
             poiAccountDao.addPoiAccountData(accountData);
 
             onPOICreated(userData,poiData);
-            return BizPacket.success(PoiData.createFrom(poiData,accountData));
+            String masterMobile = poiUserDao.getMasterMobile(poiData.getId(),EmplIdentity.MASTER.value());
+            return BizPacket.success(PoiData.createFrom(poiData,accountData,masterMobile));
         } catch (Exception e) {
             logger.error("userData="+userData+",accountName="+accountName+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
@@ -265,6 +276,7 @@ public class PoiServiceImpl implements PoiService {
 
         poiData.setBrandName("");
         poiData.setCateId(-1);
+        poiData.setLogoImg("");
 
         poiData.setAccountName(accountName);
         poiData.setAccountPassword(accountPwd);

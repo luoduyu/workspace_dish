@@ -57,6 +57,8 @@ public class FrameGoods  implements Serializable {
 
     public FrameGoods(SnapStatus frameStatus, String timeFrameStart, String timeFrameEnd, int timeFrameStockNum, Integer soldNum) {
         this.frameStatus = frameStatus.ordinal();
+        this.timeFrameStockNum = timeFrameStockNum;
+
         if(frameStatus == SnapStatus.CURRENT){
             if(soldNum != null) {
                 this.soldNum = soldNum;
@@ -75,7 +77,7 @@ public class FrameGoods  implements Serializable {
 
         this.timeFrameStart = timeFrameStart;
         this.timeFrameEnd = timeFrameEnd;
-        this.timeFrameStockNum = timeFrameStockNum;
+
         this.goodsList = new ArrayList<>();
     }
 

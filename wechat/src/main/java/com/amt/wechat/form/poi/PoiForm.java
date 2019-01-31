@@ -1,4 +1,4 @@
-package com.amt.wechat.model.poi;
+package com.amt.wechat.form.poi;
 
 import com.alibaba.fastjson.JSON;
 
@@ -7,13 +7,11 @@ import java.io.Serializable;
 /**
  * Copyright (c) 2019 by CANSHU
  *
- *  店铺基本信息
- * @author adu Create on 2019-01-09 16:34
+ * @author adu Create on 2019-01-31 13:44
  * @version 1.0
  */
-public class PoiBasicData implements Serializable {
-    private static final long serialVersionUID = -949676706782292258L;
-
+public class PoiForm implements Serializable {
+    private static final long serialVersionUID = -3109298353758602969L;
 
     /**
      * 门店Id
@@ -68,6 +66,13 @@ public class PoiBasicData implements Serializable {
      */
     private int cateId;
 
+
+    /**
+     * 图片地址
+     */
+    private String logoImg;
+
+
     /**
      * 创建时间
      */
@@ -107,6 +112,21 @@ public class PoiBasicData implements Serializable {
     private int currShareBalance;
 
 
+    /**
+     * 是否完成了美团授权认证
+     */
+    private boolean mtAuth = false;
+
+    /**
+     * 是否完成了饿了么授权认证
+     */
+    private boolean eleAuth = false;
+
+
+    /**
+     * 店主手机号
+     */
+    private String masterMobile;
 
 
     public String getId() {
@@ -189,6 +209,14 @@ public class PoiBasicData implements Serializable {
         this.cateId = cateId;
     }
 
+    public String getLogoImg() {
+        return logoImg;
+    }
+
+    public void setLogoImg(String logoImg) {
+        this.logoImg = logoImg;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -205,6 +233,13 @@ public class PoiBasicData implements Serializable {
         isBalancePwdSet = balancePwdSet;
     }
 
+    public int getBalancePwdFree() {
+        return balancePwdFree;
+    }
+
+    public void setBalancePwdFree(int balancePwdFree) {
+        this.balancePwdFree = balancePwdFree;
+    }
 
     public int getCurBalance() {
         return curBalance;
@@ -213,7 +248,6 @@ public class PoiBasicData implements Serializable {
     public void setCurBalance(int curBalance) {
         this.curBalance = curBalance;
     }
-
 
     public int getCurRedBalance() {
         return curRedBalance;
@@ -239,12 +273,28 @@ public class PoiBasicData implements Serializable {
         this.currShareBalance = currShareBalance;
     }
 
-    public int getBalancePwdFree() {
-        return balancePwdFree;
+    public boolean isMtAuth() {
+        return mtAuth;
     }
 
-    public void setBalancePwdFree(int balancePwdFree) {
-        this.balancePwdFree = balancePwdFree;
+    public void setMtAuth(boolean mtAuth) {
+        this.mtAuth = mtAuth;
+    }
+
+    public boolean isEleAuth() {
+        return eleAuth;
+    }
+
+    public void setEleAuth(boolean eleAuth) {
+        this.eleAuth = eleAuth;
+    }
+
+    public String getMasterMobile() {
+        return masterMobile;
+    }
+
+    public void setMasterMobile(String masterMobile) {
+        this.masterMobile = masterMobile;
     }
 
     @Override

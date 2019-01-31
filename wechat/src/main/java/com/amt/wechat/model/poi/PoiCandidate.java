@@ -15,6 +15,9 @@ public class PoiCandidate implements Serializable {
 
     private int id;
 
+
+    private String poiName;
+
     /**
      * 店铺Id
      */
@@ -46,6 +49,14 @@ public class PoiCandidate implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getPoiName() {
+        return poiName;
+    }
+
+    public void setPoiName(String poiName) {
+        this.poiName = poiName;
     }
 
     public String getPoiId() {

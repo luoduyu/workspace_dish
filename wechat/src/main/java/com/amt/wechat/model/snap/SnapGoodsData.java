@@ -13,7 +13,7 @@ import java.util.Date;
  * @author adu Create on 2019-01-28 14:51
  * @version 1.0
  */
-public class SnapGoodsData implements Serializable {
+public class SnapGoodsData extends CurrentTimeFrameData implements Serializable {
     private static final long serialVersionUID = -789291313502629104L;
 
     /**
@@ -32,19 +32,9 @@ public class SnapGoodsData implements Serializable {
     private Integer cateId;
 
     /**
-     * 拾购开始时间
+     * 拾购时段Id
      */
-    private String timeFrameStart;
-
-    /**
-     * 拾购结束时间
-     */
-    private String timeFrameEnd;
-
-    /**
-     * 所属时段库存量
-     */
-    private Integer timeFrameStockNum;
+    private Integer timeFrameId;
 
     /**
      * 物品Id
@@ -105,28 +95,12 @@ public class SnapGoodsData implements Serializable {
         this.cateId = cateId;
     }
 
-    public String getTimeFrameStart() {
-        return timeFrameStart;
+    public Integer getTimeFrameId() {
+        return timeFrameId;
     }
 
-    public void setTimeFrameStart(String timeFrameStart) {
-        this.timeFrameStart = timeFrameStart;
-    }
-
-    public String getTimeFrameEnd() {
-        return timeFrameEnd;
-    }
-
-    public void setTimeFrameEnd(String timeFrameEnd) {
-        this.timeFrameEnd = timeFrameEnd;
-    }
-
-    public Integer getTimeFrameStockNum() {
-        return timeFrameStockNum;
-    }
-
-    public void setTimeFrameStockNum(Integer timeFrameStockNum) {
-        this.timeFrameStockNum = timeFrameStockNum;
+    public void setTimeFrameId(Integer timeFrameId) {
+        this.timeFrameId = timeFrameId;
     }
 
     public Integer getGoodsId() {

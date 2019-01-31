@@ -1,4 +1,4 @@
-package com.amt.wechat.controller.poi;
+package com.amt.wechat.controller.order;
 
 import com.amt.wechat.common.Constants;
 import com.amt.wechat.common.PayWay;

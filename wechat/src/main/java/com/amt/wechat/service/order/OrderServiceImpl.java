@@ -249,8 +249,8 @@ public class OrderServiceImpl implements  OrderService {
 
         OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
 
-        boolean isPoiMember = poiMemberService.isMember(poiData.getId());
-        List<OrderItemData> itemList = createSnapItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),currentSnapGoods);
+
+        List<OrderItemData> itemList = createSnapItemDataList(orderData,orderSubmitForm.getOrderItemList(),currentSnapGoods);
         orderDao.addOrderItemDataList(itemList);
         orderDao.addOrderData(orderData);
 
@@ -261,7 +261,7 @@ public class OrderServiceImpl implements  OrderService {
         return BizPacket.success(jsonObject);
     }
 
-    private List<OrderItemData> createSnapItemDataList(boolean isMember ,OrderData orderData,List<MyOrderItemForm> itemFormList,Map<Long,SnapGoodsData> goodsMap){
+    private List<OrderItemData> createSnapItemDataList(OrderData orderData,List<MyOrderItemForm> itemFormList,Map<Long,SnapGoodsData> goodsMap){
         List<OrderItemData> itemDataList = new ArrayList<>();
 
         // 总原价

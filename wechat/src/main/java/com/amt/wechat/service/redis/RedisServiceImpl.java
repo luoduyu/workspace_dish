@@ -209,7 +209,8 @@ public class RedisServiceImpl implements RedisService {
             if(value  == null){
                 continue;
             }
-            result.put(key.replace(pattern,""),Integer.parseInt(value));
+            String hhMMssTimeFrameStart = key.replace(pattern,"");
+            result.put(hhMMssTimeFrameStart,Integer.parseInt(value));
         }
         //System.out.println("total="+total);
         try {

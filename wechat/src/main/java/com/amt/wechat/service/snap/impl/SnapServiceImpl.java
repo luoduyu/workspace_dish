@@ -78,16 +78,16 @@ public class SnapServiceImpl implements SnapService {
 
         LocalTime localTime = LocalTime.now();
         for(SnapGoodsData goodsData:snapGoodsDataList){
-            SnapStatus snapStatus = isTimeIn(localTime,goodsData.getTimeFrameStart(),goodsData.getTimeFrameEnd());
+            SnapStatus snapStatus = isTimeIn(localTime,goodsData.getTimeStart(),goodsData.getTimeEnd());
             if(snapStatus == SnapStatus.NONE){
                 continue;
             }
 
-            FrameGoods frameGoods =  frameGoodsMap.get(goodsData.getTimeFrameStart());
+            FrameGoods frameGoods =  frameGoodsMap.get(goodsData.getTimeStart());
             if(frameGoods == null){
-                String hhmmss = goodsData.getTimeFrameStart().replaceAll(":","");
-                frameGoods = new FrameGoods(snapStatus,goodsData.getTimeFrameStart(),goodsData.getTimeFrameEnd(),goodsData.getTimeFrameStockNum(),soldNumMap.get(hhmmss));
-                frameGoodsMap.put(goodsData.getTimeFrameStart(),frameGoods);
+                String hhmmss = goodsData.getTimeStart().replaceAll(":","");
+                frameGoods = new FrameGoods(snapStatus,goodsData.getTimeStart(),goodsData.getTimeEnd(),goodsData.getStockNum(),soldNumMap.get(hhmmss));
+                frameGoodsMap.put(goodsData.getTimeStart(),frameGoods);
             }
 
             SnapGoodsForm form = build(goodsData);
@@ -103,6 +103,11 @@ public class SnapServiceImpl implements SnapService {
     }
 
 
+    /**
+     * 当天-当前类别-当前时段正在售卖的物品或服务
+     * @param cateId
+     * @return
+     */
     private Map<Long,SnapGoodsData> getCurrentSnap(int cateId){
         List<SnapGoodsData> snapGoodsDataList = snapDao.getSnapGoodsList(cateId,DateTimeUtil.getDate(LocalDate.now()));
         if(snapGoodsDataList == null || snapGoodsDataList.isEmpty()){
@@ -112,7 +117,7 @@ public class SnapServiceImpl implements SnapService {
         LocalTime localTime = LocalTime.now();
         Map<Long,SnapGoodsData> map = new HashMap<>();
         for(SnapGoodsData goodsData:snapGoodsDataList) {
-            SnapStatus snapStatus = isTimeIn(localTime, goodsData.getTimeFrameStart(), goodsData.getTimeFrameEnd());
+            SnapStatus snapStatus = isTimeIn(localTime, goodsData.getTimeStart(), goodsData.getTimeEnd());
             if (snapStatus != SnapStatus.CURRENT) {
                 continue;
             }
@@ -176,9 +181,9 @@ public class SnapServiceImpl implements SnapService {
 
         // 任意取其中一个
         SnapGoodsData anyCurrentGoodsData = getCurrentGoodsData(currentSnapGoods);
-        int snapnum = redisService.getSnapNum(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeFrameStart());
-        if(snapnum >= anyCurrentGoodsData.getTimeFrameStockNum()){
-            return BizPacket.error(HttpStatus.GONE.value(),"已售罄:"+anyCurrentGoodsData.getCateId());
+        int snapnum = redisService.getSnapNum(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeStart());
+        if(snapnum >= anyCurrentGoodsData.getStockNum()){
+            return BizPacket.error(HttpStatus.GONE.value(),"本时段已全部售罄:"+anyCurrentGoodsData.getName());
         }
 
 
@@ -217,7 +222,7 @@ public class SnapServiceImpl implements SnapService {
         try {
             BizPacket bizPacket =  orderService.orderSnapSubmit(userData,orderSubmitForm,currentSnapGoods);
             if(bizPacket.getCode() == HttpStatus.OK.value()){
-                redisService.onSnapSucc(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeFrameStart());
+                redisService.onSnapSucc(anyCurrentGoodsData.getCateId(),anyCurrentGoodsData.getTimeStart());
             }
             return bizPacket;
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.amt.wechat.form.basic;
 
-import com.amt.wechat.model.poi.PoiBasicData;
+import com.amt.wechat.form.poi.PoiForm;
 
 import java.io.Serializable;
 
@@ -32,18 +32,10 @@ public class  WeichatLoginForm implements Serializable {
     /**
      * 店铺信息
      */
-    private PoiBasicData poiBasicData;
+    private PoiForm poiBasicData;
 
 
-    /**
-     * 是否完成了美团授权认证
-     */
-    private boolean mtAuth = false;
 
-    /**
-     * 是否完成了饿了么授权认证
-     */
-    private boolean eleAuth = false;
 
 
     public WeichatLoginForm() {
@@ -97,28 +89,12 @@ public class  WeichatLoginForm implements Serializable {
     public void setIsMaster(int isMaster) {
         this.isMaster = isMaster;
     }
-    public PoiBasicData getPoiBasicData() {
+    public PoiForm getPoiBasicData() {
         return poiBasicData;
     }
 
-    public void setPoiBasicData(PoiBasicData poiBasicData) {
+    public void setPoiBasicData(PoiForm poiBasicData) {
         this.poiBasicData = poiBasicData;
-    }
-
-    public boolean isMtAuth() {
-        return mtAuth;
-    }
-
-    public void setMtAuth(boolean mtAuth) {
-        this.mtAuth = mtAuth;
-    }
-
-    public boolean isEleAuth() {
-        return eleAuth;
-    }
-
-    public void setEleAuth(boolean eleAuth) {
-        this.eleAuth = eleAuth;
     }
 
     @Override

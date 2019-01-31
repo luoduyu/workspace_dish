@@ -332,16 +332,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\workspace_dish\demo\src\main\java\com\adu" />
-      <recent name="D:\workspace_dish\wechat\src\main\resources\static" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.amt.wechat.service.bidding" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.amt.wechat.controller.order" />
       <recent name="com.amt.wechat.model.order" />
       <recent name="com.amt.wechat.model.balance" />
       <recent name="com.amt.wechat.common" />
       <recent name="com.amt.wechat.controller.poi" />
-      <recent name="com.amt.wechat.dao.decoration" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\workspace_dish\demo\src\main\java\com\adu\domain\redis" />
@@ -357,8 +356,9 @@
       <recent name="com.amt.wechat.model.snap" />
       <recent name="" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.amt.wechat.service.bidding" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace_dish\demo\src\main\java\com\adu" />
+      <recent name="D:\workspace_dish\wechat\src\main\resources\static" />
     </key>
   </component>
   <component name="RunDashboard">

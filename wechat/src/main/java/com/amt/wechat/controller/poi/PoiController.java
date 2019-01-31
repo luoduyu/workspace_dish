@@ -415,6 +415,27 @@ public class PoiController extends BaseController {
     }
 
     /**
+     * 余额支付密码设置
+     * @return
+     */
+    @PostMapping(value = "/setting/poi/balance/pwd/required")
+    public BizPacket isRequiredBalancePwdSet(Integer flag){
+        PoiUserData userData = getUser();
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+
+        if(StringUtils.isEmpty(flag)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数不能为空!");
+        }
+
+        if(flag != 0 && flag != 1){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数值非法:"+flag);
+        }
+        return poiService.balancePwdRequired(userData,flag);
+    }
+
+    /**
      * 密码忘记--验证码校验
      * @param smsCode
      * @return

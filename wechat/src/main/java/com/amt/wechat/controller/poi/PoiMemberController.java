@@ -261,4 +261,34 @@ public class PoiMemberController extends BaseController {
 
         return poiMemberService.autoFeeRenewCencel(userData);
     }
+
+
+    /**
+     * 会员自动续期取消
+     *
+     * @return
+     */
+    @PostMapping(value = "/member/feedback")
+    public BizPacket memberFeedback(String svcQty,String suggestText){
+        PoiUserData userData = getUser();
+
+        if(StringUtils.isEmpty(userData.getPoiId())){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+        }
+        if(StringUtils.isEmpty(svcQty)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少'服务质量'");
+        }
+        if(StringUtils.isEmpty(suggestText)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"缺少'建议文本'");
+        }
+        if(svcQty.trim().length() <= 1 || svcQty.trim().length() > 20){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"'服务质量'太长!");
+        }
+
+        if(suggestText.trim().length() <= 1 || suggestText.trim().length() > 200){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"'建议文本'太长!");
+        }
+
+        return poiMemberService.memberFeedback(userData,svcQty.trim(),suggestText.trim());
+    }
 }

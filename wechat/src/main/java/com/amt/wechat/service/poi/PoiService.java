@@ -34,6 +34,15 @@ public interface PoiService {
 
 
     /**
+     *
+     * @param userData
+     * @param flag 是否免密;0:否,1:是
+     * @return
+     */
+    public BizPacket balancePwdRequired(PoiUserData userData,int flag);
+
+
+    /**
      * 忘记余额密码
      * @param userData
      * @param newPwd

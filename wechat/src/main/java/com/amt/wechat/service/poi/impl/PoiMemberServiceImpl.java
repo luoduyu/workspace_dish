@@ -9,15 +9,14 @@ import com.amt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.amt.wechat.dao.member.MemberDao;
 import com.amt.wechat.dao.member.PoiMemberDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
+import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.poi.MyMemberDataForm;
 import com.amt.wechat.model.member.MemberCardData;
-import com.amt.wechat.model.poi.PoiAccountData;
-import com.amt.wechat.model.poi.PoiMemberData;
-import com.amt.wechat.model.poi.PoiMemberRDData;
-import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.model.member.MemberFeedbackData;
+import com.amt.wechat.model.poi.*;
 import com.amt.wechat.service.balance.BalanceService;
 import com.amt.wechat.service.pay.PayWechatService;
 import com.amt.wechat.service.pay.util.MD5Util;
@@ -47,6 +46,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
     private @Resource PoiMemberDao poiMemberDao;
     private @Resource PoiAccountDao poiAccountDao;
     private @Resource MemberDao memberDao;
+    private @Resource PoiDao poiDao;
     private @Resource GlobalSettingDao globalSettingDao;
     private @Resource PayWechatService payWechatService;
     private @Resource BalanceService balanceService;
@@ -565,6 +565,24 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return BizPacket.success();
         } catch (Exception e) {
             logger.error("userData="+userData+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+    @Override
+    public BizPacket memberFeedback(PoiUserData userData, String svcQty, String suggestText) {
+        try {
+            MemberFeedbackData data = new MemberFeedbackData();
+            data.setCreateTime(DateTimeUtil.now());
+            data.setPoiId(userData.getPoiId());
+            data.setStatus(0);
+            data.setSuggestText(suggestText);
+            data.setSvcQty(svcQty);
+            data.setUserId(userData.getId());
+            poiMemberDao.addFeedback(data);
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("userData="+userData+",svcQty="+svcQty+",suggestText="+suggestText+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }

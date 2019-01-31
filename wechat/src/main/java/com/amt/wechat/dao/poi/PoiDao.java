@@ -31,6 +31,10 @@ public interface PoiDao {
     @Update("UPDATE poi SET balancePwd=#{pwd} WHERE id=#{poiId}")
     public void updateBalancePwd(String pwd,String poiId);
 
+
+    @Update("UPDATE poi SET balancePwdFree=#{balancePwdFree} WHERE id=#{poiId}")
+    public void updateBalancePwdRequired(int balancePwdFree,String poiId);
+
     @Update("UPDATE poi SET eleShopId=#{eleShopId},accountName=#{accountName},accountPassword=#{accountPassword}, updTime=#{updTime} WHERE id = #{id}")
     public void eleAuth(PoiData poiData);
 

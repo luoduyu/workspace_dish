@@ -1,5 +1,6 @@
 package com.amt.wechat.dao.member;
 
+import com.amt.wechat.model.member.MemberFeedbackData;
 import com.amt.wechat.model.poi.PoiMemberData;
 import com.amt.wechat.model.poi.PoiMemberRDData;
 import org.apache.ibatis.annotations.*;
@@ -67,4 +68,8 @@ public interface PoiMemberDao {
      */
     @Select("SELECT * FROM poi_member_rd WHERE poiId=#{poiId} ORDER BY buyTime DESC LIMIT #{index},#{pageSize}")
     public List<PoiMemberRDData> getMemberBoughtList(String poiId, int index, int pageSize);
+
+
+    @Insert("INSERT INTO poi_member_feedback(userId,poiId,svcQty,suggestText,createTime,status) VALUES(#{userId},#{poiId},#{svcQty},#{suggestText},#{createTime},#{status})")
+    public void addFeedback(MemberFeedbackData data);
 }

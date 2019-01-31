@@ -104,4 +104,8 @@ public interface PoiMemberService {
      * @return
      */
     public BizPacket autoFeeRenewCencel(PoiUserData userData);
+
+
+
+    public BizPacket memberFeedback(PoiUserData userData,String svcQty,String suggestText);
 }

@@ -108,6 +108,25 @@ public class PoiServiceImpl implements PoiService {
         }
     }
 
+    @Override
+    public BizPacket balancePwdRequired(PoiUserData userData, int flag) {
+        try {
+            PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+            if(poiData == null){
+                return BizPacket.error(HttpStatus.NOT_FOUND.value(),"店铺已不存!");
+            }
+
+            if(poiData.getBalancePwdFree() == flag){
+                return BizPacket.success();
+            }
+            poiData.setBalancePwdFree(flag);
+            poiDao.updateBalancePwdRequired(flag,poiData.getId());
+            return BizPacket.success();
+        } catch (Exception e) {
+            logger.error("userData="+userData+",flag="+flag+",e="+e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
 
     @Override
     public BizPacket balancePwdReset(PoiUserData userData, String oldPwd, String newPwd) {

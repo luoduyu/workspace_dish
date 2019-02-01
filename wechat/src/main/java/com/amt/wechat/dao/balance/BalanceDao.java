@@ -2,6 +2,7 @@ package com.amt.wechat.dao.balance;
 
 import com.amt.wechat.model.balance.BalanceConsumeRd;
 import com.amt.wechat.model.balance.BalanceRechargeRD;
+import com.amt.wechat.model.balance.BalanceSettingData;
 import com.amt.wechat.model.balance.CurrencyStageData;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -52,4 +53,8 @@ public interface BalanceDao {
     @Select("SELECT COUNT(*) FROM balance_consume WHERE poiId=#{poiId}")
     public int countConsumeData(String poiId);
 
+
+
+    @Select("SELECT * FROM balance_setting WHERE isEnabled=1 LIMIT 1")
+    public BalanceSettingData getGlobalSettingData();
 }

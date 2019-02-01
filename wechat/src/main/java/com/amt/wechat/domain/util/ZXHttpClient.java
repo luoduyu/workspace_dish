@@ -94,7 +94,7 @@ import java.util.Map;
 				result = entityToString(entity);
 			}
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 		} catch (ClientProtocolException e) {
 			logger.error(e.getMessage(),e);
 		} catch (IOException e) {
@@ -134,7 +134,7 @@ import java.util.Map;
 	}
 	
 	/**
-     * 发送HttpPost带参请求，jsonString
+     * 发送HttpPost带参请求,jsonString
      * @param url
      * @param requestJson
      * @return
@@ -160,7 +160,7 @@ import java.util.Map;
             }
             return result;
         }catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
         }catch (ParseException  e) {
 			logger.error(e.getMessage(),e);
         } finally {

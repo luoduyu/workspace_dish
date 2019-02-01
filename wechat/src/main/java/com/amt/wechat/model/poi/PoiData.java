@@ -369,7 +369,6 @@ public class PoiData implements Serializable {
         basicData.setCurRedBalance(accountData.getCurRedBalance());
         basicData.setCurBalance(accountData.getCurBalance());
         basicData.setCurBiddingBalance(accountData.getCurBiddingBalance());
-        basicData.setCurrShareBalance(accountData.getCurrShareBalance());
 
         basicData.setBalancePwdFree(o.getBalancePwdFree());
         basicData.setMasterMobile(masterMobile);

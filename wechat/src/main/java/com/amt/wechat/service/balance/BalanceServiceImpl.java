@@ -15,6 +15,7 @@ import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.model.balance.BalanceConsumeRd;
 import com.amt.wechat.model.balance.BalanceRechargeRD;
+import com.amt.wechat.model.balance.BalanceSettingData;
 import com.amt.wechat.model.balance.CurrencyStageData;
 import com.amt.wechat.model.order.OrderData;
 import com.amt.wechat.model.poi.PoiAccountData;
@@ -26,6 +27,7 @@ import com.amt.wechat.service.pay.util.MD5Util;
 import com.amt.wechat.service.pay.util.Sha1Util;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
 import com.amt.wechat.service.poi.PoiMemberService;
+import com.amt.wechat.service.redis.RedisService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -53,8 +55,7 @@ public class BalanceServiceImpl implements  BalanceService {
     private @Resource PoiAccountDao poiAccountDao;
     private @Resource PayWechatService payWechatService;
     private @Resource OrderDao orderDao;
-
-
+    private @Resource RedisService redisService;
 
 
     @Override
@@ -171,7 +172,9 @@ public class BalanceServiceImpl implements  BalanceService {
         // TODO 请求一个 '店铺帐户全局分布式锁’(基于redis)
         PoiAccountData accountData =  poiAccountDao.getAccountData(rd.getPoiId());
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
-        int red = devMode ? 1:WechatUtil.roundDown(WechatUtil.mul4Float(amount,0.1f));
+
+        // 返赠额计算
+        int red = getRedReward(amount);
         poiAccountDao.updatePoiBalance(accountData.getCurBalance()+amount,accountData.getCurRedBalance()+red,rd.getPoiId());
 
         rd.setBalance(accountData.getCurBalance() + amount);
@@ -182,6 +185,42 @@ public class BalanceServiceImpl implements  BalanceService {
         logger.info("余额充值成功!rd={},充值额={}分,充值前余额={},充值前红包余额={}",rd,amount,accountData.getCurBalance(),accountData.getCurRedBalance());
 
         return BizPacket.success();
+    }
+
+    /**
+     * 计算返赠金额
+     * @param amount 充值金额,单位:分
+     * @return
+     */
+    private int getRedReward(int amount){
+
+        // 开发模式下一律返回1分钱
+        if(devMode){
+            return 1;
+        }
+
+        BalanceSettingData settingData = redisService.getBalanceSetting();
+
+        // 若配置不存在,固定为10%,且充值金额必须大于等于100元(10000分)
+        if(settingData == null){
+            if(amount < 10000){
+                return 0;
+            }
+
+            int red = WechatUtil.roundDown(WechatUtil.mul4Float(amount,0.1f));
+            return red;
+        }
+
+        // 若存在设置时
+
+        // 低于充值下限,无返现
+        if(amount < settingData.getRedRewardLowerLimit()){
+            return 0;
+        }
+
+        float percent = WechatUtil.div4Float(settingData.getRedRewardPercent(),10000);
+        int red = WechatUtil.roundDown(WechatUtil.mul4Float(amount,percent));
+        return red;
     }
 
     @Override

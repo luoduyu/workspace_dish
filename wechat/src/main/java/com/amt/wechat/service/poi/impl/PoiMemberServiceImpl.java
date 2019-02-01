@@ -116,7 +116,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
     @Override
     public boolean memberNewbie(String poiId){
-        int rdSize = poiMemberDao.countPoiMemberRD(poiId);
+        int rdSize = poiMemberDao.countPoiMemberRDWithPaystatus(poiId,PayStatus.PAIED.value());
         return rdSize <= 0;
     }
 

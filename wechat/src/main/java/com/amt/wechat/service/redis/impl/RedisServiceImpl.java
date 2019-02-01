@@ -1,6 +1,12 @@
-package com.amt.wechat.service.redis;
+package com.amt.wechat.service.redis.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.domain.util.WechatUtil;
+import com.amt.wechat.model.balance.BalanceSettingData;
 import com.amt.wechat.model.poi.PoiUserData;
+import com.amt.wechat.domain.redis.RedisConstants;
+import com.amt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +29,7 @@ public class RedisServiceImpl implements RedisService {
     private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
     private @Autowired StringRedisTemplate stringRedisTemplate;
     private @Autowired RedisTemplate<String, Serializable> redisTemplate;
+    private static BalanceSettingData balanceSettingData;
 
     public final static DateTimeFormatter DATE_COMPACT = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
@@ -227,4 +234,51 @@ public class RedisServiceImpl implements RedisService {
         return result;
     }
 
+    @Override
+    public void onBalanceSettingChanged(String settingJSONMessage) {
+        logger.info("收到余额相关设置数据={}",settingJSONMessage);
+        BalanceSettingData _temp = JSON.parseObject(settingJSONMessage,BalanceSettingData.class);;
+        balanceSettingData = _temp;
+    }
+
+    @Override
+    public BalanceSettingData getBalanceSetting(){
+        return balanceSettingData;
+    }
+
+    @Override
+    public String getWeixinAccessToken() {
+        String accessToken = stringRedisTemplate.opsForValue().get(RedisConstants.REDIS_WECHAT_ACCESS_TOKEN);
+        if(accessToken != null){
+            return accessToken;
+        }
+
+
+        long now = System.currentTimeMillis();
+
+        JSONObject jsonObject = WechatUtil.getWeixinAccessToken();
+        accessToken  = jsonObject.getString("access_token");
+        if(accessToken != null && accessToken.trim().length() >= 1){
+
+            // 计算从请求发起，到获得响应应的时间差,并冗余1秒
+            int delta = (int)((System.currentTimeMillis() - now)/1000 + 1);
+
+            Integer expires_in = jsonObject.getInteger("expires_in");
+
+            // 为确保可靠,必须减掉请求时间
+            if(expires_in != null){
+                expires_in -= delta;
+            }else{
+
+                // 官方值为7200,为确保可靠,设置个短一些的时长
+                expires_in = 7000;
+            }
+            stringRedisTemplate.opsForValue().setIfAbsent(RedisConstants.REDIS_WECHAT_ACCESS_TOKEN,accessToken,expires_in,TimeUnit.SECONDS);
+            return accessToken;
+        }
+
+
+        logger.error("向微信请求小程序全局唯一后台接口调用凭据时出错!jsonObject={}",jsonObject.toString());
+        return null;
+    }
 }

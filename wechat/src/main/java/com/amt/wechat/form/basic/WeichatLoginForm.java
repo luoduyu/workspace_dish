@@ -15,6 +15,12 @@ import java.io.Serializable;
  */
 public class  WeichatLoginForm implements Serializable {
     private static final long serialVersionUID = 305892774632439166L;
+
+    /**
+     * 店铺userId
+     */
+    private String puid;
+
     private String accessToken;
 
 
@@ -29,6 +35,13 @@ public class  WeichatLoginForm implements Serializable {
      */
     private int isMaster;
 
+
+    /**
+     * 当前分享金余额
+     */
+    private int shareBalance =0;
+
+
     /**
      * 店铺信息
      */
@@ -40,6 +53,15 @@ public class  WeichatLoginForm implements Serializable {
 
     public WeichatLoginForm() {
 
+    }
+
+
+    public String getPuid() {
+        return puid;
+    }
+
+    public void setPuid(String puid) {
+        this.puid = puid;
     }
 
     public String getAccessToken() {
@@ -89,6 +111,15 @@ public class  WeichatLoginForm implements Serializable {
     public void setIsMaster(int isMaster) {
         this.isMaster = isMaster;
     }
+
+    public int getShareBalance() {
+        return shareBalance;
+    }
+
+    public void setShareBalance(int shareBalance) {
+        this.shareBalance = shareBalance;
+    }
+
     public PoiForm getPoiBasicData() {
         return poiBasicData;
     }
@@ -100,6 +131,7 @@ public class  WeichatLoginForm implements Serializable {
     @Override
     public String toString() {
         return "WeichatLoginForm{" +
+                "puid='" + puid + '\'' +
                 "accessToken='" + accessToken + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +

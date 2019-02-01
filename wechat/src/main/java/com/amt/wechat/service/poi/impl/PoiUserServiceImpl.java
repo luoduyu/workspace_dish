@@ -97,6 +97,7 @@ public class PoiUserServiceImpl implements PoiUserService {
         data.setIsCredentialsNonExpired(1);
         data.setIsEnabled(1);
         data.setIsMaster(EmplIdentity.NONE.value());
+        data.setShareBalance(0);
         data.setName("");
         data.setCountryCode("中国");
 
@@ -302,12 +303,14 @@ public class PoiUserServiceImpl implements PoiUserService {
     @Override
     public WeichatLoginForm buildResponse(PoiUserData userData){
         WeichatLoginForm form = new WeichatLoginForm();
+        form.setPuid(userData.getId());
         form.setAccessToken(userData.getAccessToken());
         form.setNickName(userData.getNickName());
         form.setAvatarUrl(userData.getAvatarUrl());
         form.setName(userData.getName());
         form.setMobile(userData.getMobile());
         form.setIsMaster(userData.getIsMaster());
+        form.setShareBalance(userData.getShareBalance());
 
         if(StringUtils.isEmpty(userData.getPoiId())) {
             return form;

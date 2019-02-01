@@ -106,11 +106,6 @@ public class PoiForm implements Serializable {
      */
     private int curBiddingBalance;
 
-    /**
-     * 当前分享金余额,单位:分
-     */
-    private int currShareBalance;
-
 
     /**
      * 是否完成了美团授权认证
@@ -265,13 +260,6 @@ public class PoiForm implements Serializable {
         this.curBiddingBalance = curBiddingBalance;
     }
 
-    public int getCurrShareBalance() {
-        return currShareBalance;
-    }
-
-    public void setCurrShareBalance(int currShareBalance) {
-        this.currShareBalance = currShareBalance;
-    }
 
     public boolean isMtAuth() {
         return mtAuth;

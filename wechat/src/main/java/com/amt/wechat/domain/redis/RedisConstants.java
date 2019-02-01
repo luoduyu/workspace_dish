@@ -1,4 +1,4 @@
-package com.amt.wechat.service.redis;
+package com.amt.wechat.domain.redis;
 
 /**
  * Copyright (c) 2018 by CANSHU
@@ -49,4 +49,16 @@ public class RedisConstants {
      * 每天每类别的抢购订单数
      */
     public static final String WECHAT_SNAP_COUNT_CATE = "wmt_wechat:snapnum_cate:";
+
+
+    /**
+     * redis消息通道名称:余额设置
+     */
+    public static final String REDIS_CH_BALANCE_SETTING="onBalanceSettingChanged";
+
+
+    /**
+     * 微信小程序全局唯一后台接口调用凭据(access_token)
+     */
+    public static final String REDIS_WECHAT_ACCESS_TOKEN="wmt_wechat:access_token";
 }

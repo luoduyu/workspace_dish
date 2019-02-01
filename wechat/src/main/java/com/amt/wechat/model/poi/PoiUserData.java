@@ -45,6 +45,13 @@ public class PoiUserData extends PoiBasicUserData {
      */
     private int isMaster;
 
+
+    /**
+     * 当前优分享金余额
+     */
+    private int shareBalance;
+
+
     /**
      * 密码信息
      */
@@ -118,6 +125,14 @@ public class PoiUserData extends PoiBasicUserData {
 
     public void setIsMaster(int isMaster) {
         this.isMaster = isMaster;
+    }
+
+    public int getShareBalance() {
+        return shareBalance;
+    }
+
+    public void setShareBalance(int shareBalance) {
+        this.shareBalance = shareBalance;
     }
 
     public String getAccessToken() {

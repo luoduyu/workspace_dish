@@ -1,5 +1,8 @@
 package com.amt.wechat.service.poi.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.common.Constants;
 import com.amt.wechat.dao.dish.DishDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
@@ -7,6 +10,7 @@ import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
+import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.BasicSettingForm;
 import com.amt.wechat.model.poi.PoiAccountData;
 import com.amt.wechat.model.poi.PoiData;
@@ -14,6 +18,8 @@ import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.poi.EmplIdentity;
 import com.amt.wechat.service.poi.PoiService;
 import com.amt.wechat.service.redis.RedisService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -267,8 +273,6 @@ public class PoiServiceImpl implements PoiService {
 
     private PoiAccountData createPoiAccount(PoiData poiData){
         PoiAccountData accountData = new PoiAccountData();
-
-        accountData.setCurrShareBalance(0);
         accountData.setCurRedBalance(0);
         accountData.setCurBiddingBalance(0);
         accountData.setCostSave(0);
@@ -307,5 +311,31 @@ public class PoiServiceImpl implements PoiService {
         poiData.setCreateTime(DateTimeUtil.now());
         poiData.setUpdTime(poiData.getUpdTime());
         return poiData;
+    }
+
+    @Override
+    public BizPacket getwxacodeunlimit(PoiUserData userData) {
+        String accessToken = redisService.getWeixinAccessToken();
+        if(accessToken == null){
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),"从微信请求获取access_token时出错!");
+        }
+
+
+        String wxacodeUnlimitImgUrl ="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/image/qrcode.png?t=19013120";
+        String url = String.format(Constants.URL_WX_ACODE_UNLIMIT, accessToken);
+
+        Document document = null;
+        try {
+            document = Jsoup.connect(url).post();
+        } catch (IOException e) {
+            logger.info(e.getMessage(), e);
+            return null;
+        }
+        String resultText = document.text();
+        JSONObject jsonObject = JSON.parseObject(resultText);
+        return jsonObject;
+
+
+        return BizPacket.success(wxacodeUnlimitImgUrl);
     }
 }

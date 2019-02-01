@@ -57,8 +57,12 @@ public interface PoiMemberDao {
      * @param poiId
      * @return
      */
-    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId} AND payStatus=2")
+    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId}")
     public int countPoiMemberRD(String poiId);
+
+    @Select("SELECT COUNT(id) FROM poi_member_rd WHERE poiId=#{poiId} AND payStatus=#{payStatus}")
+    public int countPoiMemberRDWithPaystatus(String poiId,int payStatus);
+
     /**
      * 会员卡购买记录
      * @param poiId

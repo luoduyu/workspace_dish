@@ -1,6 +1,7 @@
 package com.amt.wechat.service.redis;
 
 
+import com.amt.wechat.model.balance.BalanceSettingData;
 import com.amt.wechat.model.poi.PoiUserData;
 
 import java.io.IOException;
@@ -84,4 +85,20 @@ public interface RedisService {
      * @return k:hhMMss
      */
     public Map<String,Integer> countTodaySnapSoldNum(int cateId);
+
+
+    /**
+     * 余额设置有改变时收到此消息
+      * @param settingJSONMessage
+     */
+    public void onBalanceSettingChanged(String settingJSONMessage);
+    public BalanceSettingData getBalanceSetting();
+
+
+    /**
+     * 获取微信小程序全局唯一后台接口调用凭据(access_token)
+     * 调调用绝大多数后台接口时都需使用 access_token，开发者需要进行妥善保存
+     * @return
+     */
+    public String getWeixinAccessToken();
 }

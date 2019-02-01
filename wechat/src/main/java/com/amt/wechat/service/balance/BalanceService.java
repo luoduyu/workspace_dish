@@ -32,6 +32,12 @@ public interface BalanceService {
      * @return
      */
     public BizPacket recharge(PoiUserData userData, int amount) throws Exception;
+
+    /**
+     * 余额充值微信回调
+     * @param wechatPayCallbackParams
+     * @return
+     */
     public BizPacket rechargeCallback(Map<String,String> wechatPayCallbackParams);
 
 

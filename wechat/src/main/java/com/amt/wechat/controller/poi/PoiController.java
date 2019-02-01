@@ -563,4 +563,10 @@ public class PoiController extends BaseController {
         PoiUserData userData  = getUser();
         return poiService.mtAuth(userData,accountName,accountPwd);
     }
+
+    @GetMapping(value = "/setting/getwxacodeunlimit")
+    public BizPacket getwxacodeunlimit(){
+        PoiUserData userData  = getUser();
+        return poiService.getwxacodeunlimit(userData);
+    }
 }

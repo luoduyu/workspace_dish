@@ -46,6 +46,25 @@ public class WechatUtil {
 
 
     /**
+     * 获取小程序全局唯一后台接口调用凭据(access_token)
+     *
+     * @return
+     */
+    public static JSONObject getWeixinAccessToken() {
+        Document document = null;
+        try {
+            document = Jsoup.connect(Constants.URL_ACCESS_TOKEN).get();
+        } catch (IOException e) {
+            logger.info(e.getMessage(), e);
+            return null;
+        }
+        String resultText = document.text();
+        JSONObject jsonObject = JSON.parseObject(resultText);
+        return jsonObject;
+    }
+
+
+    /**
      * 获取登录凭证信息
      *
      * @param wxCode
@@ -414,6 +433,11 @@ public class WechatUtil {
         System.out.println(r);
     }
 
+    /**
+     * 向下取整
+     * @param v
+     * @return
+     */
     public static int roundDown(float v) {
         BigDecimal b = new BigDecimal(Float.toString(v));
         b.setScale(0,BigDecimal.ROUND_DOWN);
@@ -432,5 +456,47 @@ public class WechatUtil {
         BigDecimal b1 = new BigDecimal(Float.toString(v1));
         BigDecimal b2 = new BigDecimal(Float.toString(v2));
         return b1.multiply(b2).floatValue();
+    }
+
+    /**
+     *
+     * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
+     *
+     * @param v1 被除数
+     * @param v2 除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @return 两个参数的商
+     */
+    public static float div4Float(float v1, float v2, int scale) {
+
+        if (scale < 0) {
+            throw new IllegalArgumentException("The scale must be a positive integer or zero");
+        }
+        if (v2 == 0) {
+            return 0;
+        }
+        BigDecimal b1 = new BigDecimal(Float.toString(v1));
+        BigDecimal b2 = new BigDecimal(Float.toString(v2));
+        return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+
+    // 默认除法运算精度
+
+    private static final int DEF_DIV_SCALE = 10;
+
+    /**
+     *
+     * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
+     *
+     * @param v1 被除数
+     * @param v2 除数
+     * @return 两个参数的商
+     */
+    public static float div4Float(float v1, float v2) {
+        if (v2 == 0) {
+            return 0;
+        }
+        return div4Float(v1, v2, DEF_DIV_SCALE);
     }
 }

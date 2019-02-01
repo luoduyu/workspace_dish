@@ -20,7 +20,7 @@ public interface PoiAccountDao {
     @Select("SELECT * FROM poi_account WHERE poiId=#{poiId} LIMIT 1")
     public PoiAccountData getAccountData(String poiId);
 
-    @Insert("INSERT INTO poi_account(poiId,curBalance,curRedBalance,curBiddingBalance,currShareBalance)VALUES(#{poiId},#{curBalance},#{curRedBalance},#{curBiddingBalance},#{currShareBalance})")
+    @Insert("INSERT INTO poi_account(poiId,curBalance,curRedBalance,curBiddingBalance)VALUES(#{poiId},#{curBalance},#{curRedBalance},#{curBiddingBalance})")
     public void addPoiAccountData(PoiAccountData data);
 
     @Update("UPDATE poi_account SET curBiddingBalance = curBiddingBalance + #{amount} WHERE poiId=#{poiId}")

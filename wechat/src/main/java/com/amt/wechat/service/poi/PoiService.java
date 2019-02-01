@@ -63,4 +63,10 @@ public interface PoiService {
 
     public BizPacket eleAuth(PoiUserData userData,String accountName,String accountPwd);
     public BizPacket mtAuth(PoiUserData userData,String accountName,String accountPwd);
+
+    /**
+     * 微信二给码图片生成
+     * @return
+     */
+    public BizPacket getwxacodeunlimit(PoiUserData userData);
 }

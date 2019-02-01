@@ -26,12 +26,6 @@ public class PoiAccountData implements Serializable {
      */
     private int curBiddingBalance;
 
-    /**
-     * 当前分享金余额,单位:分
-     */
-    private int currShareBalance;
-
-
 
     /**
      * 节省花费,单位:分
@@ -72,14 +66,6 @@ public class PoiAccountData implements Serializable {
         this.curBiddingBalance = curBiddingBalance;
     }
 
-    public int getCurrShareBalance() {
-        return currShareBalance;
-    }
-
-    public void setCurrShareBalance(int currShareBalance) {
-        this.currShareBalance = currShareBalance;
-    }
-
     public int getCostSave() {
         return costSave;
     }
@@ -95,7 +81,6 @@ public class PoiAccountData implements Serializable {
                 ", curBalance=" + curBalance +
                 ", curRedBalance=" + curRedBalance +
                 ", curBiddingBalance=" + curBiddingBalance +
-                ", currShareBalance=" + currShareBalance +
                 '}';
     }
 }

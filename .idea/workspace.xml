@@ -9,33 +9,8 @@
     <bookmark url="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/member/PoiMemberDao.java" line="44" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="抢购/订单/店铺管理方面修改及重构&#10;新加是否免密支付设置/会员反馈">
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/balance/BalanceSettingData.java" afterDir="false" />
+    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/common/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/balance/BalanceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/balance/BalanceDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/member/PoiMemberDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/member/PoiMemberDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiAccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiAccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisCacheAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/WechatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/WechatUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/ZXHttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/ZXHttpClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/poi/PoiForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/form/poi/PoiForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiAccountData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiAccountData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiMemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiMemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/RedisConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -95,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="324" column="77" selection-start-line="324" selection-start-column="77" selection-end-line="324" selection-end-column="77" />
+            <state relative-caret-position="497">
+              <caret line="334" column="61" lean-forward="true" selection-start-line="334" selection-start-column="61" selection-end-line="334" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -320,206 +295,6 @@
               <item name="wechat" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="pay" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="pay" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wechat" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="poi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="methods" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpclient:4.5.6" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpclient-4.5.6.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpcore:4.4.10" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpcore:4.4.10" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpcore-4.4.10.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpcore:4.4.10" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpcore-4.4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.httpcomponents:httpcore:4.4.10" type="70bed36:NamedLibraryElementNode" />
-              <item name="httpcore-4.4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.jsoup:jsoup:1.10.2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.jsoup:jsoup:1.10.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="jsoup-1.10.2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.jsoup:jsoup:1.10.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="jsoup-1.10.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="jsoup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.jsoup:jsoup:1.10.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="jsoup-1.10.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="jsoup" type="462c0819:PsiDirectoryNode" />
-              <item name="helper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -794,7 +569,7 @@
       <workItem from="1548735820817" duration="22771000" />
       <workItem from="1548811867959" duration="33828000" />
       <workItem from="1548898119195" duration="30267000" />
-      <workItem from="1548984197863" duration="20757000" />
+      <workItem from="1548984197863" duration="21009000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -915,7 +690,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548935875651</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="1)分享金由基于店铺修改到基于个人&#10;2)修复会员购买的记录中分页总数与实际分页不符的BUG&#10;3)充值返赠红包，增加充值起始金额限制，并修改为后台可完全可配置模式,支持以后搞活动。&#10;4)讨论分享的几种技术实现路径，并确定做法。&#10;5)对接微信二维码生成接口（未完）">
+      <created>1549020837428</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1549020837429</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -951,7 +733,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="880153000" />
+    <option name="totallyTimeSpent" value="880405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1058,7 +840,8 @@
     <MESSAGE value="1)分类别的海报集合/推荐海报集合/会员购买记录/我的订单集合 添加对分页的总数量的支持&#10;2)完成取消续费设置功能&#10;3)完成余额充值/充值记录查询/余额消费记录查询功能&#10;4)完成BOSS转让/店员删除功能&#10;5)完成余额支付密码设置/重置功能" />
     <MESSAGE value="抢购/订单/店铺管理方面修改及重构" />
     <MESSAGE value="抢购/订单/店铺管理方面修改及重构&#10;新加是否免密支付设置/会员反馈" />
-    <option name="LAST_COMMIT_MESSAGE" value="抢购/订单/店铺管理方面修改及重构&#10;新加是否免密支付设置/会员反馈" />
+    <MESSAGE value="1)分享金由基于店铺修改到基于个人&#10;2)修复会员购买的记录中分页总数与实际分页不符的BUG&#10;3)充值返赠红包，增加充值起始金额限制，并修改为后台可完全可配置模式,支持以后搞活动。&#10;4)讨论分享的几种技术实现路径，并确定做法。&#10;5)对接微信二维码生成接口（未完）" />
+    <option name="LAST_COMMIT_MESSAGE" value="1)分享金由基于店铺修改到基于个人&#10;2)修复会员购买的记录中分页总数与实际分页不符的BUG&#10;3)充值返赠红包，增加充值起始金额限制，并修改为后台可完全可配置模式,支持以后搞活动。&#10;4)讨论分享的几种技术实现路径，并确定做法。&#10;5)对接微信二维码生成接口（未完）" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1442,8 +1225,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="324" column="77" selection-start-line="324" selection-start-column="77" selection-end-line="324" selection-end-column="77" />
+        <state relative-caret-position="497">
+          <caret line="334" column="61" lean-forward="true" selection-start-line="334" selection-start-column="61" selection-end-line="334" selection-end-column="61" />
         </state>
       </provider>
     </entry>

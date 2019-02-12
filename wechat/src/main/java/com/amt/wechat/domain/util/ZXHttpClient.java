@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.CharArrayBuffer;
@@ -23,14 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-
-	public class ZXHttpClient {
+public class ZXHttpClient {
 	private static Logger logger = LoggerFactory.getLogger(ZXHttpClient.class);
 	
 
@@ -132,48 +132,7 @@ import java.util.Map;
 		}
 		return result;
 	}
-	
-	/**
-     * 发送HttpPost带参请求,jsonString
-     * @param url
-     * @param requestJson
-     * @return
-     */
-    public String postJsonToJson(String url,String requestJson){
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        // 创建http POST请求
-        HttpPost httpPost = new HttpPost(url);
-        if (requestJson != null) {
-            // 构造一个请求实体
-            StringEntity stringEntity = new StringEntity(requestJson, ContentType.APPLICATION_JSON);
-            // 将请求实体设置到httpPost对象中
-            httpPost.setEntity(stringEntity);
-        }
-        CloseableHttpResponse response = null;
-        try {
-            // 执行请求
-            response = httpclient.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            String result = null;
-            if(entity != null){
-                result = EntityUtils.toString(entity, "UTF-8");
-            }
-            return result;
-        }catch (IOException e) {
-            logger.error(e.getMessage(),e);
-        }catch (ParseException  e) {
-			logger.error(e.getMessage(),e);
-        } finally {
-            try{
-                if (response != null) {
-                    response.close();
-                }
-            }catch (IOException e) {
-				logger.error(e.getMessage(),e);
-            }
-        }
-        return "";
-    }
+
 
 	public static String get(String url) throws IOException {
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
@@ -189,7 +148,8 @@ import java.util.Map;
 			throw e;
 		} finally {
 			try {
-				httpCilent.close();//释放资源
+				// 释放资源
+				httpCilent.close();
 			} catch (IOException e) {
 				logger.error("httpclient request exception , errmsg : {}",e.getMessage(),e);
 				throw e;
@@ -197,5 +157,78 @@ import java.util.Map;
 		}
 
 	}
-	
+
+
+	private static final CloseableHttpClient httpClient;
+
+	static {
+		RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(60000).build();
+		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+	}
+
+
+	/**
+	 * 发送HttpPost带参请求,jsonString
+	 * @param url
+	 * @param requestJson
+	 * @return
+	 */
+	public InputStream postJsonToStream(String url, String requestJson){
+
+
+		// 创建http POST请求
+		HttpPost httpPost = new HttpPost(url);
+
+		// 构造一个请求实体
+		StringEntity stringEntity = new StringEntity(requestJson, ContentType.APPLICATION_JSON);
+		// 将请求实体设置到httpPost对象中
+		httpPost.setEntity(stringEntity);
+
+		CloseableHttpResponse response = null;
+		try {
+			// 执行请求
+			response = httpClient.execute(httpPost);
+			int statusCode = response.getStatusLine().getStatusCode();
+
+			// 重试一次
+			if (statusCode == 502 || statusCode == 504) {
+				httpPost.abort();
+				if (response != null) {
+					response.close();
+				}
+				httpPost = new HttpPost(url);
+				httpPost.setEntity(stringEntity);
+
+				response = httpClient.execute(httpPost);
+				statusCode = response.getStatusLine().getStatusCode();
+			}
+
+			if (statusCode != 200) {
+				httpPost.abort();
+				return null;
+			}
+
+
+			HttpEntity entity = response.getEntity();
+			if(entity != null){
+				return entity.getContent();
+			}
+			return null;
+		}catch (IOException e) {
+			if (httpPost != null) {
+				httpPost.abort();
+			}
+			logger.error(e.getMessage(),e);
+		}catch (ParseException  e) {
+			logger.error(e.getMessage(),e);
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+		return null;
+	}
 }

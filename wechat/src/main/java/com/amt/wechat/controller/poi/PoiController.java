@@ -25,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -565,8 +566,24 @@ public class PoiController extends BaseController {
     }
 
     @GetMapping(value = "/setting/getwxacodeunlimit")
-    public BizPacket getwxacodeunlimit(){
+    public BizPacket getwxacodeunlimit(Integer pageUrlIndex){
+        if(pageUrlIndex == null || pageUrlIndex <0 || pageUrlIndex >= 4){
+            return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"错误的参数值:"+pageUrlIndex);
+        }
+
         PoiUserData userData  = getUser();
-        return poiService.getwxacodeunlimit(userData);
+        try {
+            return poiService.getwxacodeunlimit(userData,PAGE_URLS[pageUrlIndex]);
+        } catch (IOException e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
     }
+
+    private static final String[] PAGE_URLS={
+            "/go/kaidian/submit",           // 开店申请提交
+            "/go/yunying/submit",           // 运营申请提交
+            "/decoration/material/list",    // 店铺装修首页
+            ""                              // 首页
+    };
 }

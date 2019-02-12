@@ -30,7 +30,7 @@ public class LoginController{
      * @return
      */
     @RequestMapping(value = "/wechat/login",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
-    public BizPacket weichatLogin(String code, String  encryptedData, String iv){
+    public BizPacket weichatLogin(String code, String  encryptedData, String iv,String inviterId){
         if(code == null || code.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");
         }
@@ -41,10 +41,16 @@ public class LoginController{
            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数iv不正确!");
         }
 
+        if(!StringUtils.isEmpty(inviterId)){
+            if(inviterId.trim().length() != 32){
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数inviterId非法(32位)!");
+            }
+        }
+
 
         logger.info("code={},encryptedData={},iv={}",code,encryptedData,iv);
 
-        BizPacket packet =  poiUserService.weichatLogin(code,encryptedData,iv);
+        BizPacket packet =  poiUserService.weichatLogin(code,encryptedData,iv,inviterId);
         return packet;
     }
 

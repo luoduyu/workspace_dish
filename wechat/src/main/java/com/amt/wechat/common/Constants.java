@@ -42,7 +42,7 @@ public class Constants {
     /**
      * 微信小程序二维码图片生成
      */
-    public static final  String URL_WX_ACODE_UNLIMIT = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s";
+    public static final  String URL_WX_ACODE_UNLIMIT = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
 
 
     /**

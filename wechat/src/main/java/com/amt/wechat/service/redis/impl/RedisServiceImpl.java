@@ -247,38 +247,36 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public String getWeixinAccessToken() {
+    public String getWeixinAccessToken() throws IOException {
         String accessToken = stringRedisTemplate.opsForValue().get(RedisConstants.REDIS_WECHAT_ACCESS_TOKEN);
         if(accessToken != null){
             return accessToken;
         }
 
-
         long now = System.currentTimeMillis();
 
         JSONObject jsonObject = WechatUtil.getWeixinAccessToken();
+        if(jsonObject == null){
+            return null;
+        }
         accessToken  = jsonObject.getString("access_token");
-        if(accessToken != null && accessToken.trim().length() >= 1){
-
-            // 计算从请求发起，到获得响应应的时间差,并冗余1秒
-            int delta = (int)((System.currentTimeMillis() - now)/1000 + 1);
-
-            Integer expires_in = jsonObject.getInteger("expires_in");
-
-            // 为确保可靠,必须减掉请求时间
-            if(expires_in != null){
-                expires_in -= delta;
-            }else{
-
-                // 官方值为7200,为确保可靠,设置个短一些的时长
-                expires_in = 7000;
-            }
-            stringRedisTemplate.opsForValue().setIfAbsent(RedisConstants.REDIS_WECHAT_ACCESS_TOKEN,accessToken,expires_in,TimeUnit.SECONDS);
-            return accessToken;
+        if(accessToken == null){
+            throw new IOException(jsonObject.getString("errmsg"));
         }
 
+        // 计算从请求发起，到获得响应应的时间差,并冗余1秒
+        int delta = (int)((System.currentTimeMillis() - now)/1000 + 1);
+        Integer expires_in = jsonObject.getInteger("expires_in");
 
-        logger.error("向微信请求小程序全局唯一后台接口调用凭据时出错!jsonObject={}",jsonObject.toString());
-        return null;
+        // 为确保可靠,必须减掉请求时间
+        if(expires_in != null){
+            expires_in -= delta;
+        }else{
+
+            // 官方值为7200,为确保可靠,设置个短一些的时长
+            expires_in = 7000;
+        }
+        stringRedisTemplate.opsForValue().setIfAbsent(RedisConstants.REDIS_WECHAT_ACCESS_TOKEN,accessToken.trim(),expires_in,TimeUnit.SECONDS);
+        return accessToken;
     }
 }

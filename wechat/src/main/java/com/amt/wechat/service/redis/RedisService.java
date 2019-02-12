@@ -100,5 +100,5 @@ public interface RedisService {
      * 调调用绝大多数后台接口时都需使用 access_token，开发者需要进行妥善保存
      * @return
      */
-    public String getWeixinAccessToken();
+    public String getWeixinAccessToken() throws IOException;
 }

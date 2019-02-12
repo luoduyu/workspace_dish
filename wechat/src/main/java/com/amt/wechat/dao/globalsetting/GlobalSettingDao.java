@@ -21,4 +21,9 @@ public interface GlobalSettingDao {
      */
     @Select("SELECT member_num_hasbeen_fee FROM globalsetting LIMIT 1")
     public Integer getMemberNum4HasbeenFee();
+
+
+    @Select("SELECT share_reward_amount FROM globalsetting LIMIT 1")
+    public Integer getShareReward();
+
 }

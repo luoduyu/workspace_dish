@@ -69,6 +69,12 @@ public class PoiUserData extends PoiBasicUserData {
     private String unionid="";
     private String updTime;
 
+    /**
+     * 邀请者Id(userId)
+     */
+    private String inviterId;
+
+
 
     public String getPassword() {
         return password;
@@ -209,6 +215,13 @@ public class PoiUserData extends PoiBasicUserData {
         this.poiId = poiId;
     }
 
+    public String getInviterId() {
+        return inviterId;
+    }
+
+    public void setInviterId(String inviterId) {
+        this.inviterId = inviterId;
+    }
 
     @Override
     public String toString() {

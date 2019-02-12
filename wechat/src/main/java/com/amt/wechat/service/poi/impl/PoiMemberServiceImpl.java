@@ -9,20 +9,24 @@ import com.amt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.amt.wechat.dao.member.MemberDao;
 import com.amt.wechat.dao.member.PoiMemberDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
-import com.amt.wechat.dao.poi.PoiDao;
+import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.poi.MyMemberDataForm;
 import com.amt.wechat.model.member.MemberCardData;
 import com.amt.wechat.model.member.MemberFeedbackData;
-import com.amt.wechat.model.poi.*;
+import com.amt.wechat.model.poi.PoiAccountData;
+import com.amt.wechat.model.poi.PoiMemberData;
+import com.amt.wechat.model.poi.PoiMemberRDData;
+import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.balance.BalanceService;
 import com.amt.wechat.service.pay.PayWechatService;
 import com.amt.wechat.service.pay.util.MD5Util;
 import com.amt.wechat.service.pay.util.Sha1Util;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
 import com.amt.wechat.service.poi.PoiMemberService;
+import com.amt.wechat.service.poi.PoiUserService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -46,10 +50,11 @@ public class PoiMemberServiceImpl implements PoiMemberService {
     private @Resource PoiMemberDao poiMemberDao;
     private @Resource PoiAccountDao poiAccountDao;
     private @Resource MemberDao memberDao;
-    private @Resource PoiDao poiDao;
+    private @Resource PoiUserService poiUserService;
     private @Resource GlobalSettingDao globalSettingDao;
     private @Resource PayWechatService payWechatService;
     private @Resource BalanceService balanceService;
+    private @Resource PoiUserDao poiUserDao;
 
     @Override
     public BizPacket memberDataFetch(PoiUserData userData){
@@ -237,6 +242,12 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
         // 升级会员
         memberUpgrade(memberData,rd);
+
+
+        String inviterId = poiUserDao.getInviterId(rd.getUserId());
+        if(inviterId != null ){
+            poiUserService.onInviteSucc(inviterId,rd.getUserId(),rd.getPoiId());
+        }
         return BizPacket.success();
     }
 

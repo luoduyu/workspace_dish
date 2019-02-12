@@ -4,6 +4,8 @@ import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.basic.BasicSettingForm;
 import com.amt.wechat.model.poi.PoiUserData;
 
+import java.io.IOException;
+
 /**
  * Copyright (c) 2019 by CANSHU
  *
@@ -65,8 +67,8 @@ public interface PoiService {
     public BizPacket mtAuth(PoiUserData userData,String accountName,String accountPwd);
 
     /**
-     * 微信二给码图片生成
+     * 微信二维码图片生成
      * @return
      */
-    public BizPacket getwxacodeunlimit(PoiUserData userData);
+    public BizPacket getwxacodeunlimit(PoiUserData userData,String shareUrl) throws IOException;
 }

@@ -21,13 +21,12 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.math.BigDecimal;
 import java.security.AlgorithmParameters;
 import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
@@ -50,16 +49,12 @@ public class WechatUtil {
      *
      * @return
      */
-    public static JSONObject getWeixinAccessToken() {
-        Document document = null;
-        try {
-            document = Jsoup.connect(Constants.URL_ACCESS_TOKEN).get();
-        } catch (IOException e) {
-            logger.info(e.getMessage(), e);
+    public static JSONObject getWeixinAccessToken() throws IOException {
+        String text = ZXHttpClient.get(Constants.URL_ACCESS_TOKEN);
+        if (text == null) {
             return null;
         }
-        String resultText = document.text();
-        JSONObject jsonObject = JSON.parseObject(resultText);
+        JSONObject jsonObject = JSONObject.parseObject(text);
         return jsonObject;
     }
 
@@ -339,9 +334,6 @@ public class WechatUtil {
     }
 
 
-
-
-
     /**
      * 有两种失败法:
      * 1)有错误返回标记,通信成功
@@ -352,34 +344,35 @@ public class WechatUtil {
      * @param result
      * @throws IOException
      */
-    public static void responseFail(HttpServletResponse response, String flag, Map<String,String> result){
+    public static void responseFail(HttpServletResponse response, String flag, Map<String, String> result) {
         try {
-            if(result != null && result.containsKey("return_msg")){
-                String xml = failXML(flag,result.get("return_msg"));
+            if (result != null && result.containsKey("return_msg")) {
+                String xml = failXML(flag, result.get("return_msg"));
                 response.getWriter().write(xml);
                 return;
             }
 
-            String xml = failXML(flag,"未知错误!");
+            String xml = failXML(flag, "未知错误!");
             response.getWriter().write(xml);
         } catch (IOException e) {
-            logger.error(e.getMessage(),e);
+            logger.error(e.getMessage(), e);
         }
     }
 
 
-    public static final String WECHAT_PAY_CALLBACK_SUCC= "<xml><return_code><![CDATA["+Constants.WE_SUCCESS+"]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-    public static final String WECHAT_PAY_CALLBACK_FAIL= "<xml><return_code><![CDATA[%s]]></return_code><return_msg><![CDATA[%s]]></return_msg></xml>";
+    public static final String WECHAT_PAY_CALLBACK_SUCC = "<xml><return_code><![CDATA[" + Constants.WE_SUCCESS + "]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+    public static final String WECHAT_PAY_CALLBACK_FAIL = "<xml><return_code><![CDATA[%s]]></return_code><return_msg><![CDATA[%s]]></return_msg></xml>";
 
     /**
      * 成功后设置返回的xml
-     * @Title: setXML
-     * @Description:
-     * @param @param return_code
-     * @param @param return_msg
+     *
+     * @param @param  return_code
+     * @param @param  return_msg
      * @param @return
      * @return String
      * @throws
+     * @Title: setXML
+     * @Description:
      */
     private static String failXML(String return_code, String return_msg) {
         String xml = String.format(WECHAT_PAY_CALLBACK_FAIL, return_code, return_msg);
@@ -387,7 +380,7 @@ public class WechatUtil {
     }
 
     public static String getResponseText(HttpServletRequest request) throws IOException {
-        try(BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()))){
+        try (BufferedReader br = new BufferedReader(new InputStreamReader((ServletInputStream) request.getInputStream()))) {
             String line = null;
             StringBuilder response = new StringBuilder();
             while ((line = br.readLine()) != null) {
@@ -399,53 +392,30 @@ public class WechatUtil {
 
     /**
      * 将字符串转为XML
+     *
      * @param responseText
      * @return
      */
-    public static  org.dom4j.Document getResponseXML(String responseText) throws DocumentException {
+    public static org.dom4j.Document getResponseXML(String responseText) throws DocumentException {
         org.dom4j.Document doc = DocumentHelper.parseText(responseText);
         return doc;
     }
 
 
-    public static void main(String[] args) {
-        /*
-        String encryptedData ="dXp+e+upG3at0SGnCBNZtQ+++w/hbuwFo2satyK5qTD4xGI8CCM6PHyIlbejVTPgFKr1PUTJmNQVTBKiKCKWf0VoOr+ReC+S5RdqlE0uD2eX9cTP9Oj+EzRm3AdoveJHLun74doXBxDccFTQuuNsCeJv6e2H8JH1awz3kvadGOPvEnMrDKrA99Vm+JTHZK7hy2wGQvdXOQgzFuK8lA3Ow3BJS4IYdIRNXwm8j1K7jxySyWvlIWuT1eHP3B345NYvQ3HxI23T0JC9WkiP6Cop13I97+nO6pl5RcBfOjLGAc4=";
-        String session_key  = "Tm9ZwkjBGdSZ8zmnFlHy8Q==";
-        String iv= "rZZxbQgeeQSt0+7qyoyLHA==";
-
-        JSONObject json = getUserInfo(encryptedData,session_key,iv);
-        System.out.println(json);
-        */
-
-
-        /*
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", "123456");
-        jsonObject.put("goodsName", "i am is goods");
-        jsonObject.put("imgUrl", "https://www.wmt.com/a/b/c.jpg");
-
-        String result = JSON.toJSONString(BizPacket.success(jsonObject));
-        System.out.println(result);
-        */
-
-        int r = roundDown(mul4Float(123,0.1f));
-        System.out.println(r);
-    }
 
     /**
      * 向下取整
+     *
      * @param v
      * @return
      */
     public static int roundDown(float v) {
         BigDecimal b = new BigDecimal(Float.toString(v));
-        b.setScale(0,BigDecimal.ROUND_DOWN);
+        b.setScale(0, BigDecimal.ROUND_DOWN);
         return b.intValue();
     }
 
     /**
-     *
      * 提供精确的乘法运算。
      *
      * @param v1 被乘数
@@ -459,11 +429,10 @@ public class WechatUtil {
     }
 
     /**
-     *
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
      *
-     * @param v1 被除数
-     * @param v2 除数
+     * @param v1    被除数
+     * @param v2    除数
      * @param scale 表示表示需要精确到小数点以后几位。
      * @return 两个参数的商
      */
@@ -486,7 +455,6 @@ public class WechatUtil {
     private static final int DEF_DIV_SCALE = 10;
 
     /**
-     *
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
      *
      * @param v1 被除数
@@ -498,5 +466,83 @@ public class WechatUtil {
             return 0;
         }
         return div4Float(v1, v2, DEF_DIV_SCALE);
+    }
+
+
+    /**
+     * 获取String的MD5值
+     *
+     * @param info 字符串
+     * @return 该字符串的MD5值
+     */
+    public static String getMD5(String info) {
+        try {
+            //获取 MessageDigest 对象，参数为 MD5 字符串，表示这是一个 MD5 算法（其他还有 SHA1 算法等）：
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+
+            // update(byte[])方法，输入原数据
+            // 类似StringBuilder对象的append()方法，追加模式，属于一个累计更改的过程
+            md5.update(info.getBytes("UTF-8"));
+
+            // digest()被调用后,MessageDigest对象就被重置，即不能连续再次调用该方法计算原数据的MD5值。可以手动调用reset()方法重置输入源。
+            // digest()返回值16位长度的哈希值，由byte[]承接
+            byte[] md5Array = md5.digest();
+
+            // byte[]通常我们会转化为十六进制的32位长度的字符串来使用,本文会介绍三种常用的转换方法
+            return bytesToHex1(md5Array);
+
+        } catch (NoSuchAlgorithmException e) {
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
+    }
+
+    private static String bytesToHex1(byte[] md5Array) {
+        StringBuilder strBuilder = new StringBuilder();
+        for (int i = 0; i < md5Array.length; i++) {
+
+            // 注意此处为什么添加 0xff & ?
+            int temp = 0xff & md5Array[i];
+            String hexString = Integer.toHexString(temp);
+
+            // 如果是十六进制的0f，默认只显示f，此时要补上0
+            if (hexString.length() == 1) {
+                strBuilder.append("0").append(hexString);
+            } else {
+                strBuilder.append(hexString);
+            }
+        }
+        return strBuilder.toString();
+    }
+
+    public static void main(String[] args) {
+        /*
+        String encryptedData ="dXp+e+upG3at0SGnCBNZtQ+++w/hbuwFo2satyK5qTD4xGI8CCM6PHyIlbejVTPgFKr1PUTJmNQVTBKiKCKWf0VoOr+ReC+S5RdqlE0uD2eX9cTP9Oj+EzRm3AdoveJHLun74doXBxDccFTQuuNsCeJv6e2H8JH1awz3kvadGOPvEnMrDKrA99Vm+JTHZK7hy2wGQvdXOQgzFuK8lA3Ow3BJS4IYdIRNXwm8j1K7jxySyWvlIWuT1eHP3B345NYvQ3HxI23T0JC9WkiP6Cop13I97+nO6pl5RcBfOjLGAc4=";
+        String session_key  = "Tm9ZwkjBGdSZ8zmnFlHy8Q==";
+        String iv= "rZZxbQgeeQSt0+7qyoyLHA==";
+
+        JSONObject json = getUserInfo(encryptedData,session_key,iv);
+        System.out.println(json);
+        */
+
+
+        /*
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", "123456");
+        jsonObject.put("goodsName", "i am is goods");
+        jsonObject.put("imgUrl", "https://www.wmt.com/a/b/c.jpg");
+
+        String result = JSON.toJSONString(BizPacket.success(jsonObject));
+        System.out.println(result);
+        */
+
+        /*
+        int r = roundDown(mul4Float(123, 0.1f));
+        System.out.println(r);
+        */
+
+        String md5=getMD5("c226527e25c5425ea95d9340486cf2d9"+"/aaa/bbb/ccc/sss");
+        System.out.println(md5);
     }
 }

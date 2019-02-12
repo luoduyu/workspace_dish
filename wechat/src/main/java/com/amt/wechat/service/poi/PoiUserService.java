@@ -24,7 +24,7 @@ public interface PoiUserService {
      * @param iv
      * @return
      */
-    public BizPacket weichatLogin(String code, String  encryptedData, String iv);
+    public BizPacket weichatLogin(String code, String  encryptedData, String iv,String inviterId);
 
     /**
      * 手机号认证授权
@@ -99,4 +99,13 @@ public interface PoiUserService {
      * @return
      */
     public BizPacket employeeRM(PoiUserData boss,String userId);
+
+
+    /**
+     *
+     * @param inviterId 邀请者Id
+     * @param inviteeId 被邀请者Id
+     * @param poiId 被邀请者poiId
+     */
+    public void onInviteSucc(String inviterId,String poiId,String inviteeId);
 }

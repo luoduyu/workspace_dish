@@ -151,8 +151,7 @@ public class Generator {
         return (localHost[0] & 0xff) + "." + (localHost[1] & 0xff) + "." + (localHost[2] & 0xff) + "." + (localHost[3] & 0xff);
     }
     public static void main(String[] args) {
-        for(int i=0;i<11;i++) {
-            System.out.println(generate());
-        }
+        System.out.println(uuid());
+        System.out.println(generate());
     }
 }

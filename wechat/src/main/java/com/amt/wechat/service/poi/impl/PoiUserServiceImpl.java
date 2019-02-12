@@ -10,9 +10,11 @@ watermark参数说明：
 package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.amt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poi.PoiUserDao;
+import com.amt.wechat.dao.poi.PoiUserWXCodeDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
@@ -41,10 +43,12 @@ public class PoiUserServiceImpl implements PoiUserService {
     private @Resource PoiDao poiDao;
     private @Resource RedisService redisService;
     private @Resource PoiAccountDao poiAccountDao;
+    private @Resource PoiUserWXCodeDao poiUserWXCodeDao;
+    private @Resource GlobalSettingDao globalSettingDao;
 
 
     @Override
-    public BizPacket weichatLogin(String code, String encryptedData, String iv) {
+    public BizPacket weichatLogin(String code, String encryptedData, String iv,String inviterId) {
         JSONObject sessionKeyAndOpenid = WechatUtil.getSessionKeyOrOpenId(code);
         if(sessionKeyAndOpenid == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"登录凭证校验失败!");
@@ -61,7 +65,7 @@ public class PoiUserServiceImpl implements PoiUserService {
                 JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("创建微信用户!userJson={}",userJson);
 
-                userData = createUser(sessionKeyAndOpenid,userJson);
+                userData = createUser(sessionKeyAndOpenid,userJson,inviterId);
                 poiUserDao.addPOIUser(userData);
 
             }else{
@@ -85,7 +89,7 @@ public class PoiUserServiceImpl implements PoiUserService {
 
 
 
-    private PoiUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson){
+    private PoiUserData createUser(JSONObject sessionKeyAndOpenid,JSONObject userJson,String inviterId){
         PoiUserData data = new PoiUserData();
         data.setPoiId("");
         data.setId(Generator.uuid());
@@ -102,6 +106,10 @@ public class PoiUserServiceImpl implements PoiUserService {
         data.setCountryCode("中国");
 
         data.setPassword("");
+        if(inviterId != null){
+            data.setInviterId(inviterId.trim());
+        }
+
         updateUser(data,sessionKeyAndOpenid,userJson);
         return data;
     }
@@ -434,5 +442,39 @@ public class PoiUserServiceImpl implements PoiUserService {
             logger.error("boss="+boss+",userId="+boss+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
+    }
+
+    @Override
+    public void onInviteSucc(String inviterId, String poiId, String inviteeId) {
+        try {
+            Integer amount = poiUserWXCodeDao.countIncomeByPoiId(poiId);
+            if(amount != null && amount >=1){
+                logger.info("基于店铺poi,id={}的邀请奖励已经发放过了!邀请者id={},被邀请者id={}",poiId,inviterId,inviteeId);
+                return;
+            }
+            Integer  share =  globalSettingDao.getShareReward();
+            if(share == null){
+                logger.info("未设置邀请奖励!poiId={},邀请者id={},被邀请者id={}",poiId,inviterId,inviteeId);
+                return;
+            }
+
+            UserIncomeData data = createIncomeRD(inviterId,poiId,inviteeId,share);
+            poiUserWXCodeDao.addInvitation(data);
+
+            // TODO 请求一个‘个人奖励金帐户的的全局分布式锁‘
+            poiUserDao.updateShareBlance(inviterId,share);
+        } catch (Exception e) {
+            logger.error("发放邀请奖励时出错!inviterId="+inviterId+",poiId="+poiId+",inviteeId="+inviteeId+",e="+e.getMessage(),e);
+        }
+    }
+
+    private UserIncomeData createIncomeRD(String inviterId, String poiId, String inviteeId,int share){
+        UserIncomeData data = new UserIncomeData();
+        data.setCreateDate(DateTimeUtil.now());
+        data.setPoiId(poiId);
+        data.setInviteeId(inviteeId);
+        data.setUserId(inviterId);
+        data.setShare(share);
+        return data;
     }
 }

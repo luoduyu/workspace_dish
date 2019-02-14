@@ -3,6 +3,7 @@ package com.amt.wechat.service.poi;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.basic.WeichatLoginForm;
 import com.amt.wechat.model.poi.PoiCandidate;
+import com.amt.wechat.model.poi.PoiMemberRDData;
 import com.amt.wechat.model.poi.PoiUserData;
 
 import java.io.IOException;
@@ -102,10 +103,9 @@ public interface PoiUserService {
 
 
     /**
+     *  邀请成功
      *
      * @param inviterId 邀请者Id
-     * @param inviteeId 被邀请者Id
-     * @param poiId 被邀请者poiId
      */
-    public void onInviteSucc(String inviterId,String poiId,String inviteeId);
+    public void onInviteSucc(String inviterId,String inviteeId, PoiMemberRDData rd);
 }

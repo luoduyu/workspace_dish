@@ -324,7 +324,9 @@ public class BalanceServiceImpl implements  BalanceService {
         rd.setSummary(consumeRd.getSummary());
         rd.setTransactionId(String.valueOf(consumeRd.getId()));
 
-        return poiMemberService.onMemberBoughtSucc(rd,consumeRd.getCreateTime());
+        BizPacket ret= poiMemberService.onMemberBoughtSucc(rd,consumeRd.getCreateTime(), userData.getId());
+
+        return ret;
     }
 
     private BalanceConsumeRd createBalanceConsumeRd (PoiUserData userData,String orderId,int takeout_red,int takeout_balance,CostCate costCate){
@@ -394,6 +396,7 @@ public class BalanceServiceImpl implements  BalanceService {
         rd.setTimeEnd(DateTimeUtil.now());
         rd.setPayStatus(PayStatus.PAIED.value());
         rd.setTransactionId(String.valueOf(consumeRd.getId()));
+        rd.setPayUserId(userData.getId());
         orderDao.updateOrderData(rd);
 
         return BizPacket.success();

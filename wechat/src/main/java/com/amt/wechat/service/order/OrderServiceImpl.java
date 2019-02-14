@@ -8,7 +8,6 @@ import com.amt.wechat.dao.decoration.MaterialDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.dao.poster.PosterDao;
-import com.amt.wechat.dao.snap.SnapDao;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
@@ -29,7 +28,6 @@ import com.amt.wechat.service.pay.util.MD5Util;
 import com.amt.wechat.service.pay.util.Sha1Util;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
 import com.amt.wechat.service.poi.PoiMemberService;
-import com.amt.wechat.service.redis.RedisService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -55,8 +53,8 @@ public class OrderServiceImpl implements  OrderService {
     private @Resource PoiMemberService poiMemberService;
     private @Resource BalanceService balanceService;
     private @Resource PayWechatService payWechatService;
-    private @Resource RedisService redisService;
-    private @Resource SnapDao snapDao;
+
+
 
     @Override
     public BizPacket getOrderDataList(PoiUserData userData, int index, int pageSize) {
@@ -222,7 +220,7 @@ public class OrderServiceImpl implements  OrderService {
             return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
         }
 
-        OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
+        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType());
 
         boolean isPoiMember = poiMemberService.isMember(poiData.getId());
         List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
@@ -247,7 +245,7 @@ public class OrderServiceImpl implements  OrderService {
             return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
         }
 
-        OrderData orderData = createOrderData(userData.getPoiId(),orderSubmitForm.getGoodsType());
+        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType());
 
 
         List<OrderItemData> itemList = createSnapItemDataList(orderData,orderSubmitForm.getOrderItemList(),currentSnapGoods);
@@ -303,13 +301,15 @@ public class OrderServiceImpl implements  OrderService {
     /**
      * 构建订单数据
      *
-     * @param poiId 店铺Id
+     * @param userData 订单提交人
      * @param goodsType 物品类型;1:海报;2:装修服务
      * @return
      */
-    private OrderData createOrderData(String poiId,int goodsType){
+    private OrderData createOrderData(PoiUserData userData,int goodsType){
         OrderData orderData = new OrderData();
-        orderData.setPoiId(poiId);
+        orderData.setPoiId(userData.getPoiId());
+        orderData.setSubmitUserId(userData.getId());
+        orderData.setPayUserId("");
 
         orderData.setCreateTime(DateTimeUtil.now());
         orderData.setGoodsType(goodsType);
@@ -615,6 +615,7 @@ public class OrderServiceImpl implements  OrderService {
 
 
     private static final String POI_ID = "poiId=";
+    private static final String USER_ID = "puid=";
 
     /**
      * 微信帐户支付
@@ -627,7 +628,7 @@ public class OrderServiceImpl implements  OrderService {
 
         String nonce_str = Sha1Util.getNonceStr();
         String body = buildBody(rd.getPayment());
-        String attach = POI_ID +rd.getPoiId();
+        String attach = POI_ID +rd.getPoiId()+","+USER_ID+userData.getId();
 
         int payment = rd.getPayment();
         if(devMode){
@@ -689,7 +690,10 @@ public class OrderServiceImpl implements  OrderService {
         if(StringUtils.isEmpty(attch)){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"订单付款回调中缺少attch(poiId):null");
         }
-        String poiId= attch.replace(POI_ID,"");
+        String[] pairs = attch.split(",");
+
+
+        String poiId= pairs[0].replace(POI_ID,"");
         if(!rd.getPoiId().equals(poiId)){
             return BizPacket.error(HttpStatus.CONFLICT.value(), "订单付款回调中的参数冲突(分别代表了不同的订单)!orderId="+orderId+",poiId="+poiId);
         }
@@ -697,6 +701,9 @@ public class OrderServiceImpl implements  OrderService {
 
         // 更新购买记录
 
+        String userId= pairs[1].replace(USER_ID,"");
+
+        rd.setPayUserId(userId);
         rd.setPayWay(PayWay.WECHAT.value());
         rd.setTransactionId(wechatPayCallbackParams.get("transactionId"));
         String summary = WechatXMLParser.joinSummary(wechatPayCallbackParams);

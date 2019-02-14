@@ -37,14 +37,14 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String accessToken = request.getParameter(Constants.REQ_PARAM_ACCESSTOKEN);
         if (StringUtils.isEmpty(accessToken)) {
-            traceLog(request, accessToken,"");
+            traceLog(request, accessToken,null);
             return handlerError(response,HttpStatus.UNAUTHORIZED.value(), "access_token is empty!");
         }
 
         try {
             PoiUserData user = redisService.getPoiUser(accessToken);
             if (user == null) {
-                traceLog(request, accessToken,"");
+                traceLog(request, accessToken,null);
                 return handlerError(response,HttpStatus.UNAUTHORIZED.value(),"user not found or frozen!");
             }
 
@@ -53,10 +53,8 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
                 return handlerError(response,result.getCode(), result.getMsg());
             }
 
-            logger.info("user={},accessToken={}",user,accessToken);
-
             request.setAttribute(Constants.WECHAT_LOGGED_USER, user);
-            traceLog(request, accessToken, user.getId());
+            traceLog(request, accessToken, user);
             return true;
         } catch (Exception e) {
             return handlerError(response, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
@@ -73,15 +71,15 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         return false;
     }
 
-    private void traceLog(HttpServletRequest request, String accessToken,String userId) {
+    private void traceLog(HttpServletRequest request, String accessToken,PoiUserData userData) {
         try {
             String addr = request.getRemoteAddr();
             String uri = request.getRequestURI();
             String params = asParams2String(request);
             String token = accessToken == null ? "" : accessToken.trim();
-            traceLog.error("createDate={},ip={},reqURI={},accessToken={},userId={},params={}", DateTimeUtil.now(), addr,uri, token,userId, params);
+            traceLog.info("createDate={},ip={},reqURI={},accessToken={},user={},params={}", DateTimeUtil.now(), addr,uri, token,userData, params);
         } catch (Exception e) {
-            logger.error("accessToken=" + accessToken + ",e=" + e.getMessage(), e);
+            logger.error("userData="+userData+",accessToken=" + accessToken + ",e=" + e.getMessage(), e);
         }
     }
 

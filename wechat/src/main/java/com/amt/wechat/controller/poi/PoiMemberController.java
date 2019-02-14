@@ -223,6 +223,12 @@ public class PoiMemberController extends BaseController {
         }
     }
 
+
+    /**
+     * 自动续期设置
+     * @param feeRenew
+     * @return
+     */
     @PostMapping(value = "/member/autofree/set")
     public BizPacket freeRenewSet(@RequestParam("feeRenew") Integer feeRenew){
         if(feeRenew == null){
@@ -264,7 +270,7 @@ public class PoiMemberController extends BaseController {
 
 
     /**
-     * 会员自动续期取消
+     * 反馈
      *
      * @return
      */

@@ -25,7 +25,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -417,10 +416,12 @@ public class PoiController extends BaseController {
 
     /**
      * 余额支付密码设置
+     * @param flag flag 是否免密;0:否,1:是
+     * @param pwd 余额支付密码,flag=0时为必传参数
      * @return
      */
     @PostMapping(value = "/setting/poi/balance/pwd/required")
-    public BizPacket isRequiredBalancePwdSet(Integer flag){
+    public BizPacket isRequiredBalancePwdSet(Integer flag,String pwd){
         PoiUserData userData = getUser();
         if(StringUtils.isEmpty(userData.getPoiId())){
             return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
@@ -433,7 +434,13 @@ public class PoiController extends BaseController {
         if(flag != 0 && flag != 1){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数值非法:"+flag);
         }
-        return poiService.balancePwdRequired(userData,flag);
+        if(flag == 0){
+            if(pwd == null || pwd.trim().length() ==0){
+                return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"支付密码参数不能为空!");
+            }
+        }
+
+        return poiService.balancePwdRequired(userData,flag, pwd.trim());
     }
 
     /**
@@ -564,26 +571,4 @@ public class PoiController extends BaseController {
         PoiUserData userData  = getUser();
         return poiService.mtAuth(userData,accountName,accountPwd);
     }
-
-    @GetMapping(value = "/setting/getwxacodeunlimit")
-    public BizPacket getwxacodeunlimit(Integer pageUrlIndex){
-        if(pageUrlIndex == null || pageUrlIndex <0 || pageUrlIndex >= 4){
-            return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"错误的参数值:"+pageUrlIndex);
-        }
-
-        PoiUserData userData  = getUser();
-        try {
-            return poiService.getwxacodeunlimit(userData,PAGE_URLS[pageUrlIndex]);
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
-        }
-    }
-
-    private static final String[] PAGE_URLS={
-            "/go/kaidian/submit",           // 开店申请提交
-            "/go/yunying/submit",           // 运营申请提交
-            "/decoration/material/list",    // 店铺装修首页
-            ""                              // 首页
-    };
 }

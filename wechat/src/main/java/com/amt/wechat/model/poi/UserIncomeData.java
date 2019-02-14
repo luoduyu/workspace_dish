@@ -10,6 +10,17 @@ import java.io.Serializable;
  */
 public class UserIncomeData implements Serializable {
     private static final long serialVersionUID = 5265331269651345029L;
+
+    /**
+     * 邀请者头像地址
+     */
+    private String userAvatarUrl;
+
+    /**
+     * 邀请者昵称
+     */
+    private String userNickName;
+
     /**
      * 邀请者Id
      */
@@ -26,14 +37,50 @@ public class UserIncomeData implements Serializable {
     private String inviteeId;
 
     /**
+     * 被邀请者头像地址
+     */
+    private String avatarUrl;
+
+    /**
+     * 被邀请者昵称
+     */
+    private String nickName;
+
+    /**
      * 奖励金额,单位:分
      */
     private Integer share;
 
     /**
+     * 被邀请者会员卡时长单位
+     */
+    private String durationUnit;
+
+    /**
+     * 被邀请者会员时长
+     */
+    private Integer duration;
+
+    /**
      * 日期
      */
     private String createDate;
+
+    public String getUserAvatarUrl() {
+        return userAvatarUrl;
+    }
+
+    public void setUserAvatarUrl(String userAvatarUrl) {
+        this.userAvatarUrl = userAvatarUrl;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
+
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
+    }
 
     public String getUserId() {
         return userId;
@@ -73,5 +120,37 @@ public class UserIncomeData implements Serializable {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getDurationUnit() {
+        return durationUnit;
+    }
+
+    public void setDurationUnit(String durationUnit) {
+        this.durationUnit = durationUnit;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }

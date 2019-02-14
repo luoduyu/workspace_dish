@@ -29,6 +29,10 @@ public class DateTimeUtil {
         return ldt.format(FRIENDLY_DATE_TIME_FORMAT);
     }
 
+    public static String now(LocalDateTime ldt) {
+        return ldt.format(FRIENDLY_DATE_TIME_FORMAT);
+    }
+
     /**
      * 距离当天的23:59:59还有多少秒
      * @return

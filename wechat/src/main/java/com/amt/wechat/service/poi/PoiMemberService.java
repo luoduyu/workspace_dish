@@ -2,7 +2,6 @@ package com.amt.wechat.service.poi;
 
 import com.amt.wechat.common.PayWay;
 import com.amt.wechat.domain.packet.BizPacket;
-import com.amt.wechat.model.poi.PoiMemberData;
 import com.amt.wechat.model.poi.PoiMemberRDData;
 import com.amt.wechat.model.poi.PoiUserData;
 
@@ -37,13 +36,6 @@ public interface PoiMemberService {
      */
     public boolean isMember(String poiId);
 
-    /**
-     * 指定店铺是否会员
-     *
-     * @param memberData
-     * @return
-     */
-    public boolean isMember(PoiMemberData memberData);
 
 
     public BizPacket memberBoughtRD(PoiUserData userData,String orderId);
@@ -63,9 +55,10 @@ public interface PoiMemberService {
      * 2)微信付款成功;
      *
      * @param rd
+     * @param payUserId 实际支付人(poiUserId)
      * @return
      */
-    public BizPacket onMemberBoughtSucc(PoiMemberRDData rd,String endTime);
+    public BizPacket onMemberBoughtSucc(PoiMemberRDData rd, String endTime, String payUserId);
 
     /**
      * 会员购买支付前的预览

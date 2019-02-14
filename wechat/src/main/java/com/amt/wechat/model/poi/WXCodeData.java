@@ -21,12 +21,18 @@ public class WXCodeData implements Serializable {
     /**
      * 小程序页面URL
      */
-    private String shareUrl;
+    private String shareUrl="";
 
     /**
      * 小程序二维码图片地址
      */
-    private String wxcodeUrl;
+    private String wxcodeUrl="";
+
+
+    /**
+     * 失效时间
+     */
+    private String expireDate="";
 
     public String getUserId() {
         return userId;
@@ -50,6 +56,14 @@ public class WXCodeData implements Serializable {
 
     public void setWxcodeUrl(String wxcodeUrl) {
         this.wxcodeUrl = wxcodeUrl;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
     @Override

@@ -37,6 +37,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,16 +125,22 @@ public class PoiServiceImpl implements PoiService {
     }
 
     @Override
-    public BizPacket balancePwdRequired(PoiUserData userData, int flag) {
+    public BizPacket balancePwdRequired(PoiUserData userData, int flag, String payPwd) {
         try {
             PoiData poiData = poiDao.getPoiData(userData.getPoiId());
             if (poiData == null) {
                 return BizPacket.error(HttpStatus.NOT_FOUND.value(), "店铺已不存!");
             }
+            if(flag ==0){
+                if(!poiData.getBalancePwd().equals(payPwd)){
+                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"支付密码错误!");
+                }
+            }
 
             if (poiData.getBalancePwdFree() == flag) {
                 return BizPacket.success();
             }
+
             poiData.setBalancePwdFree(flag);
             poiDao.updateBalancePwdRequired(flag, poiData.getId());
             return BizPacket.success();
@@ -330,23 +337,41 @@ public class PoiServiceImpl implements PoiService {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "从微信请求获取access_token时出错!");
         }
 
-
-        String url = poiUserWXCodeDao.getWXCodeImgUrl(userData.getId(),shareUrl);
-        if(url != null){
-            return BizPacket.success(url);
+        LocalDateTime now = LocalDateTime.now();
+        WXCodeData wxCodeData = poiUserWXCodeDao.getWXCodeImgUrl(userData.getId(),shareUrl);
+        if(wxCodeData != null && isValid(now,wxCodeData.getExpireDate())){
+            return BizPacket.success(wxCodeData.getWxcodeUrl());
         }
 
         logger.info("{}请求生成小程序二维码图片!accessToken={},shareUrl={}", userData, accessToken,shareUrl);
-        url = getMiniQR(userData.getId(),shareUrl,accessToken);
+        String url = getMiniQR(userData.getId(),shareUrl,accessToken);
 
-        if(url != null){
+        if(url == null) {
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "server is busy!");
+        }
+
+        if(wxCodeData != null){
+            wxCodeData.setWxcodeUrl(url);
+            wxCodeData.setExpireDate(DateTimeUtil.now(now.plusDays(AliOSSUtil.LIFECYCLE_WX_CODE_IMG)));
+            poiUserWXCodeDao.updateUserWXCodeData(wxCodeData);
+        }else{
             WXCodeData data = new WXCodeData();
             data.setUserId(userData.getId());
             data.setShareUrl(shareUrl);
             data.setWxcodeUrl(url);
+            data.setExpireDate(DateTimeUtil.now(now.plusDays(AliOSSUtil.LIFECYCLE_WX_CODE_IMG)));
             poiUserWXCodeDao.addUserWXCodeData(data);
         }
+
         return BizPacket.success(url);
+    }
+
+    private static boolean isValid(LocalDateTime now,String expireDate){
+        if(expireDate == null || expireDate.trim().length()==0){
+            return true;
+        }
+        LocalDateTime ldt = DateTimeUtil.getDateTime(expireDate);
+        return ldt.compareTo(now) > 0;
     }
 
     private static RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(60000).build();
@@ -382,15 +407,40 @@ public class PoiServiceImpl implements PoiService {
         //StringEntity entity = new StringEntity(requestJson, ContentType.APPLICATION_JSON);
         httpPost.setEntity(new StringEntity(requestJson, ContentType.IMAGE_PNG));
 
-        CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
-        HttpResponse response = httpClient.execute(httpPost);
-        if (response == null || response.getEntity() == null) {
-            return null;
+        CloseableHttpClient httpClient = null;
+        IOException ex =null;
+        InputStream inputStream = null;
+        try{
+            httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+            HttpResponse response = httpClient.execute(httpPost);
+            if (response == null || response.getEntity() == null) {
+                return null;
+            }
+
+            inputStream = response.getEntity().getContent();
+            String url = AliOSSUtil.putWXACode(poiUserId, shareUrl, inputStream);
+            return url;
+
+        }catch(IOException e){
+            ex = e;
+            logger.error("poiUserId="+poiUserId+",shareUrl="+shareUrl+",accessToken="+",e="+e.getMessage(),e);
+        }finally{
+            if(inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                }
+            }
+            if(httpClient != null){
+                try {
+                    httpClient.close();
+                } catch (IOException e1) {
+                }
+            }
         }
-
-        InputStream inputStream = response.getEntity().getContent();
-        String url = AliOSSUtil.putWXACode(poiUserId, shareUrl, inputStream);
-
-        return url;
+        if(ex != null){
+            throw ex;
+        }
+        return null;
     }
 }

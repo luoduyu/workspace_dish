@@ -11,6 +11,7 @@ import com.amt.wechat.dao.member.PoiMemberDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiUserDao;
 import com.amt.wechat.domain.id.Generator;
+import com.amt.wechat.domain.member.PoiMember;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.form.poi.MyMemberDataForm;
@@ -27,6 +28,7 @@ import com.amt.wechat.service.pay.util.Sha1Util;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
 import com.amt.wechat.service.poi.PoiMemberService;
 import com.amt.wechat.service.poi.PoiUserService;
+import com.amt.wechat.service.redis.RedisService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -55,6 +57,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
     private @Resource PayWechatService payWechatService;
     private @Resource BalanceService balanceService;
     private @Resource PoiUserDao poiUserDao;
+    private @Resource RedisService redisService;
 
     @Override
     public BizPacket memberDataFetch(PoiUserData userData){
@@ -67,7 +70,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
             // 会员数据
             PoiMemberData memberData = poiMemberDao.getPoiMemberData(userData.getPoiId());
-            boolean isMember = isMember(memberData);
+            boolean isMember = PoiMember.isMember(memberData);
             jsonObject.put("isMember",isMember);
 
             if(isMember){
@@ -128,25 +131,9 @@ public class PoiMemberServiceImpl implements PoiMemberService {
     @Override
     public boolean isMember(String poiId){
         PoiMemberData memberData =  poiMemberDao.getPoiMemberData(poiId);
-        return isMember(memberData);
+        return PoiMember.isMember(memberData);
     }
 
-    @Override
-    public boolean isMember(PoiMemberData memberData){
-        if(memberData == null){
-            return false;
-        }
-        try {
-            int flag = DateTimeUtil.getDateTime(memberData.getExpiredAt()).compareTo(LocalDateTime.now());
-            if(flag <= 0 ){
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            logger.error("expiredAt="+memberData.getExpiredAt()+",e="+e.getMessage(),e);
-            return false;
-        }
-    }
 
 
     @Override
@@ -178,7 +165,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
 
     /**
-     * 新添加会员
+     * 新添加会员数据
      *
      * @param rdData
      * @return
@@ -219,38 +206,53 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public BizPacket onMemberBoughtSucc(PoiMemberRDData rd,String endTime){
+    public BizPacket onMemberBoughtSucc(PoiMemberRDData rd, String endTime, String payUserId){
+        boolean newbie = memberNewbie(rd.getPoiId());
+        memberProcess(rd,endTime);
+
+        //  给邀请人发奖
+        String inviterId = getInviterId(payUserId);
+        logger.info("准备给邀请人发放奖励!是否首次购买={},邀请人userId={}",newbie,inviterId);
+
+        // 必须是第一次购买会员(此逻辑不抛异常)
+        if(inviterId != null && newbie){
+            poiUserService.onInviteSucc(inviterId,payUserId,rd);
+        }
+        return BizPacket.success();
+    }
+
+    private void memberProcess(PoiMemberRDData rd,String endTime){
         // 更新购买记录
         rd.setPayStatus(PayStatus.PAIED.value());
         rd.setTimeEnd(endTime);
         poiMemberDao.updateMemberBoughtRD(rd);
-
 
         PoiMemberData memberData = poiMemberDao.getPoiMemberData(rd.getPoiId());
 
         // 首次购买会员
         if(memberData == null){
             newMember(rd);
-            return BizPacket.success();
+            return;
         }
 
         // 续期
         if(memberData.getDurationUnit().equalsIgnoreCase(rd.getDurationUnit())){
             memberRenewal(memberData,rd);
-            return BizPacket.success();
+            return;
         }
 
         // 升级会员
         memberUpgrade(memberData,rd);
-
-
-        String inviterId = poiUserDao.getInviterId(rd.getUserId());
-        if(inviterId != null ){
-            poiUserService.onInviteSucc(inviterId,rd.getUserId(),rd.getPoiId());
-        }
-        return BizPacket.success();
     }
 
+
+    private String getInviterId(String userId){
+        PoiUserData userData = redisService.getPoiUserById(userId);
+        if(userData != null){
+            return userData.getInviterId();
+        }
+        return poiUserDao.getInviterId(userId);
+    }
 
     /**
      * 会员升级
@@ -410,6 +412,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
 
     private static final String MEMBER_BUY_ID = "rdId=";
+    private static final String USER_ID = "puid=";
 
     /**
      * 微信帐户支付
@@ -424,7 +427,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
         String nonce_str = Sha1Util.getNonceStr();
         String body = buildBody(rd.getPayment());
-        String attach = MEMBER_BUY_ID +rd.getId();
+        String attach = MEMBER_BUY_ID +rd.getId()+","+USER_ID+userData.getId();
 
         BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),rd.getPayment(), Constants.PAY_CALLBACK_URL_ALL_MEMBER_BUY);
         logger.info("会员卡购买--统一下单结果={}",bizPacket.toString());
@@ -501,7 +504,8 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"会员购买付款回调中缺少attch(id):null");
         }
 
-        String rdId= attch.replace(MEMBER_BUY_ID,"");
+        String[] pairs = attch.split(",");
+        String rdId= pairs[0].replace(MEMBER_BUY_ID,"");
         PoiMemberRDData rd = poiMemberDao.getMemberBoughtRDById(rdId);
         if(rd == null) {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "根据rdId未能找到会员购买记录!attch(rdId)=" + rdId);
@@ -526,9 +530,10 @@ public class PoiMemberServiceImpl implements PoiMemberService {
         rd.setPayment(payment);
         rd.setDiscount(rd.getTotal()  - rd.getPayment());
 
-        this.onMemberBoughtSucc(rd,wechatPayCallbackParams.get("timeEnd"));
+        String userId =  pairs[1].replace(USER_ID,"");
+        BizPacket ret = this.onMemberBoughtSucc(rd,wechatPayCallbackParams.get("timeEnd"), userId);
         logger.info("微信付款购买会员回调成功!rd={}",rd);
-        return BizPacket.success();
+        return ret;
     }
 
     private int getPayment(PoiMemberRDData rd,String cashFee){
@@ -540,9 +545,6 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return rd.getTotal() - rd.getDiscount();
         }
     }
-
-
-
 
     @Override
     public BizPacket feeRenewSet(PoiUserData userData,int feeRenew){

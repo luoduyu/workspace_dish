@@ -52,7 +52,11 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <encoding>utf-8</encoding>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <skip>true</skip>
+                    <!--compilerArgument>-Xlint:unchecked</compilerArgument-->
                 </configuration>
             </plugin>
             <plugin>
@@ -123,6 +127,10 @@
                 <exclusion>
                     <groupId>redis.clients</groupId>
                     <artifactId>jedis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             <!--<exclusion>-->
             <!--<groupId>io.lettuce</groupId>-->
@@ -220,8 +228,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
             <optional>true</optional>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -230,3 +238,11 @@
         </dependency>
     </dependencies>
 </project>
+
+<!--
+maven常用的scope有compile,provided,runtime,test:
+1)complie是默认值，表示在build,test,runtime阶段的classpath下都有依赖关系;
+2)test表示只在test阶段有依赖关系，例如junit;
+3)provided表示在build,test阶段都有依赖，在runtime时并不输出依赖关系而是由容器提供，例如web war包都不包括servlet-api.jar，而是由tomcat等容器来提供
+4)runtime表示在构建编译阶段不需要，只在test和runtime需要。这种主要是指代码里并没有直接引用而是根据配置在运行时动态加载并实例化的情况
+-->

@@ -39,9 +39,10 @@ public interface PoiService {
      *
      * @param userData
      * @param flag 是否免密;0:否,1:是
+     * @param payPwd
      * @return
      */
-    public BizPacket balancePwdRequired(PoiUserData userData,int flag);
+    public BizPacket balancePwdRequired(PoiUserData userData, int flag, String payPwd);
 
 
     /**

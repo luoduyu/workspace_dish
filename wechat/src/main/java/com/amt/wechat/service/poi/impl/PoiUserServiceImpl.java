@@ -108,6 +108,8 @@ public class PoiUserServiceImpl implements PoiUserService {
         data.setPassword("");
         if(inviterId != null){
             data.setInviterId(inviterId.trim());
+        }else{
+            data.setInviterId("");
         }
 
         updateUser(data,sessionKeyAndOpenid,userJson);
@@ -445,36 +447,59 @@ public class PoiUserServiceImpl implements PoiUserService {
     }
 
     @Override
-    public void onInviteSucc(String inviterId, String poiId, String inviteeId) {
+    public void onInviteSucc(String inviterId,String inviteeId,PoiMemberRDData rd) {
         try {
-            Integer amount = poiUserWXCodeDao.countIncomeByPoiId(poiId);
+            Integer amount = poiUserWXCodeDao.countIncomeByPoiId(rd.getPoiId());
             if(amount != null && amount >=1){
-                logger.info("基于店铺poi,id={}的邀请奖励已经发放过了!邀请者id={},被邀请者id={}",poiId,inviterId,inviteeId);
+                logger.info("基于店铺poiId={}的邀请奖励已经发放过了!邀请者id={},被邀请者id={}",rd.getPoiId(),inviterId,rd.getUserId());
                 return;
             }
             Integer  share =  globalSettingDao.getShareReward();
             if(share == null){
-                logger.info("未设置邀请奖励!poiId={},邀请者id={},被邀请者id={}",poiId,inviterId,inviteeId);
+                logger.info("未设置邀请奖励!poiId={},邀请者id={},被邀请者id={}",rd.getPoiId(),inviterId,rd.getUserId());
                 return;
             }
 
-            UserIncomeData data = createIncomeRD(inviterId,poiId,inviteeId,share);
-            poiUserWXCodeDao.addInvitation(data);
+            PoiUserData inviterData = poiUserDao.getPOIUserDataById(inviterId);
+
+            UserIncomeData data = createIncomeRD(inviterData,inviteeId,rd,share);
+            poiUserWXCodeDao.addInvitationIncome(data);
 
             // TODO 请求一个‘个人奖励金帐户的的全局分布式锁‘
             poiUserDao.updateShareBlance(inviterId,share);
+            PoiUserData userData = redisService.getPoiUserById(inviterId);
+            if(userData != null){
+                userData.setShareBalance(userData.getShareBalance()+share);
+                redisService.addPoiUser(userData);
+            }
+
+            logger.info("邀请奖励发放成功!inviterId={},poiId={},inviteeId={},奖励额(分)={}",inviterId,rd.getPoiId(),rd.getUserId(),share);
         } catch (Exception e) {
-            logger.error("发放邀请奖励时出错!inviterId="+inviterId+",poiId="+poiId+",inviteeId="+inviteeId+",e="+e.getMessage(),e);
+            logger.error("发放邀请奖励时出错!inviterId="+inviterId+",poiId="+rd.getPoiId()+",inviteeId="+rd.getUserId()+",e="+e.getMessage(),e);
         }
     }
 
-    private UserIncomeData createIncomeRD(String inviterId, String poiId, String inviteeId,int share){
+    private UserIncomeData createIncomeRD(PoiUserData inviterData, String inviteeId,PoiMemberRDData rd,int share){
         UserIncomeData data = new UserIncomeData();
-        data.setCreateDate(DateTimeUtil.now());
-        data.setPoiId(poiId);
-        data.setInviteeId(inviteeId);
-        data.setUserId(inviterId);
+        data.setUserId(inviterData.getId());
+        data.setUserAvatarUrl(inviterData.getAvatarUrl());
+        data.setUserNickName(inviterData.getNickName());
         data.setShare(share);
+
+        data.setCreateDate(DateTimeUtil.now());
+        data.setPoiId(rd.getPoiId());
+        data.setInviteeId(inviteeId);
+        data.setDurationUnit(rd.getDurationUnit());
+        data.setDuration(rd.getDuration());
+
+        PoiUserData inviteeData = poiUserDao.getPOIUserDataById(inviteeId);
+        if(inviteeData != null){
+            data.setNickName(inviteeData.getNickName());
+            data.setAvatarUrl(inviteeData.getAvatarUrl());
+        }else{
+            data.setNickName("");
+            data.setAvatarUrl("");
+        }
         return data;
     }
 }

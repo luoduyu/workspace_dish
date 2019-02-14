@@ -1,6 +1,8 @@
 package com.amt.wechat.domain.oss;
 
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.LifecycleRule;
+import com.aliyun.oss.model.SetBucketLifecycleRequest;
 import com.amt.wechat.domain.util.WechatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,11 @@ public class AliOSSUtil {
      */
     private static final String bucketName = "wmt-wxacode";
 
+    /**
+     * 微信图片的有效期:30天
+     */
+    public static final int LIFECYCLE_WX_CODE_IMG=30;
+
 
     /**
      *
@@ -51,15 +58,23 @@ public class AliOSSUtil {
 
         // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint_internal, accessKeyId, accessKeySecret);
+        SetBucketLifecycleRequest request = new SetBucketLifecycleRequest(bucketName);
 
-        // 上传内容到指定的存储空间（bucketName）并保存为指定的文件名称（objectName）。
+        // 设置规则ID和文件前缀。
+        String ruleId0 = "rule0";
+        String matchPrefix0 = "*";
+
+        // 距最后修改时间30天后过期
+        request.AddLifecycleRule(new LifecycleRule(ruleId0, matchPrefix0, LifecycleRule.RuleStatus.Enabled, LIFECYCLE_WX_CODE_IMG));
+
+        // 上传内容到指定的存储空间（bucketName）并保存为指定的文件名称(objectName)
         ossClient.putObject(bucketName, objectName, imgContent);
 
         // 关闭OSSClient。
         ossClient.shutdown();
 
-        String url = new StringBuilder(bucketName).append(".").append(endpoint_external).append("/").append(objectName).toString();
-        logger.info("上传到oss成功!url={}"+url);
+        String url = new StringBuilder("https://").append(bucketName).append(".").append(endpoint_external).append("/").append(objectName).append(".png").toString();
+        logger.info("上传到oss成功!url={}",url);
         return url;
     }
 

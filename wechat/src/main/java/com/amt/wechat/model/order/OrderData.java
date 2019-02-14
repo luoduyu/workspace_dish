@@ -84,6 +84,18 @@ public class OrderData implements Serializable {
      */
     private String summary="";
 
+
+    /**
+     * 购买人
+     */
+    private String submitUserId="";
+
+
+    /**
+     * 付款人
+     */
+    private String payUserId="";
+
     public String getPoiId() {
         return poiId;
     }
@@ -179,6 +191,22 @@ public class OrderData implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getSubmitUserId() {
+        return submitUserId;
+    }
+
+    public void setSubmitUserId(String submitUserId) {
+        this.submitUserId = submitUserId;
+    }
+
+    public String getPayUserId() {
+        return payUserId;
+    }
+
+    public void setPayUserId(String payUserId) {
+        this.payUserId = payUserId;
     }
 
     @Override

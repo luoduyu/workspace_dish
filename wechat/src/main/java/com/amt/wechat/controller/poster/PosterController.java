@@ -50,7 +50,7 @@ public class PosterController extends BaseController {
         if(index == null || index <0 || index >Integer.MAX_VALUE){
             index = 0;
         }
-        if(pageSize == 0 || pageSize < 0 || pageSize >= 600){
+        if(pageSize == null || pageSize == 0 || pageSize < 0 || pageSize >= 600){
             pageSize = 15;
         }
 

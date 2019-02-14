@@ -21,7 +21,7 @@ import java.util.Map;
 @Mapper
 public interface OrderDao {
 
-    @Insert("INSERT INTO `order`(poiId,orderId,goodsType,total,payWay,payment,payStatus,createTime,timeEnd,transactionId,summary,serviceStatus) VALUES(#{poiId},#{orderId},#{goodsType},#{total},#{payWay},#{payment},#{payStatus},#{createTime},#{timeEnd},#{transactionId},#{summary},#{serviceStatus})")
+    @Insert("INSERT INTO `order`(poiId,orderId,goodsType,total,payWay,payment,payStatus,createTime,timeEnd,transactionId,summary,serviceStatus,submitUserId,payUserId) VALUES(#{poiId},#{orderId},#{goodsType},#{total},#{payWay},#{payment},#{payStatus},#{createTime},#{timeEnd},#{transactionId},#{summary},#{serviceStatus},#{submitUserId},#{payUserId})")
     public void addOrderData(OrderData orderData);
 
     @Select("SELECT * FROM `order` WHERE orderId=#{orderId}")
@@ -34,7 +34,7 @@ public interface OrderDao {
     @Update("UPDATE `order` SET total =#{total} WHERE orderId=#{id}")
     public void updateTotal(int total,String id);
 
-    @Update("UPDATE `order` SET payWay=#{payWay},payStatus=#{payStatus},transactionId=#{transactionId},timeEnd=#{timeEnd},summary=#{summary} WHERE orderId = #{orderId}")
+    @Update("UPDATE `order` SET payWay=#{payWay},payStatus=#{payStatus},transactionId=#{transactionId},timeEnd=#{timeEnd},summary=#{summary},payUserId=#{payUserId} WHERE orderId = #{orderId}")
     public void updateOrderData(OrderData orderData);
 
 

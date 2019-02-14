@@ -72,7 +72,7 @@ public class PoiUserData extends PoiBasicUserData {
     /**
      * 邀请者Id(userId)
      */
-    private String inviterId;
+    private String inviterId="";
 
 
 

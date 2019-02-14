@@ -132,7 +132,7 @@ public class PoiServiceImpl implements PoiService {
                 return BizPacket.error(HttpStatus.NOT_FOUND.value(), "店铺已不存!");
             }
             if(flag ==0){
-                if(!poiData.getBalancePwd().equals(payPwd)){
+                if(! payPwd.trim().equals(poiData.getBalancePwd()) ){
                     return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"支付密码错误!");
                 }
             }
@@ -321,12 +321,12 @@ public class PoiServiceImpl implements PoiService {
         poiData.setAccountName(accountName);
         poiData.setAccountPassword(accountPwd);
         poiData.setBalancePwd("");
-        poiData.setBalancePwdFree(1);
+        poiData.setBalancePwdFree(0);
         poiData.setEleShopId("");
         poiData.setMtAppAuthToken("");
 
         poiData.setCreateTime(DateTimeUtil.now());
-        poiData.setUpdTime(poiData.getUpdTime());
+        poiData.setUpdTime(DateTimeUtil.now());
         return poiData;
     }
 

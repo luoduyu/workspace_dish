@@ -87,7 +87,7 @@ public class PoiForm implements Serializable {
     /**
      * 是否余额免密支付,0:否,1:是
      */
-    private int balancePwdFree;
+    private int balancePwdFree=0;
 
     /**
      * 当前帐户余额,单位:分

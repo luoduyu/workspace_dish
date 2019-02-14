@@ -440,7 +440,7 @@ public class PoiController extends BaseController {
             }
         }
 
-        return poiService.balancePwdRequired(userData,flag, pwd.trim());
+        return poiService.balancePwdRequired(userData,flag, pwd);
     }
 
     /**

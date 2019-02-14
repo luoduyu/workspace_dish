@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface PoiDao {
 
-    @Insert("INSERT INTO poi(id,name,country,province,city,districts,street,address,brandName,cateId,logoImg,accountName,accountPassword, mtAppAuthToken,eleShopId,createTime,updTime)VALUES(#{id},#{name},#{country},#{province},#{city},#{districts},#{street},#{address},#{brandName},#{cateId},#{logoImg},#{accountName},#{accountPassword},#{mtAppAuthToken},#{eleShopId},#{createTime}, #{updTime})")
+    @Insert("INSERT INTO poi(id,name,country,province,city,districts,street,address,brandName,cateId,logoImg,accountName,accountPassword, mtAppAuthToken,eleShopId,balancePwd,balancePwdFree,createTime,updTime)VALUES(#{id},#{name},#{country},#{province},#{city},#{districts},#{street},#{address},#{brandName},#{cateId},#{logoImg},#{accountName},#{accountPassword},#{mtAppAuthToken},#{eleShopId},#{balancePwd},#{balancePwdFree},#{createTime}, #{updTime})")
     public void addPoiData(PoiData poiData);
 
     @Select("SELECT * FROM poi WHERE id=#{id} LIMIT 1")

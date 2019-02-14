@@ -73,7 +73,7 @@ public class AliOSSUtil {
         // 关闭OSSClient。
         ossClient.shutdown();
 
-        String url = new StringBuilder("https://").append(bucketName).append(".").append(endpoint_external).append("/").append(objectName).append(".png").toString();
+        String url = new StringBuilder("https://").append(bucketName).append(".").append(endpoint_external).append("/").append(objectName).toString();
         logger.info("上传到oss成功!url={}",url);
         return url;
     }
@@ -85,6 +85,6 @@ public class AliOSSUtil {
         if(objectName == null || objectName.length()==0){
             objectName = WechatUtil.getMD5(userId+"-"+shareUrl);
         }
-        return objectName;
+        return objectName+".png";
     }
 }

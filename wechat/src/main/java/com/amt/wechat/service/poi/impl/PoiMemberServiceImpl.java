@@ -215,7 +215,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
         logger.info("准备给邀请人发放奖励!是否首次购买={},邀请人userId={}",newbie,inviterId);
 
         // 必须是第一次购买会员(此逻辑不抛异常)
-        if(inviterId != null && newbie){
+        if(inviterId != null && inviterId.trim().length() >= 1 && newbie){
             poiUserService.onInviteSucc(inviterId,payUserId,rd);
         }
         return BizPacket.success();

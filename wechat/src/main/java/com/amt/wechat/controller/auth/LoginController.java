@@ -48,7 +48,7 @@ public class LoginController{
         }
 
 
-        logger.info("code={},encryptedData={},iv={}",code,encryptedData,iv);
+        logger.info("code={},encryptedData={},iv={},inviterId={}",code,encryptedData,iv,inviterId);
 
         BizPacket packet =  poiUserService.weichatLogin(code,encryptedData,iv,inviterId);
         return packet;

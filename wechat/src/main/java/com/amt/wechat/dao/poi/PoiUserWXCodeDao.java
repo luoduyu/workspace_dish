@@ -85,6 +85,6 @@ public interface PoiUserWXCodeDao {
      * @param limit
      * @return
      */
-    @Select("SELECT	userId,userAvatarUrl,userNickName,SUM(`share`) AS totalShare FROM  poi_user_income GROUP BY userId ORDER BY totalShare DESC LIMIT #{limit}")
+    @Select("SELECT	* FROM  poi_share_top ORDER BY totalShare DESC LIMIT #{limit}")
     public List<InviteTop> getTopInviteIncome(int limit);
 }

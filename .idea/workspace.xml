@@ -11,38 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/invite/InviteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/InviteTop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/member/PoiMember.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wechat/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/wechat_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/wechat_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiMemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poi/PoiMemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poster/PosterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/poster/PosterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserWXCodeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserWXCodeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/AuthHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/AuthHandlerInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/oss/AliOSSUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/oss/AliOSSUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/DateTimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/util/DateTimeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/order/OrderData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/UserIncomeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/UserIncomeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/WXCodeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/model/poi/WXCodeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiMemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiMemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/resources/application-pro.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/resources/log4j.properties" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -102,7 +72,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/invite/InviteController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
+            <state relative-caret-position="313">
               <caret line="146" column="71" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -114,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserWXCodeDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="89" column="1" lean-forward="true" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+            <state relative-caret-position="398">
+              <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -123,35 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/InviteTop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="101" column="46" selection-start-line="101" selection-start-column="34" selection-end-line="101" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/PoiUserService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="291" column="28" selection-start-line="291" selection-start-column="28" selection-end-line="291" selection-end-column="28" />
+            <state relative-caret-position="425">
+              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="26" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -682,7 +625,7 @@
       <workItem from="1549937496916" duration="30348000" />
       <workItem from="1550021008424" duration="13564000" />
       <workItem from="1550039042349" duration="20459000" />
-      <workItem from="1550107931510" duration="16308000" />
+      <workItem from="1550107931510" duration="18015000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -824,7 +767,14 @@
       <option name="project" value="LOCAL" />
       <updated>1549976242473</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="1)修复给邀请人发奖BUG&#10;2)免密支付开关修改(加密码确认)&#10;3)订单信息增加提交人和支付人&#10;4)增强邀请及分享收入信息存储,支持邀请第5条&#10;5)邀请首页/今日邀请/历史邀请/邀请排行榜&#10;6)分享图片增加有效期限制&#10;7)了解自动捐款">
+      <created>1550137603362</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1550137603362</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -860,7 +810,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="961165000" />
+    <option name="totallyTimeSpent" value="962872000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -885,7 +835,7 @@
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="3" sideWeight="0.49893504" weight="0.3297062" />
       <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77848774" weight="0.26224157" />
-      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" weight="0.25136018" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" visible="true" weight="0.3656148" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3405876" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.7886049" weight="0.66376495" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49946752" weight="0.3297062" />
@@ -893,7 +843,7 @@
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="11" sideWeight="0.7593184" weight="0.41458106" />
       <window_info anchor="bottom" id="Run" order="12" sideWeight="0.771033" weight="0.36452666" />
-      <window_info active="true" anchor="bottom" id="Debug" order="13" sideWeight="0.771033" visible="true" weight="0.4352557" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.771033" weight="0.484222" />
       <window_info anchor="bottom" id="Cvs" order="14" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
       <window_info anchor="bottom" id="Statistic" order="16" weight="0.40261152" />
@@ -970,7 +920,8 @@
     <MESSAGE value="抢购/订单/店铺管理方面修改及重构&#10;新加是否免密支付设置/会员反馈" />
     <MESSAGE value="1)分享金由基于店铺修改到基于个人&#10;2)修复会员购买的记录中分页总数与实际分页不符的BUG&#10;3)充值返赠红包，增加充值起始金额限制，并修改为后台可完全可配置模式,支持以后搞活动。&#10;4)讨论分享的几种技术实现路径，并确定做法。&#10;5)对接微信二维码生成接口（未完）" />
     <MESSAGE value="1)二维码图片生成&#10;2)阿里OSS图片存储功能&#10;3)注册时的邀请人存储&#10;4)会员购买成功后的邀请人奖励" />
-    <option name="LAST_COMMIT_MESSAGE" value="1)二维码图片生成&#10;2)阿里OSS图片存储功能&#10;3)注册时的邀请人存储&#10;4)会员购买成功后的邀请人奖励" />
+    <MESSAGE value="1)修复给邀请人发奖BUG&#10;2)免密支付开关修改(加密码确认)&#10;3)订单信息增加提交人和支付人&#10;4)增强邀请及分享收入信息存储,支持邀请第5条&#10;5)邀请首页/今日邀请/历史邀请/邀请排行榜&#10;6)分享图片增加有效期限制&#10;7)了解自动捐款" />
+    <option name="LAST_COMMIT_MESSAGE" value="1)修复给邀请人发奖BUG&#10;2)免密支付开关修改(加密码确认)&#10;3)订单信息增加提交人和支付人&#10;4)增强邀请及分享收入信息存储,支持邀请第5条&#10;5)邀请首页/今日邀请/历史邀请/邀请排行榜&#10;6)分享图片增加有效期限制&#10;7)了解自动捐款" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1307,6 +1258,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/log4j2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="68" lean-forward="true" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/auth/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -1328,16 +1286,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wechat/src/main/resources/log4j2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="68" lean-forward="true" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/invite/InviteController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
+        <state relative-caret-position="313">
           <caret line="146" column="71" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1347,15 +1298,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/InviteTop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="425">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="26" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/poi/PoiUserWXCodeDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="89" column="1" lean-forward="true" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+        <state relative-caret-position="398">
+          <caret line="87" column="42" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
         </state>
       </provider>
     </entry>

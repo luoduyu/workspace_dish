@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/dlock" />
     <file type="web" url="file://$PROJECT_DIR$/wechat" />
   </component>
   <component name="JavaScriptSettings">
@@ -11,6 +12,7 @@
       <list>
         <option value="$PROJECT_DIR$/wechat/pom.xml" />
         <option value="$PROJECT_DIR$/test/pom.xml" />
+        <option value="$PROJECT_DIR$/dlock/pom.xml" />
       </list>
     </option>
   </component>

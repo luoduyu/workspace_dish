@@ -1,4 +1,4 @@
-package com.amt.wechat.domain.redis;
+package com.wmt.dlock;
 
 /**
  * Copyright (c) 2018 by CANSHU

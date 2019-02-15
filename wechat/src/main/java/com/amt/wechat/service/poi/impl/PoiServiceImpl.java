@@ -331,7 +331,7 @@ public class PoiServiceImpl implements PoiService {
     }
 
     @Override
-    public BizPacket getwxacodeunlimit(PoiUserData userData,String shareUrl) throws IOException {
+    public BizPacket getWXacodeunlimit(PoiUserData userData,String shareUrl,String r,String g, String b) throws IOException {
         String accessToken = redisService.getWeixinAccessToken();
         if (accessToken == null) {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "从微信请求获取access_token时出错!");
@@ -344,7 +344,7 @@ public class PoiServiceImpl implements PoiService {
         }
 
         logger.info("{}请求生成小程序二维码图片!accessToken={},shareUrl={}", userData, accessToken,shareUrl);
-        String url = getMiniQR(userData.getId(),shareUrl,accessToken);
+        String url = getMiniQR(userData.getId(),shareUrl,accessToken,r,g,b);
 
         if(url == null) {
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "server is busy!");
@@ -385,7 +385,7 @@ public class PoiServiceImpl implements PoiService {
      * @return
      * @throws IOException
      */
-    private static String getMiniQR(String poiUserId, String shareUrl, String accessToken) throws IOException {
+    private static String getMiniQR(String poiUserId, String shareUrl, String accessToken,String r,String g, String b) throws IOException {
 
         Map<String, Object> params = new HashMap<>();
         params.put("scene", poiUserId);
@@ -394,8 +394,19 @@ public class PoiServiceImpl implements PoiService {
         params.put("page", shareUrl);
         params.put("width", 430);
 
-        // 自动配置线条颜色
-        params.put("auto_color", true);
+        if(r == null && g ==null && b ==null){
+            // 自动配置线条颜色
+            params.put("auto_color", true);
+        }else{
+            params.put("auto_color", false);
+
+            Map<String,String> line_color = new HashMap<>();
+            line_color.put("r", r);
+            line_color.put("g", g);
+            line_color.put("b", b);
+            params.put("line_color", line_color);
+        }
+
 
         // 是否需要透明底色,为 true 时,生成透明底色的小程序
         params.put("is_hyaline", true);

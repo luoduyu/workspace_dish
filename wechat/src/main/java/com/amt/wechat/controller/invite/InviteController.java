@@ -12,10 +12,7 @@ import com.amt.wechat.service.poi.PoiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -35,15 +32,15 @@ public class InviteController extends BaseController {
     private @Resource PoiService poiService;
     private @Resource PoiUserWXCodeDao poiUserWXCodeDao;
 
-    @GetMapping(value = "/invite/getwxacodeunlimit")
-    public BizPacket getwxacodeunlimit(Integer pageUrlIndex){
+    @PostMapping(value = "/invite/getwxacodeunlimit")
+    public BizPacket getwxacodeunlimit(Integer pageUrlIndex,String r,String g, String b){
         if(pageUrlIndex == null || pageUrlIndex <0 || pageUrlIndex >= 4){
             return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"错误的参数值:"+pageUrlIndex);
         }
 
         PoiUserData userData  = getUser();
         try {
-            return poiService.getwxacodeunlimit(userData,PAGE_URLS[pageUrlIndex]);
+            return poiService.getWXacodeunlimit(userData,PAGE_URLS[pageUrlIndex],r,g,b);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());

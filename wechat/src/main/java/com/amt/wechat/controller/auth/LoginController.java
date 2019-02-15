@@ -1,5 +1,6 @@
 package com.amt.wechat.controller.auth;
 
+import com.alibaba.fastjson.JSONObject;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.form.basic.WeichatLoginForm;
@@ -87,13 +88,20 @@ public class LoginController{
         }
     }
 
+
+
     @RequestMapping(value = "/wechat/test",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
-    public BizPacket test(String code,String  encryptedData,String iv){
-        if(code != null && code.trim().length() != 0) {
-            logger.info("code={},encryptedData={},iv={}",code,encryptedData,iv);
-            return BizPacket.success("参数有值!code=" + code+",encryptedData="+encryptedData);
-        }
-        return BizPacket.error_param_null("code参数为空!");
+    public BizPacket test(String code,String  encryptedData,String iv,String inviterId){
+
+        logger.info("code={},encryptedData={},iv={},inviterId={}",code,encryptedData,iv,inviterId);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",code);
+        jsonObject.put("encryptedData",encryptedData);
+        jsonObject.put("iv",iv);
+        jsonObject.put("inviterId",inviterId);
+
+        return BizPacket.success(jsonObject);
     }
 
     @RequestMapping(value = "/wechat/login/mobile",method = {RequestMethod.POST,RequestMethod.GET})

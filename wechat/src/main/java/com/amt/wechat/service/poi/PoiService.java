@@ -71,5 +71,5 @@ public interface PoiService {
      * 微信二维码图片生成
      * @return
      */
-    public BizPacket getwxacodeunlimit(PoiUserData userData,String shareUrl) throws IOException;
+    public BizPacket getWXacodeunlimit(PoiUserData userData,String shareUrl,String r,String g, String b) throws IOException;
 }

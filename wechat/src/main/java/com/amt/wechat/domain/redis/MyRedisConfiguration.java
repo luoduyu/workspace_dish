@@ -1,8 +1,8 @@
 package com.amt.wechat.domain.redis;
 
 import com.amt.wechat.service.redis.RedisService;
+import com.wmt.dlock.RedisConstants;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -23,8 +23,9 @@ import java.io.Serializable;
  * @version 1.0
  */
 @Configuration
-@AutoConfigureAfter(RedisAutoConfiguration.class)
-public class RedisCacheAutoConfiguration {
+@AutoConfigureAfter(MyRedisConfiguration.class)
+public class MyRedisConfiguration {
+
     @Bean
     public RedisTemplate<String, Serializable> redisCacheTemplate(LettuceConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
@@ -41,6 +42,15 @@ public class RedisCacheAutoConfiguration {
         return template;
     }
 
+    /**
+     * 使用默认的工厂初始化redis操作模板
+     * @param connectionFactory
+     * @return
+     */
+    @Bean
+    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
+        return new StringRedisTemplate(connectionFactory);
+    }
 
 
     @Bean
@@ -60,15 +70,4 @@ public class RedisCacheAutoConfiguration {
     MessageListenerAdapter listenerAdapter(RedisService redisReceiver) {
         return new MessageListenerAdapter(redisReceiver, RedisConstants.REDIS_CH_BALANCE_SETTING);
     }
-
-    /**
-     * 使用默认的工厂初始化redis操作模板
-     * @param connectionFactory
-     * @return
-     */
-    @Bean
-    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
-        return new StringRedisTemplate(connectionFactory);
-    }
 }
-

@@ -10,17 +10,8 @@
     <bookmark url="file://$PROJECT_DIR$/wechat/src/main/resources/application-dev.properties" line="12" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="1)小程序与后台的公共锁模块搭建&#10;2)完成基于Spring RedisTemplate 的分布式锁">
-      <change afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/DLockApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java" afterDir="false" />
+    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/DistributedLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/lock/DistributedLock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/MyRedisScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/MyRedisScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/RedisConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/constants/RedisConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/RedisTeplateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/RedisTemplateConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MessageSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MessageSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MyRedisConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/redis/MyRedisConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -93,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="873">
+              <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,22 +94,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java">
+        <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/lock/LockController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/DLockApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            <state relative-caret-position="86">
+              <caret line="28" column="40" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -189,7 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/dao/order/OrderDao.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/config/AuthHandlerInterceptor.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/domain/member/PoiMember.java" />
         <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" />
@@ -240,6 +218,7 @@
         <option value="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/RedisTemplateConfig.java" />
         <option value="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/lock/DistributedLock.java" />
         <option value="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java" />
+        <option value="$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/lock/LockController.java" />
       </list>
     </option>
   </component>
@@ -344,12 +323,58 @@
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="dlock" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dlock" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="lock" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -415,11 +440,11 @@
       <recent name="D:\workspace_dish\wechat\src\main\resources\static\img" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.amt.wechat.controller.lock" />
       <recent name="com.wmt.dlock" />
       <recent name="com.wmt.dlock.config" />
       <recent name="com.test.redis" />
       <recent name="com.adu.common" />
-      <recent name="com.adu.domain.redis" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\workspace_dish\wechat\src\main\resources" />
@@ -578,7 +603,7 @@
       <workItem from="1550193619933" duration="6494000" />
       <workItem from="1550208875996" duration="4726000" />
       <workItem from="1550216079445" duration="15864000" />
-      <workItem from="1550234801849" duration="986000" />
+      <workItem from="1550234801849" duration="1240000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -755,7 +780,14 @@
       <option name="project" value="LOCAL" />
       <updated>1550233482424</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="1)小程序与后台的公共锁模块搭建&#10;2)完成基于Spring RedisTemplate 的分布式锁">
+      <created>1550235918065</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1550235918065</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -791,7 +823,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="998791000" />
+    <option name="totallyTimeSpent" value="999045000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -804,7 +836,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.35958394" visible="true" weight="0.19808307" />
       <window_info id="Structure" order="1" sideWeight="0.640416" side_tool="true" weight="0.31256655" />
@@ -816,7 +847,7 @@
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="3" sideWeight="0.49893504" weight="0.3297062" />
       <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77848774" weight="0.26224157" />
-      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" weight="0.50489664" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" visible="true" weight="0.50489664" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.29162133" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.7886049" weight="0.66376495" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49946752" weight="0.3297062" />
@@ -824,7 +855,7 @@
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="11" sideWeight="0.7593184" weight="0.19586506" />
       <window_info anchor="bottom" id="Run" order="12" sideWeight="0.76996803" weight="0.42546245" />
-      <window_info active="true" anchor="bottom" id="Debug" order="13" sideWeight="0.771033" visible="true" weight="0.2491839" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.771033" weight="0.2491839" />
       <window_info anchor="bottom" id="Cvs" order="14" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
       <window_info anchor="bottom" id="Statistic" order="16" weight="0.40261152" />
@@ -927,7 +958,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/XXX.java" />
     <entry file="das://d39aa908-f622-445f-ac7d-490409f8b8d1/schema/adu/table/json_test">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1254,10 +1284,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="873">
+          <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1271,13 +1311,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java">
+    <entry file="file://$PROJECT_DIR$/wechat/src/main/java/com/amt/wechat/controller/lock/LockController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="86">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="40" />
         </state>
       </provider>
     </entry>

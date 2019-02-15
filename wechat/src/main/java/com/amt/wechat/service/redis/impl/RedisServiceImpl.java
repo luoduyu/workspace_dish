@@ -6,7 +6,7 @@ import com.amt.wechat.domain.util.WechatUtil;
 import com.amt.wechat.model.balance.BalanceSettingData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.redis.RedisService;
-import com.wmt.dlock.RedisConstants;
+import com.wmt.dlock.constants.RedisConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

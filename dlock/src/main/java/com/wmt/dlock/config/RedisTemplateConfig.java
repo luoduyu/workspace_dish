@@ -1,4 +1,5 @@
-package com.wmt.dlock;
+package com.wmt.dlock.config;
+
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
@@ -14,15 +15,17 @@ import java.io.Serializable;
 /**
  * Copyright (c) 2019 by CANSHU
  *
- * @author adu Create on 2019-02-15 16:45
+ * @author adu Create on 2019-02-15 20:34
  * @version 1.0
  */
 @Configuration
-@AutoConfigureAfter(RedisTeplateConfig.class)
-public class RedisTeplateConfig {
+@AutoConfigureAfter(RedisTemplateConfig.class)
+public class RedisTemplateConfig {
+
 
     @Bean
     public RedisTemplate<String, Serializable> redisCacheTemplate(LettuceConnectionFactory redisConnectionFactory) {
+
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
 
         // k-v

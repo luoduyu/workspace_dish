@@ -1,12 +1,12 @@
-package com.wmt.dlock;
+package com.wmt.dlock.lock;
 
 import com.alibaba.fastjson.JSON;
+import com.wmt.dlock.config.MyRedisScript;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -22,10 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author adu Create on 2019-02-15 16:01
  * @version 1.0
  */
-@Component("distributedLock")
-public class DistributedLock implements  Serializable{
-    private static final long serialVersionUID = 2140053468746717528L;
-
+public class DistributedLock{
     private static final Logger logger = LoggerFactory.getLogger(DistributedLock.class);
 
 
@@ -55,7 +52,8 @@ public class DistributedLock implements  Serializable{
      */
     private final ThreadLocal<Lock> lockThreadLocal = new ThreadLocal<Lock>();
 
-    private @Resource MyRedisScript myRedisScript;
+    private @Resource
+    MyRedisScript myRedisScript;
     private @Autowired RedisTemplate<String, Serializable> redisTemplate;
 
 

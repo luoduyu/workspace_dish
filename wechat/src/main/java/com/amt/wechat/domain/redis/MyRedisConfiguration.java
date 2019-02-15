@@ -1,7 +1,7 @@
 package com.amt.wechat.domain.redis;
 
 import com.amt.wechat.service.redis.RedisService;
-import com.wmt.dlock.RedisConstants;
+import com.wmt.dlock.constants.RedisConstants;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

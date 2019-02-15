@@ -1,4 +1,4 @@
-package com.wmt.dlock;
+package com.wmt.dlock.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.core.script.DigestUtils;

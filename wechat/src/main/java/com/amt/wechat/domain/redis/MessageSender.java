@@ -2,7 +2,7 @@ package com.amt.wechat.domain.redis;
 
 import com.amt.wechat.dao.balance.BalanceDao;
 import com.amt.wechat.model.balance.BalanceSettingData;
-import com.wmt.dlock.RedisConstants;
+import com.wmt.dlock.constants.RedisConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;

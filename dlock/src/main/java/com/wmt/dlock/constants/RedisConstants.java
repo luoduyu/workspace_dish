@@ -1,4 +1,4 @@
-package com.wmt.dlock;
+package com.wmt.dlock.constants;
 
 /**
  * Copyright (c) 2018 by CANSHU

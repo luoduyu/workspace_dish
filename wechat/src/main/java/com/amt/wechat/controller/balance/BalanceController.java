@@ -8,11 +8,14 @@ import com.amt.wechat.model.balance.CurrencyStageData;
 import com.amt.wechat.model.poi.PoiUserData;
 import com.amt.wechat.service.balance.BalanceService;
 import com.amt.wechat.service.pay.util.WechatXMLParser;
+import com.wmt.dlock.constants.RedisConstants;
+import com.wmt.dlock.lock.DistributedLock;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +41,7 @@ public class BalanceController extends BaseController {
 
     private @Resource BalanceService balanceService;
     private @Value("${devMode}") boolean devMode;
+    private @Resource StringRedisTemplate stringRedisTemplate;
 
 
     @GetMapping(value = "/balance/stage/list")
@@ -103,6 +107,9 @@ public class BalanceController extends BaseController {
         }
         try {
             // TODO 拿到一个订单的分布式锁(基于redis)
+
+            DistributedLock distributedLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_ORDER);
+
 
             BizPacket bizPacket = balanceService.rechargeCallback(result);
             logger.info("余额充值结果={}", bizPacket);

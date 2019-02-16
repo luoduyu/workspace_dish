@@ -16,13 +16,13 @@ import org.springframework.util.Assert;
  * @version 1.0
  */
 @Component("myRedisScript")
-public class MyRedisScript implements RedisScript<String>, InitializingBean {
+public class MyRedisScript implements RedisScript<Long>, InitializingBean {
 
     private static final String luaScript = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
     private @Nullable ScriptSource scriptSource;
     private @Nullable String sha1;
-    private @Nullable Class<String> resultType = String.class;
+    private @Nullable Class<Long> resultType = Long.class;
 
     public MyRedisScript(){
         this.sha1 = DigestUtils.sha1DigestAsHex(luaScript);
@@ -44,7 +44,7 @@ public class MyRedisScript implements RedisScript<String>, InitializingBean {
      */
     @Nullable
     @Override
-    public Class<String> getResultType(){
+    public Class<Long> getResultType(){
         return resultType;
     }
 

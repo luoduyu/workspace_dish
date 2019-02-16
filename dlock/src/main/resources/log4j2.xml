@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status log4j2内部日志级别 -->
+<Configuration status="WARN">
+    <Properties>
+        <Property name="pattern">[%-5p][%d{yyyy-MM-dd HH:mm:ss,SSS}][%processId][%t][%C:%L] %m%n</Property>
+    </Properties>
+    <appenders>
+
+        <!--ConsoleAppender:输出结果到System.out或是System.err-->
+        <Console name="console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch）,其他的直接拒绝（onMismatch）-->
+            <!--ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/-->
+            <ThresholdFilter level="INFO"/>
+
+            <!--设置日志输出的格式-->
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+
+
+        <!-- 文件会打印出所有信息,这个log每次运行程序会自动清空,由append属性决定,这个也挺有用的,适合临时测试用 -->
+        <!-- append为TRUE表示消息增加到指定文件中,false表示消息覆盖指定的文件内容,默认值是true -->
+        <!--
+        <File name="log" fileName="log/test.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+        -->
+
+        <!--添加过滤器ThresholdFilter,可以有选择的输出某个级别以上的类别  onMatch="ACCEPT" onMismatch="DENY"意思是匹配就接受,否则直接拒绝  -->
+        <!--
+        <File name="ERROR" fileName="logs/error.log">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+        -->
+
+        <!-- 这个会打印出所有的信息,每次大小超过size,则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩,作为存档-->
+        <!--
+        <RollingFile  name="rollingFile" fileName="${tomcat.home}/logs/wmt_wechat.log" filePattern="D:/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+        -->
+        <RollingFile  name="commonRollingFile" fileName="${env:CATALINA_HOME}/logs/wmt_dlock.log" filePattern="${env:CATALINA_HOME}/logs/$${date:yyyy-MM}/wmt_dlock-%d{yyyyMMddHH}.log.gz">
+
+            <Filters>
+                <ThresholdFilter level="INFO" />
+            </Filters>
+
+
+            <!--
+            控制台或文件输出源（Console、File、RollingRandomAccessFile）都必须包含一个PatternLayout节点,
+            用于指定输出文件的格式（如 日志输出的时间 文件 方法 行数 等格式）,
+            例如 pattern=”%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n”
+            -->
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+
+                <!--这个配置需要和filePattern结合使用,注意filePattern中配置的文件重命名规则是${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i,最小的时间粒度是mm,即分钟.
+                指定的size是1,结合起来就是每1分钟生成一个新文件.如果改成%d{yyyy-MM-dd HH},最小粒度为小时,则每一个小时生成一个文件.
+                关键点在于 filePattern后的日期格式,以及TimeBasedTriggeringPolicy的interval,日期格式精确到哪一位,interval也精确到哪一个单位
+                -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+
+
+                <!--指定当文件体积大于size指定的值时,触发Rolling-->
+                <!--
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+                -->
+
+            </Policies>
+
+            <!--DefaultRolloverStrategy 属性如不设置,默认是7,这个7指的是上面i的最大值,超过了就会覆盖之前的,这里设置了20-->
+            <!--
+            <DefaultRolloverStrategy max="100"/>
+            -->
+        </RollingFile>
+    </appenders>
+
+    <!--然后定义logger,只有定义了logger并引入的appender,appender才会生效-->
+    <loggers>
+
+        <!--
+        一些很特殊地方的日志配置示例:
+        <Logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"/>
+        <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
+        <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
+        -->
+        <root level="DEBUG">
+            <appender-ref ref="console"/>
+            <appender-ref ref="commonRollingFile"/>
+        </root>
+    </loggers>
+</Configuration>
+
+<!--
+
+一些其它有用的参数解释:
+日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+
+%d{HH:mm:ss.SSS} 表示输出到毫秒的时间
+%t               输出当前线程名称
+%-5level         输出日志级别,-5表示左对齐并且固定输出5个字符,如果不足在右边补0
+%logger          输出logger名称,因为Root Logger没有名称,所以没有输出
+%msg             日志文本
+%n               换行
+
+其他常用的占位符有：
+%F  输出所在的类文件名,如Log4j2Test.java
+%L  输出行号
+%M  输出所在方法名
+%l  输出语句所在的行数, 包括类名、方法名、文件名、行数
+
+
+additivity:相加性,否继承下面配置的日志器
+-->

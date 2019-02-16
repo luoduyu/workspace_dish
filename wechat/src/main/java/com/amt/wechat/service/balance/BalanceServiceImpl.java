@@ -169,7 +169,7 @@ public class BalanceServiceImpl implements  BalanceService {
         rd.setSummary(summary);
 
 
-        // TODO 请求一个 '店铺帐户全局分布式锁’(基于redis)
+        // TODO 请求一个'店铺帐户全局分布式锁’(基于redis)
         PoiAccountData accountData =  poiAccountDao.getAccountData(rd.getPoiId());
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
 

@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -23,8 +22,22 @@ import java.io.Serializable;
 public class RedisTemplateConfig {
 
 
+//    @Bean
+//    public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//        RedisTemplate redisTemplate = new RedisTemplate();
+//
+//        redisTemplate.setConnectionFactory(redisConnectionFactory);
+//
+//        GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer();
+//
+//        redisTemplate.setDefaultSerializer(redisSerializer);
+//
+//        return redisTemplate;
+//    }
+
+
     @Bean
-    public RedisTemplate<String, Serializable> redisCacheTemplate(LettuceConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Serializable> redisCacheTemplate(RedisConnectionFactory redisConnectionFactory) {
 
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
 

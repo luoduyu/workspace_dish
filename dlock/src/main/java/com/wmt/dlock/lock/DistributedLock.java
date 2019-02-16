@@ -4,12 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.wmt.dlock.config.MyRedisScript;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
-import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -40,21 +36,20 @@ public class DistributedLock{
     /**
      * lock Key
      */
-    private final String lockKey;
+    private String lockKey;
 
     /**
      * 锁的过期时长,单位纳秒
      */
-    private final long lockExpiryInMillis;
+    private long lockExpiryInMillis;
 
     /**
      * 存放当前线程锁
      */
-    private final ThreadLocal<Lock> lockThreadLocal = new ThreadLocal<Lock>();
+    private ThreadLocal<Lock> lockThreadLocal = new ThreadLocal<Lock>();
 
-    private @Resource
-    MyRedisScript myRedisScript;
-    private @Autowired RedisTemplate<String, Serializable> redisTemplate;
+    private static MyRedisScript myRedisScript = new MyRedisScript();
+    private StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -63,8 +58,9 @@ public class DistributedLock{
      * @param lockKey            锁的Key
      * @param lockExpiryInMillis 锁的过期时长,单位毫秒
      */
-    public DistributedLock(String lockKey, long lockExpiryInMillis) {
+    public DistributedLock(StringRedisTemplate redisTemplate,String lockKey, long lockExpiryInMillis) {
 
+        this.stringRedisTemplate = redisTemplate;
         this.lockKey = lockKey;
         this.lockExpiryInMillis = lockExpiryInMillis;
     }
@@ -76,8 +72,8 @@ public class DistributedLock{
 
      * @param lockKey   锁的Key
      */
-    public DistributedLock(String lockKey) {
-        this(lockKey, Integer.MAX_VALUE);
+    public DistributedLock(StringRedisTemplate redisTemplate,String lockKey) {
+        this(redisTemplate,lockKey, Integer.MAX_VALUE);
     }
 
     /**
@@ -104,7 +100,7 @@ public class DistributedLock{
      */
     private String nextUid() {
         // 可以考虑雪花算法..
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace("-", "").toLowerCase();
     }
 
     /**
@@ -114,7 +110,7 @@ public class DistributedLock{
      */
     private boolean tryAcquire() {
         final Lock nLock = new Lock(nextUid());
-        if(redisTemplate.opsForValue().setIfAbsent(lockKey,nLock.toString(),lockExpiryInMillis,TimeUnit.MILLISECONDS)){
+        if(stringRedisTemplate.opsForValue().setIfAbsent(lockKey,nLock.toString(),lockExpiryInMillis,TimeUnit.MILLISECONDS)){
             lockThreadLocal.set(nLock);
             return true;
         }
@@ -172,10 +168,8 @@ public class DistributedLock{
         // 执行释放锁动作的最后期限
         long expiryTime = System.currentTimeMillis() + releaseTimeoutInMillis;
         while (expiryTime >= System.currentTimeMillis()) {
-
-            String strResult = redisTemplate.execute(myRedisScript, RedisSerializer.string(),RedisSerializer.string(),Collections.singletonList(this.lockKey),Collections.singletonList(cLock.toString()));
-
-            int ret = string2Int(strResult);
+            Long ret = stringRedisTemplate.execute(myRedisScript,Collections.singletonList(lockKey), cLock.toString());
+            logger.info("释放锁结果={},lockKey={},cLock={}",ret,lockKey,cLock.toString());
             if (ret == 1) {
                 lockThreadLocal.remove();
                 return true;
@@ -185,6 +179,7 @@ public class DistributedLock{
 
         return false;
     }
+
     private static int string2Int(String param){
         try {
             return Integer.parseInt(param.trim());

@@ -64,19 +64,19 @@ public class RedisConstants {
 
 
     /**
-     * 餐数-全局分布式锁前缀-订单(后接'orderId')
+     * 餐数-锁前缀-订单(后接'orderId')
      */
     public static final String CANSHU_ORDER="canshu_dlock_order:";
 
 
     /**
-     * 餐数-全局分布式锁前缀-店铺帐户(后接'poiId')
+     * 餐数-锁前缀-店铺帐户(后接'poiId')
      */
     public static final String CANSHU_POI="canshu_dlock_poi:";
 
 
     /**
-     * 餐数-全局分布式锁前缀-个人帐户(后接'poiUserId')
+     * 餐数-锁前缀-个人帐户(后接'poiUserId')
      */
     public static final String CANSHU_POI_UID="canshu_dlock_puid:";
 }

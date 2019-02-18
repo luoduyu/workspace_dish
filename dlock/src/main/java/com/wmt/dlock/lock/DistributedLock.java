@@ -7,13 +7,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Copyright (c) 2019 by CANSHU
  *
- *  分布式锁
+ *  锁
  *
  * @author adu Create on 2019-02-15 16:01
  * @version 1.0
@@ -30,7 +32,7 @@ public class DistributedLock{
     /**
      * 下一次重试等待，单位毫秒
      */
-    private static final long INTERVAL_TIMES = 200;
+    private static final long INTERVAL_TIMES = 50;
 
 
     /**
@@ -46,7 +48,7 @@ public class DistributedLock{
     /**
      * 存放当前线程锁
      */
-    private ThreadLocal<Lock> lockThreadLocal = new ThreadLocal<Lock>();
+    private ThreadLocal<Map<String,Lock>> lockThreadLocal = new ThreadLocal<Map<String,Lock>>();
 
     private static MyRedisScript myRedisScript = new MyRedisScript();
     private StringRedisTemplate stringRedisTemplate;
@@ -63,6 +65,7 @@ public class DistributedLock{
         this.stringRedisTemplate = redisTemplate;
         this.lockKey = lockKey;
         this.lockExpiryInMillis = lockExpiryInMillis;
+        lockThreadLocal.set(new ConcurrentHashMap<>());
     }
 
     /**
@@ -104,25 +107,25 @@ public class DistributedLock{
     }
 
     /**
-     * 请求分布式锁,不会阻塞,直接返回
+     * 请求锁,不会阻塞,直接返回
      *
      * @return 成功获取锁返回true, 否则返回false
      */
     private boolean tryAcquire() {
         final Lock nLock = new Lock(nextUid());
         if(stringRedisTemplate.opsForValue().setIfAbsent(lockKey,nLock.toString(),lockExpiryInMillis,TimeUnit.MILLISECONDS)){
-            lockThreadLocal.set(nLock);
+            lockThreadLocal.get().put(lockKey,nLock);
             return true;
         }
         return false;
     }
 
     /**
-     * 超时请求分布式锁,会阻塞
+     * 超时请求锁,会阻塞
      *
      * 采用"自旋获取锁"的方式,直至获取锁成功或者请求锁超时
      *
-     * @param acquireTimeoutInMillis 锁的请求超时时长
+     * @param acquireTimeoutInMillis 锁的请求超时时长(毫秒)
      * @return
      */
     public boolean acquire(long acquireTimeoutInMillis) throws InterruptedException {
@@ -157,7 +160,7 @@ public class DistributedLock{
      * @return
      */
     public boolean release(long releaseTimeoutInMillis) throws InterruptedException {
-        Lock cLock = lockThreadLocal.get();
+        Lock cLock = lockThreadLocal.get().get(lockKey);
         if (cLock == null) {
             logger.info("lock is null!");
             return true;
@@ -171,7 +174,7 @@ public class DistributedLock{
             Long ret = stringRedisTemplate.execute(myRedisScript,Collections.singletonList(lockKey), cLock.toString());
             logger.info("释放锁结果={},lockKey={},cLock={}",ret,lockKey,cLock.toString());
             if (ret == 1) {
-                lockThreadLocal.remove();
+                lockThreadLocal.get().remove(lockKey);
                 return true;
             }
             Thread.sleep(INTERVAL_TIMES);

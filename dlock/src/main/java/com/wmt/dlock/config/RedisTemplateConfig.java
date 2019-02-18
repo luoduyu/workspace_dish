@@ -1,10 +1,13 @@
 package com.wmt.dlock.config;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -20,22 +23,7 @@ import java.io.Serializable;
 @Configuration
 @AutoConfigureAfter(RedisTemplateConfig.class)
 public class RedisTemplateConfig {
-
-
-//    @Bean
-//    public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-//        RedisTemplate redisTemplate = new RedisTemplate();
-//
-//        redisTemplate.setConnectionFactory(redisConnectionFactory);
-//
-//        GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer();
-//
-//        redisTemplate.setDefaultSerializer(redisSerializer);
-//
-//        return redisTemplate;
-//    }
-
-
+    private static Logger logger = LoggerFactory.getLogger(RedisTemplateConfig.class);
     @Bean
     public RedisTemplate<String, Serializable> redisCacheTemplate(RedisConnectionFactory redisConnectionFactory) {
 
@@ -60,6 +48,13 @@ public class RedisTemplateConfig {
      */
     @Bean
     StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
-        return new StringRedisTemplate(connectionFactory);
+
+        if(connectionFactory != null){
+            JedisConnectionFactory jc = (JedisConnectionFactory)connectionFactory;
+            logger.info("=======>>> dlock.redis.hostName="+jc.getHostName()+",dlock.redis.port="+jc.getPort());
+        }
+
+        StringRedisTemplate template =  new StringRedisTemplate(connectionFactory);
+        return template;
     }
 }

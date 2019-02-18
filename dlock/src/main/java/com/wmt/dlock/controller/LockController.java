@@ -1,3 +1,11 @@
+/**
+ * 测试用命令:
+ *
+ * ab -n 2000 -c 1000 "localhost:8080/lock/seckill"
+ *
+ */
+
+
 package com.wmt.dlock.controller;
 
 import com.wmt.dlock.lock.DistributedLock;
@@ -104,6 +112,6 @@ public class LockController {
 //            System.out.println(result);
 //            return Boolean.TRUE;
 //        });
-        return "OK";
+        return object.toString();
     }
 }

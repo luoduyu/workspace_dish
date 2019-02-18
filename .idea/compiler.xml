@@ -8,20 +8,20 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dlock" />
         <module name="test" />
-        <module name="wechat" />
+        <module name="wmt" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dlock" target="1.8" />
       <module name="test" target="1.8" />
-      <module name="wechat" target="1.8" />
+      <module name="wmt" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dlock" options="-parameters" />
       <module name="test" options="-parameters" />
-      <module name="wechat" options="-parameters" />
+      <module name="wmt" options="-parameters" />
     </option>
   </component>
 </project>

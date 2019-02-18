@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dlock/dlock.iml" filepath="$PROJECT_DIR$/dlock/dlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wechat/wechat.iml" filepath="$PROJECT_DIR$/wechat/wechat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wmt/wmt.iml" filepath="$PROJECT_DIR$/wmt/wmt.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/workspace_dish.iml" filepath="$PROJECT_DIR$/.idea/workspace_dish.iml" />
     </modules>
   </component>

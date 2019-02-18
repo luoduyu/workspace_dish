@@ -3,6 +3,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/dlock" />
     <file type="web" url="file://$PROJECT_DIR$/wechat" />
+    <file type="web" url="file://$PROJECT_DIR$/wmt" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
@@ -13,6 +14,7 @@
         <option value="$PROJECT_DIR$/wechat/pom.xml" />
         <option value="$PROJECT_DIR$/test/pom.xml" />
         <option value="$PROJECT_DIR$/dlock/pom.xml" />
+        <option value="$PROJECT_DIR$/wmt/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amt.wechat.dao.order.OrderDao">
+    <resultMap id="ordersMap" type="myOrderForm">
+        <result column="orderId" property="orderId"/>
+        <result column="goodsType" property="goodsType"/>
+        <result column="createTime" property="createTime"/>
+        <result column="payStatus" property="payStatus"/>
+        <result column="payment" property="payment"/>
+        <result column="serviceStatus" property="serviceStatus" />
+        <collection property="itemList" ofType="orderItemData" select="getOrderItems" column="orderId"/>
+    </resultMap>
+    <select id="getMyOrderList" parameterType="java.util.Map" resultMap="ordersMap">
+        SELECT o.orderId,o.goodsType,o.createTime,o.payStatus,o.payment,o.serviceStatus FROM `order` o WHERE poiId=#{poiId} AND ((goodsType=1 OR goodsType=2) OR (goodsType=3 AND payStatus=2)) ORDER BY createTime DESC LIMIT #{index},#{pageSize}
+    </select>
+    <select id="getOrderItems" parameterType="java.lang.String"  resultType="orderItemData">
+        SELECT oi.id,oi.goodsId,oi.goodsName,oi.imgUrl,oi.num,oi.unitPrice,oi.total FROM `order_item` oi WHERE oi.orderId=#{orderId}
+    </select>
+
+
+    <!--insert id="addOrderItemDataList" useGeneratedKeys="true" keyProperty="id"-->
+    <insert id="addOrderItemDataList" parameterType="java.util.List">
+        INSERT INTO order_item (orderId,goodsType,goodsId,snapSeq,goodsName,imgUrl,num,unitPrice,total,createTime) VALUES
+        <foreach item="item" collection="orderItemDataList" separator=",">
+            (#{item.orderId},#{item.goodsType},#{item.goodsId},#{item.snapSeq},#{item.goodsName},#{item.imgUrl},#{item.num},#{item.unitPrice},#{item.total},#{item.createTime})
+        </foreach>
+    </insert>
+</mapper>

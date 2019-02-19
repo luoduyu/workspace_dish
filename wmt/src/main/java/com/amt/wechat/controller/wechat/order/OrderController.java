@@ -1,7 +1,7 @@
 package com.amt.wechat.controller.wechat.order;
 
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.controller.wechat.base.BaseController;
 import com.amt.wechat.dao.poi.PoiDao;
 import com.amt.wechat.domain.packet.BizPacket;

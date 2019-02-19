@@ -42,8 +42,8 @@ public interface PoiMemberDao {
     public void addMemberBoughtRD(PoiMemberRDData rdData);
 
 
-    @Update("UPDATE poi_member_rd SET discount=#{discount},payment=#{payment},payWay=#{payWay},payStatus=#{payStatus},transactionId=#{transactionId},timeEnd=#{timeEnd},summary=#{summary} WHERE id = #{id} AND payStatus=#{oldPayStatus}")
-    public void updateMemberBoughtRD(PoiMemberRDData rdData,int oldPayStatus);
+    @Update("UPDATE poi_member_rd SET discount=#{rdData.discount},payment=#{rdData.payment},payWay=#{rdData.payWay},payStatus=#{rdData.payStatus},transactionId=#{rdData.transactionId},timeEnd=#{rdData.timeEnd},summary=#{rdData.summary} WHERE id = #{rdData.id} AND payStatus=#{oldPayStatus}")
+    public void updateMemberBoughtRD(@Param("rdData") PoiMemberRDData rdData,@Param("oldPayStatus") int oldPayStatus);
 
     @Select("SELECT * FROM poi_member_rd WHERE orderId=#{orderId} LIMIT 1")
     public PoiMemberRDData getMemberBoughtRDByOrderId(String orderId);

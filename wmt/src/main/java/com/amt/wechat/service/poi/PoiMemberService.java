@@ -1,6 +1,6 @@
 package com.amt.wechat.service.poi;
 
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.model.poi.PoiMemberRDData;
 import com.amt.wechat.model.poi.PoiUserData;

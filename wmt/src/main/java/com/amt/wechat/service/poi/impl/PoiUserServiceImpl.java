@@ -466,7 +466,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             }
 
             // 个人帐户锁
-            DistributedLock userDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI_UID+rd+inviterId);
+            DistributedLock userDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI_UID+inviterId);
             try {
                 userDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
 

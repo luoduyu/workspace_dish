@@ -1,9 +1,9 @@
 package com.amt.wechat.service.order;
 
 import com.alibaba.fastjson.JSONObject;
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.PayStatus;
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.PayStatus;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.dao.decoration.MaterialDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiDao;

@@ -24,8 +24,8 @@ public interface BalanceDao {
     public void addRechargeRd(BalanceRechargeRD balanceRechargeRD);
 
 
-    @Update("UPDATE balance_recharge SET payStatus=#{payStatus},transactionId=#{transactionId},balance=#{balance},redBalance=#{redBalance},timeEnd=#{timeEnd},summary=#{summary} WHERE id = #{id} AND payStatus=#{oldPayStatus}")
-    public void updateRechargeRd(BalanceRechargeRD balanceRechargeRD,int oldPayStatus);
+    @Update("UPDATE balance_recharge SET payStatus=#{balanceRechargeRD.payStatus},transactionId=#{balanceRechargeRD.transactionId},balance=#{balanceRechargeRD.balance},redBalance=#{balanceRechargeRD.redBalance},timeEnd=#{balanceRechargeRD.timeEnd},summary=#{balanceRechargeRD.summary} WHERE id = #{balanceRechargeRD.id} AND payStatus=#{oldPayStatus}")
+    public void updateRechargeRd(@Param("balanceRechargeRD") BalanceRechargeRD balanceRechargeRD,@Param("oldPayStatus") int oldPayStatus);
 
     @Select("SELECT * FROM balance_recharge WHERE poiId=#{poiId} ORDER BY createTime DESC LIMIT #{index},#{pageSize}")
     public List<BalanceRechargeRD> getRechargeDataList(String poiId, int index, int pageSize);

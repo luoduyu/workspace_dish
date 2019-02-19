@@ -1,10 +1,10 @@
 package com.amt.wechat.service.balance;
 
 import com.alibaba.fastjson.JSONObject;
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.CostCate;
-import com.amt.wechat.common.PayStatus;
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.CostCate;
+import com.amt.wechat.common.constants.PayStatus;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.dao.balance.BalanceDao;
 import com.amt.wechat.dao.order.OrderDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
@@ -177,7 +177,7 @@ public class BalanceServiceImpl implements  BalanceService {
 
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd+rd.getPoiId());
+        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
 
         PoiAccountData accountData = null;
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
@@ -308,7 +308,7 @@ public class BalanceServiceImpl implements  BalanceService {
         int payment = rd.getTotal()-rd.getDiscount();
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd+rd.getPoiId());
+        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
 
@@ -390,7 +390,7 @@ public class BalanceServiceImpl implements  BalanceService {
 
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd+rd.getPoiId());
+        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
             if (rd.getPayment() > 0) {

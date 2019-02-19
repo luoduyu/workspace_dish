@@ -1,9 +1,9 @@
 package com.amt.wechat.service.bidding;
 
 import com.alibaba.fastjson.JSONObject;
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.PayStatus;
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.PayStatus;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.dao.bidding.BiddingDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;
@@ -207,7 +207,7 @@ public class BiddingServiceImpl implements  BiddingService{
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
 
         // '店铺帐户锁’
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd+rd.getPoiId());
+        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         PoiAccountData accountData = null;
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);

@@ -1,6 +1,6 @@
 package com.amt.wechat.controller.wechat.bidding;
 
-import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.constants.Constants;
 import com.amt.wechat.controller.wechat.base.BaseController;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.WechatUtil;

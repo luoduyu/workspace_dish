@@ -1,6 +1,6 @@
 package com.amt.wechat.service.pay.util;
 
-import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.constants.Constants;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

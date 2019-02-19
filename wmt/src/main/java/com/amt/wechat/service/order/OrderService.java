@@ -1,6 +1,6 @@
 package com.amt.wechat.service.order;
 
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.form.order.OrderItemForm;
 import com.amt.wechat.form.order.OrderSubmitForm;

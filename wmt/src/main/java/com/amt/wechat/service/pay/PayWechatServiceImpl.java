@@ -1,7 +1,7 @@
 package com.amt.wechat.service.pay;
 
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.WechatTradeType;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.WechatTradeType;
 import com.amt.wechat.domain.id.Generator;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.ZXHttpClient;

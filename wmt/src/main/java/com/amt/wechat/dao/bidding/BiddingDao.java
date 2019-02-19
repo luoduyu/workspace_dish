@@ -21,8 +21,8 @@ public interface BiddingDao {
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn ="id")
     public void addRechargeRd(BiddingRechargeRd biddingRechargeRd);
 
-    @Update("UPDATE bidding_recharge SET payStatus=#{payStatus},transactionId=#{transactionId},balance=#{balance},timeEnd=#{timeEnd},summary=#{summary} WHERE id = #{id} AND payStatus=#{oldPayStatus}")
-    public void updateRechargeRd(BiddingRechargeRd biddingRechargeRd,int oldPayStatus);
+    @Update("UPDATE bidding_recharge SET payStatus=#{biddingRechargeRd.payStatus},transactionId=#{biddingRechargeRd.transactionId},balance=#{biddingRechargeRd.balance},timeEnd=#{biddingRechargeRd.timeEnd},summary=#{biddingRechargeRd.summary} WHERE id = #{biddingRechargeRd.id} AND payStatus=#{oldPayStatus}")
+    public void updateRechargeRd(@Param("biddingRechargeRd") BiddingRechargeRd biddingRechargeRd,@Param("oldPayStatus") int oldPayStatus);
 
     @Select("SELECT * FROM bidding_recharge WHERE poiId=#{poiId} ORDER BY createTime DESC LIMIT #{index},#{pageSize}")
     public List<BiddingRechargeRd> getRechargeDataList(String poiId, int index, int pageSize);

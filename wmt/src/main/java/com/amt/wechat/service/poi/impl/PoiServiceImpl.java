@@ -1,7 +1,7 @@
 package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.constants.Constants;
 import com.amt.wechat.dao.dish.DishDao;
 import com.amt.wechat.dao.poi.PoiAccountDao;
 import com.amt.wechat.dao.poi.PoiDao;

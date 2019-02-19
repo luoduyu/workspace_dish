@@ -1,4 +1,4 @@
-package com.amt.wechat.common;
+package com.amt.wechat.common.constants;
 
 /**
  * Copyright (c) 2019 by CANSHU

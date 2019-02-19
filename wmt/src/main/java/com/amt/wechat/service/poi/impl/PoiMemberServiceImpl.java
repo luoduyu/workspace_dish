@@ -1,10 +1,10 @@
 package com.amt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.amt.wechat.common.Constants;
-import com.amt.wechat.common.DurationUnit;
-import com.amt.wechat.common.PayStatus;
-import com.amt.wechat.common.PayWay;
+import com.amt.wechat.common.constants.Constants;
+import com.amt.wechat.common.constants.DurationUnit;
+import com.amt.wechat.common.constants.PayStatus;
+import com.amt.wechat.common.constants.PayWay;
 import com.amt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.amt.wechat.dao.member.MemberDao;
 import com.amt.wechat.dao.member.PoiMemberDao;

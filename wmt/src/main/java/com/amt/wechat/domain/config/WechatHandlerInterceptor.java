@@ -1,7 +1,7 @@
 package com.amt.wechat.domain.config;
 
 import com.alibaba.fastjson.JSON;
-import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.constants.Constants;
 import com.amt.wechat.domain.packet.BizPacket;
 import com.amt.wechat.domain.util.DateTimeUtil;
 import com.amt.wechat.domain.util.WechatUtil;

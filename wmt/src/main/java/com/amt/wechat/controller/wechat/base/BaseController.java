@@ -1,6 +1,6 @@
 package com.amt.wechat.controller.wechat.base;
 
-import com.amt.wechat.common.Constants;
+import com.amt.wechat.common.constants.Constants;
 import com.amt.wechat.model.poi.PoiUserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

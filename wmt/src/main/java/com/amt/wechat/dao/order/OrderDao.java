@@ -34,8 +34,8 @@ public interface OrderDao {
     @Update("UPDATE `order` SET total =#{total} WHERE orderId=#{id}")
     public void updateTotal(int total,String id);
 
-    @Update("UPDATE `order` SET payWay=#{payWay},payStatus=#{payStatus},transactionId=#{transactionId},timeEnd=#{timeEnd},summary=#{summary},payUserId=#{payUserId} WHERE orderId = #{orderId} AND payStatus=#{oldPayStatus}")
-    public void updateOrderData(OrderData orderData,int oldPayStatus);
+    @Update("UPDATE `order` SET payWay=#{orderData.payWay},payStatus=#{orderData.payStatus},transactionId=#{orderData.transactionId},timeEnd=#{orderData.timeEnd},summary=#{orderData.summary},payUserId=#{orderData.payUserId} WHERE orderId = #{orderData.orderId} AND payStatus=#{oldPayStatus}")
+    public void updateOrderData(@Param("orderData") OrderData orderData,@Param("oldPayStatus") int oldPayStatus);
 
 
 

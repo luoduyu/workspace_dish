@@ -79,7 +79,7 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <properties><profileActive>dev</profileActive></properties>
+            <properties><profileActive>local</profileActive></properties>
             <activation><activeByDefault>true</activeByDefault></activation>
             <build>
                 <resources>
@@ -87,12 +87,34 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
+                            <exclude>application-test.properties</exclude>
                             <exclude>application-pro.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>
                 <filters>
-                    <filter>src/main/resources/application-dev.properties</filter>
+                    <filter>src/main/resources/application-local.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties><profileActive>test</profileActive></properties>
+            <activation><activeByDefault>false</activeByDefault></activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <exclude>application-local.properties</exclude>
+                            <exclude>application-pro.properties</exclude>
+                            <exclude>tomcat.key</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+                <filters>
+                    <filter>src/main/resources/application-test.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -106,7 +128,8 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>application-dev.properties</exclude>
+                            <exclude>application-local.properties</exclude>
+                            <exclude>application-test.properties</exclude>
                             <exclude>tomcat.key</exclude>
                         </excludes>
                     </resource>

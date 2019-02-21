@@ -6,208 +6,17 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="1)代入锁&#10;2）项目重构">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/mgr_war.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/mgr_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/enums/CostCate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/WmtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/permission/MgrModules.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/SpringBootExecutableJarVFS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/wmt_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/wmt_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_lettuce_lettuce_core_5_1_3_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_31_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_2_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/mgr_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/mgr_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/mgr_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/mgr_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/RedisTemplateConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/RedisTemplateConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/constants/RedisConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/mgr.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/main/java/com/test/DemoApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/main/java/com/test/redis/RedisCacheAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/test/java/com/test/RedisUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/commons/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wmt/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/WmtApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/CostCate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/DurationUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/enums/DurationUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/PayStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/enums/PayStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/PayWay.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/enums/PayWay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/common/constants/WechatTradeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/enums/WechatTradeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/mgr/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/auth/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/balance/BalanceController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/base/BaseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/bidding/BiddingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/decoration/DecorationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/dish/DishController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/go/GoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/invite/InviteController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/order/OrderController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/poi/PoiController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/poi/PoiMemberController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/poster/PosterController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/snap/OrderController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/controller/wechat/snap/SnapController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/balance/BalanceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/balance/BalanceDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/bidding/BiddingDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/decoration/MaterialDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/dish/DishDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/globalsetting/GlobalSettingDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/go/GoDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/member/MemberDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/member/PoiMemberDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/order/OrderDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poi/InviteTop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poi/PoiAccountDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poi/PoiDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poi/PoiUserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poi/PoiUserWXCodeDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/poster/PosterDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/dao/snap/SnapDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/annotation/GetMappingEx.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/annotation/GetMappingEx.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/annotation/PostMappingEx.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/annotation/PostMappingEx.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/annotation/RequestMappingEx.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/annotation/RequestMappingEx.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/config/MgrHandlerInterceptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/config/MyWebMvcConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MyWebMvcConfigurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/config/WechatHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/handler/MyJSONArrayHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/MyJSONArrayHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/handler/MyJSONHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/MyJSONHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/id/Generator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/member/PoiMember.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/oss/AliOSSUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/domain/oss/AliOSSUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/packet/BizPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/domain/packet/BizPacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/rabc/func/FunctionCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/func/FunctionCollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/rabc/func/WmtClassUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/func/WmtClassUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/rabc/permission/FunctionModules.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/permission/FunctionModules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/redis/MessageSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/redis/MessageSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/redis/MyRedisConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/redis/MyRedisConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/sms/AliSMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/domain/sms/AliSMS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/util/DateTimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/util/WechatUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/domain/util/ZXHttpClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/basic/BasicSettingForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/basic/WeichatLoginForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/order/MyOrderFormEx.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/order/MyOrderItemForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/order/OrderItemForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/order/OrderServiceDataEx.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/order/OrderSubmitForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/poi/MyMemberDataForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/poi/PoiForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/snap/FrameGoods.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/snap/SnapCateForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/snap/SnapGoodsForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/form/yunying/ShenQingForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/balance/BalanceConsumeRd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/balance/BalanceRechargeRD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/balance/BalanceSettingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/balance/BalanceSettingData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/balance/CurrencyStageData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/bidding/BiddingConsumeRd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/bidding/BiddingRechargeRd.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/common/GoodsData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/decoration/MaterialData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/dish/DishCateData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/go/GOData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/member/MemberCardData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/member/MemberFeedbackData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/order/MyOrderForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/order/OrderData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/order/OrderItemData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/order/OrderServiceData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/order/SnapSoldData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiAccountData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiBasicUserData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiCandidate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiMemberData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiMemberRDData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/PoiUserData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/UserIncomeData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poi/WXCodeData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poster/PosterData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poster/RecommendPoster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poster/SequencePoster.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/poster/TopPosterData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/snap/CurrentTimeFrameData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/snap/SnapCateData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/model/snap/SnapGoodsData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/balance/BalanceService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/balance/BalanceServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/bidding/BiddingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/bidding/BiddingServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/dish/DishService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/dish/impl/DishServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/go/GoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/go/GoServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/go/ShenQingType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/login/LoginService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/login/LoginServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/order/OrderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/order/OrderServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/order/PosterOrderClause.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/order/ServiceStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/pay/PayWechatService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/pay/PayWechatServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/pay/util/MD5Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/pay/util/Sha1Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/pay/util/WechatXMLParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/EmplIdentity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/PoiMemberService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/PoiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/PoiUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/impl/PoiMemberServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/impl/PoiServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poi/impl/PoiUserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poster/IPosterService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/poster/impl/PosterServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/redis/RedisService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/redis/impl/RedisServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/snap/SnapService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/snap/SnapStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/amt/wechat/service/snap/impl/SnapServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/resources/mappers/orderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/resources/mappers/orderMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/test/java/com/amt/wechat/service/DAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/test/java/com/amt/wechat/service/GoServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/test/java/com/amt/wechat/service/PosterServiceTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/test/java/com/amt/wechat/service/TestPayWechatService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/WmtApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/WmtApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wmt/src/main/resources/application-dev.properties" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -268,38 +77,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-dev.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties">
+        <entry file="file://$PROJECT_DIR$/commons/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-dev.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="97" column="18" lean-forward="true" selection-start-line="97" selection-start-column="18" selection-end-line="97" selection-end-column="18" />
+            <state relative-caret-position="119">
+              <caret line="7" column="14" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -374,10 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/go/GoService.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/bidding/BiddingService.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/config/WechatHandlerInterceptor.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/snap/OrderController.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/snap/SnapController.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/poster/PosterController.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/go/GoController.java" />
@@ -414,9 +192,6 @@
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/MyJSONHandler.java" />
         <option value="$PROJECT_DIR$/dlock/pom.xml" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" />
-        <option value="$PROJECT_DIR$/commons/pom.xml" />
-        <option value="$PROJECT_DIR$/mgr/pom.xml" />
-        <option value="$PROJECT_DIR$/wmt/pom.xml" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/SpringBootExecutableJarVFS.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/poster/PosterData.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poster/PosterDao.java" />
@@ -424,7 +199,14 @@
         <option value="$PROJECT_DIR$/wmt/src/main/resources/application-dev.properties" />
         <option value="$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties" />
         <option value="$PROJECT_DIR$/mgr/src/main/resources/application-dev.properties" />
+        <option value="$PROJECT_DIR$/wmt/pom.xml" />
+        <option value="$PROJECT_DIR$/wmt/src/main/resources/application-test.properties" />
+        <option value="$PROJECT_DIR$/mgr/pom.xml" />
+        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/WmtApplication.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/resources/application-local.properties" />
         <option value="$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties" />
+        <option value="$PROJECT_DIR$/mgr/src/main/resources/application-test.properties" />
+        <option value="$PROJECT_DIR$/commons/pom.xml" />
       </list>
     </option>
   </component>
@@ -496,81 +278,12 @@
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wmt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wmt" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wmt" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="wmt" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="dlock" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -834,7 +547,7 @@
       <workItem from="1550662157247" duration="740000" />
       <workItem from="1550662932474" duration="878000" />
       <workItem from="1550663849334" duration="3382000" />
-      <workItem from="1550712813223" duration="2130000" />
+      <workItem from="1550712813223" duration="4135000" />
     </task>
     <task id="LOCAL-00001" summary="首次创建">
       <created>1545788645128</created>
@@ -1053,7 +766,21 @@
       <option name="project" value="LOCAL" />
       <updated>1550491130511</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="重构">
+      <created>1550716312647</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1550716312647</updated>
+    </task>
+    <task id="LOCAL-00033" summary="重构">
+      <created>1550716681954</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1550716681954</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1089,7 +816,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1111879000" />
+    <option name="totallyTimeSpent" value="1113884000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1104,7 +831,7 @@
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.17944622" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.2087327" />
       <window_info id="Structure" order="1" sideWeight="0.640416" side_tool="true" weight="0.31256655" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" sideWeight="0.6433566" side_tool="true" weight="0.22896698" />
@@ -1114,7 +841,7 @@
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="3" sideWeight="0.49893504" weight="0.3297062" />
       <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77848774" weight="0.26224157" />
-      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" weight="0.6398259" />
+      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.73748666" visible="true" weight="0.1686616" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.390642" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.7886049" weight="0.66376495" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49946752" weight="0.3297062" />
@@ -1203,7 +930,8 @@
     <MESSAGE value="1)修复给邀请人发奖BUG&#10;2)免密支付开关修改(加密码确认)&#10;3)订单信息增加提交人和支付人&#10;4)增强邀请及分享收入信息存储,支持邀请第5条&#10;5)邀请首页/今日邀请/历史邀请/邀请排行榜&#10;6)分享图片增加有效期限制&#10;7)修复余额密码是否设置与免密支付间标记间的矛盾&#10;8)测试修改分享二维码图片故障&#10;9)了解自动扣款" />
     <MESSAGE value="1)小程序与后台的公共锁模块搭建&#10;2)完成基于Spring RedisTemplate 的分布式锁" />
     <MESSAGE value="1)代入锁&#10;2）项目重构" />
-    <option name="LAST_COMMIT_MESSAGE" value="1)代入锁&#10;2）项目重构" />
+    <MESSAGE value="重构" />
+    <option name="LAST_COMMIT_MESSAGE" value="重构" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -1257,60 +985,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/order/OrderDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="42" column="27" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="18" column="47" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/order/OrderItemData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="8" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiUserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/order/MyOrderForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/WmtApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="77" column="56" lean-forward="true" selection-start-line="77" selection-start-column="56" selection-end-line="77" selection-end-column="56" />
-          <folding>
-            <element signature="e#2711#3246#0" expanded="true" />
-            <element signature="e#3245#3246#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.0/mybatis-3.5.0-sources.jar!/org/apache/ibatis/io/ClassLoaderWrapper.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8-sources.jar!/com/fasterxml/jackson/databind/JavaType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.0/mybatis-3.5.0-sources.jar!/org/apache/ibatis/type/JdbcType.java" />
     <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/sql/Types.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1335,9 +1009,6 @@
     <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.0/mybatis-3.5.0-sources.jar!/org/apache/ibatis/builder/xml/mybatis-3-config.dtd" />
     <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/mappers/config/sqlMapConfig.xml" />
     <entry file="file://$PROJECT_DIR$/wmt/wmt.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.0/mybatis-3.5.0-sources.jar!/org/apache/ibatis/io/VFS.java" />
@@ -1367,27 +1038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="17" column="25" lean-forward="true" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1464">
-          <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/commons/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="82" column="20" lean-forward="true" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31">
-          <caret line="60" column="20" lean-forward="true" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1436,13 +1086,6 @@
           <folding>
             <element signature="e#0#263#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="998">
-          <caret line="196" column="40" lean-forward="true" selection-start-line="196" selection-start-column="40" selection-end-line="196" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1519,10 +1162,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-test.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="99" column="18" lean-forward="true" selection-start-line="99" selection-start-column="18" selection-end-line="99" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="97" column="18" lean-forward="true" selection-start-line="97" selection-start-column="18" selection-end-line="97" selection-end-column="18" />
+        <state relative-caret-position="418">
+          <caret line="85" column="41" lean-forward="true" selection-end-line="109" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -1533,10 +1183,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="20" column="74" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="40" lean-forward="true" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/WmtApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="47" column="21" lean-forward="true" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+          <folding>
+            <element signature="e#2711#3246#0" expanded="true" />
+            <element signature="e#3245#3246#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/context/annotation/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="102" column="18" selection-start-line="102" selection-start-column="18" selection-end-line="102" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-pro.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
+        <state relative-caret-position="-114">
+          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="51" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-test.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="35" lean-forward="true" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="33" selection-start-column="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commons/mvnw.cmd">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dlock/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commons/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="14" />
         </state>
       </provider>
     </entry>

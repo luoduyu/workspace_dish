@@ -36,7 +36,7 @@ public class WmtApplication extends  SpringBootServletInitializer{
         return application.sources(WmtApplication.class);
     }
 
-    @Profile("pro")
+    @Profile({"test","pro"})
     @Bean
     public Connector connector4Pro(){
         Connector connector=new Connector("org.apache.coyote.http11.Http11AprProtocol");
@@ -45,7 +45,7 @@ public class WmtApplication extends  SpringBootServletInitializer{
         return connector;
     }
 
-    @Profile("dev")
+    @Profile("local")
     @Bean
     public Connector connector4Dev(){
         Connector connector=new Connector("org.apache.coyote.http11.Http11AprProtocol");

@@ -5,6 +5,7 @@
     <artifactId>commons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>commons</name>
+    <packaging>jar</packaging>
     <description>commons project</description>
 
     <properties>

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/commons/commons.iml" filepath="$PROJECT_DIR$/commons/commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/dlock/dlock.iml" filepath="$PROJECT_DIR$/dlock/dlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/mgr/mgr.iml" filepath="$PROJECT_DIR$/mgr/mgr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/wmt/wmt.iml" filepath="$PROJECT_DIR$/wmt/wmt.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/workspace_dish.iml" filepath="$PROJECT_DIR$/.idea/workspace_dish.iml" />
     </modules>

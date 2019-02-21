@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.amt</groupId>
+    <groupId>com.wmt</groupId>
     <artifactId>wmt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -118,6 +118,11 @@
         </profile>
     </profiles>
     <dependencies>
+        <dependency>
+            <groupId>com.wmt</groupId>
+            <artifactId>commons</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.wmt</groupId>
             <artifactId>dlock</artifactId>

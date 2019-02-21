@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/dlock" />
+    <file type="web" url="file://$PROJECT_DIR$/mgr" />
     <file type="web" url="file://$PROJECT_DIR$/wechat" />
     <file type="web" url="file://$PROJECT_DIR$/wmt" />
   </component>
@@ -12,9 +13,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/wechat/pom.xml" />
-        <option value="$PROJECT_DIR$/test/pom.xml" />
         <option value="$PROJECT_DIR$/dlock/pom.xml" />
         <option value="$PROJECT_DIR$/wmt/pom.xml" />
+        <option value="$PROJECT_DIR$/mgr/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/pom.xml" />
       </list>
     </option>
   </component>

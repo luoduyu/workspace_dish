@@ -14,6 +14,9 @@
           <element id="module-output" name="wmt" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="commons-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="commons" />
+          </element>
           <element id="archive" name="dlock-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="dlock" />
           </element>

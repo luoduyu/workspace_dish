@@ -51,7 +51,7 @@ public class RedisTemplateConfig {
 
         if(connectionFactory != null){
             JedisConnectionFactory jc = (JedisConnectionFactory)connectionFactory;
-            logger.info("=======>>> dlock.redis.hostName="+jc.getHostName()+",dlock.redis.port="+jc.getPort());
+            //logger.info("=======>>> dlock.redis.hostName="+jc.getHostName()+",dlock.redis.port="+jc.getPort());
         }
 
         StringRedisTemplate template =  new StringRedisTemplate(connectionFactory);

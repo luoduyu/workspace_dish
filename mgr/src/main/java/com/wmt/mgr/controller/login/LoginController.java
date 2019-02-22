@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import javax.annotation.Resource;
  * @author adu Create on 2019-02-22 11:44
  * @version 1.0
  */
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -38,7 +40,7 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = "/mgr/login/mobile",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
+    @RequestMapping(value = "/mgr/login/mobile",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket weichatLogin(String smsCode, String  mobile){
         if(smsCode == null || smsCode.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");

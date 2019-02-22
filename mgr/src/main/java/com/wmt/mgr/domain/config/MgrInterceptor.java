@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,16 +30,13 @@ import java.util.Enumeration;
 public class MgrInterceptor implements HandlerInterceptor {
     private static final Logger traceLog = LoggerFactory.getLogger("mgrTraceLog");
     private static final Logger logger = LoggerFactory.getLogger(MgrInterceptor.class);
-
-    private InterceptorRegistry registry;
     private  @Autowired  RedisService redisService;
-
-
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("handler="+handler);
-        isAllow(request,handler);
+        if(isAllow(request,handler)){
+            return true;
+        }
 
         String accessToken = request.getParameter(Constants.REQ_PARAM_ACCESSTOKEN);
         if (StringUtils.isEmpty(accessToken)) {
@@ -70,11 +65,20 @@ public class MgrInterceptor implements HandlerInterceptor {
     }
 
 
-
+    /**
+     * for test
+     * @param request
+     * @param handler
+     * @return
+     */
     private boolean isAllow(HttpServletRequest request,Object handler){
-        HandlerMethod method= ((HandlerMethod)handler);
+        logger.info("url={},handler={}",handler);
         String urlRequest=request.getRequestURI();
-        logger.info("url={},handler={}",urlRequest,handler);
+        for(String url :Constants.excludePatterns){
+            if(urlRequest.startsWith(url)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -112,9 +116,5 @@ public class MgrInterceptor implements HandlerInterceptor {
         }
 
         return params.toString();
-    }
-
-    public void setRegistry(InterceptorRegistry registry) {
-        this.registry = registry;
     }
 }

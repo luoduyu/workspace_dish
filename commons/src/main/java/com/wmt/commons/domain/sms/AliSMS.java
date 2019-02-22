@@ -7,6 +7,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
@@ -71,6 +72,9 @@ public class AliSMS {
 
         // 组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
+        request.setConnectTimeout(10000); // 设置连接超时为5000毫秒
+        request.setReadTimeout(5000);   // 设置读超时为5000毫秒
+        request.setMethod(MethodType.POST);
 
         // 必填:待发送手机号
         request.setPhoneNumbers(mobile);
@@ -138,7 +142,7 @@ public class AliSMS {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         // 发短信
-        SendSmsResponse response = send("13718787139","456856",SMS_TEMPLATE_OP);
+        SendSmsResponse response = send("13693530571","4578",SMS_TEMPLATE_ACCOUNT);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());

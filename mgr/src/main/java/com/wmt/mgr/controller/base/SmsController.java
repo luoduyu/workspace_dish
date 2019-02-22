@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +22,7 @@ import javax.annotation.Resource;
  * @author adu Create on 2019-02-22 11:00
  * @version 1.0
  */
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class SmsController extends  BaseController{
 
@@ -36,7 +37,7 @@ public class SmsController extends  BaseController{
      * @param type 1:短信, 2:语音; 默认为短信类型
      * @return
      */
-    @GetMapping(value="/mgr/sms/auth")
+    @RequestMapping(value="/mgr/sms/auth",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket sendSMS4Auth_mobile(String mobile, Integer type) {
         if(type == null){
             type = 1;
@@ -51,7 +52,7 @@ public class SmsController extends  BaseController{
      * @param type 1:短信, 2:语音; 默认为短信类型
      * @return
      */
-    @RequestMapping(value="/mgr/sms/go",method = RequestMethod.POST)
+    @RequestMapping(value="/mgr/sms/go",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket sendSMS4GO(String mobile, Integer type) {
         if(type == null){
             type = 1;

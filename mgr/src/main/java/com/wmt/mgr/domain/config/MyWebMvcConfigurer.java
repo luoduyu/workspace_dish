@@ -1,6 +1,8 @@
 package com.wmt.mgr.domain.config;
 
+import com.wmt.mgr.common.Constants;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,7 +21,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        mgrInterceptor.setRegistry(registry);
-        registry.addInterceptor(mgrInterceptor).excludePathPatterns("/index.html","/mgr/login/**","/mgr/sms/**");
+        InterceptorRegistration interceptorRegistration = registry.addInterceptor(mgrInterceptor);
+        interceptorRegistration.excludePathPatterns(Constants.excludePatterns);
     }
 }

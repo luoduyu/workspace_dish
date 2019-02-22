@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author adu Create on 2019-01-09 16:25
  * @version 1.0
  */
-public class PoiBasicUserData  implements Serializable {
+public class PoiBasicUserData implements Serializable {
     private static final long serialVersionUID = 6979708099341541011L;
 
     private String id;

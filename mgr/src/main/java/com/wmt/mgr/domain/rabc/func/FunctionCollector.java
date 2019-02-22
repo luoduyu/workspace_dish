@@ -28,7 +28,7 @@ public class FunctionCollector {
 
     @PostConstruct
     public void init(){
-        List<Class<?>> list = WmtClassUtil.getAllClassByPackageName("com.amt.wechat.controller");
+        List<Class<?>> list = WmtClassUtil.getAllClassByPackageName("com.wmt.mgr.controller");
         parseModules(list);
     }
 

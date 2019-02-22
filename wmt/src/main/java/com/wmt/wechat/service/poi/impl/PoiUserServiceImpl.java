@@ -14,6 +14,7 @@ import com.wmt.commons.constants.RedisConstants;
 import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.DateTimeUtil;
+import com.wmt.commons.util.WmtUtil;
 import com.wmt.dlock.lock.DistributedLock;
 import com.wmt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
@@ -72,16 +73,17 @@ public class PoiUserServiceImpl implements PoiUserService {
 
                 userData = createUser(sessionKeyAndOpenid,userJson,inviterId);
                 poiUserDao.addPOIUser(userData);
-
+                redisService.addPoiUser(userData, null);
             }else{
 
                 JSONObject userJson =  WechatUtil.getUserInfo(encryptedData,sessionKey,iv);
                 logger.info("更新微信用户!userJson={}",userJson);
+
+                String oldAccessToken = userData.getAccessToken();
                 updateUser(userData,sessionKeyAndOpenid,userJson);
                 poiUserDao.updatePOIUser(userData);
+                redisService.addPoiUser(userData, oldAccessToken);
             }
-
-            redisService.addPoiUser(userData);
 
             //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
             WeichatLoginForm form = buildResponse(userData);
@@ -165,7 +167,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             userData.setName(name);
             userData.setMobile(mobile);
             userData.setIsMaster(EmplIdentity.MASTER.value());
-            redisService.addPoiUser(userData);
+            redisService.addPoiUser(userData, null);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",mobile="+mobile);
@@ -193,7 +195,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             userData.setName(name);
             userData.setMobile(mobile);
             userData.setUpdTime(DateTimeUtil.now());
-            redisService.addPoiUser(userData);
+            redisService.addPoiUser(userData, null);
 
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
@@ -223,7 +225,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             userData.setPoiId(poiData.getId());
             userData.setIsMaster(EmplIdentity.EMPLOYEE.value());
             userData.setUpdTime(DateTimeUtil.now());
-            redisService.addPoiUser(userData);
+            redisService.addPoiUser(userData, null);
         } catch (IOException e) {
             logger.error(e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()+",candidate="+candidate);
@@ -260,7 +262,7 @@ public class PoiUserServiceImpl implements PoiUserService {
 
             currUserData.setUpdTime(DateTimeUtil.now());
             currUserData.setMobile(newMobile);
-            redisService.addPoiUser(currUserData);
+            redisService.addPoiUser(currUserData, null);
         } catch (IOException e) {
             logger.error("newMobile="+newMobile+",e="+e.getMessage(),e);
         }
@@ -279,7 +281,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             userData.setName(name);
             userData.setUpdTime(DateTimeUtil.now());
             poiUserDao.updatePOIUserName(name,userData.getUpdTime(),userData.getId());
-            redisService.addPoiUser(userData);
+            redisService.addPoiUser(userData, null);
             return BizPacket.success();
         } catch (Exception e) {
             logger.error(e.getMessage(),e);
@@ -293,7 +295,7 @@ public class PoiUserServiceImpl implements PoiUserService {
         if(userData == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"用户未找到!");
         }
-        BizPacket ret = WechatUtil.check(userData);
+        BizPacket ret = WmtUtil.check(userData.getIsAccountNonLocked(),userData.getIsEnabled(),userData.getIsAccountNonExpired(),userData.getIsCredentialsNonExpired());
         if(ret.getCode() != HttpStatus.OK.value()){
             return ret;
         }
@@ -308,7 +310,7 @@ public class PoiUserServiceImpl implements PoiUserService {
         userData.setUpdTime(DateTimeUtil.now());
         poiUserDao.updateUserAccessToken(userData.getAccessToken(),userData.getUpdTime(),userData.getId());
 
-        redisService.addPoiUser(userData);
+        redisService.addPoiUser(userData, null);
 
         //long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
         WeichatLoginForm form = buildResponse(userData);
@@ -402,8 +404,7 @@ public class PoiUserServiceImpl implements PoiUserService {
                 return BizPacket.error(HttpStatus.NOT_FOUND.value(),"受让人不存在,无法转让!");
             }
 
-
-            BizPacket ret = WechatUtil.check(userData);
+            BizPacket ret = WmtUtil.check(userData.getIsAccountNonLocked(),userData.getIsEnabled(),userData.getIsAccountNonExpired(),userData.getIsCredentialsNonExpired());
             if(ret.getCode() != HttpStatus.OK.value()){
                 return  ret;
             }
@@ -417,7 +418,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             boss.setUpdTime(DateTimeUtil.now());
             boss.setIsMaster(EmplIdentity.EMPLOYEE.value());
             poiUserDao.updatePoiUserMaster(boss.getIsMaster(),boss.getUpdTime(),boss.getId());
-            redisService.addPoiUser(boss);
+            redisService.addPoiUser(boss, null);
 
             return BizPacket.success();
         } catch (Exception e) {
@@ -480,7 +481,7 @@ public class PoiUserServiceImpl implements PoiUserService {
                 PoiUserData userData = redisService.getPoiUserById(inviterId);
                 if (userData != null) {
                     userData.setShareBalance(userData.getShareBalance() + share);
-                    redisService.addPoiUser(userData);
+                    redisService.addPoiUser(userData, null);
                 }
 
                 logger.info("邀请奖励发放成功!inviterId={},poiId={},inviteeId={},奖励额(分)={}", inviterId, rd.getPoiId(), rd.getUserId(), share);

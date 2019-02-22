@@ -35,7 +35,12 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public void addPoiUser(PoiUserData poiUserData) throws IOException {
+    public void addPoiUser(PoiUserData poiUserData, String oldAccessToken) throws IOException {
+        if(oldAccessToken != null && oldAccessToken.trim().length() >= 1){
+            String tOldKey= RedisConstants.WECHAT_ACCESS_TOKEN + oldAccessToken;
+            stringRedisTemplate.delete(tOldKey);
+        }
+
         String tkey =  RedisConstants.WECHAT_ACCESS_TOKEN + poiUserData.getAccessToken();
         stringRedisTemplate.opsForValue().set(tkey,poiUserData.getId(), RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
 

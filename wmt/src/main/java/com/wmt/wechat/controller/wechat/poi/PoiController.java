@@ -2,11 +2,11 @@ package com.wmt.wechat.controller.wechat.poi;
 
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.domain.sms.AliSMS;
+import com.wmt.commons.util.WmtUtil;
 import com.wmt.wechat.controller.wechat.base.BaseController;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiDao;
 import com.wmt.wechat.dao.poi.PoiUserDao;
-import com.wmt.wechat.domain.util.WechatUtil;
 import com.wmt.wechat.form.basic.BasicSettingForm;
 import com.wmt.wechat.form.poi.PoiForm;
 import com.wmt.wechat.model.poi.PoiAccountData;
@@ -214,7 +214,7 @@ public class PoiController extends BaseController {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"请输入手机号");
         }
 
-        if (!WechatUtil.isMobileNO(mobile)) {
+        if (!WmtUtil.isMobileNO(mobile)) {
             return BizPacket.error(HttpStatus.PAYMENT_REQUIRED.value(), "手机号格式不正确!");
         }
 
@@ -250,7 +250,7 @@ public class PoiController extends BaseController {
     @RequestMapping(value="/setting/mobile/replace",method = RequestMethod.POST)
     public BizPacket mobileReplace(String oldSMSCode,String newMobile, String newSMSCode) {
 
-        if (!WechatUtil.isMobileNO(newMobile)) {
+        if (!WmtUtil.isMobileNO(newMobile)) {
             return BizPacket.error(HttpStatus.PAYMENT_REQUIRED.value(), "新手机号格式不正确!");
         }
 

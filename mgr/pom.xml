@@ -82,7 +82,7 @@
             </build>
         </profile>
         <profile>
-            <id>pro</id>
+            <id>test</id>
             <properties><profileActive>test</profileActive></properties>
             <activation><activeByDefault>false</activeByDefault></activation>
             <build>
@@ -165,6 +165,11 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.wmt</groupId>

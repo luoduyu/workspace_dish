@@ -3,8 +3,8 @@ package com.wmt.wechat.domain.config;
 import com.alibaba.fastjson.JSON;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.DateTimeUtil;
+import com.wmt.commons.util.WmtUtil;
 import com.wmt.wechat.common.Constants;
-import com.wmt.wechat.domain.util.WechatUtil;
 import com.wmt.wechat.model.poi.PoiUserData;
 import com.wmt.wechat.service.redis.RedisService;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class WechatHandlerInterceptor implements HandlerInterceptor {
                 return handlerError(response,HttpStatus.UNAUTHORIZED.value(),"user not found or frozen!");
             }
 
-            BizPacket result = WechatUtil.check(user);
+            BizPacket result = WmtUtil.check(user.getIsAccountNonLocked(),user.getIsEnabled(),user.getIsAccountNonExpired(),user.getIsCredentialsNonExpired());
             if(result.getCode() != HttpStatus.OK.value()){
                 return handlerError(response,result.getCode(), result.getMsg());
             }

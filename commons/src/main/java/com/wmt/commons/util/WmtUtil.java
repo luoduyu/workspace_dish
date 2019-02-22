@@ -1,8 +1,13 @@
 package com.wmt.commons.util;
 
+import com.wmt.commons.domain.packet.BizPacket;
+import org.apache.http.HttpStatus;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -57,5 +62,44 @@ public class WmtUtil {
             }
         }
         return strBuilder.toString();
+    }
+
+
+    /**
+     * 验证手机号码是否合法
+     *
+     * @param mobiles
+     * @return false:非法;true:合法
+     */
+    public static boolean isMobileNO(String mobiles) {
+        boolean flag = false;
+        try {
+            // Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
+            Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(14[5,7])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\\d{8}$");
+            Matcher m = p.matcher(mobiles);
+            flag = m.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    public static BizPacket check(int isAccountNonLocked, int isEnabled, int isAccountNonExpired, int isCredentialsNonExpired) {
+        if (isAccountNonLocked != 1) {
+            return BizPacket.error(HttpStatus.SC_UNAUTHORIZED, "User account is locked");
+        }
+
+        if (isEnabled != 1) {
+            return BizPacket.error(HttpStatus.SC_UNAUTHORIZED, "User is disabled");
+        }
+
+        if (isAccountNonExpired != 1) {
+            return BizPacket.error(HttpStatus.SC_UNAUTHORIZED, "User account has expired");
+        }
+
+        if (isCredentialsNonExpired != 1) {
+            return BizPacket.error(HttpStatus.SC_UNAUTHORIZED, "User credentials have expired");
+        }
+        return BizPacket.success();
     }
 }

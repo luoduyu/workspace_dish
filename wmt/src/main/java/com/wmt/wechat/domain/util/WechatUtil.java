@@ -2,16 +2,13 @@ package com.wmt.wechat.domain.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.wechat.common.Constants;
-import com.wmt.wechat.model.poi.PoiUserData;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -30,8 +27,6 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -215,47 +210,6 @@ public class WechatUtil {
         }
         return null;
     }
-
-    /**
-     * 验证手机号码是否合法
-     *
-     * @param mobiles
-     * @return false:非法;true:合法
-     */
-    public static boolean isMobileNO(String mobiles) {
-        boolean flag = false;
-        try {
-            // Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
-            Pattern p = Pattern.compile("^((17[0-9])|(13[0-9])|(14[5,7])|(15[0-9])|(16[0-9])|(18[0-9])|(19[0-9]))\\d{8}$");
-            Matcher m = p.matcher(mobiles);
-            flag = m.matches();
-        } catch (Exception e) {
-            flag = false;
-        }
-        return flag;
-    }
-
-
-
-    public static BizPacket check(PoiUserData user) {
-        if (user.getIsAccountNonLocked() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User account is locked");
-        }
-
-        if (user.getIsEnabled() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User is disabled");
-        }
-
-        if (user.getIsAccountNonExpired() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User account has expired");
-        }
-
-        if (user.getIsCredentialsNonExpired() != 1) {
-            return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "User credentials have expired");
-        }
-        return BizPacket.success();
-    }
-
 
     /**
      * 有两种失败法:

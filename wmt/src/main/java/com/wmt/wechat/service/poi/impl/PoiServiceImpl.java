@@ -285,7 +285,7 @@ public class PoiServiceImpl implements PoiService {
         userData.setPoiId(poiData.getId());
         userData.setUpdTime(DateTimeUtil.now());
         poiUserDao.updateUserPoiId(poiData.getId(), userData.getUpdTime(), userData.getId());
-        redisService.addPoiUser(userData);
+        redisService.addPoiUser(userData, null);
     }
 
 

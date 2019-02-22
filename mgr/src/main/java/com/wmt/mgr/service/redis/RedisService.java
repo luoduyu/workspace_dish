@@ -1,5 +1,9 @@
 package com.wmt.mgr.service.redis;
 
+import com.wmt.mgr.model.user.MgrUserData;
+
+import java.io.IOException;
+
 /**
  * Copyright (c) 2019 by CANSHU
  *
@@ -37,4 +41,15 @@ public interface RedisService {
      * @return
      */
     public String getSMSCode(String mobile);
+
+
+    public void addMgrUser(MgrUserData mgrUserData, String oldAccessToken) throws IOException;
+    public MgrUserData getMgrUser(String accessToken);
+    public MgrUserData getMgrUserById(String mgrUserId);
+
+    /**
+     * 删除用户时
+     * @param mgrUserId
+     */
+    public void onUserRemoved(String mgrUserId);
 }

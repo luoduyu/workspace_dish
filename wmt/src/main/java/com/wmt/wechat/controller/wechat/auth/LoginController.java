@@ -2,7 +2,7 @@ package com.wmt.wechat.controller.wechat.auth;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wmt.commons.domain.packet.BizPacket;
-import com.wmt.wechat.domain.util.WechatUtil;
+import com.wmt.commons.util.WmtUtil;
 import com.wmt.wechat.form.basic.WeichatLoginForm;
 import com.wmt.wechat.model.poi.PoiUserData;
 import com.wmt.wechat.service.poi.PoiUserService;
@@ -77,7 +77,7 @@ public class LoginController{
                 return BizPacket.error(HttpStatus.UNAUTHORIZED.value(), "user not found or frozen!");
             }
 
-            BizPacket packet = WechatUtil.check(user);
+            BizPacket packet = WmtUtil.check(user.getIsAccountNonLocked(),user.getIsEnabled(),user.getIsAccountNonExpired(),user.getIsCredentialsNonExpired());
             if(packet.getCode() != HttpStatus.OK.value()){
                 return packet;
             }

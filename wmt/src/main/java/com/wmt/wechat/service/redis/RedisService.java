@@ -18,7 +18,7 @@ import java.util.Map;
 public interface RedisService {
 
 
-    public void addPoiUser(PoiUserData poiUserData) throws IOException;
+    public void addPoiUser(PoiUserData poiUserData, String oldAccessToken) throws IOException;
     public PoiUserData getPoiUser(String accessToken);
     public PoiUserData getPoiUserById(String poiUserId);
 

@@ -14,10 +14,10 @@
           <element id="module-output" name="wmt" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="commons-0.0.1-SNAPSHOT.jar">
+          <element id="archive" name="amt-commons-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="commons" />
           </element>
-          <element id="archive" name="dlock-0.0.1-SNAPSHOT.jar">
+          <element id="archive" name="amt-dlock-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="dlock" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:2.1.1.RELEASE" />

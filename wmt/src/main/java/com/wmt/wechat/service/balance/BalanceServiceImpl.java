@@ -2,6 +2,7 @@ package com.wmt.wechat.service.balance;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wmt.commons.constants.RedisConstants;
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.CostCate;
 import com.wmt.commons.enums.PayStatus;
@@ -13,7 +14,6 @@ import com.wmt.wechat.dao.balance.BalanceDao;
 import com.wmt.wechat.dao.order.OrderDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiDao;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.domain.util.WechatUtil;
 import com.wmt.wechat.model.balance.BalanceConsumeRd;
 import com.wmt.wechat.model.balance.BalanceRechargeRD;
@@ -86,7 +86,7 @@ public class BalanceServiceImpl implements  BalanceService {
         balanceDao.addRechargeRd(rd);
 
         String nonce_str = Sha1Util.getNonceStr();
-        String body = buildBody(amount);
+        String body = "外卖通-余额充值";
         String attach = RECHARGE_ID +rd.getId();
 
         BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),amount, Constants.PAY_CALLBACK_URL_ALL_BALANCE);
@@ -297,13 +297,14 @@ public class BalanceServiceImpl implements  BalanceService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket memberBuy(PoiUserData userData, PoiMemberRDData rd) throws Exception {
-
-
         PoiAccountData accountData = poiAccountDao.getAccountData(rd.getPoiId());
-        int total = accountData.getCurBalance()+accountData.getCurRedBalance();
-        if(total < (rd.getTotal()-rd.getDiscount()) ){
-            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"余额不足!");
+        if(rd.getPayment()>0){
+            int total = accountData.getCurBalance()+accountData.getCurRedBalance();
+            if(total < (rd.getTotal()-rd.getDiscount()) ){
+                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(),"余额不足!");
+            }
         }
+
 
         // 从红包帐户中扣减额度
         int takeout_red = 0;
@@ -311,7 +312,7 @@ public class BalanceServiceImpl implements  BalanceService {
         // 从红余额中扣减额度
         int takeout_balance  = 0;
 
-        int payment = rd.getTotal()-rd.getDiscount();
+        int payment = rd.getPayment();
 
         // 店铺帐户锁
         DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
@@ -380,13 +381,14 @@ public class BalanceServiceImpl implements  BalanceService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public BizPacket onOrderPayConfirm(PoiUserData userData, OrderData rd) throws Exception {
-
-
         PoiAccountData accountData = poiAccountDao.getAccountData(rd.getPoiId());
         int total = accountData.getCurBalance() + accountData.getCurRedBalance();
-        if (total < rd.getPayment()) {
-            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(), "余额不足!");
+        if(rd.getPayment() >0){
+            if (total < rd.getPayment()) {
+                return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(), "余额不足!");
+            }
         }
+
 
         // 从红包帐户中扣减额度
         int takeout_red = 0;

@@ -16,7 +16,6 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:2.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.1.2.RELEASE" />
-          <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.23" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-redis:2.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-keyvalue:2.1.4.RELEASE" />
@@ -36,10 +35,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.8" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.8" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.1.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.14" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.14" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.14" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.14.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
@@ -62,15 +57,27 @@
           <element id="library" level="project" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.0.0" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.0" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:2.0.0" />
-          <element id="archive" name="dlock-0.0.1-SNAPSHOT.jar">
-            <element id="module-output" name="dlock" />
-          </element>
-          <element id="archive" name="commons-0.0.1-SNAPSHOT.jar">
+          <element id="archive" name="amt-commons-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="commons" />
+          </element>
+          <element id="archive" name="amt-dlock-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="dlock" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.32" />
+          <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-core:4.0.6" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.6" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.10" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.1" />
+          <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.1.14" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.1" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: com.aliyun:aliyun-java-sdk-dysmsapi:1.1.0" />
+          <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.1.4.RELEASE" />
         </element>

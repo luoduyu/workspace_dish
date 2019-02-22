@@ -94,6 +94,6 @@ public interface OrderService {
      */
     public BizPacket orderRM(PoiUserData userData,String orderId);
 
-    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay) throws Exception;
+    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay, String balancePwd) throws Exception;
     public BizPacket payCallback(Map<String,String> wechatPayCallbackParams);
 }

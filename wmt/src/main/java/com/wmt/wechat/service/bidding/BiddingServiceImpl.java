@@ -2,6 +2,7 @@ package com.wmt.wechat.service.bidding;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wmt.commons.constants.RedisConstants;
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.PayStatus;
 import com.wmt.commons.enums.PayWay;
@@ -11,7 +12,6 @@ import com.wmt.wechat.common.Constants;
 import com.wmt.wechat.dao.bidding.BiddingDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiDao;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.model.bidding.BiddingConsumeRd;
 import com.wmt.wechat.model.bidding.BiddingRechargeRd;
 import com.wmt.wechat.model.poi.PoiAccountData;
@@ -108,7 +108,7 @@ public class BiddingServiceImpl implements  BiddingService{
         biddingDao.addRechargeRd(rd);
 
         String nonce_str = Sha1Util.getNonceStr();
-        String body = buildBody(amount);
+        String body = "外卖通-竞价充值";
         String attach = RECHARGE_ID +rd.getId();
 
         BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),amount, Constants.PAY_CALLBACK_URL_ALL_BIDDING);

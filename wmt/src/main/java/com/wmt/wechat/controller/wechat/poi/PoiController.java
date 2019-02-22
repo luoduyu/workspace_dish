@@ -307,6 +307,10 @@ public class PoiController extends BaseController {
 
         try {
             PoiData poiData =  poiDao.getPoiData(userData.getPoiId());
+            if(poiData == null){
+                return BizPacket.error(HttpStatus.FORBIDDEN.value(),"你没有店铺!");
+            }
+
             String masterMobile = poiUserDao.getMasterMobile(poiData.getId(),EmplIdentity.MASTER.value());
             PoiAccountData accountData =  poiAccountDao.getAccountData(userData.getPoiId());
 

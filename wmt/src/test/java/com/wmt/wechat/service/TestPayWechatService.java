@@ -1,8 +1,8 @@
 package com.wmt.wechat.service;
 
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.wechat.common.Constants;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.service.pay.PayWechatService;
 import com.wmt.wechat.service.pay.util.Sha1Util;
 import org.junit.Test;

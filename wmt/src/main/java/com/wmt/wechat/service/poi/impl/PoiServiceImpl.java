@@ -1,6 +1,7 @@
 package com.wmt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.oss.AliOSSUtil;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.DateTimeUtil;
@@ -10,7 +11,6 @@ import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiDao;
 import com.wmt.wechat.dao.poi.PoiUserDao;
 import com.wmt.wechat.dao.poi.PoiUserWXCodeDao;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.form.basic.BasicSettingForm;
 import com.wmt.wechat.model.poi.PoiAccountData;
 import com.wmt.wechat.model.poi.PoiData;

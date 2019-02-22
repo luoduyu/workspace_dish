@@ -1,4 +1,4 @@
-package com.wmt.wechat.domain.id;
+package com.wmt.commons.domain.id;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

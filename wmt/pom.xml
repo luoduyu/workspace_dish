@@ -80,7 +80,7 @@
         <profile>
             <id>dev</id>
             <properties><profileActive>local</profileActive></properties>
-            <activation><activeByDefault>true</activeByDefault></activation>
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>
@@ -98,7 +98,7 @@
             </build>
         </profile>
         <profile>
-            <id>pro</id>
+            <id>test</id>
             <properties><profileActive>test</profileActive></properties>
             <activation><activeByDefault>false</activeByDefault></activation>
             <build>
@@ -121,7 +121,7 @@
         <profile>
             <id>pro</id>
             <properties><profileActive>pro</profileActive></properties>
-            <activation><activeByDefault>false</activeByDefault></activation>
+            <activation><activeByDefault>true</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>
@@ -143,12 +143,12 @@
     <dependencies>
         <dependency>
             <groupId>com.wmt</groupId>
-            <artifactId>commons</artifactId>
+            <artifactId>amt-commons</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.wmt</groupId>
-            <artifactId>dlock</artifactId>
+            <artifactId>amt-dlock</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

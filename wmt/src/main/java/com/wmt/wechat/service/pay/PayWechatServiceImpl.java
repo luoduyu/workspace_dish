@@ -1,9 +1,9 @@
 package com.wmt.wechat.service.pay;
 
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.WechatTradeType;
 import com.wmt.wechat.common.Constants;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.domain.util.ZXHttpClient;
 import com.wmt.wechat.service.pay.util.MD5Util;
 import com.wmt.wechat.service.pay.util.WechatXMLParser;

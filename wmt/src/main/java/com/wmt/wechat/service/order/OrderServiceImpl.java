@@ -1,6 +1,7 @@
 package com.wmt.wechat.service.order;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.PayStatus;
 import com.wmt.commons.enums.PayWay;
@@ -10,7 +11,6 @@ import com.wmt.wechat.dao.decoration.MaterialDao;
 import com.wmt.wechat.dao.order.OrderDao;
 import com.wmt.wechat.dao.poi.PoiDao;
 import com.wmt.wechat.dao.poster.PosterDao;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.form.order.*;
 import com.wmt.wechat.model.common.GoodsData;
 import com.wmt.wechat.model.decoration.MaterialData;
@@ -595,7 +595,7 @@ public class OrderServiceImpl implements  OrderService {
 
 
     @Override
-    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay) throws Exception{
+    public BizPacket payConfirm(PoiUserData userData, String orderId, PayWay payWay, String balancePwd) throws Exception{
         OrderData orderData = orderDao.getOrder(orderId);
         if(orderData == null){
             return BizPacket.error(HttpStatus.NOT_FOUND.value(),"订单不存在!");
@@ -606,6 +606,20 @@ public class OrderServiceImpl implements  OrderService {
         if(orderData.getPayStatus() == PayStatus.PAIED.value()){
             return BizPacket.error(HttpStatus.NOT_ACCEPTABLE.value(),"订单已经支付过了!");
         }
+        if(orderData.getPayment() > 0){
+            if(payWay == PayWay.BALANCE){
+                PoiData poiData = poiDao.getPoiData(userData.getPoiId());
+                if(poiData.getBalancePwdFree() != 1){
+                    if(StringUtils.isEmpty(balancePwd)){
+                        return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"余额密码是必填!");
+                    }
+                    if(!balancePwd.equals(poiData.getBalancePwd())){
+                        return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码错误!");
+                    }
+                }
+            }
+        }
+
 
         // 金额为0时强制走余额支付
         if(orderData.getPayment()<= 0 || payWay == PayWay.BALANCE){
@@ -628,7 +642,7 @@ public class OrderServiceImpl implements  OrderService {
     private BizPacket payConfirm4WX(PoiUserData userData,OrderData rd)throws Exception{
 
         String nonce_str = Sha1Util.getNonceStr();
-        String body = buildBody(rd.getPayment());
+        String body = buildBody(rd);
         String attach = POI_ID +rd.getPoiId()+","+USER_ID+userData.getId();
 
         int payment = rd.getPayment();
@@ -673,9 +687,10 @@ public class OrderServiceImpl implements  OrderService {
         return BizPacket.success(prePayParams);
     }
 
+    private static String[] names = {"外卖通-海报服务","外卖通-装修服务","外卖通-抢购"};
 
-    private String buildBody(int amount){
-        return "order-pay-"+amount+"fen";
+    private String buildBody(OrderData orderData){
+        return names[orderData.getGoodsType()];
     }
 
     @Override

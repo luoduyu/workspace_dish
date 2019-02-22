@@ -9,7 +9,6 @@ import com.wmt.wechat.domain.util.WechatUtil;
 import com.wmt.wechat.form.order.MyOrderItemForm;
 import com.wmt.wechat.form.order.OrderItemForm;
 import com.wmt.wechat.form.order.OrderSubmitForm;
-import com.wmt.wechat.model.poi.PoiData;
 import com.wmt.wechat.model.poi.PoiUserData;
 import com.wmt.wechat.service.order.OrderService;
 import com.wmt.wechat.service.pay.util.WechatXMLParser;
@@ -150,21 +149,9 @@ public class OrderController extends BaseController {
         if(pw != PayWay.WECHAT && pw != PayWay.BALANCE){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"暂时不支持其它付款方式:"+pw.toString());
         }
-        if(pw == PayWay.BALANCE){
-            PoiData poiData = poiDao.getPoiData(userData.getPoiId());
-            if(poiData.getBalancePwdFree() != 1){
-                if(StringUtils.isEmpty(balancePwd)){
-                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"余额密码是必填!");
-                }
-                if(!balancePwd.equals(poiData.getBalancePwd())){
-                    return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码错误!");
-                }
-            }
-        }
-
 
         try {
-            BizPacket ret= orderService.payConfirm(userData,orderId,pw);
+            BizPacket ret= orderService.payConfirm(userData,orderId,pw,balancePwd);
             return ret;
         } catch (Exception e) {
             logger.error("userData="+userData+",orderId="+orderId+",payWay="+payWay+",e="+e.getMessage(),e);

@@ -1,6 +1,7 @@
 package com.wmt.wechat.service.poi.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.DurationUnit;
 import com.wmt.commons.enums.PayStatus;
@@ -12,7 +13,6 @@ import com.wmt.wechat.dao.member.MemberDao;
 import com.wmt.wechat.dao.member.PoiMemberDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiUserDao;
-import com.wmt.wechat.domain.id.Generator;
 import com.wmt.wechat.domain.member.PoiMember;
 import com.wmt.wechat.form.poi.MyMemberDataForm;
 import com.wmt.wechat.model.member.MemberCardData;
@@ -365,26 +365,23 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"非法的会员卡Id");
         }
 
-
         // 购买记录/摘要持久化
+        // TODO 考虑一种更佳的做法,避免每次创建新记录。
+        // 从两方面考虑,一方面是业务流程优化(主要考虑方向),另一方面是考虑从原有的记录里取,或者设置过期时间什么的。
         PoiMemberRDData rdData = createMemberCardBoughtRD(userData,cardData,feeRenew);
         poiMemberDao.addMemberBoughtRD(rdData);
 
-        // 预览支付各项数值
-        boolean isMemberNewbie = memberNewbie(userData.getPoiId());
-        int discount = isMemberNewbie? cardData.getDiscount():0;
-        JSONObject jsonObject = rd2JSON(rdData,discount);
-
+        JSONObject jsonObject = rd2JSON(rdData);
         return BizPacket.success(jsonObject);
     }
 
-    private JSONObject rd2JSON(PoiMemberRDData rdData,int newDiscount){
+    private JSONObject rd2JSON(PoiMemberRDData rdData){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("durationUnit",rdData.getDurationUnit());
         jsonObject.put("duration",rdData.getDuration());
         jsonObject.put("buyTime",rdData.getBuyTime());
         jsonObject.put("total",rdData.getTotal());
-        jsonObject.put("discount",newDiscount);
+        jsonObject.put("discount",rdData.getDiscount());
         jsonObject.put("payment",rdData.getPayment());
         jsonObject.put("orderId",rdData.getOrderId());
         jsonObject.put("feeRenew",rdData.getFeeRenew());
@@ -406,14 +403,6 @@ public class PoiMemberServiceImpl implements PoiMemberService {
             return BizPacket.error(HttpStatus.NOT_ACCEPTABLE.value(),"订单已经支付过了!");
         }
 
-
-
-        // 新手折扣计算
-        boolean isMemberNewbie = memberNewbie(userData.getPoiId());
-        MemberCardData cardData = memberDao.getMemberCardDataByDur(rd.getDurationUnit(),rd.getDuration());
-        int discount = isMemberNewbie? cardData.getDiscount():0;
-
-        rd.setDiscount(discount);
         if(payWay == PayWay.BALANCE){
             return balanceService.memberBuy(userData,rd);
         }
@@ -432,11 +421,8 @@ public class PoiMemberServiceImpl implements PoiMemberService {
      * @throws Exception
      */
     private BizPacket memberBuy4WX(PoiUserData userData,PoiMemberRDData rd)throws Exception{
-        // 实付 = 应付总款 - 折扣
-        rd.setPayment( rd.getTotal() - rd.getDiscount());
-
         String nonce_str = Sha1Util.getNonceStr();
-        String body = buildBody(rd.getPayment());
+        String body = "外卖通-会员购买";
         String attach = MEMBER_BUY_ID +rd.getId()+","+USER_ID+userData.getId();
 
         BizPacket bizPacket = payWechatService.prePayOrder(userData.getOpenid(),nonce_str,body,attach,rd.getOrderId(),rd.getPayment(), Constants.PAY_CALLBACK_URL_ALL_MEMBER_BUY);
@@ -489,19 +475,26 @@ public class PoiMemberServiceImpl implements PoiMemberService {
         rd.setDuration(cardData.getDuration());
         rd.setDurationUnit(cardData.getDurationUnit());
         rd.setFeeRenew(feeRenew);
-        // 提交付款前才会确认真实的折扣额度是多少
-        rd.setDiscount(0);
+
+        // 新手折扣计算
+        boolean isMemberNewbie = memberNewbie(userData.getPoiId());
+        int discount = isMemberNewbie? cardData.getNewDiscount():0;
+        rd.setDiscount(discount);
+
         rd.setTotal(cardData.getPrice());;
         rd.setPoiId(userData.getPoiId());
         rd.setUserId(userData.getId());
         rd.setPayStatus(PayStatus.NOT_PAID.value());
-        rd.setPayment(0);
+
+        // 实付 = 应付总款 - 折扣
+        rd.setPayment( rd.getTotal() - rd.getDiscount());
 
         rd.setOrderId(Generator.generate());
         rd.setPayWay(-1);
         rd.setTransactionId("");
         rd.setSummary("");
         rd.setTimeEnd("");
+        logger.info("rd={},user={},mcardData={},feeRenew={},isMemberNewbie={},discount={}",rd,userData,cardData,feeRenew,isMemberNewbie,discount);
         return rd;
     }
 

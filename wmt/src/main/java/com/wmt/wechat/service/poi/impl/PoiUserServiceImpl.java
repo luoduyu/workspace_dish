@@ -15,7 +15,7 @@ import com.wmt.commons.domain.id.Generator;
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.DateTimeUtil;
 import com.wmt.commons.util.WmtUtil;
-import com.wmt.dlock.lock.DistributedLock;
+import com.wmt.dlock.lock.DLock;
 import com.wmt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
 import com.wmt.wechat.dao.poi.PoiDao;
@@ -467,7 +467,7 @@ public class PoiUserServiceImpl implements PoiUserService {
             }
 
             // 个人帐户锁
-            DistributedLock userDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI_UID+inviterId);
+            DLock userDLock = new DLock(stringRedisTemplate, RedisConstants.CANSHU_POI_UID+inviterId);
             try {
                 userDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
 

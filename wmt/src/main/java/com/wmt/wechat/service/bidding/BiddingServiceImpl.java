@@ -7,7 +7,7 @@ import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.enums.PayStatus;
 import com.wmt.commons.enums.PayWay;
 import com.wmt.commons.util.DateTimeUtil;
-import com.wmt.dlock.lock.DistributedLock;
+import com.wmt.dlock.lock.DLock;
 import com.wmt.wechat.common.Constants;
 import com.wmt.wechat.dao.bidding.BiddingDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
@@ -208,7 +208,7 @@ public class BiddingServiceImpl implements  BiddingService{
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
 
         // '店铺帐户锁’
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
+        DLock poiDLock = new DLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         PoiAccountData accountData = null;
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);

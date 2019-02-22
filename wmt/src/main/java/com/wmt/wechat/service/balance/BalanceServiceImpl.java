@@ -8,7 +8,7 @@ import com.wmt.commons.enums.CostCate;
 import com.wmt.commons.enums.PayStatus;
 import com.wmt.commons.enums.PayWay;
 import com.wmt.commons.util.DateTimeUtil;
-import com.wmt.dlock.lock.DistributedLock;
+import com.wmt.dlock.lock.DLock;
 import com.wmt.wechat.common.Constants;
 import com.wmt.wechat.dao.balance.BalanceDao;
 import com.wmt.wechat.dao.order.OrderDao;
@@ -183,7 +183,7 @@ public class BalanceServiceImpl implements  BalanceService {
 
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
+        DLock poiDLock = new DLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
 
         PoiAccountData accountData = null;
         int amount = Integer.parseInt(wechatPayCallbackParams.get("amount"));
@@ -315,7 +315,7 @@ public class BalanceServiceImpl implements  BalanceService {
         int payment = rd.getPayment();
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
+        DLock poiDLock = new DLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
 
@@ -398,7 +398,7 @@ public class BalanceServiceImpl implements  BalanceService {
 
 
         // 店铺帐户锁
-        DistributedLock poiDLock = new DistributedLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
+        DLock poiDLock = new DLock(stringRedisTemplate, RedisConstants.CANSHU_POI+rd.getPoiId());
         try {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
             if (rd.getPayment() > 0) {

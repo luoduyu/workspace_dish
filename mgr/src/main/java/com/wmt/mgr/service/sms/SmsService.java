@@ -10,5 +10,13 @@ import com.wmt.commons.domain.packet.BizPacket;
  * @version 1.0
  */
 public interface SmsService {
+
+    /**
+     * 发送短信
+     * @param mobile
+     * @param timeoutMinutes
+     * @param templateCode
+     * @return
+     */
     public BizPacket sendSMS(String mobile, int timeoutMinutes, String templateCode);
 }

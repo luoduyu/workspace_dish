@@ -1,7 +1,7 @@
 package com.wmt.mgr.service.redis.impl;
 
 import com.wmt.commons.constants.RedisConstants;
-import com.wmt.mgr.model.user.MgrUserData;
+import com.wmt.mgr.model.mgr.user.MgrUserData;
 import com.wmt.mgr.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

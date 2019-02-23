@@ -2,11 +2,11 @@ package com.wmt.mgr.controller.login;
 
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.WmtUtil;
-import com.wmt.mgr.dao.user.MgrUserDao;
-import com.wmt.mgr.form.MgrUserForm;
-import com.wmt.mgr.model.user.MgrUserData;
+import com.wmt.mgr.dao.mgr.user.MgrUserDao;
+import com.wmt.mgr.form.mgr.user.MgrUserForm;
+import com.wmt.mgr.model.mgr.user.MgrUserData;
 import com.wmt.mgr.service.redis.RedisService;
-import com.wmt.mgr.service.user.UserService;
+import com.wmt.mgr.service.mgr.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -91,7 +91,7 @@ public class LoginController {
             if(packet.getCode() != HttpStatus.OK.value()){
                 return packet;
             }
-
+            userService.onLoginByAccessToken(user);
             MgrUserForm form = MgrUserForm.buildResponse(user);
             return BizPacket.success(form);
 
@@ -99,5 +99,19 @@ public class LoginController {
             logger.error(ex.getMessage(),ex);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/mgr/token/fetch",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})
+    public BizPacket accessTokenFetch(String mobile) {
+
+        if(mobile == null || mobile.trim().length() == 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数mobile不正确!");
+        }
+
+        MgrUserData user = mgrUserDao.getMgrUserDataByMobile(mobile.trim());
+        if(user == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"用户不存在!");
+        }
+        return BizPacket.success(user);
     }
 }

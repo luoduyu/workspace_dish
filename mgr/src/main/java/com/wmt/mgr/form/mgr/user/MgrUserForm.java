@@ -1,7 +1,7 @@
-package com.wmt.mgr.form;
+package com.wmt.mgr.form.mgr.user;
 
 import com.alibaba.fastjson.JSON;
-import com.wmt.mgr.model.user.MgrUserData;
+import com.wmt.mgr.model.mgr.user.MgrUserData;
 
 /**
  * Copyright (c) 2019 by CANSHU

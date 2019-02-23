@@ -40,9 +40,4 @@ public interface PoiDao {
 
     @Update("UPDATE poi SET mtAppAuthToken=#{mtAppAuthToken},accountName=#{accountName},accountPassword=#{accountPassword}, updTime=#{updTime} WHERE id = #{id}")
     public void mtAuth(PoiData poiData);
-
-
-
-
-
 }

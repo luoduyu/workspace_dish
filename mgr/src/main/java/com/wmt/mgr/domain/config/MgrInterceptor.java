@@ -5,7 +5,7 @@ import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.DateTimeUtil;
 import com.wmt.commons.util.WmtUtil;
 import com.wmt.mgr.common.Constants;
-import com.wmt.mgr.model.user.MgrUserData;
+import com.wmt.mgr.model.mgr.user.MgrUserData;
 import com.wmt.mgr.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +72,9 @@ public class MgrInterceptor implements HandlerInterceptor {
      * @return
      */
     private boolean isAllow(HttpServletRequest request,Object handler){
-        logger.info("url={},handler={}",handler);
         String urlRequest=request.getRequestURI();
+        logger.info("url={},handler={}",urlRequest,handler);
+
         for(String url :Constants.excludePatterns){
             if(urlRequest.startsWith(url)){
                 return true;

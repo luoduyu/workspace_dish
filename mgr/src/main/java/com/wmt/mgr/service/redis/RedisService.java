@@ -1,6 +1,6 @@
 package com.wmt.mgr.service.redis;
 
-import com.wmt.mgr.model.user.MgrUserData;
+import com.wmt.mgr.model.mgr.user.MgrUserData;
 
 import java.io.IOException;
 

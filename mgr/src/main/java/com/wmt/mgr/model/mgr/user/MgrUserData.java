@@ -1,4 +1,4 @@
-package com.wmt.mgr.model.user;
+package com.wmt.mgr.model.mgr.user;
 
 import com.alibaba.fastjson.JSON;
 

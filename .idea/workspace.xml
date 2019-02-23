@@ -7,8 +7,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_15_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/log/LogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/member/MemberController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/log/CommitLogDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/CardDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/user/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/validation/ValidationUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/log/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/CardForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/MemberForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/member/CardData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/log/CommitLogData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/log/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/user/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/mgr_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/mgr_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d39aa908-f622-445f-ac7d-490409f8b8d1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d39aa908-f622-445f-ac7d-490409f8b8d1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/user/MgrUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/permission/FunctionModules.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/MgrUserForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/MgrUserForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/user/MgrUserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/user/MgrUserData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiDao.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -70,22 +104,73 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/member/MemberController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+            <state relative-caret-position="238">
+              <caret line="48" column="54" selection-start-line="48" selection-start-column="54" selection-end-line="48" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/RequestParam.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/ValueConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="27" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/user/MgrUserData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/CardForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="22" column="7" lean-forward="true" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+            <state relative-caret-position="368">
+              <caret line="22" column="7" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="22" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,19 +179,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/CardDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+            <state relative-caret-position="224">
+              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java">
+        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+            <state relative-caret-position="409">
+              <caret line="102" selection-start-line="102" selection-end-line="112" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -122,17 +210,13 @@
         <option value="AnnotationType" />
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="XSLT Stylesheet" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>com.amt.wechat</find>
-      <find>json</find>
-      <find>getGlobalSettingData</find>
-      <find>PoiUserDao</find>
       <find>orderItemData</find>
       <find>com.amt</find>
       <find>getOrderItems</find>
@@ -159,6 +243,10 @@
       <find>dom4j</find>
       <find>ecs</find>
       <find>/mgr/login/mobile</find>
+      <find>@RequestBody</find>
+      <find>`</find>
+      <find>carddata</find>
+      <find>card</find>
     </findStrings>
     <replaceStrings>
       <replace>,</replace>
@@ -176,6 +264,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="373a8c12-009c-4d91-9515-9b3baae983b4" />
@@ -183,43 +276,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/order/OrderController.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/bidding/BiddingServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/src/test/java/com/wmt/wechat/service/TestPayWechatService.java" />
-        <option value="$PROJECT_DIR$/dlock/pom.xml" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/balance/BalanceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/pom.xml" />
-        <option value="$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/member/MemberCardData.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/poi/impl/PoiMemberServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/poi/PoiController.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/func/FunctionCollector.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/user/UserDao.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/user/MsgUserDao.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/resources/application-test.properties" />
-        <option value="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/UserService.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiUserDao.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/user/MgrUserDao.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/redis/RedisService.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/redis/impl/RedisServiceImpl.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/poi/impl/PoiServiceImpl.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/user/BaseMgrUserData.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/user/MgrUserData.java" />
-        <option value="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/domain/user/AbstractUser.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/poi/PoiBasicUserData.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/poi/PoiUserData.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/util/WechatUtil.java" />
-        <option value="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/WmtUtil.java" />
-        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/poi/impl/PoiUserServiceImpl.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/config/WechatHandlerInterceptor.java" />
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/auth/LoginController.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/MgrUserForm.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/impl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/mgr/pom.xml" />
         <option value="$PROJECT_DIR$/mgr/src/main/resources/application-local.properties" />
         <option value="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/lock/DistributedLock.java" />
         <option value="$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/lock/DLock.java" />
@@ -228,12 +288,45 @@
         <option value="$PROJECT_DIR$/commons/pom.xml" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/common/Constants.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MyWebMvcConfigurer.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/filter/CorsFilter.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/SmsController.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/BaseController.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/log/LogController.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/user/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/MgrUserData.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/user/MgrUserData.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/log/CommitLogData.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/log/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/user/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/log/CommitLogDao.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/MgrUserForm.java" />
+        <option value="$PROJECT_DIR$/mgr/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/validation/ValidationUtils.java" />
+        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiDao.java" />
+        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poster/PosterDao.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserAddForm.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserForm.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/member/CardData.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/log/readme.txt" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/MemberForm.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/CardForm.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberService.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/CardDao.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberServiceImpl.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/member/MemberController.java" />
       </list>
     </option>
   </component>
@@ -263,10 +356,6 @@
       <expand>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="commons" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="mgr" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
         <path>
@@ -282,8 +371,8 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="73" />
-    <option name="y" value="253" />
+    <option name="x" value="-4" />
+    <option name="y" value="-4" />
     <option name="width" value="1928" />
     <option name="height" value="1060" />
   </component>
@@ -350,18 +439,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
-              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="sms" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -408,35 +486,35 @@
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.amt.wechat.service.bidding" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.wmt.mgr.form.mgr.user" />
+      <recent name="com.wmt.mgr.form.mgr" />
+      <recent name="com.wmt.mgr.dao.mgr.user" />
+      <recent name="com.wmt.mgr.service.mgr.user" />
+      <recent name="com.wmt.mgr.model.mgr.user" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace_dish\mgr\src\main\java\com\wmt\mgr\service\sms" />
+      <recent name="D:\workspace_dish\mgr\src\main\resources\static" />
+      <recent name="D:\workspace_dish\wmt\src\main\java\com\wmt\wechat\domain" />
+      <recent name="D:\workspace_dish\mgr\src\main\resources" />
+      <recent name="D:\workspace_dish\mgr\src\main\java\com\wmt\mgr\domain\redis" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.wmt.mgr.model.member" />
+      <recent name="com.wmt.commons.domain.id" />
+      <recent name="com.wmt.mgr.controller.base" />
+      <recent name="com.wmt.commons.constants" />
+      <recent name="com.wmt.mgr.dao.balance" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\workspace_dish\wechat\src\main\resources" />
       <recent name="D:\workspace_dish\wechat\src\main\resources\log4j2" />
       <recent name="D:\workspace_dish\wechat\src\main\resources\config" />
       <recent name="D:\workspace_dish\wechat\src\main\resources\static" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.amt.wechat.common" />
-      <recent name="com.wmt.commons.enums" />
-      <recent name="com.amt.wechat.domain.annotation" />
-      <recent name="com.amt.wechat.common.constants" />
-      <recent name="com.amt.wechat.controller.wechat" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace_dish\mgr\src\main\resources\static" />
-      <recent name="D:\workspace_dish\wmt\src\main\java\com\wmt\wechat\domain" />
-      <recent name="D:\workspace_dish\mgr\src\main\resources" />
-      <recent name="D:\workspace_dish\mgr\src\main\java\com\wmt\mgr\domain\redis" />
-      <recent name="D:\workspace_dish\commons\src\main\java\com\wmt\commons\domain\handler" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.wmt.commons.domain.id" />
-      <recent name="com.wmt.mgr.controller.base" />
-      <recent name="com.wmt.commons.constants" />
-      <recent name="com.wmt.mgr.dao.balance" />
-      <recent name="com.wmt.mgr.model.balance" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.amt.wechat.service.bidding" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -951,7 +1029,28 @@
       <option name="project" value="LOCAL" />
       <updated>1550836315970</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="重构&#10;&#10;(cherry picked from commit 3c596062ea9eced0225ddd1573a80ec696358b45)&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1550891130530</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1550891130530</updated>
+    </task>
+    <task id="LOCAL-00044" summary="重构&#10;&#10;(cherry picked from commit 3c596062ea9eced0225ddd1573a80ec696358b45)&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1550891234205</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1550891234205</updated>
+    </task>
+    <task id="LOCAL-00045" summary="重构&#10;&#10;(cherry picked from commit 3c596062ea9eced0225ddd1573a80ec696358b45)&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1550891287861</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1550891287861</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -987,7 +1086,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1169633000" />
+    <option name="totallyTimeSpent" value="1191089000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1000,27 +1099,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.19595315" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.17625134" />
       <window_info id="Structure" order="1" sideWeight="0.640416" side_tool="true" weight="0.31256655" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" sideWeight="0.6433566" side_tool="true" weight="0.22896698" />
       <window_info id="Web" order="4" sideWeight="0.6648531" side_tool="true" weight="0.26091588" />
-      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.22896698" side_tool="true" weight="0.38302502" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.22949947" side_tool="true" weight="0.1882481" />
       <window_info anchor="bottom" id="Problems" order="1" sideWeight="0.69861555" weight="0.24265505" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Spring" order="3" sideWeight="0.49893504" weight="0.3297062" />
       <window_info anchor="bottom" id="Messages" order="4" sideWeight="0.77848774" weight="0.26224157" />
-      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.7736954" visible="true" weight="0.257889" />
+      <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.7736954" weight="0.49075082" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.390642" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.7886049" weight="0.66376495" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49946752" weight="0.3297062" />
       <window_info anchor="bottom" id="Message" order="9" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="11" sideWeight="0.771033" weight="0.38302502" />
-      <window_info anchor="bottom" id="Run" order="12" sideWeight="0.78168267" weight="0.4069641" />
-      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.78541" weight="0.35255712" />
+      <window_info anchor="bottom" id="Find" order="11" sideWeight="0.77050054" visible="true" weight="0.2437432" />
+      <window_info anchor="bottom" id="Run" order="12" sideWeight="0.78168267" weight="0.34820458" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.78541" weight="0.20565833" />
       <window_info anchor="bottom" id="Cvs" order="14" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
       <window_info anchor="bottom" id="Statistic" order="16" weight="0.40261152" />
@@ -1112,7 +1210,8 @@
     <MESSAGE value="1)小程序与后台的公共锁模块搭建&#10;2)完成基于Spring RedisTemplate 的分布式锁" />
     <MESSAGE value="1)代入锁&#10;2）项目重构" />
     <MESSAGE value="重构" />
-    <option name="LAST_COMMIT_MESSAGE" value="重构" />
+    <MESSAGE value="重构&#10;&#10;(cherry picked from commit 3c596062ea9eced0225ddd1573a80ec696358b45)&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="重构&#10;&#10;(cherry picked from commit 3c596062ea9eced0225ddd1573a80ec696358b45)&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -1166,361 +1265,379 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/poi/PoiMemberService.java">
+    <entry file="file://$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/constants/RedisConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+        <state relative-caret-position="243">
+          <caret line="25" column="58" lean-forward="true" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/poi/PoiMemberController.java">
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="177" column="60" selection-start-line="177" selection-start-column="44" selection-end-line="177" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/config/WechatHandlerInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="75" column="47" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/MgrUserForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="869">
-          <caret line="191" column="1" selection-start-line="191" selection-start-column="1" selection-end-line="191" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/user/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-799">
-          <caret line="22" column="64" lean-forward="true" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/func/FunctionCollector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-569">
-          <caret line="31" column="27" lean-forward="true" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/config/annotation/WebMvcConfigurer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="102" column="32" selection-start-line="102" selection-start-column="17" selection-end-line="102" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/config/annotation/WebMvcConfigurerComposite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/HandlerInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="96" column="20" selection-start-line="96" selection-start-column="20" selection-end-line="96" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/RedisTemplateConfig.java" />
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/config/MyRedisScript.java" />
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/controller/LockController.java" />
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/balance/BalanceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="189" lean-forward="true" selection-start-line="189" selection-end-line="189" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/lock/DLock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dlock/src/main/java/com/wmt/dlock/DLockApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/aliyun/aliyun-java-sdk-core/4.0.6/aliyun-java-sdk-core-4.0.6-sources.jar!/com/aliyuncs/profile/IClientProfile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/aliyun/aliyun-java-sdk-core/4.0.6/aliyun-java-sdk-core-4.0.6-sources.jar!/com/aliyuncs/http/MethodType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/aliyun/aliyun-java-sdk-core/4.0.6/aliyun-java-sdk-core-4.0.6-sources.jar!/com/aliyuncs/IAcsClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/aliyun/aliyun-java-sdk-core/4.0.6/aliyun-java-sdk-core-4.0.6-sources.jar!/com/aliyuncs/DefaultAcsClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="279" column="72" selection-start-line="279" selection-start-column="66" selection-end-line="279" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/domain/sms/AliSMS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/commons/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="92" column="21" lean-forward="true" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/login/LoginServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="221" column="37" selection-start-line="221" selection-start-column="37" selection-end-line="221" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/config/annotation/InterceptorRegistry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="54" column="54" lean-forward="true" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/config/annotation/InterceptorRegistration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="130" column="75" lean-forward="true" selection-start-line="130" selection-start-column="8" selection-end-line="130" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/handler/MappedInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="3799" column="28" selection-start-line="3799" selection-start-column="19" selection-end-line="3799" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="94" column="87" lean-forward="true" selection-start-line="94" selection-start-column="87" selection-end-line="94" selection-end-column="87" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MgrInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="72" column="7" lean-forward="true" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/filter/CorsFilter.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/cors/CorsConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="342" column="29" selection-start-line="342" selection-start-column="29" selection-end-line="342" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.4.RELEASE/spring-webmvc-5.1.4.RELEASE-sources.jar!/org/springframework/web/servlet/config/CorsBeanDefinitionParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="52" column="63" selection-start-line="52" selection-start-column="63" selection-end-line="52" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="38" column="39" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-test.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="80" column="26" lean-forward="true" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/balance/BalanceSettingData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="25" selection-start-column="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/application-local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="45" lean-forward="true" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/SmsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="24" column="41" selection-start-line="24" selection-end-line="24" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/RequestMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/CrossOrigin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+        <state relative-caret-position="311">
+          <caret line="44" column="9" lean-forward="true" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/common/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="63" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="63" />
+        <state relative-caret-position="255">
+          <caret line="15" column="52" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MyWebMvcConfigurer.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.2.RELEASE/spring-boot-2.1.2.RELEASE-sources.jar!/org/springframework/boot/context/properties/bind/BindResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        <state relative-caret-position="-1759">
+          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/validator/hibernate-validator/6.0.14.Final/hibernate-validator-6.0.14.Final-sources.jar!/org/hibernate/validator/internal/engine/ConstraintViolationImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+        <state relative-caret-position="-986">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final-sources.jar!/javax/validation/ConstraintViolation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/util/Iterator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="69" column="6" selection-start-line="69" selection-start-column="6" selection-end-line="69" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/validation/ValidationUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="39" column="82" selection-start-line="39" selection-start-column="72" selection-end-line="39" selection-end-column="82" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/validation/BindingResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/context/support/DefaultMessageSourceResolvable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/validation/ObjectError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="35" column="63" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/validation/FieldError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="35" column="43" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/validation/AbstractBindingResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="132" column="27" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.4.RELEASE/spring-context-5.1.4.RELEASE-sources.jar!/org/springframework/validation/Errors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="187" column="12" selection-start-line="187" selection-start-column="12" selection-end-line="187" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.4.RELEASE/spring-core-5.1.4.RELEASE-sources.jar!/org/springframework/util/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="709" column="30" selection-start-line="709" selection-start-column="30" selection-end-line="709" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/snap/SnapDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/go/GoDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="22" column="75" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/member/PoiMemberDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-359">
+          <caret line="32" column="53" lean-forward="true" selection-start-line="32" selection-start-column="53" selection-end-line="32" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/order/OrderDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiUserWXCodeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="83" column="10" lean-forward="true" selection-start-line="83" selection-start-column="10" selection-end-line="83" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/PoiAccountDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poi/InviteTop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poster/PosterDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="695">
+          <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/readme.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/rabc/permission/FunctionModules.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/log/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" lean-forward="true" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/member/MemberCardData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java">
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/poi/PoiMemberController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        <state relative-caret-position="239">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/member/MemberDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="22" column="7" lean-forward="true" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+        <state relative-caret-position="221">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="28" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/readme.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="99" column="93" lean-forward="true" selection-start-line="98" selection-start-column="11" selection-end-line="99" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/MemberForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/member/CardData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="64" column="38" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" column="75" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="102" selection-start-line="102" selection-end-line="112" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/mgr/user/MgrUserData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1-sources.jar!/org/apache/logging/log4j/core/config/plugins/validation/constraints/Required.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/ValueConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/web/bind/annotation/RequestParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="63" column="18" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/wechat/member/CardDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/wechat/member/MemberServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/wechat/member/MemberController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="48" column="54" selection-start-line="48" selection-start-column="54" selection-end-line="48" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/CardForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="22" column="7" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="22" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

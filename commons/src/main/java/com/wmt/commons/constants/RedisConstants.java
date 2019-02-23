@@ -20,7 +20,7 @@ public class RedisConstants {
      * 小程序-有效期:15天(60分 * 24H * 15天)
      */
     public static final long WECHAT_TOKEN_TIMEOUT = 60 * 24 * 15;
-    public static final long MGR_TOKEN_TIMEOUT = 60 * 24 * 1;
+    public static final long MGR_TOKEN_TIMEOUT = 60 * 24 * 3;
 
     public static final String WECHAT_POI_USER = "wmt_poi:user:";
     public static final String MGR_USER = "wmt_mgr:user:";

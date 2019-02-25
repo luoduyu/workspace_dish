@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
         card.setDuration(form.getDuration());
 
         cardDao.updateCardData(card);
-        return BizPacket.success(card.getId());
+        return BizPacket.success();
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.wmt.mgr.service.wechat.member.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,7 +46,7 @@ public class MemberController extends BaseController {
     }
 
 
-    @PostMappingEx(value = "/mgr/m/card/add",funcName = "会员卡添加",module = MgrModules.MEMBER)
+    @PostMappingEx(value = "/mgr/m/card/add",funcName = "会员卡添加",module = MgrModules.MEMBER,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BizPacket cardAdd(@RequestBody @Valid CardForm cardForm, BindingResult result){
         if(cardForm == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"cardForm参数必须!");
@@ -64,7 +65,7 @@ public class MemberController extends BaseController {
         }
     }
 
-    @PostMappingEx(value = "/mgr/m/card/edit",funcName = "会员卡编辑",module = MgrModules.MEMBER)
+    @PostMappingEx(value = "/mgr/m/card/edit",funcName = "会员卡编辑",module = MgrModules.MEMBER,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BizPacket cardEdit(@RequestBody @Valid CardForm cardForm, BindingResult result){
         if(cardForm == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"cardForm参数必须!");
@@ -105,6 +106,9 @@ public class MemberController extends BaseController {
     public BizPacket cardShowSeqUpdate(@RequestParam("cardId") Integer cardId,@RequestParam("showSeq")Integer showSeq){
         if(cardId == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "cardId参数必须!");
+        }
+        if(showSeq <0 || showSeq>= Integer.MAX_VALUE){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "showSeq参数范围:0-65536 !");
         }
         MgrUserData mgrUserData = getUser();
         try {

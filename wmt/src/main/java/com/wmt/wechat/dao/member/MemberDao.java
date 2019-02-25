@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface MemberDao {
 
-    @Select("SELECT * FROM card_items ORDER BY showSeq ASC LIMIT 100")
+    @Select("SELECT * FROM card_items ORDER BY showSeq DESC LIMIT 100")
     public List<MemberCardData> getMemberCardList();
 
 

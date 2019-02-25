@@ -36,7 +36,17 @@ public class WmtApplication extends  SpringBootServletInitializer{
         return application.sources(WmtApplication.class);
     }
 
-    @Profile({"test","pro"})
+
+    @Profile({"test"})
+    @Bean
+    public Connector connector4Test(){
+        Connector connector=new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        connector.setPort(80);
+        connector.setRedirectPort(443);
+        return connector;
+    }
+
+    @Profile({"pro"})
     @Bean
     public Connector connector4Pro(){
         Connector connector=new Connector("org.apache.coyote.http11.Http11AprProtocol");

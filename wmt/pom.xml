@@ -100,7 +100,7 @@
         <profile>
             <id>test</id>
             <properties><profileActive>test</profileActive></properties>
-            <activation><activeByDefault>false</activeByDefault></activation>
+            <activation><activeByDefault>true</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>
@@ -121,7 +121,7 @@
         <profile>
             <id>pro</id>
             <properties><profileActive>pro</profileActive></properties>
-            <activation><activeByDefault>true</activeByDefault></activation>
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <resources>
                     <resource>

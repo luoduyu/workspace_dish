@@ -17,10 +17,13 @@ public class PoiMemberRDData implements Serializable {
 
 	private long id;
 	private String poiId;
+	private String poiName;
 	private String durationUnit;
 	private int duration;
 	private String buyTime;
 	private String userId;
+    private String userMobile;
+
 	private int total;
 
     /**
@@ -83,6 +86,14 @@ public class PoiMemberRDData implements Serializable {
 
     public void setPoiId(String poiId) {
         this.poiId = poiId;
+    }
+
+    public String getPoiName() {
+        return poiName;
+    }
+
+    public void setPoiName(String poiName) {
+        this.poiName = poiName;
     }
 
     public String getDurationUnit() {
@@ -194,6 +205,14 @@ public class PoiMemberRDData implements Serializable {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
     }
 
     @Override

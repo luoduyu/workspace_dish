@@ -37,7 +37,7 @@ public interface PoiMemberDao {
 
 
 
-    @Insert("INSERT INTO poi_member_rd(poiId,durationUnit,duration,buyTime,userId,total,discount,payment,payStatus,payWay,orderId,transactionId,timeEnd,summary,feeRenew) VALUES(#{poiId},#{durationUnit},#{duration},#{buyTime},#{userId},#{total},#{discount},#{payment},#{payStatus},#{payWay},#{orderId},#{transactionId},#{timeEnd},#{summary},#{feeRenew})")
+    @Insert("INSERT INTO poi_member_rd(poiId,poiName,durationUnit,duration,buyTime,userId,userMobile,total,discount,payment,payStatus,payWay,orderId,transactionId,timeEnd,summary,feeRenew) VALUES(#{poiId},#{poiName},#{durationUnit},#{duration},#{buyTime},#{userId},#{userMobile},#{total},#{discount},#{payment},#{payStatus},#{payWay},#{orderId},#{transactionId},#{timeEnd},#{summary},#{feeRenew})")
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     public void addMemberBoughtRD(PoiMemberRDData rdData);
 

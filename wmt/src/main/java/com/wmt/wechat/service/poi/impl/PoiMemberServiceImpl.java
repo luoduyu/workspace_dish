@@ -12,15 +12,13 @@ import com.wmt.wechat.dao.globalsetting.GlobalSettingDao;
 import com.wmt.wechat.dao.member.MemberDao;
 import com.wmt.wechat.dao.member.PoiMemberDao;
 import com.wmt.wechat.dao.poi.PoiAccountDao;
+import com.wmt.wechat.dao.poi.PoiDao;
 import com.wmt.wechat.dao.poi.PoiUserDao;
 import com.wmt.wechat.domain.member.PoiMember;
 import com.wmt.wechat.form.poi.MyMemberDataForm;
 import com.wmt.wechat.model.member.MemberCardData;
 import com.wmt.wechat.model.member.MemberFeedbackData;
-import com.wmt.wechat.model.poi.PoiAccountData;
-import com.wmt.wechat.model.poi.PoiMemberData;
-import com.wmt.wechat.model.poi.PoiMemberRDData;
-import com.wmt.wechat.model.poi.PoiUserData;
+import com.wmt.wechat.model.poi.*;
 import com.wmt.wechat.service.balance.BalanceService;
 import com.wmt.wechat.service.pay.PayWechatService;
 import com.wmt.wechat.service.pay.util.MD5Util;
@@ -49,24 +47,16 @@ import java.util.Map;
 @Service("poiMemberService")
 public class PoiMemberServiceImpl implements PoiMemberService {
     private static Logger logger = LoggerFactory.getLogger(PoiMemberServiceImpl.class);
-    private @Resource
-    PoiMemberDao poiMemberDao;
-    private @Resource
-    PoiAccountDao poiAccountDao;
-    private @Resource
-    MemberDao memberDao;
-    private @Resource
-    PoiUserService poiUserService;
-    private @Resource
-    GlobalSettingDao globalSettingDao;
-    private @Resource
-    PayWechatService payWechatService;
-    private @Resource
-    BalanceService balanceService;
-    private @Resource
-    PoiUserDao poiUserDao;
-    private @Resource
-    RedisService redisService;
+    private @Resource  PoiMemberDao poiMemberDao;
+    private @Resource PoiDao poiDao;
+    private @Resource  PoiAccountDao poiAccountDao;
+    private @Resource  MemberDao memberDao;
+    private @Resource  PoiUserService poiUserService;
+    private @Resource  GlobalSettingDao globalSettingDao;
+    private @Resource   PayWechatService payWechatService;
+    private @Resource   BalanceService balanceService;
+    private @Resource   PoiUserDao poiUserDao;
+    private @Resource   RedisService redisService;
 
     @Override
     public BizPacket memberDataFetch(PoiUserData userData){
@@ -364,11 +354,12 @@ public class PoiMemberServiceImpl implements PoiMemberService {
         if(cardData == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"非法的会员卡Id");
         }
+        PoiData poiData = poiDao.getPoiData(userData.getPoiId());
 
         // 购买记录/摘要持久化
         // TODO 考虑一种更佳的做法,避免每次创建新记录。
         // 从两方面考虑,一方面是业务流程优化(主要考虑方向),另一方面是考虑从原有的记录里取,或者设置过期时间什么的。
-        PoiMemberRDData rdData = createMemberCardBoughtRD(userData,cardData,feeRenew);
+        PoiMemberRDData rdData = createMemberCardBoughtRD(userData,cardData,feeRenew,poiData.getName());
         poiMemberDao.addMemberBoughtRD(rdData);
 
         JSONObject jsonObject = rd2JSON(rdData);
@@ -469,7 +460,7 @@ public class PoiMemberServiceImpl implements PoiMemberService {
      * @param feeRenew
      * @return
      */
-    private PoiMemberRDData createMemberCardBoughtRD(PoiUserData userData, MemberCardData cardData, int feeRenew){
+    private PoiMemberRDData createMemberCardBoughtRD(PoiUserData userData, MemberCardData cardData, int feeRenew,String poiName){
         PoiMemberRDData rd = new PoiMemberRDData();
         rd.setBuyTime(DateTimeUtil.now());
         rd.setDuration(cardData.getDuration());
@@ -483,7 +474,14 @@ public class PoiMemberServiceImpl implements PoiMemberService {
 
         rd.setTotal(cardData.getPrice());;
         rd.setPoiId(userData.getPoiId());
+        if(poiName != null){
+            rd.setPoiName(poiName);
+        }else{
+            rd.setPoiName("");
+        }
+
         rd.setUserId(userData.getId());
+        rd.setUserMobile(userData.getMobile());
         rd.setPayStatus(PayStatus.NOT_PAID.value());
 
         // 实付 = 应付总款 - 折扣

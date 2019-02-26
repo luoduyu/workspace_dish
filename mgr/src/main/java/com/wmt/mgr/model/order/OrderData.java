@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * Copyright (c) 2019 by CANSHU
+ * 订单列表
  *
  * @author lujunp Create on 2019/2/26 13:41
  * @version 1.0
@@ -13,8 +14,7 @@ import java.io.Serializable;
 @Alias("orderData")
 public class OrderData implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 5178103309313091776L;
     /**
      * 店铺Id
      */

@@ -15,8 +15,12 @@ import java.io.Serializable;
  */
 @Alias("orderItemData")
 public class OrderItemData implements Serializable {
-    private static final long serialVersionUID = 8599317807676704847L;
 
+    private static final long serialVersionUID = -6264671607633228273L;
+
+    /**
+     * 序号
+     */
     private int id;
 
     /**

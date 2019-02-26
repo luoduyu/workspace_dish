@@ -2,7 +2,7 @@ package com.wmt.mgr.service.wechat.order.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wmt.commons.domain.packet.BizPacket;
-import com.wmt.mgr.common.Tools;
+import com.wmt.mgr.common.Constants;
 import com.wmt.mgr.dao.wechat.order.OrderDao;
 import com.wmt.mgr.model.order.OrderData;
 import com.wmt.mgr.model.order.OrderItemData;
@@ -13,13 +13,6 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Copyright (c) 2019 by CANSHU
- * 订单相关业务处理
- *
- * @author lujunp Create on 2019/2/25 19:58
- * @version 1.0
- */
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
@@ -35,12 +28,12 @@ public class OrderServiceImpl implements OrderService {
 
         JSONObject jsonObject = new JSONObject();
 
-        Integer total = orderDao.countOrderData(Tools.delSpace(orderId), Tools.delSpace(submitUserMobile), Tools.delSpace(poiName), startTime, endTime);
+        Integer total = orderDao.countOrderData(Constants.delSpace(orderId), Constants.delSpace(submitUserMobile), Constants.delSpace(poiName), startTime, endTime);
         jsonObject.put("total", total);
-        if(total==null){
+        if (total == null) {
             total = 0;
         }
-        if(total <= 0){
+        if (total <= 0) {
             jsonObject.put("list", Collections.emptyList());
             return BizPacket.success(jsonObject);
         }
@@ -55,10 +48,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public BizPacket getOrderItemByOrderId(String orderId) {
 
-        OrderItemData orderItemData = orderDao.getOrderItemByOrderId(orderId);
+        List<OrderItemData> orderItemDataList = orderDao.getOrderItemByOrderId(orderId);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("orderItem", orderItemData);
+
+        if(orderItemDataList == null || orderItemDataList.size() <= 0){
+            jsonObject.put("orderItemDataList",Collections.emptyList());
+            return BizPacket.success(jsonObject);
+        }
+        jsonObject.put("orderItemDataList", orderItemDataList);
 
         return BizPacket.success(jsonObject);
     }

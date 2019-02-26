@@ -4,6 +4,7 @@ import com.wmt.commons.domain.packet.BizPacket;
 
 /**
  * Copyright (c) 2019 by CANSHU
+ * 订单业务接口
  *
  * @author lujunp Create on 2019/2/25 19:53
  * @version 1.0
@@ -21,7 +22,7 @@ public interface OrderService {
      * @param pageSize      count
      * @return      查询结果
      */
-    BizPacket orderList(String orderId, String submitUserMobile,
+    public BizPacket orderList(String orderId, String submitUserMobile,
                         String poiName, String startTime,
                         String endTime, Integer index,
                         Integer pageSize);
@@ -31,6 +32,6 @@ public interface OrderService {
      * @param orderId       订单id
      * @return              订单详细信息
      */
-    BizPacket getOrderItemByOrderId(String orderId);
+    public BizPacket getOrderItemByOrderId(String orderId);
 
 }

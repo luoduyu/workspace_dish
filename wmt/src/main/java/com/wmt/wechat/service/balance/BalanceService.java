@@ -69,5 +69,12 @@ public interface BalanceService {
      */
     public BizPacket memberBuy(PoiUserData userData, PoiMemberRDData rd) throws Exception;
 
+    /**
+     * 订单余额支付确认
+     * @param userData
+     * @param orderData
+     * @return
+     * @throws Exception
+     */
     public BizPacket onOrderPayConfirm(PoiUserData userData, OrderData orderData) throws Exception;
 }

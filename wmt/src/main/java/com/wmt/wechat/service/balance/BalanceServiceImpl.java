@@ -393,7 +393,7 @@ public class BalanceServiceImpl implements  BalanceService {
         // 从红包帐户中扣减额度
         int takeout_red = 0;
 
-        // 从红余额中扣减额度
+        // 从余额中扣减额度
         int takeout_balance = 0;
 
 
@@ -403,22 +403,22 @@ public class BalanceServiceImpl implements  BalanceService {
             poiDLock.acquire(ACQUIRE_TIMEOUT_IN_MILLIS);
             if (rd.getPayment() > 0) {
 
-                if (accountData.getCurRedBalance() <= rd.getPayment()) {
-                    // 优先扣减红包帐户
-                    takeout_red = accountData.getCurRedBalance();
+                if (accountData.getCurBalance() <= rd.getPayment()) {
+                    // 优先扣减帐户余额
+                    takeout_balance = accountData.getCurBalance();
 
-                    // 余额帐户应扣款 = 总款 - 折扣款- 红包抵扣款
-                    takeout_balance = rd.getPayment() - accountData.getCurRedBalance();
-                    accountData.setCurRedBalance(0);
+                    // 红包帐户应扣款 = 总款 - 折扣款- 余额抵扣款
+                    takeout_red = rd.getPayment() - takeout_balance;
+                    accountData.setCurBalance(0);
 
-                    // 再从余额帐户中扣除
-                    accountData.setCurBalance(accountData.getCurBalance() - takeout_balance);
+                    // 再从红包帐户中扣除
+                    accountData.setCurRedBalance(accountData.getCurRedBalance() - takeout_red);
                 } else {
-                    takeout_red = rd.getTotal();
-                    takeout_balance = 0;
+                    takeout_balance = rd.getPayment();
+                    takeout_red = 0;
 
                     // 红包帐户就够了
-                    accountData.setCurRedBalance(accountData.getCurRedBalance() - takeout_red);
+                    accountData.setCurBalance(accountData.getCurBalance() - takeout_balance);
                 }
 
                 // 扣款持久化

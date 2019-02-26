@@ -15,6 +15,6 @@ public class Constants {
     public static final String  MGR_LOGGED_USER  = "mgr_logged_user";
     public static final String REQ_PARAM_ACCESSTOKEN = "accessToken";
 
-    public static final String[] excludePatterns ={"/index.html","/error","/mgr/login/**","/mgr/sms/**"};
+    public static final String[] excludePatterns ={"/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**"};
 
 }

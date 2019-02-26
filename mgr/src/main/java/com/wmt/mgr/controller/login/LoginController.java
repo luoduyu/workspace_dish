@@ -112,6 +112,9 @@ public class LoginController {
         if(user == null){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"用户不存在!");
         }
+        if(redisService.getMgrUser(user.getAccessToken()) == null){
+            user.setAccessToken(null);
+        }
         return BizPacket.success(user);
     }
 }

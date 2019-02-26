@@ -40,7 +40,7 @@
         <RollingFile  name="commonRollingFile" fileName="${env:CATALINA_HOME}/logs/wmt_mgr.log" filePattern="${env:CATALINA_HOME}/logs/$${date:yyyy-MM}/wmt_mgr-%d{yyyyMMddHH}.log.gz">
 
             <Filters>
-                <ThresholdFilter level="INFO" />
+                <ThresholdFilter level="DEBUG" />
             </Filters>
 
 

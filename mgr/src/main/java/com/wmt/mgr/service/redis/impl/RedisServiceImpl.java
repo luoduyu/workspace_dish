@@ -102,23 +102,22 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public MgrUserData getMgrUser(String accessToken) {
         try {
-            String poiUserId = stringRedisTemplate.opsForValue().get(RedisConstants.MGR_ACCESS_TOKEN + accessToken);
 
-            // accessToken不存在的时候同时删除其对应的 'UserData'
+            String tkey =  RedisConstants.MGR_ACCESS_TOKEN + accessToken;
+            String poiUserId = stringRedisTemplate.opsForValue().get(tkey);
             if(poiUserId == null || poiUserId.trim().length() ==0){
-                String ukey = RedisConstants.MGR_USER +poiUserId;
-                redisTemplate.delete(ukey);
                 return null;
             }
 
             String ukey = RedisConstants.MGR_USER +poiUserId;
             Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
             if(objUser == null){
+                stringRedisTemplate.delete(tkey);
                 return null;
             }
 
             // 续时长
-            stringRedisTemplate.expire(RedisConstants.MGR_ACCESS_TOKEN + accessToken, RedisConstants.MGR_TOKEN_TIMEOUT, TimeUnit.MINUTES);
+            stringRedisTemplate.expire(tkey, RedisConstants.MGR_TOKEN_TIMEOUT, TimeUnit.MINUTES);
             redisTemplate.expire(ukey, RedisConstants.MGR_TOKEN_TIMEOUT, TimeUnit.MINUTES);
 
             return (MgrUserData)objUser;

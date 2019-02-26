@@ -52,23 +52,23 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public PoiUserData getPoiUser(String accessToken) {
         try {
-            String poiUserId = stringRedisTemplate.opsForValue().get(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken);
+            String tkey = RedisConstants.WECHAT_ACCESS_TOKEN + accessToken;
+            String poiUserId = stringRedisTemplate.opsForValue().get(tkey);
 
-            // accessToken不存在的时候同时删除其对应的 'UserData'
+
             if(poiUserId == null || poiUserId.trim().length() ==0){
-                String ukey = RedisConstants.WECHAT_POI_USER+poiUserId;
-                redisTemplate.delete(ukey);
                 return null;
             }
 
             String ukey = RedisConstants.WECHAT_POI_USER+poiUserId;
             Object objUser=  redisTemplate.opsForHash().get(ukey,poiUserId);
             if(objUser == null){
+                stringRedisTemplate.delete(tkey);
                 return null;
             }
 
             // 续时长
-            stringRedisTemplate.expire(RedisConstants.WECHAT_ACCESS_TOKEN + accessToken, RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
+            stringRedisTemplate.expire(tkey, RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
             redisTemplate.expire(ukey, RedisConstants.WECHAT_TOKEN_TIMEOUT, TimeUnit.MINUTES);
 
             return (PoiUserData)objUser;

@@ -35,8 +35,8 @@ public class OrderController {
                                String endTime, Integer index,
                                Integer pageSize) {
 
-        if (startTime != null && startTime.trim().isEmpty()
-                && endTime !=null && endTime.trim().isEmpty()) {
+        if (startTime != null && !startTime.trim().isEmpty()
+                && endTime !=null && !endTime.trim().isEmpty()) {
 
             if (startTime.compareTo(endTime) > 0) {
                 return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(), "请求开始时间大于结束时间");

@@ -10,6 +10,7 @@ import com.wmt.mgr.service.wechat.order.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,6 +37,14 @@ public class OrderServiceImpl implements OrderService {
 
         Integer total = orderDao.countOrderData(Tools.delSpace(orderId), Tools.delSpace(submitUserMobile), Tools.delSpace(poiName), startTime, endTime);
         jsonObject.put("total", total);
+        if(total==null){
+            total = 0;
+        }
+        if(total <= 0){
+            jsonObject.put("list", Collections.emptyList());
+            return BizPacket.success(jsonObject);
+        }
+
 
         List<OrderData> list = orderDao.getOrderDataList(orderId, submitUserMobile, poiName, startTime, endTime, index * pageSize, pageSize);
         jsonObject.put("list", list);

@@ -14,6 +14,8 @@ public enum MgrModules {
      */
     BASIC(10,"基础设置"),
 
+
+
     /**
      * 功能模块及编组/角色管理/权限分配
      */
@@ -32,10 +34,17 @@ public enum MgrModules {
     DECORATION(40,"装修模块"),
 
 
+
+    YUNYING(45,"运营管理"),
+
+
     /**
-     * 运营模块
+     * 竞价帐户
      */
-    YUNYING(50,"运营模块"),
+    BIDDING(50,"竞价帐户"),
+
+
+    SHARE(55,"分享金帐户"),
 
 
     /**

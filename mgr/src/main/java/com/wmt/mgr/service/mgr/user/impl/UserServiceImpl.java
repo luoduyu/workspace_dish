@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Service("userService")
@@ -66,6 +67,10 @@ public class UserServiceImpl implements UserService {
 
         Integer total = mgrUserDao.countUserData(name,mobile,isEnabled);
         jsonObject.put("total",total);
+        if(total <= 0){
+            jsonObject.put("list", Collections.emptyList());
+            return BizPacket.success(jsonObject);
+        }
 
         List<MgrUserData> list  = mgrUserDao.getMgrUserDataList(name,mobile,isEnabled,index * pageSize,pageSize);
         jsonObject.put("list",list);

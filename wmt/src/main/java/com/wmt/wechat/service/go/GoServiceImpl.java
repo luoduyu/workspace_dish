@@ -44,12 +44,12 @@ public class GoServiceImpl implements  GoService {
         if(form.getAmount() <= 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"门店数量必须大于0!");
         }
-        GOData data = create(form,userData.getId(),poiData,usefor);
+        GOData data = create(form,userData,poiData,usefor);
         goDao.addRequestForm(data);
         return BizPacket.success(data.getId());
     }
 
-    private GOData create(ShenQingForm form, String userId ,PoiData poiData,ShenQingType usefor){
+    private GOData create(ShenQingForm form, PoiUserData userData ,PoiData poiData,ShenQingType usefor){
         GOData data = new GOData();
 
         data.setUsefor(usefor.ordinal());
@@ -58,6 +58,8 @@ public class GoServiceImpl implements  GoService {
         data.setDishCateId(form.getDishCateId());
         data.setPlatform(form.getPlatform());
         data.setPoiId(poiData.getId());
+        data.setPoiName(poiData.getName());
+
 
         data.setProvince(form.getProvince());
         data.setCity(form.getCity());
@@ -65,7 +67,9 @@ public class GoServiceImpl implements  GoService {
         data.setAddress(form.getAddress());
 
         data.setPoiType(form.getPoiType());
-        data.setPoiUserId(userId);
+        data.setPoiUserId(userData.getId());
+        data.setPoiUserMobile(userData.getMobile());
+        data.setPoiUserName(userData.getName());
 
         data.setAuditDate(DateTimeUtil.now());
         data.setAuditStatus(0);

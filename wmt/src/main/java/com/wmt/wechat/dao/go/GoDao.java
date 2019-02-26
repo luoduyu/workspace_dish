@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface GoDao {
 
-    @Insert("INSERT INTO poi_request(usefor,brandName, province, city, address, districts, platform, poiType, dishCateId, amount, poiId,poiUserId,auditStatus,auditDate,opinion,createTime,updTime) VALUES(#{usefor},#{brandName},#{province}, #{city}, #{address},#{districts},#{platform},#{poiType},#{dishCateId},#{amount},#{poiId},#{poiUserId}, #{auditStatus}, #{auditDate},#{opinion}, #{createTime},#{updTime})")
+    @Insert("INSERT INTO poi_request(usefor,brandName, province, city, address, districts, platform, poiType, dishCateId, amount, poiId,poiName,poiUserId,poiUserMobile,poiUserName,auditStatus,auditDate,opinion,createTime,updTime) VALUES(#{usefor},#{brandName},#{province}, #{city}, #{address},#{districts},#{platform},#{poiType},#{dishCateId},#{amount},#{poiId},#{poiName},#{poiUserId},#{poiUserMobile},#{poiUserName},#{auditStatus}, #{auditDate},#{opinion}, #{createTime},#{updTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     public void addRequestForm(GOData goData);
 

@@ -83,12 +83,18 @@ public class GOData implements Serializable {
      * 门店Id
      */
     private String poiId;
+    private String poiName="";
+
 
 
     /**
      * 门店userId
      */
     private String  poiUserId;
+
+    private String  poiUserMobile;
+    private String  poiUserName;
+
 
     /**
      * 审核意见
@@ -247,6 +253,30 @@ public class GOData implements Serializable {
 
     public void setPoiId(String poiId) {
         this.poiId = poiId;
+    }
+
+    public String getPoiName() {
+        return poiName;
+    }
+
+    public void setPoiName(String poiName) {
+        this.poiName = poiName;
+    }
+
+    public String getPoiUserMobile() {
+        return poiUserMobile;
+    }
+
+    public void setPoiUserMobile(String poiUserMobile) {
+        this.poiUserMobile = poiUserMobile;
+    }
+
+    public String getPoiUserName() {
+        return poiUserName;
+    }
+
+    public void setPoiUserName(String poiUserName) {
+        this.poiUserName = poiUserName;
     }
 
     @Override

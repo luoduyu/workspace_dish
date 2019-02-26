@@ -94,7 +94,6 @@ public class UserController extends BaseController {
         }
     }
 
-
     @PostMappingEx(value = "/mgr/user/detail",funcName = "人员详细信息",module = MgrModules.USER)
     public BizPacket userDetail(@RequestParam("mgrUid") Integer mgrUid){
         if(mgrUid == null || mgrUid <=0 || mgrUid >= Integer.MAX_VALUE){

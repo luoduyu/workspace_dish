@@ -17,4 +17,25 @@ public class Constants {
 
     public static final String[] excludePatterns ={"/*.html","/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**"};
 
+    /**
+     * 起始页
+     */
+    public static final Integer INDEX = 0;
+
+    /**
+     * 每页数据量
+     */
+    public static final Integer PAGESIZE = 10;
+
+    /**
+     * 删除参数多余字符串
+     * @param param     待格式检查参数
+     * @return          目标格式参数
+     */
+    public static String delSpace(String param){
+        if(param != null){
+            return param.trim();
+        }
+        return "";
+    }
 }

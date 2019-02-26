@@ -1,7 +1,7 @@
 package com.wmt.mgr.controller.wechat.order;
 
 import com.wmt.commons.domain.packet.BizPacket;
-import com.wmt.mgr.common.Tools;
+import com.wmt.mgr.common.Constants;
 import com.wmt.mgr.domain.annotation.PostMappingEx;
 import com.wmt.mgr.domain.rabc.permission.MgrModules;
 import com.wmt.mgr.service.wechat.order.OrderService;
@@ -37,22 +37,20 @@ public class OrderController {
 
         if (startTime != null && !startTime.trim().isEmpty()
                 && endTime !=null && !endTime.trim().isEmpty()) {
-
             if (startTime.compareTo(endTime) > 0) {
                 return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(), "请求开始时间大于结束时间");
             }
         }
 
         if (index == null || index < 0 || index >= Integer.MAX_VALUE) {
-            index = Tools.INDEX;
+            index = Constants.INDEX;
         }
 
         if (pageSize == null || pageSize < 0 || pageSize >= Integer.MAX_VALUE) {
-            pageSize = Tools.PAGESIZE;
+            pageSize = Constants.PAGESIZE;
         }
 
         return orderService.orderList(orderId, submitUserMobile, poiName, startTime, endTime, index, pageSize);
-
     }
 
     @PostMappingEx(value = "/mgr/order/item",funcName = "订单明细", module = MgrModules.ORDER)

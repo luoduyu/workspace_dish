@@ -28,7 +28,7 @@ public interface OrderDao {
             "<if test=\"endTime != null\"> and  timeEnd &lt;#{endTime}</if>" +
             "ORDER BY createTime DESC LIMIT #{index},#{pageSize}" +
             "</script>")
-    List<OrderData> getOrderDataList(String orderId, String submitUserMobile,
+    public List<OrderData> getOrderDataList(String orderId, String submitUserMobile,
                                      String poiName, String startTime, String endTime,
                                      int index, int pageSize);
     @Select("<script>" +
@@ -39,11 +39,11 @@ public interface OrderDao {
             "<if test=\"startTime != null\"> and timeEnd &gt; #{startTime}</if>" +
             "<if test=\"endTime != null\"> and timeEnd &lt;#{endTime} </if>" +
             "</script>")
-    Integer countOrderData(String orderId, String submitUserMobile,
+    public Integer countOrderData(String orderId, String submitUserMobile,
                            String poiName, String startTime, String endTime);
 
 
     @Select("SELECT * FROM order_item WHERE orderId=#{orderId}")
-    public OrderItemData getOrderItemByOrderId(String orderId);
+    public List<OrderItemData> getOrderItemByOrderId(String orderId);
 
 }

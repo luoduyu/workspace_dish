@@ -23,6 +23,11 @@ public class OrderData implements Serializable {
     private String poiId;
 
     /**
+     * 店铺名称
+     */
+    private String poiName;
+
+    /**
      * 订单Id
      */
     private String orderId;
@@ -89,6 +94,11 @@ public class OrderData implements Serializable {
      * 购买人
      */
     private String submitUserId="";
+
+
+    private String submitUserMobile="";
+
+    private String submitUserName="";
 
 
     /**
@@ -207,6 +217,30 @@ public class OrderData implements Serializable {
 
     public void setPayUserId(String payUserId) {
         this.payUserId = payUserId;
+    }
+
+    public String getPoiName() {
+        return poiName;
+    }
+
+    public void setPoiName(String poiName) {
+        this.poiName = poiName;
+    }
+
+    public String getSubmitUserMobile() {
+        return submitUserMobile;
+    }
+
+    public void setSubmitUserMobile(String submitUserMobile) {
+        this.submitUserMobile = submitUserMobile;
+    }
+
+    public String getSubmitUserName() {
+        return submitUserName;
+    }
+
+    public void setSubmitUserName(String submitUserName) {
+        this.submitUserName = submitUserName;
     }
 
     @Override

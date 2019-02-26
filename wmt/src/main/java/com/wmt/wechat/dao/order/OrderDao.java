@@ -21,7 +21,7 @@ import java.util.Map;
 @Mapper
 public interface OrderDao {
 
-    @Insert("INSERT INTO `order`(poiId,orderId,goodsType,total,payWay,payment,payStatus,createTime,timeEnd,transactionId,summary,serviceStatus,submitUserId,payUserId) VALUES(#{poiId},#{orderId},#{goodsType},#{total},#{payWay},#{payment},#{payStatus},#{createTime},#{timeEnd},#{transactionId},#{summary},#{serviceStatus},#{submitUserId},#{payUserId})")
+    @Insert("INSERT INTO `order`(poiId,poiName,orderId,goodsType,total,payWay,payment,payStatus,createTime,timeEnd,transactionId,summary,serviceStatus,submitUserId,submitUserMobile,submitUserName,payUserId) VALUES(#{poiId},#{poiName},#{orderId},#{goodsType},#{total},#{payWay},#{payment},#{payStatus},#{createTime},#{timeEnd},#{transactionId},#{summary},#{serviceStatus},#{submitUserId},#{submitUserMobile},#{submitUserName},#{payUserId})")
     public void addOrderData(OrderData orderData);
 
     @Select("SELECT * FROM `order` WHERE orderId=#{orderId}")

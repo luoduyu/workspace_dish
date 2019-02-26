@@ -220,7 +220,7 @@ public class OrderServiceImpl implements  OrderService {
             return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
         }
 
-        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType());
+        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType(),poiData);
 
         boolean isPoiMember = poiMemberService.isMember(poiData.getId());
         List<OrderItemData> itemList = createItemDataList(isPoiMember,orderData,orderSubmitForm.getOrderItemList(),goodsMap);
@@ -245,7 +245,7 @@ public class OrderServiceImpl implements  OrderService {
             return BizPacket.error(HttpStatus.PROXY_AUTHENTICATION_REQUIRED.value(), "需要店铺授权认证!");
         }
 
-        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType());
+        OrderData orderData = createOrderData(userData,orderSubmitForm.getGoodsType(), poiData);
 
 
         List<OrderItemData> itemList = createSnapItemDataList(orderData,orderSubmitForm.getOrderItemList(),currentSnapGoods);
@@ -303,12 +303,16 @@ public class OrderServiceImpl implements  OrderService {
      *
      * @param userData 订单提交人
      * @param goodsType 物品类型;1:海报;2:装修服务
+     * @param poiData
      * @return
      */
-    private OrderData createOrderData(PoiUserData userData,int goodsType){
+    private OrderData createOrderData(PoiUserData userData, int goodsType, PoiData poiData){
         OrderData orderData = new OrderData();
         orderData.setPoiId(userData.getPoiId());
+        orderData.setPoiName(poiData.getName());
         orderData.setSubmitUserId(userData.getId());
+        orderData.setSubmitUserMobile(userData.getMobile());
+        orderData.setSubmitUserName(userData.getName());
         orderData.setPayUserId("");
 
         orderData.setCreateTime(DateTimeUtil.now());

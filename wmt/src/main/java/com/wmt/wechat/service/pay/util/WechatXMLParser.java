@@ -193,7 +193,7 @@ public class WechatXMLParser {
         }
 
         String yyyyMMddHHmmss = result.get("timeEnd");
-        if(yyyyMMddHHmmss != null){
+        if(yyyyMMddHHmmss != null && yyyyMMddHHmmss.trim().length() >0){
             String timeEndValue = DateTimeUtil.convert2Friendly(yyyyMMddHHmmss);
             result.put("timeEnd",timeEndValue);
         }

@@ -49,7 +49,7 @@ public class BiddingController {
         try {
             return biddingService.poiList(brandName,masterName,masterMobile,index,pageSize);
         } catch (Exception e) {
-            logger.error("brandName+"+brandName+",maserName="+masterName+",masterMobile="+masterMobile+",index="+index+",pageSize="+pageSize+",e="+e.getMessage(),e);
+            logger.error("brandName="+brandName+",maserName="+masterName+",masterMobile="+masterMobile+",index="+index+",pageSize="+pageSize+",e="+e.getMessage(),e);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
         }
     }

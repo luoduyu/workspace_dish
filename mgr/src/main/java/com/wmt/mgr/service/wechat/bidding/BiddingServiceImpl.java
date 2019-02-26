@@ -16,7 +16,18 @@ public class BiddingServiceImpl implements  BiddingService {
 
     @Override
     public BizPacket poiList(String brandName, String masterName, String masterMobile, Integer index, Integer pageSize) {
-        int s = index * pageSize;
+
+//        if(brandName != null){
+//            brandName="%"+brandName+"%";
+//        }
+//
+//        if(masterName != null){
+//            masterName="%"+masterName+"%";
+//        }
+//        if(masterMobile != null){
+//            masterMobile="%"+masterMobile+"%";
+//        }
+
         Integer total = biddingDao.countPoiData(brandName,masterName,masterMobile);
         if(total == null){
             total = 0;
@@ -29,6 +40,7 @@ public class BiddingServiceImpl implements  BiddingService {
             return BizPacket.success(jsonObject);
         }
 
+        int s = index * pageSize;
         List<BiddingPoiForm> list = biddingDao.findPoiDataList(brandName,masterName,masterMobile,s,pageSize);
         jsonObject.put("list", list);
         return BizPacket.success(jsonObject);

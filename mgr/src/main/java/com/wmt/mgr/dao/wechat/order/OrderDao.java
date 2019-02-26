@@ -18,11 +18,12 @@ import java.util.List;
 @Mapper
 public interface OrderDao {
 
+
     @Select("<script>" +
             "SELECT * FROM `order` WHERE 1=1 " +
             "<if test=\"orderId != null and orderId.length() != 0 \"> and orderId = #{orderId} </if>" +
             "<if test=\"submitUserMobile != null and submitUserMobile.length()!=0 \"> and submitUserMobile = #{submitUserMobile} </if>" +
-            "<if test=\"poiName != null\"> and poiName = #{poiName} </if>" +
+            "<if test=\"poiName != null\"> and poiName LIKE concat(concat('%',#{poiName}),'%') </if>" +
             "<if test=\"startTime != null\"> and timeEnd &gt;#{startTime}</if>" +
             "<if test=\"endTime != null\"> and  timeEnd &lt;#{endTime}</if>" +
             "ORDER BY createTime DESC LIMIT #{index},#{pageSize}" +
@@ -34,7 +35,7 @@ public interface OrderDao {
             "SELECT count(poiId) FROM `order` WHERE 1=1 " +
             "<if test=\"orderId != null and orderId.length() != 0 \"> and orderId = #{orderId} </if>" +
             "<if test=\"submitUserMobile != null and submitUserMobile.length()!=0 \"> and submitUserMobile = #{submitUserMobile} </if>" +
-            "<if test=\"poiName != null\"> and poiName = #{poiName} </if>" +
+            "<if test=\"poiName != null\"> and poiName LIKE concat(concat('%',#{poiName}),'%') </if>" +
             "<if test=\"startTime != null\"> and timeEnd &gt; #{startTime}</if>" +
             "<if test=\"endTime != null\"> and timeEnd &lt;#{endTime} </if>" +
             "</script>")

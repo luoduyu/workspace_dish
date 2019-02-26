@@ -16,7 +16,7 @@ public class Tools {
     /**
      * 每页数据量
      */
-    public static final Integer PAGESIZE = 20;
+    public static final Integer PAGESIZE = 10;
 
     /**
      * 去掉字符串空格

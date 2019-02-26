@@ -112,4 +112,13 @@ public class UserServiceImpl implements UserService {
         mgrUserDao.updateMgrUser(mgrUserData);
         return BizPacket.success();
     }
+
+    @Override
+    public BizPacket userDetail(MgrUserData admin, int mgrUid) {
+        MgrUserData mgrUserData = mgrUserDao.getMgrUserDataById(mgrUid);
+        if(mgrUserData == null){
+            return BizPacket.error(HttpStatus.FORBIDDEN.value(),"不存在的帐户!mgrUid="+mgrUid);
+        }
+        return BizPacket.success(mgrUserData);
+    }
 }

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -86,6 +87,23 @@ public class UserController extends BaseController {
         try {
             userService.userEdit(admin,userForm);
             return BizPacket.success();
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(),e);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+        }
+    }
+
+
+    @PostMappingEx(value = "/mgr/user/detail",funcName = "人员详细信息",module = MgrModules.USER)
+    public BizPacket userDetail(@RequestParam("mgrUid") Integer mgrUid){
+        if(mgrUid == null || mgrUid <=0 || mgrUid >= Integer.MAX_VALUE){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "mgrUId参数必须!");
+        }
+
+        MgrUserData admin = getUser();
+        try {
+            return userService.userDetail(admin,mgrUid);
 
         } catch (Exception e) {
             logger.error(e.getMessage(),e);

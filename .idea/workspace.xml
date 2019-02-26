@@ -8,13 +8,11 @@
   <component name="ChangeListManager">
     <list default="true" id="046c4b96-220d-47a2-b8b6-50cc02d6b973" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/common/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/redis/MessageSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/redis/MessageSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/redis/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/redis/impl/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/pay/util/WechatXMLParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/pay/util/WechatXMLParser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/wechat/target/" />
     <ignored path="$PROJECT_DIR$/.idea/httpRequests/" />
@@ -76,61 +74,64 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/order/OrderData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="49" column="35" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="214">
+              <caret line="183" column="26" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/balance/BalanceServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="68" column="40" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="40" />
+            <state relative-caret-position="325">
+              <caret line="437" column="38" selection-start-line="437" selection-start-column="35" selection-end-line="437" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="463">
+              <caret line="734" column="31" lean-forward="true" selection-start-line="734" selection-start-column="31" selection-end-line="734" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/order/OrderController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="66" column="48" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="48" />
+            <state relative-caret-position="289">
+              <caret line="182" column="71" selection-start-line="182" selection-start-column="52" selection-end-line="182" selection-end-column="71" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+            <state relative-caret-position="578">
+              <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml">
+        <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/pay/util/WechatXMLParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="472">
+              <caret line="196" column="63" selection-start-line="196" selection-start-column="47" selection-end-line="196" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -212,8 +213,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/config/MyWebMvcConfigurer.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/filter/CorsFilter.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/base/SmsController.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsService.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/sms/SmsServiceImpl.java" />
@@ -238,8 +237,6 @@
         <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/dao/poster/PosterDao.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserAddForm.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/user/UserForm.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/model/member/CardData.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/mgr/log/readme.txt" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/form/wechat/member/MemberForm.java" />
@@ -260,9 +257,13 @@
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/domain/redis/MessageSender.java" />
-        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java" />
         <option value="$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java" />
+        <option value="$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java" />
+        <option value="$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java" />
+        <option value="$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/pay/util/WechatXMLParser.java" />
       </list>
     </option>
   </component>
@@ -334,20 +335,115 @@
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
               <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
-              <item name="mgr" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="workspace_dish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="workspace_dish" type="462c0819:PsiDirectoryNode" />
+              <item name="wmt" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="wechat" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="pay" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -438,7 +534,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.MgrApplication">
+  <component name="RunManager" selected="Application.DateTimeUtil">
+    <configuration name="DateTimeUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.wmt.commons.util.DateTimeUtil" />
+      <module name="commons" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.wmt.commons.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="commons [install]" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -533,9 +642,11 @@
       <item itemvalue="Spring Boot.MgrApplication" />
       <item itemvalue="Spring Boot.CommonsApplication" />
       <item itemvalue="Spring Boot.DLockApplication" />
+      <item itemvalue="Application.DateTimeUtil" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DateTimeUtil" />
         <item itemvalue="Spring Boot.DLockApplication" />
       </list>
     </recent_temporary>
@@ -644,21 +755,7 @@
       <workItem from="1550798033397" duration="33544000" />
       <workItem from="1550885367610" duration="1499000" />
       <workItem from="1551058784857" duration="15552000" />
-      <workItem from="1551144178756" duration="5235000" />
-    </task>
-    <task id="LOCAL-00002" summary="完成海报的基本功能">
-      <created>1545824129947</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1545824129947</updated>
-    </task>
-    <task id="LOCAL-00003" summary="备份">
-      <created>1545997466261</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1545997466261</updated>
+      <workItem from="1551144178756" duration="8273000" />
     </task>
     <task id="LOCAL-00004" summary="完成登录认证">
       <created>1546078092081</created>
@@ -989,7 +1086,21 @@
       <option name="project" value="LOCAL" />
       <updated>1551096590643</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="BUG修正">
+      <created>1551150262034</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1551150262035</updated>
+    </task>
+    <task id="LOCAL-00052" summary="BUG修正">
+      <created>1551150271883</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1551150271883</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1025,7 +1136,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1212183000" />
+    <option name="totallyTimeSpent" value="1215221000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1040,7 +1151,7 @@
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.21938232" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.3351469" visible="true" weight="0.21938232" />
       <window_info id="Structure" order="1" sideWeight="0.640416" side_tool="true" weight="0.31256655" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" sideWeight="0.6433566" side_tool="true" weight="0.22896698" />
@@ -1056,9 +1167,9 @@
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49946752" weight="0.3297062" />
       <window_info anchor="bottom" id="Message" order="9" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="11" sideWeight="0.77050054" weight="0.41240478" />
-      <window_info active="true" anchor="bottom" id="Run" order="12" sideWeight="0.78168267" visible="true" weight="0.37976062" />
-      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.78541" weight="0.4352557" />
+      <window_info anchor="bottom" id="Find" order="11" sideWeight="0.77050054" visible="true" weight="0.21109901" />
+      <window_info anchor="bottom" id="Run" order="12" sideWeight="0.78168267" weight="0.46137106" />
+      <window_info anchor="bottom" id="Debug" order="13" sideWeight="0.78541" weight="0.2992383" />
       <window_info anchor="bottom" id="Cvs" order="14" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="15" weight="0.4" />
       <window_info anchor="bottom" id="Statistic" order="16" weight="0.40261152" />
@@ -1070,7 +1181,7 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="4" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="5" weight="0.24707136" />
-      <window_info anchor="right" id="Maven" order="6" visible="true" weight="0.18530351" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.18530351" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1127,7 +1238,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="备份" />
     <MESSAGE value="完成登录认证" />
     <MESSAGE value="登录,手机号授权," />
     <MESSAGE value="登录,手机号授权,手机号授权验证码发送,运营开店申请提交、获取、重提交" />
@@ -1152,7 +1262,8 @@
     <MESSAGE value="后台帐户添加/浏览/编辑&#10;后台会员卡资料的添加/浏览/编辑" />
     <MESSAGE value="会员卡功能修改" />
     <MESSAGE value="会员卡购买记录增中店铺名称和购买人手机号" />
-    <option name="LAST_COMMIT_MESSAGE" value="会员卡购买记录增中店铺名称和购买人手机号" />
+    <MESSAGE value="BUG修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="BUG修正" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -1206,76 +1317,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wmt/wmt.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/resources/application-pro.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="32" column="45" lean-forward="true" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="90" column="42" selection-start-line="90" selection-start-column="42" selection-end-line="90" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="233" column="45" lean-forward="true" selection-start-line="233" selection-start-column="45" selection-end-line="233" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="53" column="7" lean-forward="true" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/member/PoiMember.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="32" column="29" lean-forward="true" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/handler/MyJSONArrayHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/common/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/mvnw.cmd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/domain/redis/MyRedisConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="70" column="55" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/redis/RedisService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -1508,20 +1549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="68" column="40" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="87" column="16" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/RedisService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
@@ -1543,44 +1570,128 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java">
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="49" column="35" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java">
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/login/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="66" column="48" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="48" />
+        <state relative-caret-position="282">
+          <caret line="68" column="40" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/dao/mgr/user/MgrUserDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+        <state relative-caret-position="180">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mgr/src/main/resources/log4j2.xml">
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="283">
+          <caret line="116" column="64" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/mgr/user/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="27" column="63" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/controller/mgr/user/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="103" column="38" lean-forward="true" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/model/order/OrderData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="183" column="26" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/balance/BalanceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="437" column="38" selection-start-line="437" selection-start-column="35" selection-end-line="437" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mgr/src/main/java/com/wmt/mgr/service/redis/impl/RedisServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="26" column="95" selection-start-line="26" selection-start-column="87" selection-end-line="26" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/time/LocalDateTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="1749" column="18" selection-start-line="1749" selection-start-column="18" selection-end-line="1749" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Amazon Corretto/jdk1.8.0_192/src.zip!/java/time/format/DateTimeFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="1850" column="33" selection-start-line="1850" selection-start-column="19" selection-end-line="1850" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE-sources.jar!/org/springframework/http/HttpStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="64" column="7" lean-forward="true" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="734" column="31" lean-forward="true" selection-start-line="734" selection-start-column="31" selection-end-line="734" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/order/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/controller/wechat/order/OrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="182" column="71" selection-start-line="182" selection-start-column="52" selection-end-line="182" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commons/src/main/java/com/wmt/commons/util/DateTimeUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wmt/src/main/java/com/wmt/wechat/service/pay/util/WechatXMLParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="196" column="63" selection-start-line="196" selection-start-column="47" selection-end-line="196" selection-end-column="63" />
         </state>
       </provider>
     </entry>

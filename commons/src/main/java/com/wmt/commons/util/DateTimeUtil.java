@@ -20,6 +20,9 @@ public class DateTimeUtil {
 
     public final static DateTimeFormatter FRIENDLY_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
 
+
+    public final static DateTimeFormatter ALL_DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss").withZone(ZoneId.of(ZoneId.SHORT_IDS.get("CTT")));
+
     /**
      * 获取指定时间的
      * @return yyyy-MM-dd HH:mm:ss
@@ -61,6 +64,14 @@ public class DateTimeUtil {
         return String.valueOf(System.currentTimeMillis() / 1000);
     }
 
+    public static String convert2Friendly(String yyyyMMddHHmmss){
+        try {
+            LocalDateTime ldt = LocalDateTime.parse(yyyyMMddHHmmss,ALL_DATE_TIME_FORMAT);
+            return ldt.format(FRIENDLY_DATE_TIME_FORMAT);
+        } catch (Exception e) {
+            return yyyyMMddHHmmss;
+        }
+    }
 
     public static void main(String[] args) {
         //getTime("2019-01-10 17:56:03");
@@ -71,8 +82,7 @@ public class DateTimeUtil {
         System.out.println(Math.multiplyExact(2, 7));
         */
 
-        String time ="16:49:40".substring(0,2);
-        System.out.println(time);
+
 
     }
 }

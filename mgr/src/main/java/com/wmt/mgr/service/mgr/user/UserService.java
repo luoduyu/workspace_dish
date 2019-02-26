@@ -25,4 +25,5 @@ public interface UserService {
     public BizPacket userAdd(MgrUserData admin, UserForm addForm);
 
     public BizPacket userEdit(MgrUserData admin, UserForm form);
+    public BizPacket userDetail(MgrUserData admin, int mgrUid);
 }

@@ -1,5 +1,6 @@
 package com.wmt.wechat.service.pay.util;
 
+import com.wmt.commons.util.DateTimeUtil;
 import com.wmt.wechat.common.Constants;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -190,6 +191,13 @@ public class WechatXMLParser {
                 result.put(entry.getValue(),value);
             }
         }
+
+        String yyyyMMddHHmmss = result.get("timeEnd");
+        if(yyyyMMddHHmmss != null){
+            String timeEndValue = DateTimeUtil.convert2Friendly(yyyyMMddHHmmss);
+            result.put("timeEnd",timeEndValue);
+        }
+
         return result;
     }
 }

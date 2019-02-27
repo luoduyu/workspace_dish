@@ -47,8 +47,4 @@ public interface OrderDao {
 
     @Select("SELECT * FROM order_item WHERE orderId=#{orderId}")
     public List<OrderItemData> getOrderItemByOrderId(String orderId);
-
-    @Select("SELECT SUM(num) as totality FROM order_item WHERE orderId = #{orderId}")
-    public OrderItemData getTotality(String orderId);
-
 }

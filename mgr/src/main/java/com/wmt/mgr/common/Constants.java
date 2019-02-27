@@ -15,7 +15,8 @@ public class Constants {
     public static final String  MGR_LOGGED_USER  = "mgr_logged_user";
     public static final String REQ_PARAM_ACCESSTOKEN = "accessToken";
 
-    public static final String[] excludePatterns ={"/*.html","/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**"};
+
+    public static final String[] excludePatterns ={"/*.html","/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**","/mgr/img/**"};
 
     /**
      * 起始页
@@ -38,4 +39,6 @@ public class Constants {
         }
         return "";
     }
+
+    public static final String  MGR_IMG_CODE  = "mgr_img_code";
 }

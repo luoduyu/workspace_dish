@@ -2,11 +2,12 @@ package com.wmt.mgr.controller.login;
 
 import com.wmt.commons.domain.packet.BizPacket;
 import com.wmt.commons.util.WmtUtil;
+import com.wmt.mgr.common.Constants;
 import com.wmt.mgr.dao.mgr.user.MgrUserDao;
 import com.wmt.mgr.form.mgr.user.MgrUserForm;
 import com.wmt.mgr.model.mgr.user.MgrUserData;
-import com.wmt.mgr.service.redis.RedisService;
 import com.wmt.mgr.service.mgr.user.UserService;
+import com.wmt.mgr.service.redis.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -41,12 +43,22 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/mgr/login/mobile",method = {RequestMethod.POST,RequestMethod.GET})
-    public BizPacket weichatLogin(String smsCode, String  mobile){
+    public BizPacket mgrLoginByMobile(String smsCode, String  mobile,String authCode,HttpSession session){
         if(smsCode == null || smsCode.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");
         }
         if(mobile == null || mobile.trim().length() == 0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数mobile不正确!");
+        }
+        if(authCode == null || authCode.trim().length() == 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码不正确!");
+        }
+        Object objCode=session.getAttribute(Constants.MGR_IMG_CODE);
+        if(objCode == null || objCode.toString().trim().length()==0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码已失效!");
+        }
+        if(!objCode.toString().equals(authCode)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码不正确!");
         }
 
         MgrUserData user = mgrUserDao.getMgrUserDataByMobile(mobile.trim());
@@ -99,6 +111,50 @@ public class LoginController {
             logger.error(ex.getMessage(),ex);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
         }
+    }
+
+
+    /**
+     * @param pwd
+     * @param mobile
+     *
+     * @return
+     */
+    @RequestMapping(value = "/mgr/login/pwd",method = {RequestMethod.POST,RequestMethod.GET})
+    public BizPacket mgrLoginByPwd(String  mobile, String pwd, String authCode, HttpSession session){
+        if(pwd == null || pwd.trim().length() ==0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码缺失!");
+        }
+        if(mobile == null || mobile.trim().length() == 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"手机号必填!");
+        }
+        if(authCode == null || authCode.trim().length() == 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码不正确!");
+        }
+        Object objCode=session.getAttribute(Constants.MGR_IMG_CODE);
+        if(objCode == null || objCode.toString().trim().length()==0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码已失效!");
+        }
+        if(!objCode.toString().equals(authCode)){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"图形验证码不正确!");
+        }
+
+
+        MgrUserData user = mgrUserDao.getMgrUserDataByMobile(mobile.trim());
+        if(user == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"用户不存在!");
+        }
+        BizPacket packet = WmtUtil.check(user.getIsAccountNonLocked(),user.getIsEnabled(),user.getIsAccountNonExpired(),user.getIsCredentialsNonExpired());
+        if(packet.getCode() != HttpStatus.OK.value()){
+            return packet;
+        }
+        if(!user.getPassword().equals(pwd.trim())){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码或帐号错误!");
+        }
+
+        logger.info("mobile={},mobile={},authCode={}",mobile,pwd,authCode);
+
+        return userService.loginByMobile(user);
     }
 
     @RequestMapping(value = "/mgr/token/fetch",method = {RequestMethod.POST,RequestMethod.GET},produces = {"application/json","text/html"})

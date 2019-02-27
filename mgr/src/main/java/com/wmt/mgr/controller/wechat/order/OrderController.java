@@ -45,7 +45,6 @@ public class OrderController {
         if (index == null || index < 0 || index >= Integer.MAX_VALUE) {
             index = Constants.INDEX;
         }
-
         if (pageSize == null || pageSize < 0 || pageSize >= Integer.MAX_VALUE) {
             pageSize = Constants.PAGESIZE;
         }
@@ -58,7 +57,6 @@ public class OrderController {
 
         if (orderId == null || orderId.length() == 0){
             BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"订单编号不能为空");
-
         }
         return orderService.getOrderItemByOrderId(orderId);
 

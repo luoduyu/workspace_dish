@@ -24,8 +24,8 @@ public interface OrderService {
      */
     public BizPacket orderList(String orderId, String submitUserMobile,
                         String poiName, String startTime,
-                        String endTime, Integer index,
-                        Integer pageSize);
+                        String endTime, int index,
+                        int pageSize);
 
     /**
      * 通过订单id获取订单信息

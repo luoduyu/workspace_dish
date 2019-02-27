@@ -21,10 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public BizPacket orderList(String orderId, String submitUserMobile,
-                               String poiName, String startTime,
-                               String endTime, int index,
-                               int pageSize) {
+    public BizPacket orderList(String orderId, String submitUserMobile,String poiName, String startTime, String endTime, int index,int pageSize) {
 
         JSONObject jsonObject = new JSONObject();
         Integer total = orderDao.countOrderData(Constants.delSpace(orderId), Constants.delSpace(submitUserMobile), Constants.delSpace(poiName), startTime, endTime);

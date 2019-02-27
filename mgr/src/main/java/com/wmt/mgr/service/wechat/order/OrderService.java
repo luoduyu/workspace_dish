@@ -22,10 +22,7 @@ public interface OrderService {
      * @param pageSize      count
      * @return      查询结果
      */
-    public BizPacket orderList(String orderId, String submitUserMobile,
-                        String poiName, String startTime,
-                        String endTime, int index,
-                        int pageSize);
+    public BizPacket orderList(String orderId, String submitUserMobile, String poiName, String startTime,String endTime, int index,int pageSize);
 
     /**
      * 通过订单id获取订单信息

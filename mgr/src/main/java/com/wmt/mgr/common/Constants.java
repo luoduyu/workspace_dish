@@ -21,12 +21,12 @@ public class Constants {
     /**
      * 起始页
      */
-    public static final Integer INDEX = 0;
+    public static final int INDEX = 0;
 
     /**
      * 每页数据量
      */
-    public static final Integer PAGESIZE = 10;
+    public static final int PAGESIZE = 10;
 
     /**
      * 删除参数多余字符串
@@ -37,7 +37,7 @@ public class Constants {
         if(param != null){
             return param.trim();
         }
-        return "";
+        return null;
     }
 
     public static final String  MGR_IMG_CODE  = "mgr_img_code";

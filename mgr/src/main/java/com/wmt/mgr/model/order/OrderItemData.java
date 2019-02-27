@@ -75,19 +75,6 @@ public class OrderItemData implements Serializable {
      */
     private String createTime;
 
-    /**
-     * 订单商品-总数量
-     */
-    private Integer totality = 0;
-
-    public Integer getTotality() {
-        return totality;
-    }
-
-    public void setTotality(Integer totality) {
-        this.totality = totality;
-    }
-
     public int getId() {
         return id;
     }

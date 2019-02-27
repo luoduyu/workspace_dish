@@ -51,9 +51,6 @@ public class OrderServiceImpl implements OrderService {
         //获取订单-商品信息
         List<OrderItemData> orderItemDataList = orderDao.getOrderItemByOrderId(orderId);
 
-        //获取商品总数量
-        OrderItemData orderItemData = orderDao.getTotality(orderId);
-
         JSONObject jsonObject = new JSONObject();
 
         if(orderData != null) {
@@ -66,10 +63,6 @@ public class OrderServiceImpl implements OrderService {
             jsonObject.put("poiName",orderData.getPoiName());
             jsonObject.put("payment",orderData.getPayment());
             jsonObject.put("total",orderData.getTotal());
-        }
-
-        if(orderItemData != null){
-            jsonObject.put("totality",orderItemData.getTotality());
         }
 
         if(orderItemDataList == null || orderItemDataList.size() <= 0){

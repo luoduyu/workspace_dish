@@ -7,6 +7,7 @@ import com.wmt.mgr.dao.wechat.order.OrderDao;
 import com.wmt.mgr.model.order.OrderData;
 import com.wmt.mgr.model.order.OrderItemData;
 import com.wmt.mgr.service.wechat.order.OrderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public BizPacket orderList(String orderId, String submitUserMobile,String poiName, String startTime, String endTime, int index,int pageSize) {
+    public BizPacket orderList(String orderId, String submitUserMobile, String poiName, String startTime, String endTime, int index, int pageSize) {
 
         JSONObject jsonObject = new JSONObject();
         Integer total = orderDao.countOrderData(Constants.delSpace(orderId), Constants.delSpace(submitUserMobile), Constants.delSpace(poiName), startTime, endTime);
@@ -42,28 +43,29 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public BizPacket getOrderItemByOrderId(String orderId) {
 
-        //获取订单基本信息
+        //订单基本信息
         OrderData orderData = orderDao.getOrderDataByOrderId(orderId);
+        if (orderData == null) {
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(), "未找到订单号对应订单基本信息，orderId=" + orderId);
+        }
 
-        //获取订单-商品信息
+        //订单-商品明细信息
         List<OrderItemData> orderItemDataList = orderDao.getOrderItemByOrderId(orderId);
 
         JSONObject jsonObject = new JSONObject();
 
-        if(orderData != null) {
-            jsonObject.put("orderId",orderData.getOrderId());
-            jsonObject.put("submitUserMobile",orderData.getSubmitUserMobile());
-            jsonObject.put("timeEnd",orderData.getTimeEnd());
-            jsonObject.put("createTime",orderData.getCreateTime());
-            jsonObject.put("payWay",orderData.getPayWay());
-            jsonObject.put("payStatus",orderData.getPayStatus());
-            jsonObject.put("poiName",orderData.getPoiName());
-            jsonObject.put("payment",orderData.getPayment());
-            jsonObject.put("total",orderData.getTotal());
-        }
+        jsonObject.put("orderId", orderData.getOrderId());
+        jsonObject.put("submitUserMobile", orderData.getSubmitUserMobile());
+        jsonObject.put("timeEnd", orderData.getTimeEnd());
+        jsonObject.put("createTime", orderData.getCreateTime());
+        jsonObject.put("payWay", orderData.getPayWay());
+        jsonObject.put("payStatus", orderData.getPayStatus());
+        jsonObject.put("poiName", orderData.getPoiName());
+        jsonObject.put("payment", orderData.getPayment());
+        jsonObject.put("total", orderData.getTotal());
 
-        if(orderItemDataList == null || orderItemDataList.size() <= 0){
-            jsonObject.put("orderItemDataList",Collections.emptyList());
+        if (orderItemDataList == null || orderItemDataList.size() <= 0) {
+            jsonObject.put("orderItemDataList", Collections.emptyList());
             return BizPacket.success(jsonObject);
         }
         jsonObject.put("orderItemDataList", orderItemDataList);

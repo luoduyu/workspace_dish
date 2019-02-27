@@ -1,27 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>手机号登录</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>外卖通后台管理系统</title>
+    <link href="/static/css/app.aea0b5dcea7670f05d7207757cbe36f4.css" rel="stylesheet" />
 </head>
 <body>
-    <div style="text-align: center;margin-top: 200px">
-        <label>手机号登录</label>
-        <form action="/mgr/login/mobile" method="post">
-            <div><label> 手机号: <input type="text" name="mobile"/> </label></div>
-            <div><label> 验证码: <input type="text" name="smsCode" /> </label></div>
-            <div><input type="submit" value="登录"/></div>
-        </form>
-    </div>
-
-    <div style="text-align: center;margin-top: 50px">
-        <label>验证码获取</label>
-        <form action="/mgr/sms/auth" method="post" target="_blank">
-            <label>手机号：<input type="text" id="txtMobile" name="mobile" size="20"></label>
-            <button id="btnCodeSend" type="submit">发送验证码</button>
-        </form>
-    </div>
-
+<div id="app"></div>
+<script type="text/javascript" src="/static/js/manifest.eeb2c031c0c552bd70ec.js"></script>
+<script type="text/javascript" src="/static/js/app.c0e36808e8e713962a1f.js"></script>
 </body>
 </html>

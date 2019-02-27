@@ -16,7 +16,7 @@ public class Constants {
     public static final String REQ_PARAM_ACCESSTOKEN = "accessToken";
 
 
-    public static final String[] excludePatterns ={"/*.html","/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**","/mgr/img/**"};
+    public static final String[] excludePatterns ={"/img/**","/fonts/**","/js/**","/css/**","/static/**","/*.html","/index.html","/error","/mgr/login/**","/mgr/sms/**","/mgr/token/**","/mgr/img/**"};
 
     /**
      * 起始页

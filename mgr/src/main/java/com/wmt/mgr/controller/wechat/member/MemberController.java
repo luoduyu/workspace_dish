@@ -1,6 +1,7 @@
 package com.wmt.mgr.controller.wechat.member;
 
 import com.wmt.commons.domain.packet.BizPacket;
+import com.wmt.mgr.common.Constants;
 import com.wmt.mgr.controller.base.BaseController;
 import com.wmt.mgr.dao.wechat.member.CardDao;
 import com.wmt.mgr.domain.annotation.GetMappingEx;
@@ -155,5 +156,41 @@ public class MemberController extends BaseController {
             logger.error(ex.getMessage(),ex);
             return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
         }
+    }
+
+    @PostMappingEx(value = "/mgr/m/member/list", funcName = "会员管理列表", module = MgrModules.MEMBER)
+    public BizPacket queryMemberList(String branchName, String poiUserMobile,
+                                     String startTime, String endTime,
+                                     Integer index, Integer pageSize){
+
+        if(startTime != null && startTime.length() != 0 && endTime != null && endTime.length() != 0){
+            if(startTime.compareTo(endTime) > 0){
+                return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"查询请求开始时间大于结束时间");
+            }
+        }
+
+        if(branchName != null){
+            branchName = branchName.trim();
+        }
+        if(poiUserMobile != null){
+            poiUserMobile = poiUserMobile.trim();
+        }
+
+        if(pageSize == null || pageSize <= 0 || pageSize >= Integer.MAX_VALUE){
+            pageSize = Constants.PAGESIZE;
+        }
+
+        if(index == null || index <= 0 || index >= Integer.MAX_VALUE){
+            index = Constants.INDEX;
+        }
+        return memberService.getMemberList(branchName,poiUserMobile,startTime,endTime,index,pageSize);
+    }
+
+    @PostMappingEx(value = "/mgr/m/member/history",funcName = "会员充值历史记录", module = MgrModules.MEMBER)
+    public BizPacket queryMemberHistory(String poiId){
+        if(poiId == null || poiId.length() == 0){
+            return BizPacket.error(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE.value(),"店铺Id不能为空poiId="+poiId);
+        }
+        return memberService.getMemberHistory(poiId);
     }
 }

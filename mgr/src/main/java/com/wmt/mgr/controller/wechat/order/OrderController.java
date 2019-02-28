@@ -45,6 +45,7 @@ public class OrderController {
         if (index == null || index < 0 || index >= Integer.MAX_VALUE) {
             index = Constants.INDEX;
         }
+
         if (pageSize == null || pageSize < 0 || pageSize >= Integer.MAX_VALUE) {
             pageSize = Constants.PAGESIZE;
         }

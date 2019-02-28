@@ -52,6 +52,7 @@ public enum MgrModules {
      */
     ORDER(60,"订单模块"),
 
+    BALANCE(65,"商户账户"),
 
     /**
      * 会员模块

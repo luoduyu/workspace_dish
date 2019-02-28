@@ -11,6 +11,8 @@ import java.io.Serializable;
  * @version 1.0
  */
 public class BiddingPoiForm implements Serializable {
+
+
     private static final long serialVersionUID = 753562008189777993L;
 
 

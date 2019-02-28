@@ -34,7 +34,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
         corsRegistration.maxAge(3600);
 
         String[] origins = {"https://www.beta.com","http://www.beta.com","http://www.waimaitong.xin","https://www.waimaitong.xin","http://www.jiedankuai.com","https://www.jiedankuai.com","http://192.168.0.*","https://192.168.0.*"};
-        corsRegistration.allowedOrigins(origins);
+        corsRegistration.allowedOrigins("*");
         //corsRegistration.allowedOrigins("*");
     }
 }

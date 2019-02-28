@@ -8,7 +8,6 @@ import com.wmt.mgr.domain.rabc.permission.MgrModules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +32,6 @@ import java.util.Iterator;
  * @author adu Create on 2019-02-27 10:12
  * @version 1.0
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class ImgController {
     private static Logger logger = LoggerFactory.getLogger(ImgController.class);
@@ -83,7 +81,7 @@ public class ImgController {
 
         // 将字符保存到session中用于前端的验证
         session.setAttribute(Constants.MGR_IMG_CODE, strCode);
-        System.out.println("生成code=" + strCode);
+        logger.info("sessionId={},验证码={}",session.getId(),strCode);
         g.dispose();
 
         ImageIO.write(image, "JPEG", response.getOutputStream());
@@ -118,7 +116,7 @@ public class ImgController {
 
         try(InputStream is = file.getInputStream()){
             logger.info("上传文件,originalFilename={},size={},contentType={},name={}",file.getOriginalFilename(),file.getSize(),file.getContentType(),file.getName());
-            String url = AliOSSUtil.putBannerImg(file.getInputStream());
+            String url = AliOSSUtil.putBannerImg(is);
             return BizPacket.success(url);
         }
     }

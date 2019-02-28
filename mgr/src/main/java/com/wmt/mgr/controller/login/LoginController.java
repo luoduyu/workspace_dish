@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpSession;
  * @author adu Create on 2019-02-22 11:44
  * @version 1.0
  */
-@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -44,6 +42,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/mgr/login/mobile",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket mgrLoginByMobile(String smsCode, String  mobile,String authCode,HttpSession session){
+        logger.info("smsCode={},mobile={},authCode={},_authCode={},sessionId={}",smsCode,mobile,authCode,session.getAttribute(Constants.MGR_IMG_CODE),session.getId());
         if(smsCode == null || smsCode.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"参数code不正确!");
         }
@@ -122,6 +121,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/mgr/login/pwd",method = {RequestMethod.POST,RequestMethod.GET})
     public BizPacket mgrLoginByPwd(String  mobile, String pwd, String authCode, HttpSession session){
+        logger.info("pwd={},mobile={},authCode={},_authCode={},sessionId={}",pwd,mobile,authCode,session.getAttribute(Constants.MGR_IMG_CODE),session.getId());
         if(pwd == null || pwd.trim().length() ==0){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"密码缺失!");
         }

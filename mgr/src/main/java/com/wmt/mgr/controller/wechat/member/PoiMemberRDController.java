@@ -8,7 +8,6 @@ import com.wmt.mgr.service.wechat.member.PoiMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -20,7 +19,6 @@ import javax.annotation.Resource;
  * @author lujunp Create on 2019/2/27 13:39
  * @version 1.0
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class PoiMemberRDController {
 

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,6 @@ import javax.validation.Valid;
  * @author adu Create on 2019-02-23 11:43
  * @version 1.0
  */
-@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 public class UserController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);

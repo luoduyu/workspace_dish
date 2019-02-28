@@ -102,6 +102,21 @@ public class MemberController extends BaseController {
         }
     }
 
+    @PostMappingEx(value = "/mgr/m/card/detail",funcName = "会员卡详情",module = MgrModules.MEMBER)
+    public BizPacket cardDetail(@RequestParam("cardId") Integer cardId){
+        if(cardId == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "cardId参数必须!");
+        }
+        MgrUserData mgrUserData = getUser();
+        try {
+            return memberService.cardDetail(mgrUserData,cardId);
+
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(),ex);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
+        }
+    }
+
     @PostMappingEx(value = "/mgr/m/card/seq/upd",funcName = "会员卡显示顺序调整",module = MgrModules.MEMBER)
     public BizPacket cardShowSeqUpdate(@RequestParam("cardId") Integer cardId,@RequestParam("showSeq")Integer showSeq){
         if(cardId == null){

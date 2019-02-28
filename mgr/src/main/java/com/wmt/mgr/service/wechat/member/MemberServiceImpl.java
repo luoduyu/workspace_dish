@@ -59,6 +59,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public BizPacket cardDetail(MgrUserData admin, int id) {
+        CardData cardData = cardDao.getCardData(id);
+        return BizPacket.success(cardData);
+    }
+
+    @Override
     public BizPacket cardShowSeqUpdate(MgrUserData admin, int cardId, int showSeq) {
         cardDao.updateCardDataShowSeq(showSeq,cardId);
         return BizPacket.success();

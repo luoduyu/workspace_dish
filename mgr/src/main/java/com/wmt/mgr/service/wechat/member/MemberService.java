@@ -15,6 +15,7 @@ public interface MemberService {
     public BizPacket cardAdd(MgrUserData admin, CardForm form);
     public BizPacket cardEdit(MgrUserData admin, CardForm form);
     public BizPacket cardRM(MgrUserData admin, int id);
+    public BizPacket cardDetail(MgrUserData admin, int id);
 
     public BizPacket cardShowSeqUpdate(MgrUserData admin, int cardId,int showSeq);
 

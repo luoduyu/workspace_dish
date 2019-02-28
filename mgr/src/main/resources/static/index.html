@@ -2,13 +2,22 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1" />-->
     <title>外卖通后台管理系统</title>
-    <link href="/static/css/app.aea0b5dcea7670f05d7207757cbe36f4.css" rel="stylesheet" />
+    <!--<link href="/static/css/app.aea0b5dcea7670f05d7207757cbe36f4.css" rel="stylesheet" />-->
 </head>
 <body>
-<div id="app"></div>
-<script type="text/javascript" src="/static/js/manifest.eeb2c031c0c552bd70ec.js"></script>
-<script type="text/javascript" src="/static/js/app.c0e36808e8e713962a1f.js"></script>
+    <!--<div id="app">-->
+        <!--<script type="text/javascript" src="/static/js/manifest.eeb2c031c0c552bd70ec.js"></script>-->
+        <!--<script type="text/javascript" src="/static/js/app.c0e36808e8e713962a1f.js"></script>-->
+    <!--</div>-->
+    <div style="text-align: center;">
+        <label>文件上传测试</label>
+        <form name="Form2" action="/mgr/img/upload" method="post"  enctype="multipart/form-data">
+            <h1>采用multipart提供的file.transfer方法上传文件</h1>
+            <input type="file" name="file">
+            <input type="submit" value="upload"/>
+        </form>
+    </div>
 </body>
 </html>

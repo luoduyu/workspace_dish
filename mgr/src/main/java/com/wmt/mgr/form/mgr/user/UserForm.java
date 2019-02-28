@@ -2,9 +2,8 @@ package com.wmt.mgr.form.mgr.user;
 
 import com.alibaba.fastjson.JSON;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -30,22 +29,20 @@ public class UserForm implements Serializable {
     /**
      * 真实姓名
      */
-    @NotEmpty(message = "姓名不为能空!")
+    @NotBlank(message = "姓名不为能空!")
     private String name;
 
 
     /**
      * 手机号
      */
-    @NotEmpty(message = "手机号为必填项!")
-    @Size(min = 11,max = 11)
+    @NotBlank(message = "手机号为必填项!")
     private String mobile;
 
     /**
      *
      */
-    @NotEmpty(message = "密码不为能空!")
-    @Size(min = 3,max = 20)
+    @NotBlank(message = "密码不为能空!")
     private String password;
 
 

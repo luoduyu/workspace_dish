@@ -68,10 +68,10 @@ public class MemberController extends BaseController {
     @PostMappingEx(value = "/mgr/m/card/edit",funcName = "会员卡编辑",module = MgrModules.MEMBER,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BizPacket cardEdit(@RequestBody @Valid CardForm cardForm, BindingResult result){
         if(cardForm == null){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"cardForm参数必须!");
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"无参数!");
         }
         if(cardForm.getId() == null){
-            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "CardForm.id参数必须!");
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "id参数必须!");
         }
         if(result.hasErrors()){
             return BizPacket.error(HttpStatus.BAD_REQUEST.value(),result.getFieldError().getDefaultMessage());
@@ -80,6 +80,28 @@ public class MemberController extends BaseController {
         MgrUserData mgrUserData = getUser();
         try {
             return memberService.cardEdit(mgrUserData,cardForm);
+
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(),ex);
+            return BizPacket.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),ex.getMessage());
+        }
+    }
+
+    @PostMappingEx(value = "/mgr/m/card/suggest",funcName = "会员卡推荐设置",module = MgrModules.MEMBER,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BizPacket cardSuggest(Integer cardId, Integer flag){
+        if(cardId == null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(),"cardId参数必须!");
+        }
+        if(flag== null){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "flag参数必须!");
+        }
+        if(flag != 1 && flag != 0){
+            return BizPacket.error(HttpStatus.BAD_REQUEST.value(), "flag参数错误");
+        }
+
+        MgrUserData mgrUserData = getUser();
+        try {
+            return memberService.cardSuggest(mgrUserData,cardId, flag);
 
         } catch (Exception ex) {
             logger.error(ex.getMessage(),ex);

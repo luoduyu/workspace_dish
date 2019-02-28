@@ -47,6 +47,9 @@ public class MemberServiceImpl implements MemberService {
         card.setMainRecmd(form.getMainRecmd());
         card.setDurationUnit(form.getDurationUnit());
         card.setDuration(form.getDuration());
+        if(form.getShowSeq() != null){
+            card.setShowSeq(form.getShowSeq());
+        }
 
         cardDao.updateCardData(card);
         return BizPacket.success();
@@ -55,6 +58,18 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public BizPacket cardRM(MgrUserData admin, int id) {
         cardDao.removeCard(id);
+        return BizPacket.success();
+    }
+
+
+    @Override
+    public BizPacket cardSuggest(MgrUserData admin, Integer cardId, Integer flag) {
+        CardData card = cardDao.getCardData(cardId);
+        if(card == null){
+            return BizPacket.error(HttpStatus.NOT_FOUND.value()," 无此会员卡!");
+        }
+        card.setMainRecmd(flag);
+        cardDao.updateCardData(card);
         return BizPacket.success();
     }
 

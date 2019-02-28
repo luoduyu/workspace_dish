@@ -2,8 +2,8 @@ package com.wmt.mgr.form.wechat.member;
 
 import com.alibaba.fastjson.JSON;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Copyright (c) 2019 by CANSHU
@@ -15,38 +15,44 @@ public class CardForm {
 
     private Integer id;
 
-    @NotEmpty(message = "会员卡名称必填!")
+    @NotBlank(message = "会员卡名称必填!")
     private String name;
 
     /**
      * 时长单位:DAY/WEEK/MONTH/YEAR
      */
-    @NotEmpty(message = "'会员时长单位'必填!")
+    @NotBlank(message = "'会员时长单位'必填!")
     private String durationUnit;
 
     /**
      * 时长
      */
-    @Size(min = 1,max = Integer.MAX_VALUE)
-    private int duration;
+    @NotNull
+    private Integer duration;
 
     /**
      * 卖价,单位:分
      */
-    @Size(min = 1,max = Integer.MAX_VALUE)
-    private int price;
+    @NotNull
+    private Integer price;
 
     /**
      * 是否主推;0:否,1:是
      */
-    @Size(min = 0,max = 1)
-    private int mainRecmd;
+    @NotNull
+    private Integer mainRecmd;
 
     /**
      * 新用户立减额度,单位:分
      */
-    @Size(min = 0,max = Integer.MAX_VALUE)
-    private int newDiscount =0;
+    @NotNull
+    private Integer newDiscount =0;
+
+
+    /**
+     * 显示顺序
+     */
+    private Integer showSeq;
 
     public Integer getId() {
         return id;
@@ -101,6 +107,32 @@ public class CardForm {
     }
 
     public void setNewDiscount(int newDiscount) {
+        this.newDiscount = newDiscount;
+    }
+
+
+    public Integer getShowSeq() {
+        return showSeq;
+    }
+
+    public void setShowSeq(Integer showSeq) {
+        this.showSeq = showSeq;
+    }
+
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public void setMainRecmd(Integer mainRecmd) {
+        this.mainRecmd = mainRecmd;
+    }
+
+    public void setNewDiscount(Integer newDiscount) {
         this.newDiscount = newDiscount;
     }
 

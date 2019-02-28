@@ -46,9 +46,25 @@ public class PoiMemberServiceImpl implements PoiMemberService {
     @Override
     public BizPacket getPoiMemberByOrderId(String orderId) {
 
+        //订单基本信息
+        PoiMemberRDData poiMemberRDData = poiMemberDao.selectPoiMemberRD(orderId);
+        if (poiMemberRDData == null) {
+            return BizPacket.error(HttpStatus.PRECONDITION_FAILED.value(), "未找到订单号对应订单基本信息，orderId=" + orderId);
+        }
+
         List<PoiMemberRDData> poiMemberRDList = poiMemberDao.getPoiMemberRDDataByOrderId(orderId);
 
         JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("orderId",poiMemberRDData.getOrderId());
+        jsonObject.put("userMobile",poiMemberRDData.getUserMobile());
+        jsonObject.put("timeEnd",poiMemberRDData.getTimeEnd());
+        jsonObject.put("buyTime",poiMemberRDData.getBuyTime());
+        jsonObject.put("payWay",poiMemberRDData.getPayWay());
+        jsonObject.put("payStatus",poiMemberRDData.getPayStatus());
+        jsonObject.put("poiName",poiMemberRDData.getPoiName());
+        jsonObject.put("total",poiMemberRDData.getTotal());
+        jsonObject.put("discount",poiMemberRDData.getDiscount());
 
         if(poiMemberRDList == null || poiMemberRDList.size() <= 0){
             jsonObject.put("list",Collections.emptyList());

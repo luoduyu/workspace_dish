@@ -1,7 +1,10 @@
 package com.wmt.mgr.dao.wechat.member;
 
+import com.wmt.mgr.model.member.PoiMemberForm;
 import com.wmt.mgr.model.member.PoiMemberRDData;
+import com.wmt.mgr.model.member.PoizMemberList;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +49,55 @@ public interface PoiMemberDao {
 
     @Select("SELECT * FROM poi_member_rd WHERE orderId = #{orderId}")
     public List<PoiMemberRDData> getPoiMemberRDDataByOrderId(String orderId);
+
+    @Select("SELECT * FROM poi_member_rd WHERE orderId = #{orderId}")
+    public PoiMemberRDData selectPoiMemberRD(String orderId);
+
+    @Select("<script>" +
+            "SELECT poi.id,poi.brandName AS branchName,pm.expiredAt AS expiredAt " +
+            "FROM poi,poi_user pu,poi_member pm " +
+            "WHERE poi.id=pu.poiId AND poi.id=pm.poiId " +
+            "<if test=\"brandName !=null and brandName.length()!=0 \"> AND poi.brandName LIKE '%${brandName}%' </if>" +
+            "<if test=\"poiUserMobile !=null and poiUserMobile.length() !=0 \"> AND pu.mobile=#{poiUserMobile} </if>" +
+            "<if test=\"startTime !=null and startTime.length() !=0 \"> AND pm.expiredAt &gt; #{startTime} </if>" +
+            "<if test=\"endTime !=null and endTime.length() !=0 \"> AND pm.expiredAt &lt; #{endTime} </if>" +
+            "ORDER BY pm.expiredAt DESC LIMIT #{index},#{pageSize}"+
+            "</script>")
+    public List<PoiMemberForm> selectPoiMemberList(@Param("brandName") String brandName,
+                                                   @Param("poiUserMobile")String poiUserMobile,
+                                                   @Param("startTime") String startTime,
+                                                   @Param("endTime") String endTime,
+                                                   @Param("index")int index,
+                                                   @Param("pageSize")int pageSize);
+
+
+    @Select("<script>" +
+            "SELECT COUNT(*) " +
+            "FROM poi,poi_user pu,poi_member pm " +
+            "WHERE poi.id=pu.poiId AND poi.id=pm.poiId " +
+            "<if test=\"brandName !=null and brandName.length()!=0 \"> AND poi.brandName LIKE '%${brandName}%' </if>" +
+            "<if test=\"poiUserMobile !=null and poiUserMobile.length() !=0 \"> AND pu.mobile=#{poiUserMobile} </if>" +
+            "<if test=\"startTime !=null and startTime.length() !=0 \"> AND pm.expiredAt &gt; #{startTime} </if>" +
+            "<if test=\"endTime !=null and endTime.length() !=0 \"> AND pm.expiredAt &lt; #{endTime} </if>" +
+            "</script>")
+    public Integer countPoiMember(@Param("brandName") String brandName,
+                                  @Param("poiUserMobile")String poiUserMobile,
+                                  @Param("startTime") String startTime,
+                                  @Param("endTime") String endTime);
+
+    @Select("<script>" +
+            "SELECT poi.id,poi.brandName AS branchName,pu.mobile AS poiUserMobile,pm.expiredAt AS expiredAt " +
+            "FROM poi,poi_user pu,poi_member pm " +
+            "WHERE poi.id=pu.poiId AND poi.id=pm.poiId AND poi.id=#{poiId} " +
+            "</script>")
+    public PoiMemberForm selectPoiMemberDetail(@Param("poiId") String poiId);
+
+    @Select("<script>" +
+            "SELECT pu.name AS name, pu.mobile AS poiUserMobile, pmd.durationUnit AS durationUnit, pmd.timeEnd AS timeEnd, pmd.buyTime AS buyTime " +
+            "FROM poi_user pu,poi_member_rd pmd " +
+            "WHERE pmd.userId=pu.id AND pmd.poiId = #{poiId}" +
+            "</script>")
+    public List<PoizMemberList> selectMemberHistory(String poiId);
 
 
 }

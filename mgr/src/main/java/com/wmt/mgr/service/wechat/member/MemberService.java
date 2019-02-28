@@ -20,4 +20,16 @@ public interface MemberService {
 
     public BizPacket cardShowSeqUpdate(MgrUserData admin, int cardId,int showSeq);
 
+
+    public BizPacket getMemberList(String branchName, String poiUserMobile,
+                                   String startTime, String endTime, int index, int pageSize);
+
+    /**
+     * 根据店铺Id查看店铺会员充值历史记录
+     *
+     * @param poiId         店铺id
+     * @return              店铺充值历史记录
+     */
+    public BizPacket getMemberHistory(String poiId);
+
 }

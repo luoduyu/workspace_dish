@@ -42,8 +42,8 @@ public class AliSMS {
      * 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
      * @return
      */
-    private static final String accessKeyId = "LTAIUsk3XoX11fgB";
-    private static final String accessKeySecret = "4tbheHuwl4o3VAxhT1veh1c54snEdJ";
+    private static final String accessKeyId = "LTAIUsk3rtXoX11fgB";
+    private static final String accessKeySecret = "4tbheHuwl4o3VAxhT1vteh1tc54snEdJ";
     private static final String signName = "外卖通";
 
 

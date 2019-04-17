@@ -5,18 +5,18 @@ public class Constants {
     /**
      * 微信小程序APPID
      */
-    public static final String WEICHAT_APP_ID="wx35acf287e0fc1de7";
+    public static final String WEICHAT_APP_ID="wx35acf287e0ggfc1de7";
 
     /**
      * 微信小程序应用密钥
      */
-    public static final String WECHAT_APP_SECRET ="e9ace1f5c65d12a4e50a6442efb99708";
+    public static final String WECHAT_APP_SECRET ="e9ace1f5c65rdd12a4e50a6442efb99708";
 
 
     /**
      * 餐数科技的API密钥
      */
-    public static final String WECHAT_API_KEY ="waimaitongzhulipingzhishanghu121";
+    public static final String WECHAT_API_KEY ="waimaitongzhulipingzhigtshanghu121";
 
     /**
      * 微信支付分配的商户号

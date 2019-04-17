@@ -33,8 +33,8 @@ public class AliOSSUtil {
      * 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维,
      * 请登录 https://ram.console.aliyun.com 创建RAM账号。
      */
-    private static final String accessKeyId = "LTAIPMOvSoMv0AoX";
-    private static final String accessKeySecret = "Z7jfgB9S4JWZjnDjAqZXK6xnZV09Bg";
+    private static final String accessKeyId = "L4TAIPMOvSoMvq0AoX";
+    private static final String accessKeySecret = "Z7jfgB9S4JWZjnDjAqZXKw6txnZV09Bg";
 
     /**
      * 专供二维码存储的bucket
